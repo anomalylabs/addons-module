@@ -1,4 +1,4 @@
-<?php namespace Addon\Module\Addons\Model;
+<?php namespace Streams\Addon\Module\Addons\Model;
 
 use Addon\Module\Addons\Presenter\ModuleEntryPresenter;
 use Addon\Module\Addons\Traits\SyncTrait;

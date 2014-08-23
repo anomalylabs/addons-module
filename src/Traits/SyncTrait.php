@@ -1,4 +1,4 @@
-<?php namespace Addon\Module\Addons\Traits;
+<?php namespace Streams\Addon\Module\Addons\Traits;
 
 use Addon\Module\Addons\Collection\AddonEntryCollection;
 

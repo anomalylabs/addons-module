@@ -1,4 +1,4 @@
-<?php namespace Addon\Module\Addons\Component;
+<?php namespace Streams\Addon\Module\Addons\Component;
 
 use Streams\Core\Ui\Component\FormSection;
 

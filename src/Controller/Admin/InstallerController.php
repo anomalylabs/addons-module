@@ -1,4 +1,4 @@
-<?php namespace Addon\Module\Addons\Controller\Admin;
+<?php namespace Streams\Addon\Module\Addons\Controller\Admin;
 
 use Streams\Core\Controller\AdminController;
 

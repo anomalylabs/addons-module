@@ -1,4 +1,4 @@
-<?php namespace Addon\Module\Addons\Controller\Admin;
+<?php namespace Streams\Addon\Module\Addons\Controller\Admin;
 
 use Addon\Module\Addons\Component\TestColumn;
 use Addon\Module\Addons\Component\TestSection;
