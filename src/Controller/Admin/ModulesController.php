@@ -1,6 +1,6 @@
 <?php namespace Streams\Addon\Module\Addons\Controller\Admin;
 
-use Addon\Module\Addons\Model\ModuleEntryModel;
+use Streams\Addon\Module\Addons\Model\ModuleEntryModel;
 
 class ModulesController extends AddonsControllerAbstract
 {

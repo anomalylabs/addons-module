@@ -1,6 +1,6 @@
 <?php namespace Streams\Addon\Module\Addons\Model;
 
-use Addon\Module\Addons\Traits\SyncTrait;
+use Streams\Addon\Module\Addons\Traits\SyncTrait;
 use Streams\Core\Model\Addons\AddonsTagsEntryModel;
 
 class TagEntryModel extends AddonsTagsEntryModel

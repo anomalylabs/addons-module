@@ -1,7 +1,7 @@
 <?php namespace Streams\Addon\Module\Addons\Model;
 
-use Addon\Module\Addons\Presenter\ModuleEntryPresenter;
-use Addon\Module\Addons\Traits\SyncTrait;
+use Streams\Addon\Module\Addons\Presenter\ModuleEntryPresenter;
+use Streams\Addon\Module\Addons\Traits\SyncTrait;
 use Streams\Core\Model\Addons\AddonsModulesEntryModel;
 
 class ModuleEntryModel extends AddonsModulesEntryModel

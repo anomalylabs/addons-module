@@ -1,6 +1,6 @@
 <?php namespace Streams\Addon\Module\Addons\Controller\Admin;
 
-use Addon\Module\Addons\Model\TagEntryModel;
+use Streams\Addon\Module\Addons\Model\TagEntryModel;
 
 class TagsController extends AddonsControllerAbstract
 {
