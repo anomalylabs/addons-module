@@ -12,7 +12,7 @@ trait SyncTrait
         $class   = explode('\\', get_called_class());
         $manager = \Str::studly(str_replace('EntryModel', null, end($class)));
 
-        $existingAddons = $manager::getAll();
+        $existingAddons = $manager::all();
         $databaseAddons = $this->all();
 
         // Sync TO the database

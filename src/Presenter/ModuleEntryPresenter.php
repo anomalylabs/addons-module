@@ -11,7 +11,7 @@ class ModuleEntryPresenter extends EntryPresenter
      */
     public function name()
     {
-        return \Module::get($this->resource->slug)->name;
+        return \Module::find($this->resource->slug)->name;
     }
 
     /**
@@ -21,6 +21,6 @@ class ModuleEntryPresenter extends EntryPresenter
      */
     public function description()
     {
-        return \Module::get($this->resource->slug)->description;
+        return \Module::find($this->resource->slug)->description;
     }
 }

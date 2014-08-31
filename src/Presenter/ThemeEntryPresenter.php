@@ -11,7 +11,7 @@ class ThemeEntryPresenter extends EntryPresenter
      */
     public function name()
     {
-        return \Theme::get($this->resource->slug)->name;
+        return \Theme::find($this->resource->slug)->name;
     }
 
     /**
@@ -21,6 +21,6 @@ class ThemeEntryPresenter extends EntryPresenter
      */
     public function description()
     {
-        return \Theme::get($this->resource->slug)->description;
+        return \Theme::find($this->resource->slug)->description;
     }
 }

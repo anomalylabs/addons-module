@@ -32,21 +32,8 @@ abstract class AddonsControllerAbstract extends AdminController
             ->setLimit('all')
             ->setColumns(
                 [
-                    [
-                        'header' => function ($headerObject) {
-                                return 'Instanceof';
-                            },
-                        'column' => new TestColumn(),
-                    ],
-                    [
-                        'header' => 'misc.closure', // Translatable
-                        'column' => function ($columnObject) {
-                                return 'This is the ' . $columnObject->getEntry()->name;
-                            }
-                    ],
-                    'id', // System field
-                    'slug', // Slug field type
                     'name', // Presenter method
+                    'slug', // Slug field type
                     'description', // Presenter method
                 ]
             )
