@@ -2,7 +2,7 @@
 
 use Streams\Addon\Module\Addons\Component\TestColumn;
 use Streams\Addon\Module\Addons\Component\TestSection;
-use Streams\Core\Controller\AdminController;
+use Streams\Core\Http\Controller\AdminController;
 use Streams\Core\Ui\FormUi;
 use Streams\Core\Ui\TableUi;
 
@@ -30,51 +30,48 @@ abstract class AddonsControllerAbstract extends AdminController
     {
         return $this->table
             ->setLimit('all')
+            ->setViews(
+                [
+                    [
+                        'title' => 'All',
+                    ],
+                    [
+                        'title' => 'Uninstalled',
+                    ]
+                ]
+            )
             ->setColumns(
                 [
-                    'name', // Presenter method
-                    'slug', // Slug field type
-                    'description', // Presenter method
+                    'id',
+                    'name',
+                    'slug',
+                    'description',
                 ]
             )
             ->setButtons(
-                function ($row) {
-
-                    $entry = $row->getEntry();
-
-                    $edit = [
+                [
+                    [
                         'title'      => 'button.edit',
+                        'url'        => function ($ui, $entry) {
+                                return 'admin/addons/modules/edit/' . $entry->getKey();
+                            },
                         'attributes' => [
-                            'class' => '+ btn-warning',
-                            'href'  => function () use ($entry) {
-                                    return url('admin/addons/modules/edit/' . $entry->getKey());
-                                },
+                            'class' => 'btn btn-sm btn-warning',
                         ]
-                    ];
-
-                    $install = [
-                        'title'      => 'module.addons::button.install',
+                    ]
+                ]
+            )
+            ->setActions(
+                [
+                    [
+                        'title'      => 'button.delete',
                         'attributes' => [
-                            'class' => '+ btn-success',
-                            'href'  => function () use ($entry) {
-                                    return url('admin/addons/installer/install/module/' . $entry->slug);
-                                },
+                            'class' => 'btn btn-sm btn-danger',
                         ]
-                    ];
-
-                    $uninstall = [
-                        'title'      => 'module.addons::button.uninstall',
-                        'attributes' => [
-                            'class' => '+ btn-danger',
-                            'href'  => function () use ($entry) {
-                                    return url('admin/addons/installer/uninstall/module/' . $entry->slug);
-                                },
-                        ]
-                    ];
-
-                    return $entry->is_installed ? [$edit, $uninstall] : [$install];
-                }
-            )->render();
+                    ]
+                ]
+            )
+            ->render();
     }
 
     /**
@@ -90,9 +87,6 @@ abstract class AddonsControllerAbstract extends AdminController
                     'slug'
                 ]
             )
-            /*->addSection(
-                new TestSection()
-            )*/
             ->addSection(
                 [
                     'title'  => 'Dude.. this is awesome.',

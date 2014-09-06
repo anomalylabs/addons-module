@@ -1,6 +1,6 @@
 <?php namespace Streams\Addon\Module\Addons\Controller\Admin;
 
-use Streams\Core\Controller\AdminController;
+use Streams\Core\Http\Controller\AdminController;
 
 class InstallerController extends AdminController
 {

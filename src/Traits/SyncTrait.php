@@ -10,7 +10,7 @@ trait SyncTrait
     public function sync()
     {
         $class   = explode('\\', get_called_class());
-        $manager = \Str::studly(str_replace('EntryModel', null, end($class)));
+        $manager = studly_case(str_replace('EntryModel', null, end($class)));
 
         $existingAddons = $manager::all();
         $databaseAddons = $this->all();
