@@ -13,12 +13,12 @@ class InstallerController extends AdminController
      */
     public function install($type, $slug)
     {
-        $manager = '\\' . \Str::studly($type);
+        $manager = '\\' . studly_case($type);
 
         if ($manager::install($slug)) {
-            $this->messages->add('success', \Lang::trans('**Success** perfect!'));
+            $this->messages->add('success', trans('**Success** perfect!'));
         } else {
-            $this->messages->add('error', \Lang::trans('**Error** shit!'));
+            $this->messages->add('error', trans('**Error** shit!'));
         }
 
         $this->messages->flash();
@@ -35,12 +35,12 @@ class InstallerController extends AdminController
      */
     public function uninstall($type, $slug)
     {
-        $manager = '\\' . \Str::studly($type);
+        $manager = '\\' . studly_case($type);
 
         if ($manager::uninstall($slug)) {
-            $this->messages->add('success', \Lang::trans('**Success** perfect!'));
+            $this->messages->add('success', trans('**Success** perfect!'));
         } else {
-            $this->messages->add('error', \Lang::trans('**Error** shit!'));
+            $this->messages->add('error', trans('**Error** shit!'));
         }
 
         $this->messages->flash();

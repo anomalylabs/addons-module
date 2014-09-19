@@ -8,19 +8,12 @@ Route::get(
     }
 );
 
-// List all addons
-Route::get('admin/addons/modules', 'Streams\Addon\Module\Addons\Controller\Admin\ModulesController@index');
-Route::get('admin/addons/themes', 'Streams\Addon\Module\Addons\Controller\Admin\ThemesController@index');
-Route::get('admin/addons/blocks', 'Streams\Addon\Module\Addons\Controller\Admin\BlocksController@index');
-Route::get('admin/addons/extensions', 'Streams\Addon\Module\Addons\Controller\Admin\ExtensionsController@index');
-Route::get('admin/addons/field_types', 'Streams\Addon\Module\Addons\Controller\Admin\FieldTypesController@index');
-Route::get('admin/addons/tags', 'Streams\Addon\Module\Addons\Controller\Admin\TagsController@index');
-
-// Create
-Route::any('admin/addons/modules/create', 'Streams\Addon\Module\Addons\Controller\Admin\ModulesController@create');
-
-// Edit
-Route::any('admin/addons/modules/edit/{id}', 'Streams\Addon\Module\Addons\Controller\Admin\ModulesController@edit');
+crud('admin/addons/tags', 'Streams\Addon\Module\Addons\Controller\Admin\TagsController');
+crud('admin/addons/blocks', 'Streams\Addon\Module\Addons\Controller\Admin\BlocksController');
+crud('admin/addons/themes', 'Streams\Addon\Module\Addons\Controller\Admin\ThemesController');
+crud('admin/addons/modules', 'Streams\Addon\Module\Addons\Controller\Admin\ModulesController');
+crud('admin/addons/extensions', 'Streams\Addon\Module\Addons\Controller\Admin\ExtensionsController');
+crud('admin/addons/field_types', 'Streams\Addon\Module\Addons\Controller\Admin\FieldTypesController');
 
 // Install an addon
 Route::get(

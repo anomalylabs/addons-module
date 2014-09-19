@@ -17,7 +17,7 @@ trait SyncTrait
 
         // Sync TO the database
         foreach ($existingAddons as $addon) {
-            if (!$databaseAddons->findBySlug($addon->getSlug())) {
+            if (!$databaseAddons->findBySlug($addon->slug)) {
                 $this->insert(
                     array(
                         'slug' => $addon->slug,

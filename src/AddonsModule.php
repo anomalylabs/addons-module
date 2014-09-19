@@ -12,34 +12,34 @@ class AddonsModule extends ModuleAbstract
     public $sections = array(
         array(
             'path'    => 'admin/addons/modules',
-            'title'   => 'Modules',
+            'title'   => 'module::addon.section.modules',
             'badge'   => 3,
             'actions' => array(
                 array(
                     'path'  => 'admin/addons/modules/create',
-                    'title' => 'Add',
-                )
+                    'title' => 'button.add',
+                ),
             ),
         ),
         array(
             'path'  => 'admin/addons/themes',
-            'title' => 'Themes',
+            'title' => 'module::addon.section.themes',
         ),
         array(
             'path'  => 'admin/addons/tags',
-            'title' => 'Tags',
+            'title' => 'module::addon.section.tags',
         ),
         array(
             'path'  => 'admin/addons/field_types',
-            'title' => 'Field Types',
+            'title' => 'module::addon.section.field_types',
         ),
         array(
             'path'  => 'admin/addons/blocks',
-            'title' => 'Blocks',
+            'title' => 'module::addon.section.blocks',
         ),
         array(
             'path'  => 'admin/addons/extensions',
-            'title' => 'Extensions',
+            'title' => 'module::addon.section.extensions',
         ),
     );
 
