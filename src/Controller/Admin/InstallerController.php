@@ -1,6 +1,6 @@
-<?php namespace Anomaly\Streams\Module\Addons\Controller\Admin;
+<?php namespace Anomaly\Streams\Addon\Module\Addons\Controller\Admin;
 
-use Streams\Core\Http\Controller\AdminController;
+use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 class InstallerController extends AdminController
 {
@@ -13,15 +13,17 @@ class InstallerController extends AdminController
      */
     public function install($type, $slug)
     {
-        $manager = '\\' . studly_case($type);
+        $messages = app('streams.messages');
 
-        if ($manager::install($slug)) {
-            $this->messages->add('success', trans('**Success** perfect!'));
+        $installer = app('Streams\Platform\Addon\Module\ModuleService');
+
+        if ($installer->install(app("streams.module.{$slug}"))) {
+            $messages->add('success', trans('**Success** perfect!'));
         } else {
-            $this->messages->add('error', trans('**Error** shit!'));
+            $messages->add('error', trans('**Error** shit!'));
         }
 
-        $this->messages->flash();
+        $messages->flash();
 
         return \Redirect::back();
     }
@@ -35,15 +37,17 @@ class InstallerController extends AdminController
      */
     public function uninstall($type, $slug)
     {
-        $manager = '\\' . studly_case($type);
+        $messages = app('streams.messages');
 
-        if ($manager::uninstall($slug)) {
-            $this->messages->add('success', trans('**Success** perfect!'));
+        $installer = app('Streams\Platform\Addon\Module\ModuleService');
+
+        if ($installer->uninstall(app("streams.module.{$slug}"))) {
+            $messages->add('success', trans('**Success** perfect!'));
         } else {
-            $this->messages->add('error', trans('**Error** shit!'));
+            $messages->add('error', trans('**Error** shit!'));
         }
 
-        $this->messages->flash();
+        $messages->flash();
 
         return \Redirect::back();
     }

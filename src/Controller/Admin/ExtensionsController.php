@@ -1,6 +1,6 @@
-<?php namespace Anomaly\Streams\Module\Addons\Controller\Admin;
+<?php namespace Anomaly\Streams\Addon\Module\Addons\Controller\Admin;
 
-use Anomaly\Streams\Module\Addons\Model\ExtensionEntryModel;
+use Streams\Addon\Module\Addons\Model\ExtensionEntryModel;
 
 class ExtensionsController extends AddonsControllerAbstract
 {

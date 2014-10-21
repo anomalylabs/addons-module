@@ -1,10 +1,11 @@
-<?php namespace Anomaly\Streams\Module\Addons\Controller\Admin;
+<?php namespace Anomaly\Streams\Addon\Module\Addons\Controller\Admin;
 
-use Anomaly\Streams\Module\Addons\Component\TestColumn;
-use Anomaly\Streams\Module\Addons\Component\TestSection;
-use Streams\Core\Http\Controller\AdminController;
-use Streams\Core\Ui\FormUi;
-use Streams\Core\Ui\TableUi;
+use Streams\Addon\Module\Addons\Component\TestColumn;
+use Streams\Addon\Module\Addons\Component\TestSection;
+use Anomaly\Streams\Platform\Http\Controller\AdminController;
+use Anomaly\Streams\Platform\Stream\Utility\StreamSchemaUtility;
+use Anomaly\Streams\Platform\Ui\FormUi;
+use Anomaly\Streams\Platform\Ui\TableUi;
 
 abstract class AddonsControllerAbstract extends AdminController
 {
@@ -13,8 +14,6 @@ abstract class AddonsControllerAbstract extends AdminController
      */
     public function __construct()
     {
-        parent::__construct();
-
         $this->table = new TableUi($this->addons);
         $this->form  = new FormUi($this->addons);
 
@@ -29,19 +28,23 @@ abstract class AddonsControllerAbstract extends AdminController
     public function index()
     {
         return $this->table
-            ->setLimit(5)
+            ->setOrderBy('slug', 'ASC')
             ->setViews(
                 [
                     [
                         'title' => 'All',
                     ],
                     [
-                        'title'     => 'Uninstalled',
-                        'callbacks' => [
-                            'query' => function ($query) {
-                                    return $query->whereIsInstalled(false);
-                                }
-                        ]
+                        'title' => 'Installed',
+                        'query' => function ($query) {
+                                return $query->whereIsInstalled(true);
+                            }
+                    ],
+                    [
+                        'title' => 'Uninstalled',
+                        'query' => function ($query) {
+                                return $query->whereIsInstalled(false);
+                            }
                     ]
                 ]
             )
@@ -59,10 +62,9 @@ abstract class AddonsControllerAbstract extends AdminController
             )
             ->setColumns(
                 [
-                    'ID: {id}',
                     [
                         'title' => 'misc.untitled',
-                        'value' => 'name'
+                        'value' => 'ID: {id}'
                     ],
                     'slug',
                     'description',
@@ -71,37 +73,40 @@ abstract class AddonsControllerAbstract extends AdminController
             ->setButtons(
                 [
                     [
-                        'title'      => 'button.edit',
-                        'path'       => function ($ui, $entry) {
-                                return 'admin/addons/' . \Request::segment(3) . '/edit/' . $entry->getKey();
+                        'type'    => 'success',
+                        'title'   => 'Install',
+                        'path'    => function ($ui, $entry) {
+                                return 'admin/addons/installer/install/' . str_singular(
+                                    \Request::segment(
+                                        3
+                                    )
+                                ) . '/' . $entry->slug.'?_debug';
                             },
-                        'attributes' => [
-                            'class' => 'btn btn-sm btn-warning',
-                        ],
-                        'dropdown'   => [
-                            [
-                                'title' => 'button.delete',
-                                'path'  => function ($ui, $entry) {
-                                        return 'admin/addons/' . \Request::segment(3) . '/delete/' . $entry->getKey();
-                                    },
-                            ]
-                        ]
+                        'display' => function ($ui, $entry) {
+                                return !boolean($entry->is_installed);
+                            },
+                    ],
+                    [
+                        'type'    => 'danger',
+                        'title'   => 'Uninstall',
+                        'path'    => function ($ui, $entry) {
+                                return 'admin/addons/installer/uninstall/' . str_singular(
+                                    \Request::segment(
+                                        3
+                                    )
+                                ) . '/' . $entry->slug;
+                            },
+                        'display' => function ($ui, $entry) {
+                                return boolean($entry->is_installed);
+                            },
                     ]
                 ]
             )
             ->setActions(
                 [
                     [
-                        'title'    => 'button.delete',
-                        'class'    => 'btn btn-sm btn-danger',
-                        'dropdown' => [
-                            [
-                                'title' => 'Move',
-                                'path'  => function ($ui, $entry) {
-                                        return 'admin/addons/' . \Request::segment(3) . '/move/' . $entry->getKey();
-                                    },
-                            ]
-                        ]
+                        'type'   => 'delete',
+                        'action' => 'admin/addons/modules/delete',
                     ]
                 ]
             )
@@ -131,32 +136,30 @@ abstract class AddonsControllerAbstract extends AdminController
             ->setActions(
                 [
                     [
-                        'title'      => 'button.save',
-                        'redirect'   => function ($ui) {
-                                return 'admin/addons/' . \Request::segment(3) . '/edit/' . $ui->getEntry()->getKey();
+                        'type'     => 'save',
+                        'redirect' => function ($entry) {
+                                return 'admin/addons/' . \Request::segment(3);
                             },
-                        'attributes' => [
-                            'value' => 'save',
-                            'name'  => 'formAction',
-                            'class' => 'btn btn-sm btn-success',
-                        ],
                     ],
                     [
-                        'title'      => 'button.save_exit',
-                        'redirect'   => 'admin/addons/modules',
-                        'attributes' => [
-                            'value' => 'save_exit',
-                            'name'  => 'formAction',
-                            'class' => 'btn btn-sm btn-info',
-                        ],
+                        'type'     => 'save_exit',
+                        'redirect' => 'admin/addons/modules',
                     ],
                     [
-                        'title'      => 'button.cancel',
-                        'attributes' => [
-                            'value' => 'cancel',
-                            'path'  => 'admin/addons/modules',
-                            'class' => 'btn btn-sm btn-default',
-                        ],
+                        'type'     => 'save_continue',
+                        'redirect' => function ($entry) {
+                                return 'admin/addons/' . \Request::segment(3);
+                            },
+                    ],
+                    [
+                        'type' => 'cancel',
+                        'path' => 'admin/addons/modules',
+                    ],
+                    [
+                        'type' => 'delete',
+                        'path' => function ($ui) {
+                                return 'admin/addons/' . \Request::segment(3) . '/delete/' . $ui->getEntry()->getKey();
+                            },
                     ]
                 ]
             )
@@ -186,43 +189,30 @@ abstract class AddonsControllerAbstract extends AdminController
             ->setActions(
                 [
                     [
-                        'title'      => 'button.save',
-                        'redirect'   => function ($entry) {
+                        'type'     => 'save',
+                        'redirect' => function ($entry) {
                                 return 'admin/addons/' . \Request::segment(3);
                             },
-                        'attributes' => [
-                            'value' => 'save',
-                            'name'  => 'formAction',
-                            'class' => 'btn btn-sm btn-success',
-                        ],
                     ],
                     [
-                        'title'      => 'button.save_exit',
-                        'redirect'   => 'admin/addons/modules',
-                        'attributes' => [
-                            'value' => 'save_exit',
-                            'name'  => 'formAction',
-                            'class' => 'btn btn-sm btn-info',
-                        ],
+                        'type'     => 'save_exit',
+                        'redirect' => 'admin/addons/modules',
                     ],
                     [
-                        'title'      => 'button.cancel',
-                        'attributes' => [
-                            'value' => 'cancel',
-                            'path'  => 'admin/addons/modules',
-                            'class' => 'btn btn-sm btn-default',
-                        ],
+                        'type'     => 'save_continue',
+                        'redirect' => function ($entry) {
+                                return 'admin/addons/' . \Request::segment(3);
+                            },
                     ],
                     [
-                        'title'      => 'button.delete',
-                        'attributes' => [
-                            'value' => 'delete',
-                            'path'  => function ($ui) {
-                                    return 'admin/addons/' . \Request::segment(3) . '/delete/' . $ui->getEntry(
-                                    )->getKey();
-                                },
-                            'class' => 'btn btn-sm btn-danger pull-right',
-                        ],
+                        'type' => 'cancel',
+                        'path' => 'admin/addons/modules',
+                    ],
+                    [
+                        'type' => 'delete',
+                        'path' => function ($ui) {
+                                return 'admin/addons/' . \Request::segment(3) . '/delete/' . $ui->getEntry()->getKey();
+                            },
                     ]
                 ]
             )
@@ -235,10 +225,12 @@ abstract class AddonsControllerAbstract extends AdminController
      * @param $id
      * @return mixed
      */
-    public function delete($id)
+    public function delete($id = null)
     {
-        $this->addons->find($id)->delete($id);
+        $messages = app()->make('streams.messages');
 
-        return \Redirect::to('admin/addons/modules');
+        $messages->add('success', 'Boom bitch: ' . count(\Input::get('id')))->flash();
+
+        return redirect(referer('admin/addons/' . \Request::segment(3)));
     }
 }

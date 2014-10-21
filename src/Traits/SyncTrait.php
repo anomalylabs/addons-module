@@ -1,6 +1,6 @@
-<?php namespace Anomaly\Streams\Module\Addons\Traits;
+<?php namespace Anomaly\Streams\Addon\Module\Addons\Traits;
 
-use Anomaly\Streams\Module\Addons\Collection\AddonEntryCollection;
+use Streams\Addon\Module\Addons\Collection\AddonEntryCollection;
 
 trait SyncTrait
 {
@@ -10,9 +10,9 @@ trait SyncTrait
     public function sync()
     {
         $class   = explode('\\', get_called_class());
-        $manager = studly_case(str_replace('EntryModel', null, end($class)));
+        $type = str_plural(snake_case(str_replace('EntryModel', null, end($class))));
 
-        $existingAddons = $manager::all();
+        $existingAddons = app()->make("streams.{$type}")->all();
         $databaseAddons = $this->all();
 
         // Sync TO the database

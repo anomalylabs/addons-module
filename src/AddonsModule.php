@@ -4,12 +4,36 @@ use Anomaly\Streams\Platform\Addon\Module\ModuleAddon;
 
 class AddonsModule extends ModuleAddon
 {
+    protected $slug = 'addons';
+
+    protected $nav = 'group.system';
+
     /**
-     * Module sections.
+     * The module menu.
      *
      * @var array
      */
-    public $sections = array(
+    protected $menu = [
+        [
+            'title' => 'Settings',
+            'url'   => 'admin/addons/settings',
+        ],
+        [
+            'title' => 'Configuration',
+            'url'   => 'admin/addons/configuration',
+        ],
+        [
+            'title' => 'Drivers',
+            'url'   => 'admin/addons/drivers',
+        ]
+    ];
+
+    /**
+     * ModuleAddon sections.
+     *
+     * @var array
+     */
+    protected $sections = array(
         array(
             'path'    => 'admin/addons/modules',
             'title'   => 'module::addon.section.modules',
@@ -42,11 +66,4 @@ class AddonsModule extends ModuleAddon
             'title' => 'module::addon.section.extensions',
         ),
     );
-
-    /**
-     * The icon to represent the module.
-     *
-     * @var string
-     */
-    public $icon = '<i class="fa fa-cubes"></i>';
 }

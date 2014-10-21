@@ -1,6 +1,6 @@
-<?php namespace Anomaly\Streams\Module\Addons\Installer;
+<?php namespace Anomaly\Streams\Addon\Module\Addons\Installer;
 
-use Streams\Core\Addon\Installer\ModuleInstallerAbstractAbstract;
+use Anomaly\Streams\Platform\Addon\Installer\ModuleInstallerAbstractAbstract;
 
 class AddonsModuleInstallerAbstract extends ModuleInstallerAbstractAbstract
 {
