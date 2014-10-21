@@ -1,8 +1,8 @@
-<?php namespace Anomaly\Streams\Module\Addons;
+<?php namespace Anomaly\Streams\Addon\Module\Addons;
 
-use Streams\Core\Addon\ModuleAbstract;
+use Anomaly\Streams\Platform\Addon\Module\ModuleAddon;
 
-class AddonsModule extends ModuleAbstract
+class AddonsModule extends ModuleAddon
 {
     /**
      * Module sections.
