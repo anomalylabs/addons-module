@@ -1,6 +1,6 @@
-<?php namespace Streams\Addon\Module\Addons\Controller\Admin;
+<?php namespace Anomaly\Streams\Module\Addons\Controller\Admin;
 
-use Streams\Addon\Module\Addons\Model\BlockEntryModel;
+use Anomaly\Streams\Module\Addons\Model\BlockEntryModel;
 
 class BlocksController extends AddonsControllerAbstract
 {

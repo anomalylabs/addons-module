@@ -1,4 +1,4 @@
-<?php namespace Streams\Addon\Module\Addons\Collection;
+<?php namespace Anomaly\Streams\Module\Addons\Collection;
 
 use Streams\Core\Entry\Collection\EntryCollection;
 

@@ -1,7 +1,7 @@
-<?php namespace Streams\Addon\Module\Addons\Controller\Admin;
+<?php namespace Anomaly\Streams\Module\Addons\Controller\Admin;
 
-use Streams\Addon\Module\Addons\Component\TestColumn;
-use Streams\Addon\Module\Addons\Component\TestSection;
+use Anomaly\Streams\Module\Addons\Component\TestColumn;
+use Anomaly\Streams\Module\Addons\Component\TestSection;
 use Streams\Core\Http\Controller\AdminController;
 use Streams\Core\Ui\FormUi;
 use Streams\Core\Ui\TableUi;

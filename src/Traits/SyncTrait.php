@@ -1,6 +1,6 @@
-<?php namespace Streams\Addon\Module\Addons\Traits;
+<?php namespace Anomaly\Streams\Module\Addons\Traits;
 
-use Streams\Addon\Module\Addons\Collection\AddonEntryCollection;
+use Anomaly\Streams\Module\Addons\Collection\AddonEntryCollection;
 
 trait SyncTrait
 {

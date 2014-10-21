@@ -1,6 +1,6 @@
-<?php namespace Streams\Addon\Module\Addons\Model;
+<?php namespace Anomaly\Streams\Module\Addons\Model;
 
-use Streams\Addon\Module\Addons\Traits\SyncTrait;
+use Anomaly\Streams\Module\Addons\Traits\SyncTrait;
 use Streams\Core\Model\Addons\AddonsExtensionsEntryModel;
 
 class ExtensionEntryModel extends AddonsExtensionsEntryModel
