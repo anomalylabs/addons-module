@@ -8,5 +8,11 @@ class ModulesStreamInstaller extends StreamInstaller
         'slug'      => 'modules',
         'namespace' => 'addons',
     ];
+
+    protected $assignments = [
+        [
+            'field' => 'slug',
+        ]
+    ];
 }
  
