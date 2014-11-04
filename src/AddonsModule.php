@@ -1,8 +1,8 @@
 <?php namespace Anomaly\Streams\Addon\Module\Addons;
 
-use Anomaly\Streams\Platform\Addon\Module\ModuleAddon;
+use Anomaly\Streams\Platform\Addon\Module\Module;
 
-class AddonsModule extends ModuleAddon
+class AddonsModule extends Module
 {
     protected $nav = 'group.system';
 
