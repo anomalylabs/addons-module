@@ -2,34 +2,30 @@
 
 use Anomaly\Streams\Platform\Addon\Module\Module;
 
+/**
+ * Class AddonsModule
+ *
+ * @link          http://anomaly.is/streams-platform
+ * @author        AnomalyLabs, Inc. <hello@anomaly.is>
+ * @author        Ryan Thompson <ryan@anomaly.is>
+ * @package       Anomaly\Streams\Addon\Module\Addons
+ */
 class AddonsModule extends Module
 {
+
+    /**
+     * The module nav group.
+     *
+     * @var string
+     */
     protected $nav = 'nav.system';
 
-    protected $sections = array(
-        array(
-            'path'    => 'admin/addons/modules',
-            'title'   => 'module::addon.section.modules',
-        ),
-        array(
-            'path'  => 'admin/addons/themes',
-            'title' => 'module::addon.section.themes',
-        ),
-        array(
-            'path'  => 'admin/addons/tags',
-            'title' => 'module::addon.section.tags',
-        ),
-        array(
-            'path'  => 'admin/addons/field_types',
-            'title' => 'module::addon.section.field_types',
-        ),
-        array(
-            'path'  => 'admin/addons/blocks',
-            'title' => 'module::addon.section.blocks',
-        ),
-        array(
-            'path'  => 'admin/addons/extensions',
-            'title' => 'module::addon.section.extensions',
-        ),
-    );
+    /**
+     * The module sections.
+     *
+     * @var array
+     */
+    protected $sections = [
+        'modules' => []
+    ];
 }
