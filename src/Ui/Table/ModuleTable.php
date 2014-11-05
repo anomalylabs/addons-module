@@ -1,5 +1,6 @@
 <?php namespace Anomaly\Streams\Addon\Module\Addons\Ui\Table;
 
+use Anomaly\Streams\Platform\Addon\Module\Module;
 use Anomaly\Streams\Platform\Ui\Table\Table;
 
 /**
@@ -18,15 +19,21 @@ class ModuleTable extends Table
      */
     public function boot()
     {
-        $this->setUpEntries();
+        $this->setUpColumns();
     }
 
-    /**
-     * Set up the table entries.
-     */
-    protected function setUpEntries()
+    protected function setUpColumns()
     {
-        $this->setEntries([]);
+        $this->setColumns(
+            [
+                [
+                    'heading' => 'Name',
+                    'value'   => function (Module $entry) {
+                            return trans($entry->getName());
+                        },
+                ]
+            ]
+        );
     }
 }
  
