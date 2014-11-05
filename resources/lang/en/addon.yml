@@ -1,2 +1,11 @@
 name: Addons
 description: Manage all of your Streams addons.
+
+section:
+    tags: Tags
+    blocks: Blocks
+    themes: Themes
+    modules: Modules
+    extensions: Extensions
+    field_types: Field Types
+    distribution: Distribution
