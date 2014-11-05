@@ -45,6 +45,8 @@ class RouteServiceProvider extends \Illuminate\Foundation\Support\Providers\Rout
         );
 
         $this->registerModuleRoutes($router);
+        $this->registerThemeRoutes($router);
+        $this->registerTagRoutes($router);
     }
 
     /**
@@ -57,6 +59,32 @@ class RouteServiceProvider extends \Illuminate\Foundation\Support\Providers\Rout
         $router->any(
             'admin/addons/modules',
             'Anomaly\Streams\Addon\Module\Addons\Http\Controller\Admin\ModulesController@index'
+        );
+    }
+
+    /**
+     * Register theme routes.
+     *
+     * @param Router $router
+     */
+    private function registerThemeRoutes(Router $router)
+    {
+        $router->any(
+            'admin/addons/themes',
+            'Anomaly\Streams\Addon\Module\Addons\Http\Controller\Admin\ThemesController@index'
+        );
+    }
+
+    /**
+     * Register tag routes.
+     *
+     * @param Router $router
+     */
+    private function registerTagRoutes(Router $router)
+    {
+        $router->any(
+            'admin/addons/tags',
+            'Anomaly\Streams\Addon\Module\Addons\Http\Controller\Admin\TagsController@index'
         );
     }
 }

@@ -1,17 +1,17 @@
 <?php namespace Anomaly\Streams\Addon\Module\Addons\Ui\Table;
 
-use Anomaly\Streams\Platform\Addon\Module\Module;
+use Anomaly\Streams\Platform\Addon\Theme\Theme;
 use Anomaly\Streams\Platform\Ui\Table\Table;
 
 /**
- * Class ModuleTable
+ * Class ThemeTable
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\Streams\Addon\Module\Addons\Ui\Table
+ * @package       Anomaly\Streams\Addon\Theme\Addons\Ui\Table
  */
-class ModuleTable extends Table
+class ThemeTable extends Table
 {
 
     /**
@@ -19,7 +19,7 @@ class ModuleTable extends Table
      */
     public function boot()
     {
-        $this->setPrefix('modules');
+        $this->setPrefix('themes');
 
         $this->setUpViews();
         $this->setUpColumns();
@@ -30,7 +30,7 @@ class ModuleTable extends Table
     {
         $this->setViews(
             [
-                'installed' => ['handler' => 'InstalledModulesView']
+                'installed' => ['handler' => 'InstalledThemesView']
             ]
         );
     }
@@ -41,19 +41,19 @@ class ModuleTable extends Table
             [
                 [
                     'heading' => 'Name',
-                    'value'   => function (Module $entry) {
+                    'value'   => function (Theme $entry) {
                             return trans($entry->getName());
                         },
                 ],
                 [
                     'heading' => 'Description',
-                    'value'   => function (Module $entry) {
+                    'value'   => function (Theme $entry) {
                             return trans($entry->getDescription());
                         },
                 ],
                 [
                     'heading' => null,
-                    'value'   => function (Module $entry) {
+                    'value'   => function (Theme $entry) {
                             return '<span class="label label-success">Installed</span>';
                         },
                 ],
@@ -68,7 +68,7 @@ class ModuleTable extends Table
                 [
                     'type'  => 'danger',
                     'title' => 'Uninstall',
-                    'url'   => 'admin/modules/install/{slug}',
+                    'url'   => 'admin/themes/install/{slug}',
                 ]
             ]
         );
