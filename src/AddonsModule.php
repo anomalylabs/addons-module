@@ -26,6 +26,10 @@ class AddonsModule extends Module
      * @var array
      */
     protected $sections = [
-        'modules' => []
+        'modules'    => [],
+        'themes'     => [],
+        'blocks'     => [],
+        'tags'       => [],
+        'extensions' => [],
     ];
 }
