@@ -4,7 +4,7 @@ use Anomaly\Streams\Platform\Addon\Module\Module;
 
 class AddonsModule extends Module
 {
-    protected $nav = 'group.system';
+    protected $nav = 'nav.system';
 
     protected $sections = array(
         array(
