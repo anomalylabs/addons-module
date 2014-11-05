@@ -1,17 +1,17 @@
 <?php namespace Anomaly\Streams\Addon\Module\Addons\Ui\Table;
 
-use Anomaly\Streams\Platform\Addon\Module\Module;
+use Anomaly\Streams\Platform\Addon\Extension\Extension;
 use Anomaly\Streams\Platform\Ui\Table\Table;
 
 /**
- * Class ModuleTable
+ * Class ExtensionTable
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\Streams\Addon\Module\Addons\Ui\Table
+ * @package       Anomaly\Streams\Addon\Extension\Addons\Ui\Table
  */
-class ModuleTable extends Table
+class ExtensionTable extends Table
 {
 
     /**
@@ -19,7 +19,7 @@ class ModuleTable extends Table
      */
     public function boot()
     {
-        $this->setPrefix('modules');
+        $this->setPrefix('extensions');
 
         $this->setUpViews();
         $this->setUpColumns();
@@ -30,7 +30,7 @@ class ModuleTable extends Table
     {
         $this->setViews(
             [
-                'installed' => ['handler' => 'InstalledModulesView']
+                'installed' => ['handler' => 'InstalledExtensionsView']
             ]
         );
     }
@@ -41,20 +41,20 @@ class ModuleTable extends Table
             [
                 [
                     'heading' => 'Name',
-                    'value'   => function (Module $entry) {
+                    'value'   => function (Extension $entry) {
                             return trans($entry->getName());
                         },
                 ],
                 [
-                    'heading' => null,
-                    'value'   => function (Module $entry) {
-                            return '<span class="label label-success">Installed</span>';
+                    'heading' => 'Description',
+                    'value'   => function (Extension $entry) {
+                            return trans($entry->getDescription());
                         },
                 ],
                 [
-                    'heading' => 'Description',
-                    'value'   => function (Module $entry) {
-                            return trans($entry->getDescription());
+                    'heading' => null,
+                    'value'   => function (Extension $entry) {
+                            return '<span class="label label-success">Installed</span>';
                         },
                 ],
             ]
@@ -68,7 +68,7 @@ class ModuleTable extends Table
                 [
                     'type'  => 'danger',
                     'title' => 'Uninstall',
-                    'url'   => 'admin/modules/install/{slug}',
+                    'url'   => 'admin/extensions/install/{slug}',
                 ]
             ]
         );

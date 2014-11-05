@@ -1,5 +1,5 @@
 name: Addons
-description: Manage all of your Streams addons.
+description: Addons module.
 
 section:
     tags: Tags
@@ -8,4 +8,3 @@ section:
     modules: Modules
     extensions: Extensions
     field_types: Field Types
-    distribution: Distribution

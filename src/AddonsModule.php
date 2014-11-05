@@ -31,6 +31,5 @@ class AddonsModule extends Module
         'blocks'       => [],
         'tags'         => [],
         'extensions'   => [],
-        'distribution' => [],
     ];
 }
