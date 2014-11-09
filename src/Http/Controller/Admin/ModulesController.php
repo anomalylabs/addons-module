@@ -1,6 +1,7 @@
 <?php namespace Anomaly\Streams\Addon\Module\Addons\Http\Controller\Admin;
 
 use Anomaly\Streams\Addon\Module\Addons\Ui\Table\ModuleTable;
+use Anomaly\Streams\Platform\Addon\Module\ModuleService;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 /**
@@ -23,6 +24,37 @@ class ModulesController extends AdminController
     public function index(ModuleTable $ui)
     {
         return $ui->render();
+    }
+
+    /**
+     * Install a module.
+     *
+     * @param ModuleService $modules
+     * @param               $slug
+     */
+    public function install(ModuleService $modules, $slug)
+    {
+        $module = app('streams.modules')->findBySlug($slug);
+
+        $modules->install($module);
+
+        return redirect(referer('admin/addons/modules'));
+    }
+
+    /**
+     * Uninstall a module.
+     *
+     * @param ModuleService $modules
+     * @param               $slug
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function uninstall(ModuleService $modules, $slug)
+    {
+        $module = app('streams.modules')->findBySlug($slug);
+
+        $modules->uninstall($module);
+
+        return redirect(referer('admin/addons/modules'));
     }
 }
  

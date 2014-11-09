@@ -66,9 +66,22 @@ class ModuleTable extends Table
         $this->setButtons(
             [
                 [
-                    'type'  => 'danger',
-                    'title' => 'Uninstall',
-                    'url'   => 'admin/modules/install/{slug}',
+                    'type'    => 'success',
+                    'title'   => 'Install',
+                    'enabled' => function (Module $entry) {
+
+                            return !$entry->isInstalled();
+                        },
+                    'url'     => 'admin/addons/modules/install/{slug}',
+                ],
+                [
+                    'type'    => 'danger',
+                    'title'   => 'Uninstall',
+                    'enabled' => function (Module $entry) {
+
+                            return $entry->isInstalled();
+                        },
+                    'url'     => 'admin/addons/modules/uninstall/{slug}',
                 ]
             ]
         );

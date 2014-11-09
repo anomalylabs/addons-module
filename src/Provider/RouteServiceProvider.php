@@ -61,6 +61,16 @@ class RouteServiceProvider extends \Illuminate\Foundation\Support\Providers\Rout
             'admin/addons/modules',
             'Anomaly\Streams\Addon\Module\Addons\Http\Controller\Admin\ModulesController@index'
         );
+
+        $router->any(
+            'admin/addons/modules/install/{slug}',
+            'Anomaly\Streams\Addon\Module\Addons\Http\Controller\Admin\ModulesController@install'
+        );
+
+        $router->any(
+            'admin/addons/modules/uninstall/{slug}',
+            'Anomaly\Streams\Addon\Module\Addons\Http\Controller\Admin\ModulesController@uninstall'
+        );
     }
 
     /**
