@@ -36,7 +36,13 @@ class ModulesController extends AdminController
     {
         $module = app('streams.modules')->findBySlug($slug);
 
-        $modules->install($module);
+        if ($modules->install($module)) {
+
+            app('streams.messages')->add('success', trans('module.addons::admin.success.install_module'))->flash();
+        } else {
+
+            app('streams.messages')->add('error', trans('module.addons::admin.error.install_module'))->flash();
+        }
 
         return redirect(referer('admin/addons/modules'));
     }
@@ -52,7 +58,12 @@ class ModulesController extends AdminController
     {
         $module = app('streams.modules')->findBySlug($slug);
 
-        $modules->uninstall($module);
+        if ($modules->uninstall($module)) {
+            app('streams.messages')->add('success', trans('module.addons::admin.success.uninstall_module'))->flash();
+        } else {
+
+            app('streams.messages')->add('error', trans('module.addons::admin.error.uninstall_module'))->flash();
+        }
 
         return redirect(referer('admin/addons/modules'));
     }

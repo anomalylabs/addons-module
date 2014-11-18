@@ -46,15 +46,15 @@ class ModuleTable extends Table
                         },
                 ],
                 [
-                    'heading' => null,
-                    'value'   => function (Module $entry) {
-                            return '<span class="label label-success">Installed</span>';
-                        },
-                ],
-                [
                     'heading' => 'Description',
                     'value'   => function (Module $entry) {
                             return trans($entry->getDescription());
+                        },
+                ],
+                [
+                    'heading' => null,
+                    'value'   => function (Module $entry) {
+                            return '<span class="label label-success">Installed</span>';
                         },
                 ],
             ]

@@ -14,11 +14,11 @@ class AddonsModule extends Module
 {
 
     /**
-     * The module nav group.
+     * The module navigation group.
      *
      * @var string
      */
-    protected $nav = 'nav.system';
+    protected $navigation = 'admin.navigation.system';
 
     /**
      * The module sections.
