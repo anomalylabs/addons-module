@@ -1,6 +1,6 @@
 <?php namespace Anomaly\Streams\Addon\Module\Addons\Http\Controller\Admin;
 
-use Anomaly\Streams\Addon\Module\Addons\Ui\Table\ThemeTable;
+use Anomaly\Streams\Addon\Module\Addons\Ui\Table\ThemeTableBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 /**
@@ -15,14 +15,14 @@ class ThemesController extends AdminController
 {
 
     /**
-     * Return an index of existing modules.
+     * Return an index of existing themes.
      *
-     * @param ThemeTable $ui
+     * @param ThemeTableBuilder $table
      * @return mixed|null
      */
-    public function index(ThemeTable $ui)
+    public function index(ThemeTableBuilder $table)
     {
-        return $ui->render();
+        return $table->render();
     }
 }
  

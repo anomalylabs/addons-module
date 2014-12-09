@@ -18,12 +18,12 @@ class ModulesController extends AdminController
     /**
      * Return an index of existing modules.
      *
-     * @param ModuleTableBuilder $ui
+     * @param ModuleTableBuilder $table
      * @return mixed|null
      */
-    public function index(ModuleTableBuilder $ui)
+    public function index(ModuleTableBuilder $table)
     {
-        return $ui->render();
+        return $table->render();
     }
 
     /**
@@ -31,18 +31,13 @@ class ModulesController extends AdminController
      *
      * @param ModuleService $modules
      * @param               $slug
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function install(ModuleService $modules, $slug)
     {
         $module = app('streams.modules')->findBySlug($slug);
 
-        if ($modules->install($module)) {
-
-            app('streams.messages')->add('success', trans('module.addons::admin.success.install_module'))->flash();
-        } else {
-
-            app('streams.messages')->add('error', trans('module.addons::admin.error.install_module'))->flash();
-        }
+        $modules->install($module);
 
         return redirect(referer('admin/addons/modules'));
     }
@@ -58,12 +53,7 @@ class ModulesController extends AdminController
     {
         $module = app('streams.modules')->findBySlug($slug);
 
-        if ($modules->uninstall($module)) {
-            app('streams.messages')->add('success', trans('module.addons::admin.success.uninstall_module'))->flash();
-        } else {
-
-            app('streams.messages')->add('error', trans('module.addons::admin.error.uninstall_module'))->flash();
-        }
+        $modules->uninstall($module);
 
         return redirect(referer('admin/addons/modules'));
     }

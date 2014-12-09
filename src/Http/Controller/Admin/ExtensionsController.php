@@ -1,6 +1,6 @@
 <?php namespace Anomaly\Streams\Addon\Module\Addons\Http\Controller\Admin;
 
-use Anomaly\Streams\Addon\Module\Addons\Ui\Table\ExtensionTable;
+use Anomaly\Streams\Addon\Module\Addons\Ui\Table\ExtensionTableBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 /**
@@ -17,12 +17,12 @@ class ExtensionsController extends AdminController
     /**
      * Return an index of existing modules.
      *
-     * @param ExtensionTable $ui
+     * @param ExtensionTableBuilder $table
      * @return mixed|null
      */
-    public function index(ExtensionTable $ui)
+    public function index(ExtensionTableBuilder $table)
     {
-        return $ui->render();
+        return $table->render();
     }
 }
  

@@ -6,31 +6,6 @@ class RouteServiceProvider extends \Illuminate\Foundation\Support\Providers\Rout
 {
 
     /**
-     * The controllers to scan for route annotations.
-     *
-     * @var array
-     */
-    protected $scan = [];
-
-    /**
-     * All of the module's route middleware keys.
-     *
-     * @var array
-     */
-    protected $middleware = [];
-
-    /**
-     * Called before routes are registered.
-     * Register any model bindings or pattern based filters.
-     *
-     * @return void
-     */
-    public function before()
-    {
-        //
-    }
-
-    /**
      * Define the routes for the module.
      *
      * @return void
@@ -47,6 +22,7 @@ class RouteServiceProvider extends \Illuminate\Foundation\Support\Providers\Rout
         $this->registerExtensionRoutes($router);
         $this->registerModuleRoutes($router);
         $this->registerThemeRoutes($router);
+        $this->registerBlockRoutes($router);
         $this->registerTagRoutes($router);
     }
 
@@ -83,6 +59,19 @@ class RouteServiceProvider extends \Illuminate\Foundation\Support\Providers\Rout
         $router->any(
             'admin/addons/themes',
             'Anomaly\Streams\Addon\Module\Addons\Http\Controller\Admin\ThemesController@index'
+        );
+    }
+
+    /**
+     * Register block routes.
+     *
+     * @param Router $router
+     */
+    protected function registerBlockRoutes(Router $router)
+    {
+        $router->any(
+            'admin/addons/blocks',
+            'Anomaly\Streams\Addon\Module\Addons\Http\Controller\Admin\BlocksController@index'
         );
     }
 
