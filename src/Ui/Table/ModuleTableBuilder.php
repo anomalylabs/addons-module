@@ -1,36 +1,37 @@
 <?php namespace Anomaly\Streams\Addon\Module\Addons\Ui\Table;
 
+use Anomaly\Streams\Addon\Module\Addons\Ui\Table\View\InstalledModulesView;
 use Anomaly\Streams\Platform\Addon\Module\Module;
 use Anomaly\Streams\Platform\Ui\Table\Table;
+use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
 
 /**
- * Class ModuleTable
+ * Class ModuleTableBuilder
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\Streams\Addon\Module\Addons\Ui\Table
  */
-class ModuleTable extends Table
+class ModuleTableBuilder extends TableBuilder
 {
 
-    /**
-     * Set up the table.
-     */
-    public function boot()
+    function __construct(Table $table)
     {
-        $this->setPrefix('modules');
+        $table->setEntries(app('streams.modules'));
 
         $this->setUpViews();
         $this->setUpColumns();
         $this->setUpButtons();
+
+        parent::__construct($table);
     }
 
     protected function setUpViews()
     {
         $this->setViews(
             [
-                'installed' => ['handler' => 'InstalledModulesView']
+                'installed' => new InstalledModulesView()
             ]
         );
     }
@@ -40,20 +41,20 @@ class ModuleTable extends Table
         $this->setColumns(
             [
                 [
-                    'heading' => 'Name',
-                    'value'   => function (Module $entry) {
+                    'header' => 'Name',
+                    'value'  => function (Module $entry) {
                             return trans($entry->getName());
                         },
                 ],
                 [
-                    'heading' => 'Description',
-                    'value'   => function (Module $entry) {
+                    'header' => 'Description',
+                    'value'  => function (Module $entry) {
                             return trans($entry->getDescription());
                         },
                 ],
                 [
-                    'heading' => null,
-                    'value'   => function (Module $entry) {
+                    'header' => null,
+                    'value'  => function (Module $entry) {
                             return '<span class="label label-success">Installed</span>';
                         },
                 ],
@@ -63,7 +64,7 @@ class ModuleTable extends Table
 
     protected function setUpButtons()
     {
-        $this->setButtons(
+        /*$this->setButtons(
             [
                 [
                     'type'    => 'success',
@@ -84,7 +85,7 @@ class ModuleTable extends Table
                     'url'     => 'admin/addons/modules/uninstall/{slug}',
                 ]
             ]
-        );
+        );*/
     }
 }
  

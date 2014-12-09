@@ -1,19 +1,27 @@
 <?php namespace Anomaly\Streams\Addon\Module\Addons\Ui\Table\View;
 
-use Anomaly\Streams\Platform\Ui\Table\Contract\TableViewInterface;
+use Anomaly\Streams\Platform\Ui\Table\View\Contract\ViewInterface;
+use Anomaly\Streams\Platform\Ui\Table\View\View;
 
-class InstalledModulesView implements TableViewInterface
+class InstalledModulesView extends View implements ViewInterface
 {
 
-    /**
-     * Handle the table view.
-     *
-     * @param $query
-     * @return mixed
-     */
-    public function handle($query)
-    {
-        return $query->installed();
+    function __construct(
+        $text = 'misc.all',
+        $slug = 'installed',
+        $active = false,
+        $prefix = null,
+        $handler = null,
+        array $attributes = []
+    ) {
+        parent::__construct(
+            $text,
+            $slug,
+            $active,
+            $prefix,
+            $handler,
+            $attributes
+        );
     }
 }
  
