@@ -39,7 +39,7 @@ class ModulesController extends AdminController
 
         $modules->install($module);
 
-        return redirect(referer('admin/addons/modules'));
+        return redirect()->back();
     }
 
     /**
@@ -55,7 +55,7 @@ class ModulesController extends AdminController
 
         $modules->uninstall($module);
 
-        return redirect(referer('admin/addons/modules'));
+        return redirect()->back();
     }
 }
  
