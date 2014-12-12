@@ -1,7 +1,7 @@
 <?php namespace Anomaly\Streams\Addon\Module\Addons\Http\Controller\Admin;
 
 use Anomaly\Streams\Addon\Module\Addons\Ui\Table\ModuleTableBuilder;
-use Anomaly\Streams\Platform\Addon\Module\ModuleService;
+use Anomaly\Streams\Platform\Addon\Module\ModuleManager;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 /**
@@ -29,11 +29,11 @@ class ModulesController extends AdminController
     /**
      * Install a module.
      *
-     * @param ModuleService $modules
+     * @param ModuleManager $modules
      * @param               $slug
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function install(ModuleService $modules, $slug)
+    public function install(ModuleManager $modules, $slug)
     {
         $module = app('streams.modules')->findBySlug($slug);
 
@@ -45,11 +45,11 @@ class ModulesController extends AdminController
     /**
      * Uninstall a module.
      *
-     * @param ModuleService $modules
+     * @param ModuleManager $modules
      * @param               $slug
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function uninstall(ModuleService $modules, $slug)
+    public function uninstall(ModuleManager $modules, $slug)
     {
         $module = app('streams.modules')->findBySlug($slug);
 
