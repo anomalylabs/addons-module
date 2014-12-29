@@ -14,9 +14,15 @@ class AddonsModuleServiceProvider extends ServiceProvider
 {
 
     /**
+     * Boot the service provider.
+     */
+    public function boot()
+    {
+        app('twig')->addExtension(app('Anomaly\Streams\Addon\Module\Addons\AddonsModulePlugin'));
+    }
+
+    /**
      * Register the service provider.
-     *
-     * @return void
      */
     public function register()
     {
