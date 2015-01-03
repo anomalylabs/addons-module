@@ -35,9 +35,7 @@ class ModulesController extends AdminController
      */
     public function install(ModuleManager $modules, $slug)
     {
-        $module = app('streams.modules')->findBySlug($slug);
-
-        $modules->install($module);
+        $modules->install($slug);
 
         return redirect()->back();
     }
@@ -51,9 +49,7 @@ class ModulesController extends AdminController
      */
     public function uninstall(ModuleManager $modules, $slug)
     {
-        $module = app('streams.modules')->findBySlug($slug);
-
-        $modules->uninstall($module);
+        $modules->uninstall($slug);
 
         return redirect()->back();
     }
