@@ -25,4 +25,3 @@ class TagsController extends AdminController
         return $table->render();
     }
 }
- 

@@ -25,4 +25,3 @@ class ThemesController extends AdminController
         return $table->render();
     }
 }
- 

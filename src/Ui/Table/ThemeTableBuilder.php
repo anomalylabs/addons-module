@@ -50,4 +50,3 @@ class ThemeTableBuilder extends TableBuilder
         parent::__construct($table);
     }
 }
- 

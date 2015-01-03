@@ -50,4 +50,3 @@ class TagTableBuilder extends TableBuilder
         parent::__construct($table);
     }
 }
- 

@@ -25,4 +25,3 @@ class ExtensionsController extends AdminController
         return $table->render();
     }
 }
- 

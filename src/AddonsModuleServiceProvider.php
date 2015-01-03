@@ -29,4 +29,3 @@ class AddonsModuleServiceProvider extends ServiceProvider
         $this->app->register('Anomaly\AddonsModule\Provider\RouteServiceProvider');
     }
 }
- 

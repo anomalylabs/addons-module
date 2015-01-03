@@ -25,4 +25,3 @@ class BlocksController extends AdminController
         return $table->render();
     }
 }
- 

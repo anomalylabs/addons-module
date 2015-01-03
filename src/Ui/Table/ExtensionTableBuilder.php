@@ -50,4 +50,3 @@ class ExtensionTableBuilder extends TableBuilder
         parent::__construct($table);
     }
 }
- 

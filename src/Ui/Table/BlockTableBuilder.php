@@ -50,4 +50,3 @@ class BlockTableBuilder extends TableBuilder
         parent::__construct($table);
     }
 }
- 

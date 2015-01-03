@@ -54,4 +54,3 @@ class ModulesController extends AdminController
         return redirect()->back();
     }
 }
- 
