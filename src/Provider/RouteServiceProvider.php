@@ -45,12 +45,10 @@ class RouteServiceProvider extends \Illuminate\Foundation\Support\Providers\Rout
             'admin/addons/modules',
             'Anomaly\AddonsModule\Http\Controller\Admin\ModulesController@index'
         );
-
         $router->any(
             'admin/addons/modules/install/{slug}',
             'Anomaly\AddonsModule\Http\Controller\Admin\ModulesController@install'
         );
-
         $router->any(
             'admin/addons/modules/uninstall/{slug}',
             'Anomaly\AddonsModule\Http\Controller\Admin\ModulesController@uninstall'

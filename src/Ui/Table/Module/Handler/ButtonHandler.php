@@ -1,16 +1,16 @@
-<?php namespace Anomaly\AddonsModule\Ui\Table\Module;
+<?php namespace Anomaly\AddonsModule\Ui\Table\Module\Handler;
 
 use Anomaly\Streams\Platform\Addon\Module\Module;
 
 /**
- * Class ModuleTableButtons
+ * Class ButtonHandler
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\AddonsModule\Ui\Table\Module
  */
-class ModuleTableButtons
+class ButtonHandler
 {
 
     /**
@@ -35,10 +35,10 @@ class ModuleTableButtons
 
                         if ($entry->isInstalled()) {
 
-                            return trans('button.uninstall');
+                            return trans('streams::button.uninstall');
                         }
 
-                        return trans('button.install');
+                        return trans('streams::button.install');
                     },
                 'attributes' => [
                     'href' => function (Module $entry) {
