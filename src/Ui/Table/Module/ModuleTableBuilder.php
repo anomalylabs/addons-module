@@ -16,9 +16,9 @@ class ModuleTableBuilder extends TableBuilder
     /**
      * The views configuration.
      *
-     * @var array
+     * @var string
      */
-    protected $views = ['all'];
+    protected $views = 'Anomaly\AddonsModule\Ui\Table\Module\Handler\ViewHandler@handle';
 
     /**
      * The table entries.
