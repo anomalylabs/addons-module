@@ -1,13 +1,20 @@
 {
     "name": "anomaly/addons-module",
     "type": "streams-addon",
-    "description": "Addons module.",
+    "description": "An addon management module for Streams based products.",
+    "keywords": ["addons", "streams", "pyrocms", "laravel"],
+    "homepage": "http://anomaly.is/",
+    "license": "MIT",
     "authors": [
         {
-            "name": "AnomalyLabs",
-            "email": "hello@anomaly.is"
+            "name": "AnomalyLabs, Inc.",
+            "email": "hello@anomaly.is",
+            "homepage": "http://anomaly.is/"
         }
     ],
+    "support": {
+        "email": "support@anomaly.is"
+    },
     "autoload": {
         "psr-4": {
             "Anomaly\\AddonsModule\\": "src/"
