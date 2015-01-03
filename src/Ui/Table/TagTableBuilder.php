@@ -1,4 +1,4 @@
-<?php namespace Anomaly\Streams\Addon\Module\Addons\Ui\Table;
+<?php namespace Anomaly\AddonsModule\Ui\Table;
 
 use Anomaly\Streams\Platform\Addon\Tag\Tag;
 use Anomaly\Streams\Platform\Ui\Table\Table;

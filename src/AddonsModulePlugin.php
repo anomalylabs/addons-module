@@ -1,4 +1,4 @@
-<?php namespace Anomaly\Streams\Addon\Module\Addons;
+<?php namespace Anomaly\AddonsModule;
 
 use Anomaly\Streams\Platform\Addon\Plugin\Plugin;
 
@@ -8,7 +8,7 @@ use Anomaly\Streams\Platform\Addon\Plugin\Plugin;
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\Streams\Addon\Module\Addons
+ * @package       Anomaly\AddonsModule
  */
 class AddonsModulePlugin extends Plugin
 {

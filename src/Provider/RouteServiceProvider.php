@@ -1,7 +1,15 @@
-<?php namespace Anomaly\Streams\Addon\Module\Addons\Provider;
+<?php namespace Anomaly\AddonsModule\Provider;
 
 use Illuminate\Routing\Router;
 
+/**
+ * Class RouteServiceProvider
+ *
+ * @link          http://anomaly.is/streams-platform
+ * @author        AnomalyLabs, Inc. <hello@anomaly.is>
+ * @author        Ryan Thompson <ryan@anomaly.is>
+ * @package       Anomaly\AddonsModule\Provider
+ */
 class RouteServiceProvider extends \Illuminate\Foundation\Support\Providers\RouteServiceProvider
 {
 
@@ -35,17 +43,17 @@ class RouteServiceProvider extends \Illuminate\Foundation\Support\Providers\Rout
     {
         $router->any(
             'admin/addons/modules',
-            'Anomaly\Streams\Addon\Module\Addons\Http\Controller\Admin\ModulesController@index'
+            'Anomaly\AddonsModule\Http\Controller\Admin\ModulesController@index'
         );
 
         $router->any(
             'admin/addons/modules/install/{slug}',
-            'Anomaly\Streams\Addon\Module\Addons\Http\Controller\Admin\ModulesController@install'
+            'Anomaly\AddonsModule\Http\Controller\Admin\ModulesController@install'
         );
 
         $router->any(
             'admin/addons/modules/uninstall/{slug}',
-            'Anomaly\Streams\Addon\Module\Addons\Http\Controller\Admin\ModulesController@uninstall'
+            'Anomaly\AddonsModule\Http\Controller\Admin\ModulesController@uninstall'
         );
     }
 
@@ -58,7 +66,7 @@ class RouteServiceProvider extends \Illuminate\Foundation\Support\Providers\Rout
     {
         $router->any(
             'admin/addons/themes',
-            'Anomaly\Streams\Addon\Module\Addons\Http\Controller\Admin\ThemesController@index'
+            'Anomaly\AddonsModule\Http\Controller\Admin\ThemesController@index'
         );
     }
 
@@ -71,7 +79,7 @@ class RouteServiceProvider extends \Illuminate\Foundation\Support\Providers\Rout
     {
         $router->any(
             'admin/addons/blocks',
-            'Anomaly\Streams\Addon\Module\Addons\Http\Controller\Admin\BlocksController@index'
+            'Anomaly\AddonsModule\Http\Controller\Admin\BlocksController@index'
         );
     }
 
@@ -84,7 +92,7 @@ class RouteServiceProvider extends \Illuminate\Foundation\Support\Providers\Rout
     {
         $router->any(
             'admin/addons/tags',
-            'Anomaly\Streams\Addon\Module\Addons\Http\Controller\Admin\TagsController@index'
+            'Anomaly\AddonsModule\Http\Controller\Admin\TagsController@index'
         );
     }
 
@@ -97,8 +105,7 @@ class RouteServiceProvider extends \Illuminate\Foundation\Support\Providers\Rout
     {
         $router->any(
             'admin/addons/extensions',
-            'Anomaly\Streams\Addon\Module\Addons\Http\Controller\Admin\ExtensionsController@index'
+            'Anomaly\AddonsModule\Http\Controller\Admin\ExtensionsController@index'
         );
     }
 }
- 

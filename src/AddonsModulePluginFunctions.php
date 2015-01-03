@@ -1,6 +1,7 @@
-<?php namespace Anomaly\Streams\Addon\Module\Addons;
+<?php namespace Anomaly\AddonsModule;
 
 use Anomaly\Streams\Platform\Addon\Module\Module;
+use Anomaly\Streams\Platform\Addon\Module\ModuleCollection;
 
 /**
  * Class AddonsModulePluginFunctions
@@ -8,10 +9,27 @@ use Anomaly\Streams\Platform\Addon\Module\Module;
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\Streams\Addon\Module\Addons
+ * @package       Anomaly\AddonsModule
  */
 class AddonsModulePluginFunctions
 {
+
+    /**
+     * The loaded modules.
+     *
+     * @var \Anomaly\Streams\Platform\Addon\Module\ModuleCollection
+     */
+    protected $modules;
+
+    /**
+     * Create a new BuildThemeNavigationCommandHandler instance.
+     *
+     * @param ModuleCollection $modules
+     */
+    public function __construct(ModuleCollection $modules)
+    {
+        $this->modules = $modules;
+    }
 
     /**
      * Get a module.
@@ -22,10 +40,10 @@ class AddonsModulePluginFunctions
     public function getModule($module = null)
     {
         if (!$module) {
-            return app('streams.modules')->active()->getPresenter();
+            $module = $this->modules->active();
+        } else {
+            $module = $this->modules->findBySlug($module);
         }
-
-        $module = app('streams.modules')->findBySlug($module);
 
         if (!$module instanceof Module) {
             return null;

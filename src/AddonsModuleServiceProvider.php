@@ -1,4 +1,4 @@
-<?php namespace Anomaly\Streams\Addon\Module\Addons;
+<?php namespace Anomaly\AddonsModule;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -8,7 +8,7 @@ use Illuminate\Support\ServiceProvider;
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\Streams\Addon\Module\Addons
+ * @package       Anomaly\AddonsModule
  */
 class AddonsModuleServiceProvider extends ServiceProvider
 {
@@ -18,7 +18,7 @@ class AddonsModuleServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        app('twig')->addExtension(app('Anomaly\Streams\Addon\Module\Addons\AddonsModulePlugin'));
+        app('twig')->addExtension(app('Anomaly\AddonsModule\AddonsModulePlugin'));
     }
 
     /**
@@ -26,7 +26,7 @@ class AddonsModuleServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->register('Anomaly\Streams\Addon\Module\Addons\Provider\RouteServiceProvider');
+        $this->app->register('Anomaly\AddonsModule\Provider\RouteServiceProvider');
     }
 }
  

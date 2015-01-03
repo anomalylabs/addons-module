@@ -1,6 +1,6 @@
-<?php namespace Anomaly\Streams\Addon\Module\Addons\Http\Controller\Admin;
+<?php namespace Anomaly\AddonsModule\Http\Controller\Admin;
 
-use Anomaly\Streams\Addon\Module\Addons\Ui\Table\ModuleTableBuilder;
+use Anomaly\AddonsModule\Ui\Table\Module\ModuleTableBuilder;
 use Anomaly\Streams\Platform\Addon\Module\ModuleManager;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
@@ -10,7 +10,7 @@ use Anomaly\Streams\Platform\Http\Controller\AdminController;
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\Streams\Addon\Module\Addons\Http\Controllers\Admin
+ * @package       Anomaly\AddonsModule\Http\Controllers\Admin
  */
 class ModulesController extends AdminController
 {
@@ -18,7 +18,7 @@ class ModulesController extends AdminController
     /**
      * Return an index of existing modules.
      *
-     * @param ModuleTableBuilder $table
+     * @param \Anomaly\AddonsModule\Ui\Table\Module\ModuleTableBuilder $table
      * @return mixed|null
      */
     public function index(ModuleTableBuilder $table)

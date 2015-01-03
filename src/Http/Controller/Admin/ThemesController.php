@@ -1,6 +1,6 @@
-<?php namespace Anomaly\Streams\Addon\Module\Addons\Http\Controller\Admin;
+<?php namespace Anomaly\AddonsModule\Http\Controller\Admin;
 
-use Anomaly\Streams\Addon\Module\Addons\Ui\Table\ThemeTableBuilder;
+use Anomaly\AddonsModule\Ui\Table\ThemeTableBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 /**
