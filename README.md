@@ -7,4 +7,4 @@
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/81982ec5-cbe1-499f-aafc-3d75c747a4fd/small.png)](https://insight.sensiolabs.com/projects/81982ec5-cbe1-499f-aafc-3d75c747a4fd)
 
-Addon management for Streams based products.
+Addon information and management utilities.

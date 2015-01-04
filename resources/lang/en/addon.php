@@ -2,7 +2,7 @@
 
 return [
     'name'        => 'Addons',
-    'description' => 'Addon management for Streams based products.',
+    'description' => 'Addon information and management utilities.',
     'section'     => [
         'plugins'     => 'Plugins',
         'blocks'      => 'Blocks',
