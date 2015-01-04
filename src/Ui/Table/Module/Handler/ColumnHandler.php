@@ -47,6 +47,19 @@ class ColumnHandler
                     },
             ],
             [
+                'heading' => 'module::admin.link',
+                'value'   => function (Module $entry) {
+
+                        if (!$json = $entry->getComposerJson()) {
+                            return null;
+                        }
+
+                        if (isset($json->homepage)) {
+                            return $this->html->link($json->homepage, null, ['target' => '_blank']);
+                        }
+                    }
+            ],
+            [
                 'heading' => 'module::admin.authors',
                 'value'   => function (Module $entry) {
 

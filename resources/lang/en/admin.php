@@ -2,7 +2,7 @@
 
 return [
     'core'        => 'Core',
-    'module'      => 'Module',
+    'link'        => 'Link',
     'authors'     => 'Authors',
     'support'     => 'Support',
     'installed'   => 'Installed',
