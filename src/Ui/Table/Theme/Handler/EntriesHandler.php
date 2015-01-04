@@ -46,18 +46,20 @@ class EntriesHandler
          */
         switch ($this->request->get('view')) {
 
-            // Public
-            case 'public':
-                return $themes->regular()->orderBySlug();
+            // Standard
+            case 'standard':
+                $themes = $themes->standard();
                 break;
 
             // Uninstalled
             case 'admin':
-                return $themes->admin()->orderBySlug();
+                $themes = $themes->admin();
                 break;
 
             default:
-                return $themes->orderBySlug();
+                break;
         }
+
+        return $themes->orderBySlug();
     }
 }

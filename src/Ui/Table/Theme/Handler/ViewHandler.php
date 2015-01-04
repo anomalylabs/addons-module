@@ -20,8 +20,8 @@ class ViewHandler
     {
         return [
             'all',
-            'public' => [
-                'text' => 'module::admin.public',
+            'standard' => [
+                'text' => 'module::admin.standard',
             ],
             'admin'  => [
                 'text' => 'module::admin.admin',

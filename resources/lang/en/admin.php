@@ -4,7 +4,7 @@ return [
     'addon'       => 'Addon',
     'core'        => 'Core',
     'admin'       => 'Admin',
-    'public'      => 'Public',
+    'standard'    => 'Standard',
     'active'      => 'Active',
     'link'        => 'Link',
     'authors'     => 'Authors',
