@@ -106,6 +106,12 @@ class ColumnHandler
                 $links[] = $this->html->mailto($support->email);
             }
 
+            foreach (['forum', 'wiki', 'irc', 'source'] as $link) {
+                if (isset($support->{$link})) {
+                    $links[] = $this->html->link($support->{$link}, null, ['target' => '_blank']);
+                }
+            }
+
             return implode('<br>', $links);
         }
     }
