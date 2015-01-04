@@ -44,6 +44,12 @@ class ColumnHandler extends \Anomaly\AddonsModule\Ui\Table\ColumnHandler
                 'value'   => function (Plugin $entry) {
                         return $this->support($entry);
                     }
+            ],
+            [
+                'heading' => 'module::admin.version',
+                'value'   => function (Plugin $entry) {
+                        return $this->version($entry);
+                    }
             ]
         ];
     }

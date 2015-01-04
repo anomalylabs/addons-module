@@ -109,4 +109,15 @@ class ColumnHandler
             return implode('<br>', $links);
         }
     }
+
+    /**
+     * Return the version.
+     *
+     * @param Addon $addon
+     * @return mixed
+     */
+    protected function version(Addon $addon)
+    {
+        return config($addon->getKey('constants.version'), '-');
+    }
 }

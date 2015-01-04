@@ -1,5 +1,11 @@
 <strong>{{ trans(entry.name) }}</strong>
 
+{% if entry.active %}
+    <small>
+        <span class="label label-success">{{ trans('module::admin.active') }}</span>
+    </small>
+{% endif %}
+
 <br>
 
 <small>{{ trans(entry.description) }}</small>

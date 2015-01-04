@@ -9,6 +9,7 @@ return [
     'link'        => 'Link',
     'authors'     => 'Authors',
     'support'     => 'Support',
+    'version'     => 'Version',
     'installed'   => 'Installed',
     'uninstalled' => 'Uninstalled',
 ];
