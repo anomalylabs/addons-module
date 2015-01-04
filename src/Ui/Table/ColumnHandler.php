@@ -2,6 +2,7 @@
 
 use Anomaly\Streams\Platform\Addon\Addon;
 use Illuminate\Html\HtmlBuilder;
+use stdClass;
 
 /**
  * Class ColumnHandler
@@ -51,7 +52,7 @@ class ColumnHandler
 
         // Create an array of links.
         $links = array_map(
-            function ($author) {
+            function (stdClass $author) {
 
                 // Determine the author homepage.
                 $homepage = isset($author->homepage) ? $author->homepage : '#';
