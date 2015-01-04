@@ -28,6 +28,7 @@ class RouteServiceProvider extends \Illuminate\Foundation\Support\Providers\Rout
         );
 
         $this->registerDistributionRoutes($router);
+        $this->registerFieldTypeRoutes($router);
         $this->registerExtensionRoutes($router);
         $this->registerModuleRoutes($router);
         $this->registerThemeRoutes($router);
@@ -118,6 +119,19 @@ class RouteServiceProvider extends \Illuminate\Foundation\Support\Providers\Rout
         $router->any(
             'admin/addons/distributions',
             'Anomaly\AddonsModule\Http\Controller\Admin\DistributionsController@index'
+        );
+    }
+
+    /**
+     * Register field type routes.
+     *
+     * @param Router $router
+     */
+    protected function registerFieldTypeRoutes(Router $router)
+    {
+        $router->any(
+            'admin/addons/field_types',
+            'Anomaly\AddonsModule\Http\Controller\Admin\FieldTypesController@index'
         );
     }
 }
