@@ -2,8 +2,9 @@
 
 return [
     'core'        => 'Core',
-    'authors'     => 'Authors',
     'module'      => 'Module',
+    'authors'     => 'Authors',
+    'support'     => 'Support',
     'installed'   => 'Installed',
     'uninstalled' => 'Uninstalled',
 ];

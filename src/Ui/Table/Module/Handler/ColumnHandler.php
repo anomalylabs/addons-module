@@ -54,11 +54,26 @@ class ColumnHandler
                             return null;
                         }
 
-                        if (!$authors = $json->authors) {
+                        if (!isset($json->authors) || !$authors = $json->authors) {
                             return null;
                         }
 
                         return view('module::modules/table/authors', compact('authors'));
+                    }
+            ],
+            [
+                'heading' => 'module::admin.support',
+                'value'   => function (Module $entry) {
+
+                        if (!$json = $entry->getComposerJson()) {
+                            return null;
+                        }
+
+                        if (!isset($json->support) || !$support = $json->support) {
+                            return null;
+                        }
+
+                        return view('module::modules/table/support', compact('support'));
                     }
             ]
         ];
