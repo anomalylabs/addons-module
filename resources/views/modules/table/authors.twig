@@ -1,6 +1,0 @@
-{% for author in authors %}
-
-    {% if not loop.first %}<br>{% endif %}
-    {{ html_link(author.homepage ? : '#', author.name, {'target': '_blank'})|raw }}
-
-{% endfor %}

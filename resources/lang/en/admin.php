@@ -7,7 +7,7 @@ return [
     'public'      => 'Public',
     'active'      => 'Active',
     'link'        => 'Link',
-    'author'      => 'Author',
+    'authors'     => 'Authors',
     'support'     => 'Support',
     'installed'   => 'Installed',
     'uninstalled' => 'Uninstalled',
