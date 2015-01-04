@@ -1,7 +1,7 @@
 {
     "name": "anomaly/addons-module",
     "type": "streams-addon",
-    "description": "A first party addon management module for Streams based products.",
+    "description": "Addon management for Streams based products.",
     "keywords": ["addons", "streams", "pyrocms", "laravel"],
     "homepage": "http://anomaly.is/",
     "license": "MIT",
