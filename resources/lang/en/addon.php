@@ -4,7 +4,7 @@ return [
     'name'        => 'Addons',
     'description' => 'Addon management for Streams based products.',
     'section'     => [
-        'tags'        => 'Tags',
+        'plugins'     => 'Plugins',
         'blocks'      => 'Blocks',
         'themes'      => 'Themes',
         'modules'     => 'Modules',

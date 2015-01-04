@@ -14,18 +14,18 @@ class ModuleTableBuilder extends TableBuilder
 {
 
     /**
-     * The views configuration.
-     *
-     * @var string
-     */
-    protected $views = 'Anomaly\AddonsModule\Ui\Table\Module\Handler\ViewHandler@handle';
-
-    /**
      * The table entries.
      *
      * @var string
      */
     protected $entries = 'Anomaly\AddonsModule\Ui\Table\Module\Handler\EntriesHandler@handle';
+
+    /**
+     * The views configuration.
+     *
+     * @var string
+     */
+    protected $views = 'Anomaly\AddonsModule\Ui\Table\Module\Handler\ViewHandler@handle';
 
     /**
      * The columns configuration.

@@ -1,6 +1,6 @@
-<?php namespace Anomaly\AddonsModule\Ui\Table\Module\Handler;
+<?php namespace Anomaly\AddonsModule\Ui\Table\Theme\Handler;
 
-use Anomaly\Streams\Platform\Addon\Module\ModuleCollection;
+use Anomaly\Streams\Platform\Addon\Theme\ThemeCollection;
 use Illuminate\Http\Request;
 
 /**
@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\AddonsModule\Ui\Table\Module\Handler
+ * @package       Anomaly\AddonsModule\Ui\Table\Theme\Handler
  */
 class EntriesHandler
 {
@@ -34,12 +34,11 @@ class EntriesHandler
     /**
      * Handle the table entries.
      *
-     * @param ModuleCollection $modules
-     * @return ModuleCollection
+     * @param ThemeCollection $themes
+     * @return ThemeCollection
      */
-    public function handle(ModuleCollection $modules)
+    public function handle(ThemeCollection $themes)
     {
-
         /**
          * Since we are not using a query / model
          * we will switch the collection scope
@@ -47,18 +46,18 @@ class EntriesHandler
          */
         switch ($this->request->get('view')) {
 
-            // Installed
-            case 'installed':
-                return $modules->installed()->orderBySlug();
+            // Public
+            case 'public':
+                return $themes->regular()->orderBySlug();
                 break;
 
             // Uninstalled
-            case 'uninstalled':
-                return $modules->uninstalled()->orderBySlug();
+            case 'admin':
+                return $themes->admin()->orderBySlug();
                 break;
 
             default:
-                return $modules->orderBySlug();
+                return $themes->orderBySlug();
         }
     }
 }

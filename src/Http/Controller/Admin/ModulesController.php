@@ -18,8 +18,8 @@ class ModulesController extends AdminController
     /**
      * Return an index of existing modules.
      *
-     * @param \Anomaly\AddonsModule\Ui\Table\Module\ModuleTableBuilder $table
-     * @return mixed|null
+     * @param ModuleTableBuilder $table
+     * @return \Illuminate\View\View|\Symfony\Component\HttpFoundation\Response
      */
     public function index(ModuleTableBuilder $table)
     {

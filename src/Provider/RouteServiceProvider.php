@@ -31,7 +31,7 @@ class RouteServiceProvider extends \Illuminate\Foundation\Support\Providers\Rout
         $this->registerModuleRoutes($router);
         $this->registerThemeRoutes($router);
         $this->registerBlockRoutes($router);
-        $this->registerTagRoutes($router);
+        $this->registerPluginRoutes($router);
     }
 
     /**
@@ -82,15 +82,15 @@ class RouteServiceProvider extends \Illuminate\Foundation\Support\Providers\Rout
     }
 
     /**
-     * Register tag routes.
+     * Register plugin routes.
      *
      * @param Router $router
      */
-    private function registerTagRoutes(Router $router)
+    private function registerPluginRoutes(Router $router)
     {
         $router->any(
-            'admin/addons/tags',
-            'Anomaly\AddonsModule\Http\Controller\Admin\TagsController@index'
+            'admin/addons/plugins',
+            'Anomaly\AddonsModule\Http\Controller\Admin\PluginsController@index'
         );
     }
 

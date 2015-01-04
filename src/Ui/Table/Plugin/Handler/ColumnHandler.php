@@ -1,6 +1,6 @@
-<?php namespace Anomaly\AddonsModule\Ui\Table\Module\Handler;
+<?php namespace Anomaly\AddonsModule\Ui\Table\Plugin\Handler;
 
-use Anomaly\Streams\Platform\Addon\Module\Module;
+use Anomaly\Streams\Platform\Addon\Plugin\Plugin;
 use Illuminate\Html\HtmlBuilder;
 
 /**
@@ -9,7 +9,7 @@ use Illuminate\Html\HtmlBuilder;
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\AddonsModule\Ui\Table\Module
+ * @package       Anomaly\AddonsModule\Ui\Table\Plugin
  */
 class ColumnHandler
 {
@@ -41,14 +41,14 @@ class ColumnHandler
         return [
             [
                 'heading' => 'module::admin.addon',
-                'value'   => function (Module $entry) {
+                'value'   => function (Plugin $entry) {
 
-                        return view('module::modules/table/module', compact('entry'));
+                        return view('module::plugins/table/plugin', compact('entry'));
                     },
             ],
             [
                 'heading' => 'module::admin.author',
-                'value'   => function (Module $entry) {
+                'value'   => function (Plugin $entry) {
 
                         if (!$json = $entry->getComposerJson()) {
                             return null;
@@ -58,12 +58,12 @@ class ColumnHandler
                             return null;
                         }
 
-                        return view('module::modules/table/authors', compact('authors'));
+                        return view('module::plugins/table/authors', compact('authors'));
                     }
             ],
             [
                 'heading' => 'module::admin.link',
-                'value'   => function (Module $entry) {
+                'value'   => function (Plugin $entry) {
 
                         if (!$json = $entry->getComposerJson()) {
                             return null;
@@ -76,7 +76,7 @@ class ColumnHandler
             ],
             [
                 'heading' => 'module::admin.support',
-                'value'   => function (Module $entry) {
+                'value'   => function (Plugin $entry) {
 
                         if (!$json = $entry->getComposerJson()) {
                             return null;
@@ -86,7 +86,7 @@ class ColumnHandler
                             return null;
                         }
 
-                        return view('module::modules/table/support', compact('support'));
+                        return view('module::plugins/table/support', compact('support'));
                     }
             ]
         ];

@@ -29,7 +29,7 @@ class AddonsModule extends Module
         'modules'    => [],
         'themes'     => [],
         'blocks'     => [],
-        'tags'       => [],
+        'plugins'       => [],
         'extensions' => [],
     ];
 }

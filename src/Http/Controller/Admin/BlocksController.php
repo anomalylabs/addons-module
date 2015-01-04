@@ -1,6 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Http\Controller\Admin;
 
-use Anomaly\AddonsModule\Ui\Table\BlockTableBuilder;
+use Anomaly\AddonsModule\Ui\Table\Block\BlockTableBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 /**
@@ -18,7 +18,7 @@ class BlocksController extends AdminController
      * Return an index of existing blocks.
      *
      * @param BlockTableBuilder $table
-     * @return mixed|null
+     * @return \Illuminate\View\View|\Symfony\Component\HttpFoundation\Response
      */
     public function index(BlockTableBuilder $table)
     {

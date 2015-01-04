@@ -1,6 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Http\Controller\Admin;
 
-use Anomaly\AddonsModule\Ui\Table\ThemeTableBuilder;
+use Anomaly\AddonsModule\Ui\Table\Theme\ThemeTableBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 /**
@@ -18,7 +18,7 @@ class ThemesController extends AdminController
      * Return an index of existing themes.
      *
      * @param ThemeTableBuilder $table
-     * @return mixed|null
+     * @return \Illuminate\View\View|\Symfony\Component\HttpFoundation\Response
      */
     public function index(ThemeTableBuilder $table)
     {
