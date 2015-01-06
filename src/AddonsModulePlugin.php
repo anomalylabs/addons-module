@@ -39,7 +39,8 @@ class AddonsModulePlugin extends Plugin
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('get_module', [$this->functions, 'getModule']),
+            new \Twig_SimpleFunction('module', [$this->functions, 'module']),
+            new \Twig_SimpleFunction('modules', [$this->functions, 'modules']),
         ];
     }
 }

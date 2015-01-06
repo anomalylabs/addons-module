@@ -32,23 +32,28 @@ class AddonsModulePluginFunctions
     }
 
     /**
-     * Get a module.
+     * Return a desired module. If none provided
+     * then return the active one.
      *
      * @param null $module
      * @return null|Module
      */
-    public function getModule($module = null)
+    public function module($module = null)
     {
         if (!$module) {
-            $module = $this->modules->active();
-        } else {
-            $module = $this->modules->findBySlug($module);
+            return $this->modules->active();
         }
 
-        if (!$module instanceof Module) {
-            return null;
-        }
+        $this->modules->findBySlug($module);
+    }
 
-        return $module->getPresenter();
+    /**
+     * Return modules collection.
+     *
+     * @return ModuleCollection
+     */
+    public function modules()
+    {
+        return $this->modules;
     }
 }
