@@ -124,6 +124,16 @@ class ColumnHandler
      */
     protected function version(Addon $addon)
     {
-        return config($addon->getKey('constants.version'), '-');
+        // If there is no JSON data, skip it.
+        if (!$json = $addon->getComposerJson()) {
+            return null;
+        }
+
+        // If the version is not set then skip it.
+        if (!isset($json->version)) {
+            return null;
+        }
+
+        return $json->version;
     }
 }
