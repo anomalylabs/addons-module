@@ -22,7 +22,7 @@ class AddonsModulePluginFunctions
     protected $modules;
 
     /**
-     * Create a new BuildThemeNavigationCommandHandler instance.
+     * Create a new AddonsModulePluginFunctions instance.
      *
      * @param ModuleCollection $modules
      */
