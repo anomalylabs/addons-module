@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'manage_addons'
+    'manage_modules'
 ];
