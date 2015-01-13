@@ -24,32 +24,32 @@ class ColumnHandler extends \Anomaly\AddonsModule\Ui\Table\ColumnHandler
             [
                 'heading' => 'module::admin.addon',
                 'value'   => function (Distribution $entry) {
-                        return view('module::distributions/table/distribution', compact('entry'));
-                    },
+                    return view('module::distributions/table/distribution', compact('entry'));
+                },
             ],
             [
                 'heading' => 'module::admin.authors',
                 'value'   => function (Distribution $entry) {
-                        return $this->authors($entry);
-                    }
+                    return $this->authors($entry);
+                }
             ],
             [
                 'heading' => 'module::admin.link',
                 'value'   => function (Distribution $entry) {
-                        return $this->link($entry);
-                    }
+                    return $this->link($entry);
+                }
             ],
             [
                 'heading' => 'module::admin.support',
                 'value'   => function (Distribution $entry) {
-                        return $this->support($entry);
-                    }
+                    return $this->support($entry);
+                }
             ],
             [
                 'heading' => 'module::admin.version',
                 'value'   => function (Distribution $entry) {
-                        return $this->version($entry);
-                    }
+                    return $this->version($entry);
+                }
             ]
         ];
     }

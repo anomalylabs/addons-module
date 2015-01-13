@@ -34,4 +34,5 @@ class AddonsModule extends Module
         'field_types'   => [],
         'distributions' => [],
     ];
+
 }

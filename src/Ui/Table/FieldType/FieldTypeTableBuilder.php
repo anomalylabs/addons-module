@@ -33,4 +33,5 @@ class FieldTypeTableBuilder extends TableBuilder
      * @var string
      */
     protected $buttons = 'Anomaly\AddonsModule\Ui\Table\FieldType\Handler\ButtonHandler@handle';
+
 }

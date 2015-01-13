@@ -40,4 +40,5 @@ class ModuleTableBuilder extends TableBuilder
      * @var string
      */
     protected $buttons = 'Anomaly\AddonsModule\Ui\Table\Module\Handler\ButtonHandler@handle';
+
 }

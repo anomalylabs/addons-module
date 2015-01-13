@@ -33,4 +33,5 @@ class DistributionTableBuilder extends TableBuilder
      * @var string
      */
     protected $buttons = 'Anomaly\AddonsModule\Ui\Table\Distribution\Handler\ButtonHandler@handle';
+
 }

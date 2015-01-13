@@ -24,32 +24,32 @@ class ButtonHandler
             [
                 'type'       => function (Module $entry) {
 
-                        if ($entry->isInstalled()) {
+                    if ($entry->isInstalled()) {
 
-                            return 'danger';
-                        }
+                        return 'danger';
+                    }
 
-                        return 'success';
-                    },
+                    return 'success';
+                },
                 'text'       => function (Module $entry) {
 
-                        if ($entry->isInstalled()) {
+                    if ($entry->isInstalled()) {
 
-                            return trans('streams::button.uninstall');
-                        }
+                        return trans('module::button.uninstall');
+                    }
 
-                        return trans('streams::button.install');
-                    },
+                    return trans('module::button.install');
+                },
                 'attributes' => [
                     'href' => function (Module $entry) {
 
-                            if ($entry->isInstalled()) {
+                        if ($entry->isInstalled()) {
 
-                                return url('admin/addons/modules/uninstall/' . $entry->getSlug());
-                            }
-
-                            return url('admin/addons/modules/install/' . $entry->getSlug());
+                            return url('admin/addons/modules/uninstall/' . $entry->getSlug());
                         }
+
+                        return url('admin/addons/modules/install/' . $entry->getSlug());
+                    }
                 ],
             ]
         ];

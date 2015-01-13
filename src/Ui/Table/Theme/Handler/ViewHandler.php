@@ -23,7 +23,7 @@ class ViewHandler
             'standard' => [
                 'text' => 'module::admin.standard',
             ],
-            'admin'  => [
+            'admin'    => [
                 'text' => 'module::admin.admin',
             ]
         ];

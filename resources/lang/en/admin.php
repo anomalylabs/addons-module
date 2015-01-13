@@ -1,15 +1,15 @@
 <?php
 
 return [
-    'addon'       => 'Addon',
     'core'        => 'Core',
-    'admin'       => 'Admin',
-    'standard'    => 'Standard',
-    'active'      => 'Active',
     'link'        => 'Link',
+    'admin'       => 'Admin',
+    'addon'       => 'Addon',
+    'active'      => 'Active',
     'authors'     => 'Authors',
     'support'     => 'Support',
     'version'     => 'Version',
+    'standard'    => 'Standard',
     'installed'   => 'Installed',
     'uninstalled' => 'Uninstalled',
 ];
