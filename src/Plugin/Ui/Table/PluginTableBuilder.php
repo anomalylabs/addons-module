@@ -1,4 +1,4 @@
-<?php namespace Anomaly\AddonsModule\Ui\Table\Plugin;
+<?php namespace Anomaly\AddonsModule\Plugin\Ui\Table;
 
 use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
 
@@ -18,20 +18,20 @@ class PluginTableBuilder extends TableBuilder
      *
      * @var string
      */
-    protected $entries = 'Anomaly\AddonsModule\Ui\Table\Plugin\Handler\EntriesHandler@handle';
+    protected $entries = 'Anomaly\AddonsModule\Plugin\Ui\Table\Handler\EntriesHandler@handle';
 
     /**
      * The columns configuration.
      *
      * @var string
      */
-    protected $columns = 'Anomaly\AddonsModule\Ui\Table\Plugin\Handler\ColumnHandler@handle';
+    protected $columns = 'Anomaly\AddonsModule\Plugin\Ui\Table\Handler\ColumnHandler@handle';
 
     /**
      * The buttons configuration.
      *
      * @var string
      */
-    protected $buttons = 'Anomaly\AddonsModule\Ui\Table\Plugin\Handler\ButtonHandler@handle';
+    protected $buttons = 'Anomaly\AddonsModule\Plugin\Ui\Table\Handler\ButtonHandler@handle';
 
 }

@@ -1,6 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Http\Controller\Admin;
 
-use Anomaly\AddonsModule\Ui\Table\Extension\ExtensionTableBuilder;
+use Anomaly\AddonsModule\Extension\Ui\Table\ExtensionTableBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 /**
@@ -17,7 +17,7 @@ class ExtensionsController extends AdminController
     /**
      * Return an index of existing modules.
      *
-     * @param \Anomaly\AddonsModule\Ui\Table\Extension\ExtensionTableBuilder $table
+     * @param \Anomaly\AddonsModule\Extension\Ui\Table\ExtensionTableBuilder $table
      * @return \Illuminate\View\View|\Symfony\Component\HttpFoundation\Response
      */
     public function index(ExtensionTableBuilder $table)

@@ -1,4 +1,4 @@
-<?php namespace Anomaly\AddonsModule\Ui\Table\Extension\Handler;
+<?php namespace Anomaly\AddonsModule\Extension\Ui\Table\Handler;
 
 /**
  * Class ButtonHandler

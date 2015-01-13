@@ -1,4 +1,4 @@
-<?php namespace Anomaly\AddonsExtension\Extension;
+<?php namespace Anomaly\AddonsModule\Extension;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
 use Illuminate\Routing\Router;

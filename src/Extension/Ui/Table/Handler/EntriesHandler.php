@@ -1,4 +1,4 @@
-<?php namespace Anomaly\AddonsModule\Ui\Table\Extension\Handler;
+<?php namespace Anomaly\AddonsModule\Extension\Ui\Table\Handler;
 
 use Anomaly\Streams\Platform\Addon\Extension\ExtensionCollection;
 use Illuminate\Http\Request;
