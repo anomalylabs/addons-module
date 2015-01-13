@@ -1,4 +1,4 @@
-<?php namespace Anomaly\AddonsModule\Http\Controller\Admin;
+<?php namespace Anomaly\AddonsModule\Plugin\Ui\Table;
 
 use Anomaly\AddonsModule\Ui\Table\Plugin\PluginTableBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
