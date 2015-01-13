@@ -18,20 +18,20 @@ class PluginTableBuilder extends TableBuilder
      *
      * @var string
      */
-    protected $entries = 'Anomaly\AddonsModule\Plugin\Ui\Table\Handler\EntriesHandler@handle';
+    protected $entries = 'Anomaly\AddonsModule\Ui\Table\Plugin\Handler\EntriesHandler@handle';
 
     /**
      * The columns configuration.
      *
      * @var string
      */
-    protected $columns = 'Anomaly\AddonsModule\Plugin\Ui\Table\Handler\ColumnHandler@handle';
+    protected $columns = 'Anomaly\AddonsModule\Ui\Table\Plugin\Handler\ColumnHandler@handle';
 
     /**
      * The buttons configuration.
      *
      * @var string
      */
-    protected $buttons = 'Anomaly\AddonsModule\Plugin\Ui\Table\Handler\ButtonHandler@handle';
+    protected $buttons = 'Anomaly\AddonsModule\Ui\Table\Plugin\Handler\ButtonHandler@handle';
 
 }
