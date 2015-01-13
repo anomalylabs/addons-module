@@ -1,6 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Http\Controller\Admin;
 
-use Anomaly\AddonsModule\Ui\Table\Block\BlockTableBuilder;
+use Anomaly\AddonsModule\Block\Ui\Table\BlockTableBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 /**

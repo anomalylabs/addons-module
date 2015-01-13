@@ -1,6 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Http\Controller\Admin;
 
-use Anomaly\AddonsModule\Ui\Table\Distribution\DistributionTableBuilder;
+use Anomaly\AddonsModule\Distribution\Ui\Table\DistributionTableBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 /**

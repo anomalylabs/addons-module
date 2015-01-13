@@ -1,6 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Http\Controller\Admin;
 
-use Anomaly\AddonsModule\Ui\Table\FieldType\FieldTypeTableBuilder;
+use Anomaly\AddonsModule\FieldType\Ui\Table\FieldTypeTableBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 /**

@@ -26,6 +26,11 @@ class AddonsModuleServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->register('Anomaly\AddonsModule\Provider\RouteServiceProvider');
+        $this->app->register('Anomaly\AddonsModule\Block\BlockRouteProvider');
+        $this->app->register('Anomaly\AddonsModule\Theme\ThemeRouteProvider');
+        $this->app->register('Anomaly\AddonsModule\Module\ModuleRouteProvider');
+        $this->app->register('Anomaly\AddonsModule\Plugin\PluginRouteProvider');
+        $this->app->register('Anomaly\AddonsModule\FieldType\FieldTypeRouteProvider');
+        $this->app->register('Anomaly\AddonsModule\Distribution\DistributionRouteProvider');
     }
 }
