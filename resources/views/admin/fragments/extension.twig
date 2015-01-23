@@ -1,5 +1,25 @@
 <strong>{{ trans(entry.name) }}</strong>
 
+{% if entry.installed %}
+    <small>
+        <span class="label label-success">{{ trans('module::admin.installed') }}</span>
+    </small>
+{% else %}
+    <small>
+        <span class="label label-default">{{ trans('module::admin.uninstalled') }}</span>
+    </small>
+{% endif %}
+
+{% if entry.isCore() %}
+    <small>
+        <span class="label label-danger">{{ trans('module::admin.core') }}</span>
+    </small>
+{% endif %}
+
 <br>
 
 <small>{{ trans(entry.description) }}</small>
+
+<br>
+
+{{ entry.identifier }}
