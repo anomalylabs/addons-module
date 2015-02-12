@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\AddonsModule\Ui\Table\Plugin\Handler
+ * @package       Anomaly\AddonsModule\Table\Plugin\Handler
  */
 class EntriesHandler
 {

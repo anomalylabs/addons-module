@@ -1,17 +1,18 @@
-<?php namespace Anomaly\AddonsModule\Module\Ui\Table\Handler;
+<?php namespace Anomaly\AddonsModule\Module\Table;
 
 use Anomaly\Streams\Platform\Addon\Module\ModuleCollection;
+use Anomaly\Streams\Platform\Ui\Table\Table;
 use Illuminate\Http\Request;
 
 /**
- * Class EntriesHandler
+ * Class ModuleTableEntries
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\AddonsModule\Module\Ui\Table\Handler
+ * @package       Anomaly\AddonsModule\Module\Table\Handler
  */
-class EntriesHandler
+class ModuleTableEntries
 {
 
     /**
@@ -22,7 +23,7 @@ class EntriesHandler
     protected $request;
 
     /**
-     * Create a new EntriesHandler instance.
+     * Create a new ModuleTableEntries instance.
      *
      * @param Request $request
      */
@@ -37,7 +38,7 @@ class EntriesHandler
      * @param ModuleCollection $modules
      * @return ModuleCollection
      */
-    public function handle(ModuleCollection $modules)
+    public function handle(Table $table, ModuleCollection $modules)
     {
 
         /**
@@ -49,16 +50,16 @@ class EntriesHandler
 
             // Installed
             case 'installed':
-                return $modules->installed()->orderBySlug();
+                $table->setEntries($modules->installed()->orderBySlug());
                 break;
 
             // Uninstalled
             case 'uninstalled':
-                return $modules->uninstalled()->orderBySlug();
+                $table->setEntries($modules->uninstalled()->orderBySlug());
                 break;
 
             default:
-                return $modules->orderBySlug();
+                $table->setEntries($modules->orderBySlug());
         }
     }
 }

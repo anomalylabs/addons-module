@@ -10,7 +10,7 @@ use Anomaly\Streams\Platform\Addon\Theme\Theme;
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\AddonsModule\Theme\Ui\Table
  */
-class ColumnHandler extends \Anomaly\AddonsModule\Ui\Table\Handler\ColumnHandler
+class ColumnHandler extends \Anomaly\AddonsModule\Table\Handler\ColumnHandler
 {
 
     /**

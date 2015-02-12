@@ -1,4 +1,4 @@
-<?php namespace Anomaly\AddonsModule\Ui\Table\Handler;
+<?php namespace Anomaly\AddonsModule\Table\Handler;
 
 use Anomaly\Streams\Platform\Addon\Addon;
 use Illuminate\Html\HtmlBuilder;
@@ -10,7 +10,7 @@ use stdClass;
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\AddonsModule\Ui\Table
+ * @package       Anomaly\AddonsModule\Table
  */
 class ColumnHandler
 {

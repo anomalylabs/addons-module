@@ -8,9 +8,9 @@ use Anomaly\Streams\Platform\Addon\Plugin\Plugin;
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\AddonsModule\Ui\Table\Plugin
+ * @package       Anomaly\AddonsModule\Table\Plugin
  */
-class ColumnHandler extends \Anomaly\AddonsModule\Ui\Table\Handler\ColumnHandler
+class ColumnHandler extends \Anomaly\AddonsModule\Table\Handler\ColumnHandler
 {
 
     /**

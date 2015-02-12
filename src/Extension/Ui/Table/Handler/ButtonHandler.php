@@ -8,7 +8,7 @@ use Anomaly\Streams\Platform\Addon\Extension\Extension;
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\AddonsModule\Module\Ui\Table
+ * @package       Anomaly\AddonsModule\Module\Table
  */
 class ButtonHandler
 {

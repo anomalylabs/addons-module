@@ -10,7 +10,7 @@ use Anomaly\Streams\Platform\Addon\FieldType\FieldType;
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\AddonsModule\FieldType\Ui\Table
  */
-class ColumnHandler extends \Anomaly\AddonsModule\Ui\Table\Handler\ColumnHandler
+class ColumnHandler extends \Anomaly\AddonsModule\Table\Handler\ColumnHandler
 {
 
     /**
