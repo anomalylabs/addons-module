@@ -1,55 +1,42 @@
-<?php namespace Anomaly\AddonsModule\Module\Table;
+<?php namespace Anomaly\AddonsModule\Extension\Table;
 
-use Anomaly\Streams\Platform\Addon\Module\Module;
+use Anomaly\Streams\Platform\Addon\Extension\Extension;
 
 /**
- * Class ModuleTableColumns
+ * Class ExtensionTableColumns
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\AddonsModule\Module\Table
+ * @package       Anomaly\AddonsModule\Table\Extension
  */
-class ModuleTableColumns
+class ExtensionTableColumns
 {
 
     /**
-     * Return the table columns.
-     **/
-    public function handle(ModuleTableBuilder $builder)
+     * Handle table columns.
+     *
+     * @param ExtensionTableBuilder $builder
+     */
+    public function handle(ExtensionTableBuilder $builder)
     {
         $builder->setColumns(
             [
                 [
-                    'heading' => 'streams::addon.module',
-                    'value'   => function (Module $entry) {
+                    'heading' => 'streams::addon.plugin',
+                    'value'   => function (Extension $entry) {
                         return trans($entry->getName());
                     },
                 ],
                 [
                     'heading' => 'module::admin.description',
-                    'value'   => function (Module $entry) {
+                    'value'   => function (Extension $entry) {
                         return trans($entry->getDescription());
-                    }
-                ],
-                [
-                    'heading' => 'module::admin.installed',
-                    'value'   => function (Module $entry) {
-
-                        if ($entry->isInstalled()) {
-                            $class = 'success';
-                            $text  = trans('module::admin.installed');
-                        } else {
-                            $class = 'default';
-                            $text  = trans('module::admin.uninstalled');
-                        }
-
-                        return '<span class="label label-' . $class . '">' . $text . '</span>';
-                    }
+                    },
                 ],
                 [
                     'heading' => 'module::admin.location',
-                    'value'   => function (Module $entry) {
+                    'value'   => function (Extension $entry) {
 
                         $class = 'warning';
                         $text  = APP_REF;

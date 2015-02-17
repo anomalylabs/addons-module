@@ -1,35 +1,38 @@
-<?php namespace Anomaly\AddonsModule\Module\Table;
+<?php namespace Anomaly\AddonsModule\Extension\Table;
 
-use Anomaly\Streams\Platform\Addon\Module\Module;
+use Anomaly\Streams\Platform\Addon\Extension\Extension;
 
 /**
- * Class ModuleTableButtons
+ * Class ExtensionTableButtons
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\AddonsModule\Module\Table
  */
-class ModuleTableButtons
+class ExtensionTableButtons
 {
 
     /**
-     * Return the table buttons.
+     * Handle table buttons.
+     *
+     * @param ExtensionTableBuilder $builder
      */
-    public function handle(ModuleTableBuilder $builder)
+    public function handle(ExtensionTableBuilder $builder)
     {
         $builder->setButtons(
             [
                 [
-                    'type'       => function (Module $entry) {
+                    'type'       => function (Extension $entry) {
 
                         if ($entry->isInstalled()) {
+
                             return 'danger';
                         }
 
                         return 'success';
                     },
-                    'text'       => function (Module $entry) {
+                    'text'       => function (Extension $entry) {
 
                         if ($entry->isInstalled()) {
 
@@ -39,16 +42,16 @@ class ModuleTableButtons
                         return trans('module::button.install');
                     },
                     'attributes' => [
-                        'href' => function (Module $entry) {
+                        'href' => function (Extension $entry) {
 
                             if ($entry->isInstalled()) {
 
-                                return url('admin/addons/modules/uninstall/' . $entry->getSlug());
+                                return url('admin/addons/extensions/uninstall/' . $entry->getSlug());
                             }
 
-                            return url('admin/addons/modules/install/' . $entry->getSlug());
+                            return url('admin/addons/extensions/install/' . $entry->getSlug());
                         }
-                    ],
+                    ]
                 ]
             ]
         );

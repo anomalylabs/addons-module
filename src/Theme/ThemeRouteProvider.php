@@ -9,7 +9,7 @@ use Illuminate\Routing\Router;
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\AddonsModule\Theme\Ui\Table
+ * @package       Anomaly\AddonsModule\Theme\Table
  */
 class ThemeRouteProvider extends RouteServiceProvider
 {

@@ -1,16 +1,16 @@
-<?php namespace Anomaly\AddonsModule\Module\Table;
+<?php namespace Anomaly\AddonsModule\Plugin\Table;
 
 use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
 
 /**
- * Class ModuleTableBuilder
+ * Class PluginTableBuilder
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\AddonsModule\Table
+ * @package       Anomaly\Streams\Addon\Plugin\Addons\Ui\Table
  */
-class ModuleTableBuilder extends TableBuilder
+class PluginTableBuilder extends TableBuilder
 {
 
 }
