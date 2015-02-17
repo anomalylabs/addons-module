@@ -27,17 +27,25 @@ class ModuleRouteProvider extends RouteServiceProvider
                 return redirect('admin/addons/modules');
             }
         );
+
         $router->any(
             'admin/addons/modules',
             'Anomaly\AddonsModule\Http\Controller\Admin\ModulesController@index'
         );
-        $router->any(
+
+        $router->get(
             'admin/addons/modules/install/{slug}',
             'Anomaly\AddonsModule\Http\Controller\Admin\ModulesController@install'
         );
-        $router->any(
+
+        $router->get(
             'admin/addons/modules/uninstall/{slug}',
             'Anomaly\AddonsModule\Http\Controller\Admin\ModulesController@uninstall'
+        );
+
+        $router->get(
+            'admin/addons/modules/readme/{module}',
+            'Anomaly\AddonsModule\Http\Controller\Admin\ModulesController@readme'
         );
     }
 }

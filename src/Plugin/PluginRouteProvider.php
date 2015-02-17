@@ -25,5 +25,10 @@ class PluginRouteProvider extends RouteServiceProvider
             'admin/addons/plugins',
             'Anomaly\AddonsModule\Http\Controller\Admin\PluginsController@index'
         );
+
+        $router->get(
+            'admin/addons/plugins/readme/{plugin}',
+            'Anomaly\AddonsModule\Http\Controller\Admin\PluginsController@readme'
+        );
     }
 }

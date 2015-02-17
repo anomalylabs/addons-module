@@ -21,6 +21,16 @@ class ModuleTableButtons
         $builder->setButtons(
             [
                 [
+                    'icon'       => 'question-circle',
+                    'href'       => function (Module $entry) {
+                        return '/admin/addons/modules/readme/' . $entry->getNamespace();
+                    },
+                    'attributes' => [
+                        'data-toggle' => 'modal',
+                        'data-target' => '#modal-lg'
+                    ]
+                ],
+                [
                     'type'       => function (Module $entry) {
 
                         if ($entry->isInstalled()) {

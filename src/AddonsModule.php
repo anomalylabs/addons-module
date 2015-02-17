@@ -35,17 +35,4 @@ class AddonsModule extends Module
         'distributions',
     ];
 
-    /**
-     * The module modals.
-     *
-     * @var array
-     */
-    protected $modals = [
-        'module::admin/modals/test',
-        [
-            'title'   => 'My generic modal',
-            'content' => 'Some\Handler\Class'
-        ]
-    ];
-
 }

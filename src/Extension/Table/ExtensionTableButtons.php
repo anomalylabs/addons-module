@@ -23,6 +23,16 @@ class ExtensionTableButtons
         $builder->setButtons(
             [
                 [
+                    'icon'       => 'question-circle',
+                    'href'       => function (Extension $entry) {
+                        return '/admin/addons/extensions/readme/' . $entry->getNamespace();
+                    },
+                    'attributes' => [
+                        'data-toggle' => 'modal',
+                        'data-target' => '#modal-lg'
+                    ]
+                ],
+                [
                     'type'       => function (Extension $entry) {
 
                         if ($entry->isInstalled()) {

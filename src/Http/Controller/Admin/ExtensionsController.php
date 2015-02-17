@@ -1,6 +1,7 @@
 <?php namespace Anomaly\AddonsModule\Http\Controller\Admin;
 
 use Anomaly\AddonsModule\Extension\Table\ExtensionTableBuilder;
+use Anomaly\Streams\Platform\Addon\Extension\ExtensionCollection;
 use Anomaly\Streams\Platform\Addon\Extension\ExtensionManager;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
@@ -52,5 +53,25 @@ class ExtensionsController extends AdminController
         $extensions->uninstall($slug);
 
         return redirect()->back();
+    }
+
+    /**
+     * Output the readme for a extension.
+     *
+     * @param                     $extension
+     * @param ExtensionCollection $extensions
+     * @return \Illuminate\View\View
+     */
+    public function readme($extension, ExtensionCollection $extensions)
+    {
+        $addon = $extensions->get($extension);
+
+        $readme = $addon->getPath('README.md');
+
+        if (file_exists($readme)) {
+            $readme = file_get_contents($readme);
+        }
+
+        return view('module::admin/modals/readme', compact('addon', 'readme'));
     }
 }

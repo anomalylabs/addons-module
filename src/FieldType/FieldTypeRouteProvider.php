@@ -25,5 +25,10 @@ class FieldTypeRouteProvider extends RouteServiceProvider
             'admin/addons/field_types',
             'Anomaly\AddonsModule\Http\Controller\Admin\FieldTypesController@index'
         );
+
+        $router->get(
+            'admin/addons/field_types/readme/{fieldType}',
+            'Anomaly\AddonsModule\Http\Controller\Admin\FieldTypesController@readme'
+        );
     }
 }

@@ -25,5 +25,10 @@ class ThemeRouteProvider extends RouteServiceProvider
             'admin/addons/themes',
             'Anomaly\AddonsModule\Http\Controller\Admin\ThemesController@index'
         );
+
+        $router->get(
+            'admin/addons/themes/readme/{theme}',
+            'Anomaly\AddonsModule\Http\Controller\Admin\ThemesController@readme'
+        );
     }
 }

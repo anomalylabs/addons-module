@@ -25,5 +25,10 @@ class DistributionRouteProvider extends RouteServiceProvider
             'admin/addons/distributions',
             'Anomaly\AddonsModule\Http\Controller\Admin\DistributionsController@index'
         );
+
+        $router->get(
+            'admin/addons/distributions/readme/{distribution}',
+            'Anomaly\AddonsModule\Http\Controller\Admin\DistributionsController@readme'
+        );
     }
 }
