@@ -1,6 +1,7 @@
 <?php namespace Anomaly\AddonsModule\Plugin\Table;
 
 use Anomaly\Streams\Platform\Addon\Plugin\Plugin;
+use Anomaly\Streams\Platform\Application\Application;
 
 /**
  * Class PluginTableColumns
@@ -17,8 +18,9 @@ class PluginTableColumns
      * Handle the table columns.
      *
      * @param PluginTableBuilder $builder
+     * @param Application        $application
      */
-    public function handle(PluginTableBuilder $builder)
+    public function handle(PluginTableBuilder $builder, Application $application)
     {
         $builder->setColumns(
             [
@@ -36,10 +38,10 @@ class PluginTableColumns
                 ],
                 [
                     'heading' => 'module::admin.location',
-                    'value'   => function (Plugin $entry) {
+                    'value'   => function (Plugin $entry) use ($application) {
 
                         $class = 'warning';
-                        $text  = APP_REF;
+                        $text  = $application->getReference();
 
                         if ($entry->isCore()) {
                             $class = 'danger';

@@ -1,6 +1,7 @@
 <?php namespace Anomaly\AddonsModule\Module\Table;
 
 use Anomaly\Streams\Platform\Addon\Module\Module;
+use Anomaly\Streams\Platform\Application\Application;
 
 /**
  * Class ModuleTableColumns
@@ -14,9 +15,12 @@ class ModuleTableColumns
 {
 
     /**
-     * Return the table columns.
-     **/
-    public function handle(ModuleTableBuilder $builder)
+     * Handle the table columns.
+     *
+     * @param ModuleTableBuilder $builder
+     * @param Application        $application
+     */
+    public function handle(ModuleTableBuilder $builder, Application $application)
     {
         $builder->setColumns(
             [
@@ -49,10 +53,10 @@ class ModuleTableColumns
                 ],
                 [
                     'heading' => 'module::admin.location',
-                    'value'   => function (Module $entry) {
+                    'value'   => function (Module $entry) use ($application) {
 
                         $class = 'warning';
-                        $text  = APP_REF;
+                        $text  = $application->getReference();
 
                         if ($entry->isCore()) {
                             $class = 'danger';

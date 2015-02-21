@@ -1,6 +1,7 @@
 <?php namespace Anomaly\AddonsModule\Extension\Table;
 
 use Anomaly\Streams\Platform\Addon\Extension\Extension;
+use Anomaly\Streams\Platform\Application\Application;
 
 /**
  * Class ExtensionTableColumns
@@ -17,8 +18,9 @@ class ExtensionTableColumns
      * Handle table columns.
      *
      * @param ExtensionTableBuilder $builder
+     * @param Application           $application
      */
-    public function handle(ExtensionTableBuilder $builder)
+    public function handle(ExtensionTableBuilder $builder, Application $application)
     {
         $builder->setColumns(
             [
@@ -36,10 +38,10 @@ class ExtensionTableColumns
                 ],
                 [
                     'heading' => 'module::admin.location',
-                    'value'   => function (Extension $entry) {
+                    'value'   => function (Extension $entry) use ($application) {
 
                         $class = 'warning';
-                        $text  = APP_REF;
+                        $text  = $application->getReference();
 
                         if ($entry->isCore()) {
                             $class = 'danger';

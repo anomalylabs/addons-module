@@ -1,7 +1,7 @@
 <?php namespace Anomaly\AddonsModule\Distribution\Table;
 
-use Anomaly\AddonsModule\Distribution\Table\DistributionTableBuilder;
 use Anomaly\Streams\Platform\Addon\Distribution\Distribution;
+use Anomaly\Streams\Platform\Application\Application;
 
 /**
  * Class DistributionTableColumns
@@ -18,8 +18,9 @@ class DistributionTableColumns
      * Handle the table columns.
      *
      * @param DistributionTableBuilder $builder
+     * @param Application              $application
      */
-    public function handle(DistributionTableBuilder $builder)
+    public function handle(DistributionTableBuilder $builder, Application $application)
     {
         $builder->setColumns(
             [
@@ -37,10 +38,10 @@ class DistributionTableColumns
                 ],
                 [
                     'heading' => 'module::admin.location',
-                    'value'   => function (Distribution $entry) {
+                    'value'   => function (Distribution $entry) use ($application) {
 
                         $class = 'warning';
-                        $text  = APP_REF;
+                        $text  = $application->getReference();
 
                         if ($entry->isCore()) {
                             $class = 'danger';

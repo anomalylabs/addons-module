@@ -1,6 +1,7 @@
 <?php namespace Anomaly\AddonsModule\FieldType\Table;
 
 use Anomaly\Streams\Platform\Addon\FieldType\FieldType;
+use Anomaly\Streams\Platform\Application\Application;
 
 /**
  * Class FieldTypeTableColumns
@@ -17,8 +18,9 @@ class FieldTypeTableColumns
      * Handle table columns.
      *
      * @param FieldTypeTableBuilder $builder
+     * @param Application           $application
      */
-    public function handle(FieldTypeTableBuilder $builder)
+    public function handle(FieldTypeTableBuilder $builder, Application $application)
     {
         $builder->setColumns(
             [
@@ -36,10 +38,10 @@ class FieldTypeTableColumns
                 ],
                 [
                     'heading' => 'module::admin.location',
-                    'value'   => function (FieldType $entry) {
+                    'value'   => function (FieldType $entry) use ($application) {
 
                         $class = 'warning';
-                        $text  = APP_REF;
+                        $text  = $application->getReference();
 
                         if ($entry->isCore()) {
                             $class = 'danger';

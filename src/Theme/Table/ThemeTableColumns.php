@@ -1,6 +1,7 @@
 <?php namespace Anomaly\AddonsModule\Theme\Table;
 
 use Anomaly\Streams\Platform\Addon\Theme\Theme;
+use Anomaly\Streams\Platform\Application\Application;
 
 /**
  * Class ThemeTableColumns
@@ -17,8 +18,9 @@ class ThemeTableColumns
      * Handle the table columns.
      *
      * @param ThemeTableBuilder $builder
+     * @param Application       $application
      */
-    public function handle(ThemeTableBuilder $builder)
+    public function handle(ThemeTableBuilder $builder, Application $application)
     {
         $builder->setColumns(
             [
@@ -51,10 +53,10 @@ class ThemeTableColumns
                 ],
                 [
                     'heading' => 'module::admin.location',
-                    'value'   => function (Theme $entry) {
+                    'value'   => function (Theme $entry) use ($application) {
 
                         $class = 'warning';
-                        $text  = APP_REF;
+                        $text  = $application->getReference();
 
                         if ($entry->isCore()) {
                             $class = 'danger';
