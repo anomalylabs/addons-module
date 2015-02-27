@@ -56,10 +56,10 @@ class ExtensionTableButtons
 
                             if ($entry->isInstalled()) {
 
-                                return url('admin/addons/extensions/uninstall/' . $entry->getSlug());
+                                return url('admin/addons/extensions/uninstall/' . $entry->getNamespace());
                             }
 
-                            return url('admin/addons/extensions/install/' . $entry->getSlug());
+                            return url('admin/addons/extensions/install/' . $entry->getNamespace());
                         }
                     ]
                 ]

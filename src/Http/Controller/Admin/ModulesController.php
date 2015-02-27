@@ -17,6 +17,25 @@ class ModulesController extends AdminController
 {
 
     /**
+     * The module collection.
+     *
+     * @var ModuleCollection
+     */
+    protected $modules;
+
+    /**
+     * Create a new ModulesController instance.
+     *
+     * @param ModuleCollection $modules
+     */
+    public function __construct(ModuleCollection $modules)
+    {
+        parent::__construct();
+
+        $this->modules = $modules;
+    }
+
+    /**
      * Return an index of existing modules.
      *
      * @param ModuleTableBuilder $table
@@ -31,12 +50,12 @@ class ModulesController extends AdminController
      * Install a module.
      *
      * @param ModuleManager $modules
-     * @param               $slug
+     * @param               $module
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function install(ModuleManager $modules, $slug)
+    public function install(ModuleManager $modules, $module)
     {
-        $modules->install($slug);
+        $modules->install($this->modules->get($module));
 
         return redirect()->back();
     }
@@ -45,12 +64,12 @@ class ModulesController extends AdminController
      * Uninstall a module.
      *
      * @param ModuleManager $modules
-     * @param               $slug
+     * @param               $module
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function uninstall(ModuleManager $modules, $slug)
+    public function uninstall(ModuleManager $modules, $module)
     {
-        $modules->uninstall($slug);
+        $modules->uninstall($this->modules->get($module));
 
         return redirect()->back();
     }
@@ -58,13 +77,12 @@ class ModulesController extends AdminController
     /**
      * Output the readme for a module.
      *
-     * @param                  $module
-     * @param ModuleCollection $modules
+     * @param $module
      * @return \Illuminate\View\View
      */
-    public function readme($module, ModuleCollection $modules)
+    public function readme($module)
     {
-        $addon = $modules->get($module);
+        $addon = $this->modules->get($module);
 
         $readme = $addon->getPath('README.md');
 

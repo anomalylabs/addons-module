@@ -27,12 +27,12 @@ class ExtensionRouteProvider extends RouteServiceProvider
         );
 
         $router->get(
-            'admin/addons/extensions/install/{slug}',
+            'admin/addons/extensions/install/{extension}',
             'Anomaly\AddonsModule\Http\Controller\Admin\ExtensionsController@install'
         );
 
         $router->get(
-            'admin/addons/extensions/uninstall/{slug}',
+            'admin/addons/extensions/uninstall/{extension}',
             'Anomaly\AddonsModule\Http\Controller\Admin\ExtensionsController@uninstall'
         );
 

@@ -17,6 +17,25 @@ class ExtensionsController extends AdminController
 {
 
     /**
+     * The extension collection.
+     *
+     * @var ExtensionCollection
+     */
+    protected $extensions;
+
+    /**
+     * Create a new ExtensionsController instance.
+     *
+     * @param ExtensionCollection $extensions
+     */
+    public function __construct(ExtensionCollection $extensions)
+    {
+        parent::__construct();
+
+        $this->extensions = $extensions;
+    }
+
+    /**
      * Return an index of existing modules.
      *
      * @param \Anomaly\AddonsModule\Extension\Table\ExtensionTableBuilder $table
@@ -31,12 +50,12 @@ class ExtensionsController extends AdminController
      * Install a module.
      *
      * @param ExtensionManager $extensions
-     * @param                  $slug
+     * @param                  $extension
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function install(ExtensionManager $extensions, $slug)
+    public function install(ExtensionManager $extensions, $extension)
     {
-        $extensions->install($slug);
+        $extensions->install($this->extensions->get($extension));
 
         return redirect()->back();
     }
@@ -45,12 +64,12 @@ class ExtensionsController extends AdminController
      * Uninstall a module.
      *
      * @param ExtensionManager $extensions
-     * @param                  $slug
+     * @param                  $extension
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function uninstall(ExtensionManager $extensions, $slug)
+    public function uninstall(ExtensionManager $extensions, $extension)
     {
-        $extensions->uninstall($slug);
+        $extensions->uninstall($this->extensions->get($extension));
 
         return redirect()->back();
     }
@@ -62,9 +81,9 @@ class ExtensionsController extends AdminController
      * @param ExtensionCollection $extensions
      * @return \Illuminate\View\View
      */
-    public function readme($extension, ExtensionCollection $extensions)
+    public function readme($extension)
     {
-        $addon = $extensions->get($extension);
+        $addon = $this->extensions->get($this->extensions->get($extension));
 
         $readme = $addon->getPath('README.md');
 

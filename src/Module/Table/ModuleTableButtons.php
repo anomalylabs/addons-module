@@ -53,10 +53,10 @@ class ModuleTableButtons
 
                             if ($entry->isInstalled()) {
 
-                                return url('admin/addons/modules/uninstall/' . $entry->getSlug());
+                                return url('admin/addons/modules/uninstall/' . $entry->getNamespace());
                             }
 
-                            return url('admin/addons/modules/install/' . $entry->getSlug());
+                            return url('admin/addons/modules/install/' . $entry->getNamespace());
                         }
                     ],
                 ]
