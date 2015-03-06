@@ -23,9 +23,7 @@ class ModuleRouteProvider extends RouteServiceProvider
     {
         $router->get(
             'admin/addons',
-            function () {
-                return redirect('admin/addons/modules');
-            }
+            'Anomaly\AddonsModule\Http\Controller\Admin\ModulesController@redirect'
         );
 
         $router->any(

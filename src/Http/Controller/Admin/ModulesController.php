@@ -4,6 +4,7 @@ use Anomaly\AddonsModule\Module\Table\ModuleTableBuilder;
 use Anomaly\Streams\Platform\Addon\Module\ModuleCollection;
 use Anomaly\Streams\Platform\Addon\Module\ModuleManager;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
+use Illuminate\Routing\Redirector;
 
 /**
  * Class ModulesController
@@ -33,6 +34,17 @@ class ModulesController extends AdminController
         parent::__construct();
 
         $this->modules = $modules;
+    }
+
+    /**
+     * Redirect to modules.
+     *
+     * @param Redirector $redirector
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function redirect(Redirector $redirector)
+    {
+        return $redirector->to('admin/addons/modules');
     }
 
     /**
