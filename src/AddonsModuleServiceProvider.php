@@ -1,6 +1,6 @@
 <?php namespace Anomaly\AddonsModule;
 
-use Illuminate\Support\ServiceProvider;
+use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
 
 /**
  * Class AddonsModuleServiceProvider
@@ -10,22 +10,61 @@ use Illuminate\Support\ServiceProvider;
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\AddonsModule
  */
-class AddonsModuleServiceProvider extends ServiceProvider
+class AddonsModuleServiceProvider extends AddonServiceProvider
 {
 
     /**
-     * Boot the service provider.
+     * The addon plugins.
+     *
+     * @var array
      */
-    public function boot()
-    {
-        app('twig')->addExtension(app('Anomaly\AddonsModule\AddonsModulePlugin'));
-    }
+    protected $plugins = [
+        'Anomaly\AddonsModule\AddonsModulePlugin'
+    ];
 
     /**
-     * Register the service provider.
+     * The addon routes.
+     *
+     * @var array
      */
-    public function register()
-    {
-        $this->app->register('Anomaly\AddonsModule\AddonsModuleRouteProvider');
-    }
+    protected $routes = [
+
+        'admin/addons/blocks'                              =>
+            'Anomaly\AddonsModule\Http\Controller\Admin\BlocksController@index',
+        'admin/addons/distributions'                       =>
+            'Anomaly\AddonsModule\Http\Controller\Admin\DistributionsController@index',
+        'admin/addons/distributions/readme/{distribution}' =>
+            'Anomaly\AddonsModule\Http\Controller\Admin\DistributionsController@readme',
+        'admin/addons/extensions'                          =>
+            'Anomaly\AddonsModule\Http\Controller\Admin\ExtensionsController@index',
+        'admin/addons/extensions/install/{extension}'      =>
+            'Anomaly\AddonsModule\Http\Controller\Admin\ExtensionsController@install',
+        'admin/addons/extensions/uninstall/{extension}'    =>
+            'Anomaly\AddonsModule\Http\Controller\Admin\ExtensionsController@uninstall',
+        'admin/addons/extensions/readme/{extension}'       =>
+            'Anomaly\AddonsModule\Http\Controller\Admin\ExtensionsController@readme',
+        'admin/addons/field_types'                         =>
+            'Anomaly\AddonsModule\Http\Controller\Admin\FieldTypesController@index',
+        'admin/addons/field_types/readme/{fieldType}'      =>
+            'Anomaly\AddonsModule\Http\Controller\Admin\FieldTypesController@readme',
+        'admin/addons'                                     =>
+            'Anomaly\AddonsModule\Http\Controller\Admin\ModulesController@redirect',
+        'admin/addons/modules'                             =>
+            'Anomaly\AddonsModule\Http\Controller\Admin\ModulesController@index',
+        'admin/addons/modules/install/{module}'            =>
+            'Anomaly\AddonsModule\Http\Controller\Admin\ModulesController@install',
+        'admin/addons/modules/uninstall/{module}'          =>
+            'Anomaly\AddonsModule\Http\Controller\Admin\ModulesController@uninstall',
+        'admin/addons/modules/readme/{module}'             =>
+            'Anomaly\AddonsModule\Http\Controller\Admin\ModulesController@readme',
+        'admin/addons/plugins'                             =>
+            'Anomaly\AddonsModule\Http\Controller\Admin\PluginsController@index',
+        'admin/addons/plugins/readme/{plugin}'             =>
+            'Anomaly\AddonsModule\Http\Controller\Admin\PluginsController@readme',
+        'admin/addons/themes'                              =>
+            'Anomaly\AddonsModule\Http\Controller\Admin\ThemesController@index',
+        'admin/addons/themes/readme/{theme}'               =>
+            'Anomaly\AddonsModule\Http\Controller\Admin\ThemesController@readme',
+    ];
+
 }
