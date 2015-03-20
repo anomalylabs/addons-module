@@ -30,8 +30,6 @@ class AddonsModuleServiceProvider extends AddonServiceProvider
     protected $routes = [
 
         'admin/addons/blocks'                              => 'Anomaly\AddonsModule\Http\Controller\Admin\BlocksController@index',
-        'admin/addons/distributions'                       => 'Anomaly\AddonsModule\Http\Controller\Admin\DistributionsController@index',
-        'admin/addons/distributions/readme/{distribution}' => 'Anomaly\AddonsModule\Http\Controller\Admin\DistributionsController@readme',
         'admin/addons/extensions'                          => 'Anomaly\AddonsModule\Http\Controller\Admin\ExtensionsController@index',
         'admin/addons/extensions/install/{extension}'      => 'Anomaly\AddonsModule\Http\Controller\Admin\ExtensionsController@install',
         'admin/addons/extensions/uninstall/{extension}'    => 'Anomaly\AddonsModule\Http\Controller\Admin\ExtensionsController@uninstall',
