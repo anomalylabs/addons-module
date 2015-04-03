@@ -31,8 +31,7 @@ class AddonsModule extends Module
         'blocks',
         'plugins',
         'extensions',
-        'field_types',
-        'distributions',
+        'field_types'
     ];
 
 }
