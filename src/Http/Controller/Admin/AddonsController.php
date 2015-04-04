@@ -179,6 +179,6 @@ class AddonsController extends AdminController
             )
         );
 
-        return $redirector->back();
+        return $redirector->to('admin/addons/' . str_plural($addon->getType()));
     }
 }
