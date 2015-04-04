@@ -16,10 +16,17 @@
             "email": "hello@anomaly.is",
             "homepage": "http://anomaly.is/",
             "role": "Owner"
+        },
+        {
+            "name": "Ryan Thompson",
+            "email": "ryan@anomaly.is",
+            "role": "Developer"
         }
     ],
     "support": {
-        "email": "support@anomaly.is"
+        "email": "support@anomaly.is",
+        "source": "https://github.com/anomalylabs/addons-module",
+        "issues": "https://github.com/anomalylabs/addons-module/issues"
     },
     "require-dev": {
         "phpspec/phpspec": "~2.0"

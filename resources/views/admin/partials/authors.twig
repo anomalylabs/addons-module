@@ -1,0 +1,17 @@
+<div class="panel-heading">
+    <h3 class="panel-title">
+        {{ trans('module::admin.authors') }}
+    </h3>
+</div>
+
+<div class="panel-body">
+
+    {% for author in json.authors %}
+        <dl>
+            <dt>{{ author.name }} <span class="text-muted">({{ author.role }})</span></dt>
+            <dd><a href="{{ author.homepage }}" target="_blank">{{ author.homepage }}</a></dd>
+            <dd>{{ html_mailto(author.email) }}</dd>
+        </dl>
+    {% endfor %}
+
+</div>

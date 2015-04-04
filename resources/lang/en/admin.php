@@ -10,6 +10,7 @@ return [
     'authors'     => 'Authors',
     'support'     => 'Support',
     'version'     => 'Version',
+    'private'     => 'Private',
     'location'    => 'Location',
     'standard'    => 'Standard',
     'installed'   => 'Installed',
