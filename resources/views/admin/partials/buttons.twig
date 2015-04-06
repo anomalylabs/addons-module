@@ -14,6 +14,20 @@
                 {{ trans('module::button.install') }}
             </a>
         {% endif %}
+
+        {% if addon.enabled %}
+            <a
+                    href="{{ url_to('admin/addons/' ~ request_segment(3) ~ '/disable/' ~ addon.namespace) }}"
+                    class="btn btn-block btn-warning {{ addon.core ? 'disabled' }}">
+                {{ trans('module::button.disable') }}
+            </a>
+        {% else %}
+            <a
+                    href="{{ url_to('admin/addons/' ~ request_segment(3) ~ '/enable/' ~ addon.namespace) }}"
+                    class="btn btn-block btn-success {{ addon.core ? 'disabled' }}">
+                {{ trans('module::button.enable') }}
+            </a>
+        {% endif %}
     {% endif %}
 
     <a

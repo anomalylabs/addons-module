@@ -68,7 +68,7 @@ class AddonTableColumns
                         $text  = trans('module::admin.installed');
                     } else {
                         $class = 'default';
-                        $text  = trans('module::admin.uninstalled');
+                        $text  = trans('module::admin.not_installed');
                     }
 
                     return '<span class="label label-' . $class . '">' . $text . '</span>';
