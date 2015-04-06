@@ -176,7 +176,7 @@ class AddonsController extends AdminController
                 ['addon' => strtolower(trans($addon->getName()))]
             )
         );
-        
+
         $files->deleteDirectory($addon->getPath());
 
         return $redirector->to('admin/addons/' . str_plural($addon->getType()));
