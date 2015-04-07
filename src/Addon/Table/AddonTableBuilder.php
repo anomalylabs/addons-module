@@ -38,7 +38,7 @@ class AddonTableBuilder extends TableBuilder
     /**
      * Fire before building the table.
      */
-    public function onBuilding()
+    public function onReady()
     {
         $this->table->setEntries(
             $this->addons->{$this->getOption('addon_type')}()
