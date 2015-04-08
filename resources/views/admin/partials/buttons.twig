@@ -24,7 +24,7 @@
         {% else %}
             <a
                     href="{{ url_to('admin/addons/' ~ request_segment(3) ~ '/enable/' ~ addon.namespace) }}"
-                    class="btn btn-block btn-success {{ addon.core ? 'disabled' }}">
+                    class="btn btn-block btn-success {{ (addon.core or not addon.installed) ? 'disabled' }}">
                 {{ trans('module::button.enable') }}
             </a>
         {% endif %}
