@@ -1,22 +1,26 @@
 {% extends "theme::layouts/default" %}
 
 {% block content %}
-    <div class="container-fluid">
-        <div class="row">
+    <div class="inner">
 
-            <div class="col-lg-6">
-                <div class="panel">
-                    {% include "module::admin/partials/info" with {'json': json} %}
-                    {% include "module::admin/partials/authors" with {'json': json} %}
-                    {% include "module::admin/partials/support" with {'json': json} %}
-                    {% include "module::admin/partials/buttons" %}
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-lg-6">
+                    <div class="panel">
+                        {% include "module::admin/partials/info" with {'json': json} %}
+                        {% include "module::admin/partials/authors" with {'json': json} %}
+                        {% include "module::admin/partials/support" with {'json': json} %}
+                        {% include "module::admin/partials/buttons" %}
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-lg-18">
-                {% include "module::admin/partials/content" with {'json': json} %}
-            </div>
+                <div class="col-lg-18">
+                    {% include "module::admin/partials/content" with {'json': json} %}
+                </div>
 
+            </div>
         </div>
+        
     </div>
 {% endblock %}
