@@ -27,7 +27,22 @@ class AddonTableColumns
         $columns = [
             [
                 'heading' => 'streams::addon.' . str_singular($type),
-                'value'   => 'entry.view_link',
+                'value'   => function (Addon $entry) {
+                    return app('html')->link(
+                        implode(
+                            '/',
+                            array_filter(
+                                [
+                                    'admin',
+                                    'addons',
+                                    str_plural($entry->getType()),
+                                    $entry->getNamespace()
+                                ]
+                            )
+                        ),
+                        trans($entry->getName())
+                    );
+                },
             ],
             [
                 'heading' => 'module::admin.description',
