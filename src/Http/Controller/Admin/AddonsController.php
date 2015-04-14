@@ -11,6 +11,7 @@ use Anomaly\Streams\Platform\Addon\Module\Command\UninstallModule;
 use Anomaly\Streams\Platform\Addon\Module\Module;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 use Anomaly\Streams\Platform\Message\MessageBag;
+use Anomaly\Streams\Platform\Ui\Breadcrumb\BreadcrumbCollection;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Routing\Redirector;
 
@@ -45,15 +46,18 @@ class AddonsController extends AdminController
     /**
      * Show the details of an addon.
      *
-     * @param AddonCollection $addons
-     * @param                 $type
-     * @param                 $namespace
+     * @param AddonCollection      $addons
+     * @param BreadcrumbCollection $breadcrumbs
+     * @param                      $type
+     * @param                      $namespace
      * @return string
      */
-    public function show(AddonCollection $addons, $type, $namespace)
+    public function show(AddonCollection $addons, BreadcrumbCollection $breadcrumbs, $type, $namespace)
     {
         /* @var Addon $addon */
         $addon = $addons->{$type}->get($namespace);
+
+        $breadcrumbs->put($addon->getName(), '#'); // last breadcrumb
 
         $json = $addon->getComposerJson();
 
