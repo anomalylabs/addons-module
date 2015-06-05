@@ -3,9 +3,13 @@
 use Anomaly\AddonsModule\Addon\Table\AddonTableBuilder;
 use Anomaly\Streams\Platform\Addon\Addon;
 use Anomaly\Streams\Platform\Addon\AddonCollection;
+use Anomaly\Streams\Platform\Addon\Extension\Command\DisableExtension;
+use Anomaly\Streams\Platform\Addon\Extension\Command\EnableExtension;
 use Anomaly\Streams\Platform\Addon\Extension\Command\InstallExtension;
 use Anomaly\Streams\Platform\Addon\Extension\Command\UninstallExtension;
 use Anomaly\Streams\Platform\Addon\Extension\Extension;
+use Anomaly\Streams\Platform\Addon\Module\Command\DisableModule;
+use Anomaly\Streams\Platform\Addon\Module\Command\EnableModule;
 use Anomaly\Streams\Platform\Addon\Module\Command\InstallModule;
 use Anomaly\Streams\Platform\Addon\Module\Command\UninstallModule;
 use Anomaly\Streams\Platform\Addon\Module\Module;
@@ -150,6 +154,96 @@ class AddonsController extends AdminController
         }
 
         return $redirector->back();
+    }
+
+    /**
+     * Disable an addon.
+     *
+     * @param AddonCollection $addons
+     * @param MessageBag      $messages
+     * @param Redirector      $redirector
+     * @param                 $type
+     * @param                 $namespace
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function disable(
+        AddonCollection $addons,
+        MessageBag $messages,
+        Redirector $redirector,
+        $type,
+        $namespace
+    ) {
+        /* @var Addon $addon */
+        $addon = $addons->{$type}->get($namespace);
+
+        if ($addon instanceof Module) {
+
+            $this->dispatch(new DisableModule($addon));
+
+            $messages->success(
+                trans(
+                    'module::message.disable_module_success',
+                    ['module' => strtolower(trans($addon->getName()))]
+                )
+            );
+        } elseif ($addon instanceof Extension) {
+
+            $this->dispatch(new DisableExtension($addon, true));
+
+            $messages->success(
+                trans(
+                    'module::message.disable_extension_success',
+                    ['extension' => strtolower(trans($addon->getName()))]
+                )
+            );
+        }
+
+        return $redirector->to('admin/addons/' . str_plural($addon->getType()));
+    }
+
+    /**
+     * Enable an addon.
+     *
+     * @param AddonCollection $addons
+     * @param MessageBag      $messages
+     * @param Redirector      $redirector
+     * @param                 $type
+     * @param                 $namespace
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function enable(
+        AddonCollection $addons,
+        MessageBag $messages,
+        Redirector $redirector,
+        $type,
+        $namespace
+    ) {
+        /* @var Addon $addon */
+        $addon = $addons->{$type}->get($namespace);
+
+        if ($addon instanceof Module) {
+
+            $this->dispatch(new EnableModule($addon));
+
+            $messages->success(
+                trans(
+                    'module::message.enable_module_success',
+                    ['module' => strtolower(trans($addon->getName()))]
+                )
+            );
+        } elseif ($addon instanceof Extension) {
+
+            $this->dispatch(new EnableExtension($addon, true));
+
+            $messages->success(
+                trans(
+                    'module::message.enable_extension_success',
+                    ['extension' => strtolower(trans($addon->getName()))]
+                )
+            );
+        }
+
+        return $redirector->to('admin/addons/' . str_plural($addon->getType()));
     }
 
     /**
