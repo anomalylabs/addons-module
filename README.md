@@ -8,3 +8,9 @@
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/81982ec5-cbe1-499f-aafc-3d75c747a4fd/small.png)](https://insight.sensiolabs.com/projects/81982ec5-cbe1-499f-aafc-3d75c747a4fd)
 
 Addon information and management utilities.
+
+## Provided Plugin Functions
+
+* `{{ module() }}`: Get the current module -- returns Module
+* `{{ module("module-slug") }}`: Get a module by its slug -- returns Module
+* `{{ modules() }}`: Get all available modules -- returns ModuleCollection
