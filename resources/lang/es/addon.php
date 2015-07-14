@@ -5,7 +5,6 @@ return [
     'description' => 'Información de componentes y herramientas de administración.',
     'section'     => [
         'plugins'     => 'Plugins',
-        'blocks'      => 'Bloques',
         'themes'      => 'Plantillas',
         'modules'     => 'Módulos',
         'extensions'  => 'Extensiones',
