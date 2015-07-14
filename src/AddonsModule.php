@@ -28,7 +28,6 @@ class AddonsModule extends Module
     protected $sections = [
         'modules',
         'themes',
-        'blocks',
         'plugins',
         'extensions',
         'field_types'
