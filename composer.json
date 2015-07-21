@@ -1,14 +1,14 @@
 {
     "name": "anomaly/addons-module",
     "type": "streams-addon",
-    "description": "Addon information and management utilities.",
+    "description": "Addon information and management.",
     "keywords": [
-        "addons",
-        "streams",
-        "pyrocms",
-        "laravel"
+        "streams module",
+        "streams addon",
+        "module"
     ],
     "homepage": "http://anomaly.is/",
+    "version": "1.0.1",
     "license": "MIT",
     "authors": [
         {
@@ -16,23 +16,10 @@
             "email": "hello@anomaly.is",
             "homepage": "http://anomaly.is/",
             "role": "Owner"
-        },
-        {
-            "name": "Ryan Thompson",
-            "email": "ryan@anomaly.is",
-            "role": "Developer"
         }
     ],
     "support": {
-        "email": "support@anomaly.is",
-        "source": "https://github.com/anomalylabs/addons-module",
-        "issues": "https://github.com/anomalylabs/addons-module/issues"
-    },
-    "require-dev": {
-        "phpspec/phpspec": "~2.0"
-    },
-    "config": {
-        "bin-dir": "bin"
+        "email": "support@anomaly.is"
     },
     "autoload": {
         "psr-4": {
@@ -41,8 +28,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-1.0/master": "1.0.x-dev"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
