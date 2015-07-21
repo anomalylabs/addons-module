@@ -4,13 +4,17 @@
         {% if addon.installed %}
             <a
                     href="{{ url_to('admin/addons/' ~ request_segment(3) ~ '/uninstall/' ~ addon.namespace) }}"
-                    class="btn btn-block btn-danger {{ addon.core ? 'disabled' }}">
+                    class="btn btn-block btn-danger"
+                    {% if addon.core %}
+                        data-toggle="confirm" data-message="{{ trans('module::confirm.uninstall_core_addon') }}"
+                    {% endif %}
+                    >
                 {{ trans('module::button.uninstall') }}
             </a>
         {% else %}
             <a
                     href="{{ url_to('admin/addons/' ~ request_segment(3) ~ '/install/' ~ addon.namespace) }}"
-                    class="btn btn-block btn-success {{ addon.core ? 'disabled' }}">
+                    class="btn btn-block btn-success">
                 {{ trans('module::button.install') }}
             </a>
         {% endif %}
