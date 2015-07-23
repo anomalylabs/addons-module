@@ -1,22 +1,22 @@
 <?php
 
 return [
-    'modules' => [
+    'modules'     => [
         'read',
         'install',
         'uninstall',
         'disable',
         'delete'
     ],
-    'themes' => [
+    'themes'      => [
         'read',
         'delete'
     ],
-    'plugins' => [
+    'plugins'     => [
         'read',
         'delete'
     ],
-    'extensions' => [
+    'extensions'  => [
         'read',
         'install',
         'uninstall',
