@@ -92,7 +92,11 @@ class AddonsController extends AdminController
         );
         $breadcrumbs->put('module::breadcrumb.documentation', '#');
 
-        $navigation = $files->getRequire($addon->getPath('documentation/documentation.php'));
+        if ($files->exists($navigation = $addon->getPath('documentation/documentation.php'))) {
+            $navigation = $files->getRequire($navigation);
+        } else {
+            return redirect()->back();
+        }
 
         if (!$path) {
 
