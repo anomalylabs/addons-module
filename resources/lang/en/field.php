@@ -7,6 +7,9 @@ return [
     'state'       => [
         'name' => 'State'
     ],
+    'type'        => [
+        'name' => 'Type'
+    ],
     'status'      => [
         'name' => 'Status'
     ],

@@ -27,6 +27,6 @@ class DisableModule extends ActionHandler implements SelfHandling
             $manager->disable($modules->get($module));
         }
 
-        $this->messages->success(trans('module::success.disable_modules_success', ['count' => count($selected)]));
+        $this->messages->success(trans('module::success.disable_modules', ['count' => count($selected)]));
     }
 }

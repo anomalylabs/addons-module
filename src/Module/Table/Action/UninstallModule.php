@@ -27,6 +27,6 @@ class UninstallModule extends ActionHandler implements SelfHandling
             $manager->uninstall($modules->get($module));
         }
 
-        $this->messages->success(trans('module::success.uninstall_modules_success', ['count' => count($selected)]));
+        $this->messages->success(trans('module::success.uninstall_modules', ['count' => count($selected)]));
     }
 }

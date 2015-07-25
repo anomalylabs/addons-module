@@ -27,6 +27,6 @@ class InstallModule extends ActionHandler implements SelfHandling
             $manager->install($modules->get($module));
         }
 
-        $this->messages->success(trans('module::success.install_modules_success', ['count' => count($selected)]));
+        $this->messages->success(trans('module::success.install_modules', ['count' => count($selected)]));
     }
 }

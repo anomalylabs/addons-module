@@ -36,6 +36,6 @@ class DeleteModule extends ActionHandler implements SelfHandling
             }
         }
 
-        $this->messages->success(trans('module::success.delete_modules_success', compact('count')));
+        $this->messages->success(trans('module::success.delete_modules', compact('count')));
     }
 }

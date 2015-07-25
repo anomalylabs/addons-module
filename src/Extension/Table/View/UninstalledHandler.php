@@ -1,28 +1,27 @@
-<?php namespace Anomaly\AddonsModule\Extension\Table;
+<?php namespace Anomaly\AddonsModule\Extension\Table\View;
 
+use Anomaly\AddonsModule\Extension\Table\ExtensionTableBuilder;
 use Anomaly\Streams\Platform\Addon\Extension\ExtensionCollection;
 
 /**
- * Class ExtensionTableEntries
+ * Class UninstalledHandler
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\AddonsModule\Extension\Table
+ * @package       Anomaly\AddonsModule\Extension\Table\View
  */
-class ExtensionTableEntries
+class UninstalledHandler
 {
 
     /**
-     * Handle the table entries.
+     * Handle the view.
      *
      * @param ExtensionTableBuilder $builder
      * @param ExtensionCollection   $extensions
      */
     public function handle(ExtensionTableBuilder $builder, ExtensionCollection $extensions)
     {
-        if ($builder->isActiveView('all')) {
-            $builder->setTableEntries($extensions);
-        }
+        $builder->setTableEntries($extensions->uninstalled());
     }
 }

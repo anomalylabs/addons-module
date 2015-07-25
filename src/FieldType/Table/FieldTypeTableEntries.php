@@ -17,10 +17,10 @@ class FieldTypeTableEntries
      * Handle the table entries.
      *
      * @param FieldTypeTableBuilder $builder
-     * @param FieldTypeCollection   $themes
+     * @param FieldTypeCollection   $fieldTypes
      */
-    public function handle(FieldTypeTableBuilder $builder, FieldTypeCollection $themes)
+    public function handle(FieldTypeTableBuilder $builder, FieldTypeCollection $fieldTypes)
     {
-        $builder->setTableEntries($themes);
+        $builder->setTableEntries($fieldTypes);
     }
 }

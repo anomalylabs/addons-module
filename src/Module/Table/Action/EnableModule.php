@@ -27,6 +27,6 @@ class EnableModule extends ActionHandler implements SelfHandling
             $manager->enable($modules->get($module));
         }
 
-        $this->messages->success(trans('module::success.enable_modules_success', ['count' => count($selected)]));
+        $this->messages->success(trans('module::success.enable_modules', ['count' => count($selected)]));
     }
 }

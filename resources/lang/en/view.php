@@ -2,5 +2,7 @@
 
 return [
     'disabled'    => 'Disabled',
-    'uninstalled' => 'Uninstalled'
+    'uninstalled' => 'Uninstalled',
+    'admin'       => 'Admin',
+    'public'      => 'Public'
 ];
