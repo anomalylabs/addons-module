@@ -4,7 +4,6 @@ use Anomaly\AddonsModule\Theme\Table\ThemeTableBuilder;
 use Anomaly\SettingsModule\Setting\Contract\SettingRepositoryInterface;
 use Anomaly\Streams\Platform\Addon\Theme\Theme;
 use Anomaly\Streams\Platform\Addon\Theme\ThemeCollection;
-use Anomaly\Streams\Platform\Http\Controller\AdminController;
 use Anomaly\Streams\Platform\Message\MessageBag;
 use Illuminate\Routing\Redirector;
 
@@ -16,7 +15,7 @@ use Illuminate\Routing\Redirector;
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\AddonsModule\Http\Controller\Admin
  */
-class ThemesController extends AdminController
+class ThemesController extends AddonsController
 {
 
     /**

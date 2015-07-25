@@ -1,7 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Http\Controller\Admin;
 
 use Anomaly\AddonsModule\FieldType\Table\FieldTypeTableBuilder;
-use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 /**
  * Class FieldTypesController
@@ -11,7 +10,7 @@ use Anomaly\Streams\Platform\Http\Controller\AdminController;
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\AddonsModule\Http\Controller\Admin
  */
-class FieldTypesController extends AdminController
+class FieldTypesController extends AddonsController
 {
 
     /**

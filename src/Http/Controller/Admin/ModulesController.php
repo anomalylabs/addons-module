@@ -1,7 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Http\Controller\Admin;
 
 use Anomaly\AddonsModule\Module\Table\ModuleTableBuilder;
-use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 /**
  * Class ModulesController
@@ -11,7 +10,7 @@ use Anomaly\Streams\Platform\Http\Controller\AdminController;
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\AddonsModule\Http\Controller\Admin
  */
-class ModulesController extends AdminController
+class ModulesController extends AddonsController
 {
 
     /**
