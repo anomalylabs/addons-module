@@ -7,7 +7,7 @@
             <a href="#license" data-toggle="tab">LICENSE</a>
         </li>
         <li>
-            <a href="{{ url(request.route.compiled.staticPrefix|replace({'view': 'documentation'}) ~ '/' ~ addon.namespace) }}">{{ strtoupper(trans('module::label.documentation')) }}</a>
+            <a href="{{ url(request.path|replace({'view': 'documentation'})) }}">{{ strtoupper(trans('module::label.documentation')) }}</a>
         </li>
     </ul>
 

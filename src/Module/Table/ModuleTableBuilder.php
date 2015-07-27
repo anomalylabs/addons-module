@@ -27,7 +27,7 @@ class ModuleTableBuilder extends TableBuilder
         'all',
         'disabled'    => [
             'actions' => [
-                'delete'    => [
+                'delete' => [
                     'handler' => DeleteModule::class
                 ],
                 'enable' => [
@@ -39,7 +39,7 @@ class ModuleTableBuilder extends TableBuilder
         ],
         'uninstalled' => [
             'actions' => [
-                'delete'    => [
+                'delete' => [
                     'handler' => DeleteModule::class
                 ],
                 'enable' => [
@@ -85,7 +85,9 @@ class ModuleTableBuilder extends TableBuilder
      * @var array
      */
     protected $buttons = [
-        'view'
+        'view' => [
+            'href' => 'admin/addons/modules/view/{entry.id}'
+        ]
     ];
 
     /**

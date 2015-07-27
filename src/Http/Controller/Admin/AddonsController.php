@@ -7,7 +7,6 @@ use Anomaly\Streams\Platform\Http\Controller\AdminController;
 use Anomaly\Streams\Platform\Ui\Breadcrumb\BreadcrumbCollection;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
 
 /**
  * Class AddonsController
@@ -21,25 +20,15 @@ class AddonsController extends AdminController
 {
 
     /**
-     * Go to modules.
-     *
-     * @param Redirector $redirect
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function modules(Redirector $redirect)
-    {
-        return $redirect->to('admin/addons/modules');
-    }
-
-    /**
      * Show the details of an addon.
      *
      * @param BreadcrumbCollection $breadcrumbs
      * @param AddonCollection      $addons
+     * @param                      $type
      * @param                      $addon
      * @return string
      */
-    public function view(BreadcrumbCollection $breadcrumbs, Request $request, AddonCollection $addons, $addon)
+    public function view(BreadcrumbCollection $breadcrumbs, Request $request, AddonCollection $addons, $type, $addon)
     {
         /* @var Addon $addon */
         $addon = $addons->merged()->get($addon);
@@ -66,6 +55,7 @@ class AddonsController extends AdminController
      * @param Request              $request
      * @param AddonCollection      $addons
      * @param Filesystem           $files
+     * @param                      $type
      * @param                      $addon
      * @param null                 $path
      * @return string
@@ -76,6 +66,7 @@ class AddonsController extends AdminController
         Request $request,
         AddonCollection $addons,
         Filesystem $files,
+        $type,
         $addon,
         $path = null
     ) {
