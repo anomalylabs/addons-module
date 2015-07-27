@@ -4,7 +4,7 @@
         <dl>
             <dt>{{ heading.title }}</dt>
             {% for section, title in heading.sections %}
-                <dt>{{ html_link(request.route.compiled.staticPrefix ~ '/' ~ addon.namespace ~ '/' ~ category ~ '/' ~ section, title) }}</dt>
+                <dt>{{ html_link(request.route.compiled.staticPrefix ~ '/' ~ str_plural(addon.type) ~ '/documentation/' ~ addon.namespace ~ '/' ~ category ~ '/' ~ section, title) }}</dt>
             {% endfor %}
         </dl>
     {% endfor %}
