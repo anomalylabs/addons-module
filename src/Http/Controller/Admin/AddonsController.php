@@ -79,7 +79,7 @@ class AddonsController extends AdminController
                 'documentation',
                 'view',
                 $request->route()->getCompiled()->getStaticPrefix()
-            ) . '/' . $addon->getNamespace()
+            ) . '/' . str_plural($addon->getType()) . '/view/' . $addon->getNamespace()
         );
         $breadcrumbs->put('module::breadcrumb.documentation', '#');
 
