@@ -28,16 +28,16 @@ class AddonsModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $routes = [
-        'admin/addons'                                      => 'Anomaly\AddonsModule\Http\Controller\Admin\ModulesController@redirect',
-        'admin/addons/modules'                              => 'Anomaly\AddonsModule\Http\Controller\Admin\ModulesController@index',
-        'admin/addons/themes'                               => 'Anomaly\AddonsModule\Http\Controller\Admin\ThemesController@index',
-        'admin/addons/themes/activate/{theme}'              => 'Anomaly\AddonsModule\Http\Controller\Admin\ThemesController@activate',
-        'admin/addons/plugins'                              => 'Anomaly\AddonsModule\Http\Controller\Admin\PluginsController@index',
-        'admin/addons/extensions'                           => 'Anomaly\AddonsModule\Http\Controller\Admin\ExtensionsController@index',
-        'admin/addons/field_types'                          => 'Anomaly\AddonsModule\Http\Controller\Admin\FieldTypesController@index',
-        'admin/addons/{type}/view/{addon}'                  => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@view',
-        'admin/addons/{type}/documentation/{addon}/{path?}' => [
-            'uses'        => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@documentation',
+        'admin/addons'                             => 'Anomaly\AddonsModule\Http\Controller\Admin\ModulesController@redirect',
+        'admin/addons/modules'                     => 'Anomaly\AddonsModule\Http\Controller\Admin\ModulesController@index',
+        'admin/addons/themes'                      => 'Anomaly\AddonsModule\Http\Controller\Admin\ThemesController@index',
+        'admin/addons/themes/activate/{theme}'     => 'Anomaly\AddonsModule\Http\Controller\Admin\ThemesController@activate',
+        'admin/addons/plugins'                     => 'Anomaly\AddonsModule\Http\Controller\Admin\PluginsController@index',
+        'admin/addons/extensions'                  => 'Anomaly\AddonsModule\Http\Controller\Admin\ExtensionsController@index',
+        'admin/addons/field_types'                 => 'Anomaly\AddonsModule\Http\Controller\Admin\FieldTypesController@index',
+        'admin/addons/{type}/view/{addon}'         => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@view',
+        'admin/addons/{type}/docs/{addon}/{path?}' => [
+            'uses'        => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@docs',
             'constraints' => [
                 'path' => '(.*)'
             ]

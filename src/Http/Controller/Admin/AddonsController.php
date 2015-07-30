@@ -49,7 +49,7 @@ class AddonsController extends AdminController
     }
 
     /**
-     * Display addon documentation.
+     * Display addon docs.
      *
      * @param BreadcrumbCollection $breadcrumbs
      * @param Request              $request
@@ -61,7 +61,7 @@ class AddonsController extends AdminController
      * @return string
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public function documentation(
+    public function docs(
         BreadcrumbCollection $breadcrumbs,
         Request $request,
         AddonCollection $addons,
@@ -83,8 +83,8 @@ class AddonsController extends AdminController
         );
         $breadcrumbs->put('module::breadcrumb.documentation', '#');
 
-        if ($files->exists($navigation = $addon->getPath('documentation/documentation.php'))) {
-            $navigation = $files->getRequire($navigation);
+        if ($files->exists($navigation = $addon->getPath('docs/docs.json'))) {
+            $navigation = json_decode($files->get($navigation), true);
         } else {
             return redirect()->back();
         }
@@ -92,18 +92,16 @@ class AddonsController extends AdminController
         if (!$path) {
 
             $categories = array_keys($navigation);
-            $default    = array_shift($navigation);
-            $sections   = array_keys(array_get($default, 'sections', []));
 
-            return redirect($request->path() . '/' . array_shift($categories) . '/' . array_shift($sections));
+            return redirect($request->path() . '/' . array_shift($categories));
         }
 
-        if ($files->exists($addon->getPath('documentation/' . $path . '.md'))) {
-            $content = $files->get($addon->getPath('documentation/' . $path . '.md'));
+        if ($files->exists($addon->getPath('docs/' . $path . '.md'))) {
+            $content = $files->get($addon->getPath('docs/' . $path . '.md'));
         }
 
         return view(
-            'module::admin/documentation/index',
+            'module::admin/docs/index',
             compact('addon', 'navigation', 'request', 'content')
         )->render();
     }

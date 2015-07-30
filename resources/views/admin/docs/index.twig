@@ -1,0 +1,15 @@
+{% extends "theme::layouts/default" %}
+
+{% block content %}
+    <div class="inner">
+        <div class="container-fluid">
+
+            <div class="panel">
+                <div class="panel-body">
+                    {{ content|markdown }}
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
