@@ -31,7 +31,7 @@ class AddonsController extends AdminController
     public function view(BreadcrumbCollection $breadcrumbs, Request $request, AddonCollection $addons, $type, $addon)
     {
         /* @var Addon $addon */
-        $addon = $addons->merged()->get($addon);
+        $addon = $addons->get($addon);
 
         $breadcrumbs->put($addon->getTitle(), '#');
 
@@ -71,7 +71,7 @@ class AddonsController extends AdminController
         $path = null
     ) {
         /* @var Addon $addon */
-        $addon = $addons->merged()->get($addon);
+        $addon = $addons->get($addon);
 
         $breadcrumbs->put(
             $addon->getTitle(),
