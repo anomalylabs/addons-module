@@ -1,0 +1,11 @@
+<h3 class="lead">
+    {{ trans('module::label.authors') }}
+</h3>
+
+{% for author in json.authors %}
+    <dl>
+        <dt>{{ author.name }} <span class="text-muted">({{ author.role }})</span></dt>
+        <dd><a href="{{ author.homepage }}" target="_blank">{{ author.homepage }}</a></dd>
+        <dd>{{ html_mailto(author.email) }}</dd>
+    </dl>
+{% endfor %}

@@ -1,0 +1,14 @@
+<div class="modal-header">
+    <button class="close" data-dismiss="modal">
+        <span>&times;</span>
+    </button>
+    <h4 class="modal-title">{{ trans(addon.name) }}</h4>
+</div>
+
+<div class="modal-body">
+    {% include "module::ajax/partials/details" %}
+    <hr>
+    {% include "module::ajax/partials/authors" %}
+    <hr>
+    {% include "module::ajax/partials/support" %}
+</div>

@@ -28,20 +28,10 @@ class AddonsModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $routes = [
-        'admin/addons'                             => 'Anomaly\AddonsModule\Http\Controller\Admin\ModulesController@redirect',
-        'admin/addons/modules'                     => 'Anomaly\AddonsModule\Http\Controller\Admin\ModulesController@index',
-        'admin/addons/themes'                      => 'Anomaly\AddonsModule\Http\Controller\Admin\ThemesController@index',
-        'admin/addons/themes/activate/{theme}'     => 'Anomaly\AddonsModule\Http\Controller\Admin\ThemesController@activate',
-        'admin/addons/plugins'                     => 'Anomaly\AddonsModule\Http\Controller\Admin\PluginsController@index',
-        'admin/addons/extensions'                  => 'Anomaly\AddonsModule\Http\Controller\Admin\ExtensionsController@index',
-        'admin/addons/field_types'                 => 'Anomaly\AddonsModule\Http\Controller\Admin\FieldTypesController@index',
-        'admin/addons/{type}/view/{addon}'         => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@view',
-        'admin/addons/{type}/docs/{addon}/{path?}' => [
-            'uses'        => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@docs',
-            'constraints' => [
-                'path' => '(.*)'
-            ]
-        ],
+        'admin/addons/{type?}'           => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@index',
+        'admin/addons/details/{type?}'   => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@details',
+        'admin/addons/install/{type?}'   => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@install',
+        'admin/addons/uninstall/{type?}' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@uninstall'
     ];
 
 }
