@@ -14,15 +14,6 @@ class AddonsModuleServiceProvider extends AddonServiceProvider
 {
 
     /**
-     * The addon plugins.
-     *
-     * @var array
-     */
-    protected $plugins = [
-        'Anomaly\AddonsModule\AddonsModulePlugin'
-    ];
-
-    /**
      * The addon routes.
      *
      * @var array
