@@ -26,6 +26,7 @@ class AddonTableButtons implements SelfHandling
         $builder->setButtons(
             [
                 'install'   => [
+                    'href'    => 'admin/addons/install/{entry.namespace}',
                     'enabled' => function (Addon $entry) {
 
                         if (!$entry instanceof Module && !$entry instanceof Extension) {
@@ -36,6 +37,7 @@ class AddonTableButtons implements SelfHandling
                     }
                 ],
                 'uninstall' => [
+                    'href'    => 'admin/addons/uninstall/{entry.namespace}',
                     'enabled' => function (Addon $entry) {
 
                         if (!$entry instanceof Module && !$entry instanceof Extension) {
