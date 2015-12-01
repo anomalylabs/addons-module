@@ -2,35 +2,44 @@
 
 return [
     'modules'     => [
-        'title'     => 'Modules',
-        'read'      => 'Can read modules?',
-        'install'   => 'Can install modules?',
-        'uninstall' => 'Can uninstall modules?',
-        'disable'   => 'Can disable modules?',
-        'delete'    => 'Can delete modules?'
+        'name'     => 'Modules',
+        'option' => [
+            'read'      => 'Can read modules?',
+            'install'   => 'Can install modules?',
+            'uninstall' => 'Can uninstall modules?',
+            'disable'   => 'Can disable modules?',
+            'delete'    => 'Can delete modules?'
+        ],
     ],
     'themes'      => [
-        'title'  => 'Themes',
-        'read'   => 'Can read themes?',
-        'delete' => 'Can delete themes'
+        'name'  => 'Themes',
+        'option' => [
+            'read'   => 'Can read themes?',
+            'delete' => 'Can delete themes'
+        ]
     ],
     'plugins'     => [
-        'title'  => 'Plugins',
-        'read'   => 'Can read plugins',
-        'delete' => 'Can delete plugins'
+        'name'  => 'Plugins',
+        'option' => [
+            'read'   => 'Can read plugins',
+            'delete' => 'Can delete plugins'
+        ]
     ],
     'extensions'  => [
-        'title'     => 'Extensions',
-        'read'      => 'Can read extensions?',
-        'install'   => 'Can install extensions?',
-        'uninstall' => 'Can uninstall extensions?',
-        'disable'   => 'Can disable extensions?',
-        'delete'    => 'Can delete extensions?'
+        'name'     => 'Extensions',
+        'option' => [
+            'read'      => 'Can read extensions?',
+            'install'   => 'Can install extensions?',
+            'uninstall' => 'Can uninstall extensions?',
+            'disable'   => 'Can disable extensions?',
+            'delete'    => 'Can delete extensions?'
+        ]
     ],
     'field_types' => [
-        'title'  => 'Field Types',
-        'read'   => 'Can read field types?',
-        'delete' => 'Can delete field types?'
+        'name'  => 'Field Types',
+        'option' => [
+            'read'   => 'Can read field types?',
+            'delete' => 'Can delete field types?'
+        ]
     ]
 ];
-
