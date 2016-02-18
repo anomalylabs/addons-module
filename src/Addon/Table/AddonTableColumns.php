@@ -24,11 +24,7 @@ class AddonTableColumns implements SelfHandling
             [
                 [
                     'heading' => 'module::field.name.name',
-                    'wrapper' => '<a href="/admin/addons/details/{value.addon}" data-toggle="modal" data-target="#modal">{value.title}</a>',
-                    'value'   => [
-                        'title' => 'entry.title',
-                        'addon' => 'entry.namespace'
-                    ]
+                    'value'   => 'entry.title'
                 ],
                 [
                     'heading' => 'module::field.description.name',

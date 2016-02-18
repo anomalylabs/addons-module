@@ -25,6 +25,11 @@ class AddonTableButtons implements SelfHandling
     {
         $builder->setButtons(
             [
+                'info'      => [
+                    'data-toggle' => 'modal',
+                    'data-target' => '#modal',
+                    'href'        => 'admin/addons/details/{entry.namespace}'
+                ],
                 'install'   => [
                     'href'    => 'admin/addons/install/{entry.namespace}',
                     'enabled' => function (Addon $entry) {
