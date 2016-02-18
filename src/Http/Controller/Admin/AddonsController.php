@@ -14,9 +14,9 @@ use Illuminate\Http\Request;
 /**
  * Class AddonsController
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\AddonsModule\Http\Controller\Admin
  */
 class AddonsController extends AdminController
