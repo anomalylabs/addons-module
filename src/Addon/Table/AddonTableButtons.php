@@ -25,12 +25,12 @@ class AddonTableButtons implements SelfHandling
     {
         $builder->setButtons(
             [
-                'info'      => [
+                'information' => [
                     'data-toggle' => 'modal',
                     'data-target' => '#modal',
                     'href'        => 'admin/addons/details/{entry.namespace}'
                 ],
-                'install'   => [
+                'install'     => [
                     'href'    => 'admin/addons/install/{entry.namespace}',
                     'enabled' => function (Addon $entry) {
 
@@ -41,7 +41,7 @@ class AddonTableButtons implements SelfHandling
                         return !$entry->isInstalled();
                     }
                 ],
-                'uninstall' => [
+                'uninstall'   => [
                     'href'    => 'admin/addons/uninstall/{entry.namespace}',
                     'enabled' => function (Addon $entry) {
 
