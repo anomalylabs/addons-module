@@ -26,7 +26,7 @@ class AddonsController extends AdminController
      * Return an index of existing entries.
      *
      * @param AddonTableBuilder $builder
-     * @param string $type
+     * @param string            $type
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(AddonTableBuilder $builder, $type = 'modules')
@@ -57,7 +57,7 @@ class AddonsController extends AdminController
      * Ask the user for any options when installing the addon.
      *
      * @param AddonCollection $addons
-     * @param $addon
+     * @param                 $addon
      * @return mixed|null|string
      */
     public function installOptions(AddonCollection $addons, $namespace)
@@ -73,8 +73,8 @@ class AddonsController extends AdminController
     /**
      * Install an addon.
      *
-     * @param AddonCollection $addons
-     * @param ModuleManager $modules
+     * @param AddonCollection  $addons
+     * @param ModuleManager    $modules
      * @param ExtensionManager $extensions
      * @param                  $addon
      * @return \Illuminate\Http\RedirectResponse
@@ -100,8 +100,8 @@ class AddonsController extends AdminController
     /**
      * Uninstall an addon.
      *
-     * @param AddonCollection $addons
-     * @param ModuleManager $modules
+     * @param AddonCollection  $addons
+     * @param ModuleManager    $modules
      * @param ExtensionManager $extensions
      * @param                  $addon
      * @return \Illuminate\Http\RedirectResponse
