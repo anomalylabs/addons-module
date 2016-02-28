@@ -26,7 +26,7 @@ class AddonsController extends AdminController
      * Return an index of existing entries.
      *
      * @param AddonTableBuilder $builder
-     * @param string            $type
+     * @param string $type
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(AddonTableBuilder $builder, $type = 'modules')
@@ -41,6 +41,7 @@ class AddonsController extends AdminController
      *
      * @param AddonCollection $addons
      * @param                 $addon
+     * @return mixed|null|string
      */
     public function details(AddonCollection $addons, $addon)
     {
@@ -53,21 +54,40 @@ class AddonsController extends AdminController
     }
 
     /**
+     * Ask the user for any options when installing the addon.
+     *
+     * @param AddonCollection $addons
+     * @param $addon
+     * @return mixed|null|string
+     */
+    public function installOptions(AddonCollection $addons, $namespace)
+    {
+        /* @var Addon $addon */
+        $addon = $addons->get($namespace);
+
+        $json = $addon->getComposerJson();
+
+        return view('module::ajax/install', compact('json', 'addon', 'namespace'))->render();
+    }
+
+    /**
      * Install an addon.
      *
-     * @param AddonCollection  $addons
-     * @param ModuleManager    $modules
+     * @param AddonCollection $addons
+     * @param ModuleManager $modules
      * @param ExtensionManager $extensions
      * @param                  $addon
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function install(AddonCollection $addons, ModuleManager $modules, ExtensionManager $extensions, $addon)
+    public function install(Request $request, AddonCollection $addons, ModuleManager $modules, ExtensionManager $extensions, $addon)
     {
+        $seed = filter_var($request->input('seed'), FILTER_VALIDATE_BOOLEAN);
+
         /* @var Addon $addon */
         $addon = $addons->get($addon);
 
         if ($addon instanceof Module) {
-            $modules->install($addon);
+            $modules->install($addon, $seed);
         } elseif ($addon instanceof Extension) {
             $extensions->install($addon);
         }
@@ -80,8 +100,8 @@ class AddonsController extends AdminController
     /**
      * Uninstall an addon.
      *
-     * @param AddonCollection  $addons
-     * @param ModuleManager    $modules
+     * @param AddonCollection $addons
+     * @param ModuleManager $modules
      * @param ExtensionManager $extensions
      * @param                  $addon
      * @return \Illuminate\Http\RedirectResponse

@@ -31,7 +31,9 @@ class AddonTableButtons implements SelfHandling
                     'href'        => 'admin/addons/details/{entry.namespace}'
                 ],
                 'install'     => [
-                    'href'    => 'admin/addons/install/{entry.namespace}',
+                    'data-toggle' => 'modal',
+                    'data-target' => '#modal',
+                    'href'    => 'admin/addons/install/{entry.namespace}/options',
                     'enabled' => function (Addon $entry) {
 
                         if (!$entry instanceof Module && !$entry instanceof Extension) {
