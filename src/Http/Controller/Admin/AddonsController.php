@@ -54,42 +54,45 @@ class AddonsController extends AdminController
     }
 
     /**
-     * Ask the user for any options when installing the addon.
+     * Return the modal form for the seed
+     * option when installing modules.
      *
      * @param AddonCollection $addons
-     * @param                 $addon
-     * @return mixed|null|string
+     * @param                 $namespace
+     * @return
      */
-    public function installOptions(AddonCollection $addons, $namespace)
+    public function options(AddonCollection $addons, $namespace)
     {
         /* @var Addon $addon */
         $addon = $addons->get($namespace);
 
-        $json = $addon->getComposerJson();
-
-        return view('module::ajax/install', compact('json', 'addon', 'namespace'))->render();
+        return $this->view->make('module::ajax/install', compact('addon', 'namespace'));
     }
 
     /**
      * Install an addon.
      *
-     * @param AddonCollection  $addons
+     * @param Request          $request
      * @param ModuleManager    $modules
+     * @param AddonCollection  $addons
      * @param ExtensionManager $extensions
      * @param                  $addon
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function install(Request $request, AddonCollection $addons, ModuleManager $modules, ExtensionManager $extensions, $addon)
-    {
-        $seed = filter_var($request->input('seed'), FILTER_VALIDATE_BOOLEAN);
-
-        /* @var Addon $addon */
+    public function install(
+        Request $request,
+        ModuleManager $modules,
+        AddonCollection $addons,
+        ExtensionManager $extensions,
+        $addon
+    ) {
+        /* @var Addon|Module|Extension $addon */
         $addon = $addons->get($addon);
 
         if ($addon instanceof Module) {
-            $modules->install($addon, $seed);
+            $modules->install($addon, filter_var($request->input('seed'), FILTER_VALIDATE_BOOLEAN));
         } elseif ($addon instanceof Extension) {
-            $extensions->install($addon);
+            $extensions->install($addon, filter_var($request->input('seed'), FILTER_VALIDATE_BOOLEAN));
         }
 
         $this->messages->success('module::message.install_addon_success');
@@ -108,7 +111,7 @@ class AddonsController extends AdminController
      */
     public function uninstall(AddonCollection $addons, ModuleManager $modules, ExtensionManager $extensions, $addon)
     {
-        /* @var Addon $addon */
+        /* @var Addon|Module|Extension $addon */
         $addon = $addons->get($addon);
 
         if ($addon instanceof Module) {
