@@ -1,13 +1,14 @@
 <?php
 
 return [
-    'name'        => 'Addons',
-    'description' => 'Module de gestion des addons de la plate-forme',
+    'title'       => 'Addons',
+    'name'        => 'Module Addons',
+    'description' => 'Gestion des addons, modules, plugins, extensions, types de champs...',
     'section'     => [
         'plugins'     => 'Plugins',
         'themes'      => 'Thèmes',
         'modules'     => 'Modules',
         'extensions'  => 'Extensions',
         'field_types' => 'Types de champs'
-    ],
+    ]
 ];

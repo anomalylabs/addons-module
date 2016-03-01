@@ -4,5 +4,6 @@ return [
     'enable'    => 'Activer',
     'disable'   => 'Désactiver',
     'install'   => 'Installer',
-    'uninstall' => 'Désinstaller'
+    'uninstall' => 'Désinstaller',
+    'activate'  => 'Activer'
 ];
