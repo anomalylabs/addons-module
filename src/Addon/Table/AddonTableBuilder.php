@@ -1,47 +1,45 @@
 <?php namespace Anomaly\AddonsModule\Addon\Table;
 
-use Anomaly\Streams\Platform\Addon\AddonCollection;
-use Anomaly\Streams\Platform\Ui\Table\Table;
 use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
 
 /**
  * Class AddonTableBuilder
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\AddonsModule\Addon\Table
  */
 class AddonTableBuilder extends TableBuilder
 {
 
     /**
-     * The addon collection.
+     * The addon type to list.
      *
-     * @var AddonCollection
+     * @var null|string
      */
-    protected $addons;
+    protected $type = null;
 
     /**
-     * Create a new AddonTableBuilder instance.
+     * Get the type.
      *
-     * @param Table           $table
-     * @param AddonCollection $addons
+     * @return null|string
      */
-    public function __construct(Table $table, AddonCollection $addons)
+    public function getType()
     {
-        $this->addons = $addons;
-
-        parent::__construct($table);
+        return $this->type;
     }
 
     /**
-     * Fire before building the table.
+     * Set the type.
+     *
+     * @param $type
+     * @return $this
      */
-    public function onReady()
+    public function setType($type)
     {
-        $this->table->setEntries(
-            $this->addons->{$this->getOption('addon_type')}()
-        );
+        $this->type = $type;
+
+        return $this;
     }
 }

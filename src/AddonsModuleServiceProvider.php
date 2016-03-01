@@ -5,22 +5,13 @@ use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
 /**
  * Class AddonsModuleServiceProvider
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\AddonsModule
  */
 class AddonsModuleServiceProvider extends AddonServiceProvider
 {
-
-    /**
-     * The addon plugins.
-     *
-     * @var array
-     */
-    protected $plugins = [
-        'Anomaly\AddonsModule\AddonsModulePlugin'
-    ];
 
     /**
      * The addon routes.
@@ -28,13 +19,11 @@ class AddonsModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $routes = [
-        'admin/addons/{type?}'                  => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@index',
-        'admin/addons/{type}/{addon}'           => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@show',
-        'admin/addons/{type}/enable/{addon}'    => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@enable',
-        'admin/addons/{type}/disable/{addon}'   => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@disable',
-        'admin/addons/{type}/install/{addon}'   => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@install',
-        'admin/addons/{type}/uninstall/{addon}' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@uninstall',
-        'admin/addons/{type}/delete/{addon}'    => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@delete'
+        'admin/addons/{type?}'           => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@index',
+        'admin/addons/details/{type?}'   => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@details',
+        'admin/addons/install/{type?}'   => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@install',
+        'admin/addons/options/{type?}'   => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@options',
+        'admin/addons/uninstall/{type?}' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@uninstall'
     ];
 
 }

@@ -1,0 +1,47 @@
+<h3 class="lead">
+    {{ trans('module::label.support') }}
+</h3>
+
+<ul class="list-unstyled">
+
+    {% if json.support.email %}
+        <li>{{ html_mailto(json.support.email, trans('module::label.support_email')) }}</li>
+    {% endif %}
+
+    {% if json.support.issues %}
+        <li>
+            <a href="{{ json.support.issues }}" target="_blank">
+                {{ trans('module::label.known_issues') }}
+            </a>
+        </li>
+    {% endif %}
+
+    {% if json.support.forum %}
+        <li>
+            <a href="{{ json.support.forum }}" target="_blank">
+                {{ trans('module::label.support_forum') }}
+            </a>
+        </li>
+    {% endif %}
+
+    {% if json.support.wiki %}
+        <li>
+            <a href="{{ json.support.wiki }}" target="_blank">
+                {{ trans('module::label.project_wiki') }}
+            </a>
+        </li>
+    {% endif %}
+
+    {% if json.support.irc %}
+        <li>
+            <a href="{{ json.support.irc }}" target="_blank">
+                {{ trans('module::label.irc_channel') }}
+            </a>
+        </li>
+    {% endif %}
+
+    {% if json.support.source %}
+        <li><a href="{{ json.support.source }}" target="_blank">Source Code</a></li>
+    {% endif %}
+
+</ul>

@@ -1,14 +1,14 @@
 <?php
 
 return [
-    'name'        => 'Addons',
-    'description' => 'Addon information and management utilities.',
+    'title'       => 'Addons',
+    'name'        => 'Addons Module',
+    'description' => 'Addon information and management.',
     'section'     => [
         'plugins'     => 'Plugins',
-        'blocks'      => 'Blocks',
         'themes'      => 'Themes',
         'modules'     => 'Modules',
         'extensions'  => 'Extensions',
         'field_types' => 'Field Types'
-    ],
+    ]
 ];
