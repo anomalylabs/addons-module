@@ -5,20 +5,20 @@
         <span>&times;</span>
     </button>
     <h4 class="modal-title">
-        {{ trans("anomaly.module.addons::button.install") }}: {{ trans(addon.name) }}
+        {{ trans("anomaly.module.addons::button.install") }}: {{ trans(addon.name)|raw }}
     </h4>
 </div>
 
 <div class="modal-body">
 
     <label class="control-label">
-        {{ trans('anomaly.module.addons::field.seed.label') }}
+        {{ trans('anomaly.module.addons::field.seed.label')|raw }}
     </label>
 
-    <p class="text-muted">{{ trans('anomaly.module.addons::field.seed.instructions') }}</p>
+    <p class="text-muted">{{ trans('anomaly.module.addons::field.seed.instructions')|raw }}</p>
 
     <label>
-        <input type="checkbox" name="seed" value="yes" checked> {{ trans('anomaly.module.addons::field.seed.option') }}
+        <input type="checkbox" name="seed" value="yes" checked> {{ trans('anomaly.module.addons::field.seed.option')|raw }}
     </label>
 </div>
 
