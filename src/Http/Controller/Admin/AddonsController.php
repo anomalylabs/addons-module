@@ -17,7 +17,6 @@ use Illuminate\Http\Request;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\AddonsModule\Http\Controller\Admin
  */
 class AddonsController extends AdminController
 {
@@ -25,8 +24,8 @@ class AddonsController extends AdminController
     /**
      * Return an index of existing entries.
      *
-     * @param AddonTableBuilder $builder
-     * @param string            $type
+     * @param  AddonTableBuilder                          $builder
+     * @param  string                                     $type
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(AddonTableBuilder $builder, $type = 'modules')
@@ -39,8 +38,8 @@ class AddonsController extends AdminController
     /**
      * Return the details for an addon.
      *
-     * @param AddonCollection $addons
-     * @param                 $addon
+     * @param  AddonCollection   $addons
+     * @param                    $addon
      * @return mixed|null|string
      */
     public function details(AddonCollection $addons, $addon)
@@ -72,11 +71,11 @@ class AddonsController extends AdminController
     /**
      * Install an addon.
      *
-     * @param Request          $request
-     * @param ModuleManager    $modules
-     * @param AddonCollection  $addons
-     * @param ExtensionManager $extensions
-     * @param                  $addon
+     * @param  Request                           $request
+     * @param  ModuleManager                     $modules
+     * @param  AddonCollection                   $addons
+     * @param  ExtensionManager                  $extensions
+     * @param                                    $addon
      * @return \Illuminate\Http\RedirectResponse
      */
     public function install(
@@ -103,10 +102,10 @@ class AddonsController extends AdminController
     /**
      * Uninstall an addon.
      *
-     * @param AddonCollection  $addons
-     * @param ModuleManager    $modules
-     * @param ExtensionManager $extensions
-     * @param                  $addon
+     * @param  AddonCollection                   $addons
+     * @param  ModuleManager                     $modules
+     * @param  ExtensionManager                  $extensions
+     * @param                                    $addon
      * @return \Illuminate\Http\RedirectResponse
      */
     public function uninstall(AddonCollection $addons, ModuleManager $modules, ExtensionManager $extensions, $addon)

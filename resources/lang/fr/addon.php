@@ -9,6 +9,6 @@ return [
         'themes'      => 'Thèmes',
         'modules'     => 'Modules',
         'extensions'  => 'Extensions',
-        'field_types' => 'Types de champs'
-    ]
+        'field_types' => 'Types de champs',
+    ],
 ];

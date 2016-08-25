@@ -2,21 +2,21 @@
 
 return [
     'name'        => [
-        'name' => 'Namn'
+        'name' => 'Namn',
     ],
     'state'       => [
-        'name' => 'Tillstånd'
+        'name' => 'Tillstånd',
     ],
     'type'        => [
-        'name' => 'Typ'
+        'name' => 'Typ',
     ],
     'status'      => [
-        'name' => 'Status'
+        'name' => 'Status',
     ],
     'location'    => [
-        'name' => 'Plats'
+        'name' => 'Plats',
     ],
     'description' => [
-        'name' => 'Beskrivning'
-    ]
+        'name' => 'Beskrivning',
+    ],
 ];

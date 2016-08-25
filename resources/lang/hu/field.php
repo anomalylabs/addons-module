@@ -20,8 +20,8 @@ return [
         'name' => 'Leírás',
     ],
     'seed' => [
-        'label' => 'Feltöltsük adattal a kiegészítőt a telepítés alatt?',
+        'label'    => 'Feltöltsük adattal a kiegészítőt a telepítés alatt?',
     'instructions' => 'Töltsük fel adattal segítségnek / bemutatásnak.',
-    'option' => 'Igen, töltsük fel adattal a telepítés alatt.',
+    'option'       => 'Igen, töltsük fel adattal a telepítés alatt.',
     ],
 ];

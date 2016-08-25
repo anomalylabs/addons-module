@@ -2,21 +2,21 @@
 
 return [
     'name'        => [
-        'name' => 'Name'
+        'name' => 'Name',
     ],
     'state'       => [
-        'name' => 'Zustand' // @todo: check this
+        'name' => 'Zustand', // @todo: check this
     ],
     'type'        => [
-        'name' => 'Typ'
+        'name' => 'Typ',
     ],
     'status'      => [
-        'name' => 'Status'
+        'name' => 'Status',
     ],
     'location'    => [
-        'name' => 'Standort' // @todo: check this
+        'name' => 'Standort', // @todo: check this
     ],
     'description' => [
-        'name' => 'Beschreibung'
-    ]
+        'name' => 'Beschreibung',
+    ],
 ];

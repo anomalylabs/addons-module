@@ -8,7 +8,6 @@ use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\AddonsModule
  */
 class AddonsModuleServiceProvider extends AddonServiceProvider
 {
@@ -23,7 +22,7 @@ class AddonsModuleServiceProvider extends AddonServiceProvider
         'admin/addons/details/{type?}'   => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@details',
         'admin/addons/install/{type?}'   => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@install',
         'admin/addons/options/{type?}'   => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@options',
-        'admin/addons/uninstall/{type?}' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@uninstall'
+        'admin/addons/uninstall/{type?}' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@uninstall',
     ];
 
 }

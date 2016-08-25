@@ -15,5 +15,5 @@ return [
     'project_wiki'  => 'Project Wiki',
     'not_installed' => 'Not Installed',
     'support_email' => 'Support Email',
-    'support_forum' => 'Support Forum'
+    'support_forum' => 'Support Forum',
 ];

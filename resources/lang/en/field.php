@@ -2,26 +2,26 @@
 
 return [
     'name'        => [
-        'name' => 'Name'
+        'name' => 'Name',
     ],
     'state'       => [
-        'name' => 'State'
+        'name' => 'State',
     ],
     'type'        => [
-        'name' => 'Type'
+        'name' => 'Type',
     ],
     'status'      => [
-        'name' => 'Status'
+        'name' => 'Status',
     ],
     'location'    => [
-        'name' => 'Location'
+        'name' => 'Location',
     ],
     'description' => [
-        'name' => 'Description'
+        'name' => 'Description',
     ],
     'seed'        => [
         'label'        => 'Seed addon when installing?',
         'instructions' => 'Seed data helps setup / demonstrate the addon.',
-        'option'       => 'Yes, include seed data when installing.'
-    ]
+        'option'       => 'Yes, include seed data when installing.',
+    ],
 ];

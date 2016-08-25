@@ -1,6 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Addon\Table;
 
-use Illuminate\Contracts\Bus\SelfHandling;
+
 
 /**
  * Class AddonTableColumns
@@ -8,9 +8,8 @@ use Illuminate\Contracts\Bus\SelfHandling;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\AddonsModule\Addon\Table
  */
-class AddonTableColumns implements SelfHandling
+class AddonTableColumns
 {
 
     /**
@@ -24,12 +23,12 @@ class AddonTableColumns implements SelfHandling
             [
                 [
                     'heading' => 'module::field.name.name',
-                    'value'   => 'entry.title'
+                    'value'   => 'entry.title',
                 ],
                 [
                     'heading' => 'module::field.description.name',
-                    'value'   => 'entry.description'
-                ]
+                    'value'   => 'entry.description',
+                ],
             ]
         );
     }

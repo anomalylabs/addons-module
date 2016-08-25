@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'documentation' => '文件'
+    'documentation' => '文件',
 ];

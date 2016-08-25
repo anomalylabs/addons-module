@@ -10,5 +10,5 @@ return [
     'enable_extension_success'    => '這個 :extension 程式擴充 已啟用。',
     'disable_extension_success'   => '這個 :extension 程式擴充 已禁用。',
     'addon_delete_success'        => '這個 :addon 附加模組已經從伺服器中刪除了。',
-    'addon_delete_error'          => '這個 :addon 無法從伺服器中刪除。'
+    'addon_delete_error'          => '這個 :addon 無法從伺服器中刪除。',
 ];

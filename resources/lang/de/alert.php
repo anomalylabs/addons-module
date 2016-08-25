@@ -10,5 +10,5 @@ return [
     'enable_extension_success'    => 'Die Erweiterung :extension wurde aktiviert!',
     'disable_extension_success'   => 'Die Erweiterung :extension wurde deaktiviert!',
     'addon_delete_success'        => 'Das Addon :addon wurde von Ihrem Server gelöscht!',
-    'addon_delete_error'          => 'Das Addon :addon konnte NICHT von Ihrem Server gelöscht werden!'
+    'addon_delete_error'          => 'Das Addon :addon konnte NICHT von Ihrem Server gelöscht werden!',
 ];

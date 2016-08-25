@@ -8,6 +8,6 @@ return [
         'themes'      => 'Plantillas',
         'modules'     => 'Módulos',
         'extensions'  => 'Extensiones',
-        'field_types' => 'Tipos de Campo'
+        'field_types' => 'Tipos de Campo',
     ],
 ];

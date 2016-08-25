@@ -11,5 +11,5 @@ return [
     'disable_extensions'   => ':count tillägg disabled!',
     'activate_theme'       => 'Temat :title aktiverades!',
     'delete_themes'        => ':count tema(n) togs bort!',
-    'delete_plugins'       => ':count plugin(s) togs bort!'
+    'delete_plugins'       => ':count plugin(s) togs bort!',
 ];

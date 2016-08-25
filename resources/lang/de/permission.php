@@ -3,43 +3,43 @@
 return [
     'modules'     => [
         'name'     => 'Module',
-        'option' => [
+        'option'   => [
             'read'      => 'Kann Module einsehen?',
             'install'   => 'Kann Module installieren?',
             'uninstall' => 'Kann Module deinstallieren?',
             'disable'   => 'Kann Module deaktivieren?',
-            'delete'    => 'Kann Module löschen?'
-        ]
+            'delete'    => 'Kann Module löschen?',
+        ],
     ],
     'themes'      => [
-        'name'  => 'Themes',
+        'name'   => 'Themes',
         'option' => [
             'read'   => 'Kann Themes einsehen?',
-            'delete' => 'Kann Themes löschen?'
-        ]
+            'delete' => 'Kann Themes löschen?',
+        ],
     ],
     'plugins'     => [
-        'name'  => 'Plugins',
+        'name'   => 'Plugins',
         'option' => [
             'read'   => 'Kann Plugins einsehen?',
-            'delete' => 'Kann Plugins löschen?'
-        ]
+            'delete' => 'Kann Plugins löschen?',
+        ],
     ],
     'extensions'  => [
         'name'     => 'Erweiterungen',
-        'option' => [
+        'option'   => [
             'read'      => 'Kann Erweiterungen einsehen?',
             'install'   => 'Kann Erweiterungen installieren?',
             'uninstall' => 'Kann Erweiterungen deinstallieren?',
             'disable'   => 'Kann Erweiterungen deaktivieren?',
-            'delete'    => 'Kann Erweiterungen löschen?'
-        ]
+            'delete'    => 'Kann Erweiterungen löschen?',
+        ],
     ],
     'field_types' => [
-        'name'  => 'Feldtypen',
+        'name'   => 'Feldtypen',
         'option' => [
             'read'   => 'Kann Feldtypen einsehen?',
-            'delete' => 'Kann Feldtypen löschen?'
-        ]
-    ]
+            'delete' => 'Kann Feldtypen löschen?',
+        ],
+    ],
 ];

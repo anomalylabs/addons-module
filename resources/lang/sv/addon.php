@@ -9,6 +9,6 @@ return [
         'themes'      => 'Teman',
         'modules'     => 'Moduler',
         'extensions'  => 'Tillägg',
-        'field_types' => 'Fälttyper'
-    ]
+        'field_types' => 'Fälttyper',
+    ],
 ];

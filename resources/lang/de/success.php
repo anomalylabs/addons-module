@@ -11,5 +11,5 @@ return [
     'disable_extensions'   => ':count Erweiterung(en) wurden erfolgreich deaktiviert!',
     'activate_theme'       => 'Theme :title wurde erfolgreich aktiviert!',
     'delete_themes'        => ':count Themes wurden erfolgreich gelöscht!',
-    'delete_plugins'       => ':count Plugins wurden erfolgreich gelöscht!'
+    'delete_plugins'       => ':count Plugins wurden erfolgreich gelöscht!',
 ];

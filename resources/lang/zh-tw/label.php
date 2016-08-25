@@ -15,5 +15,5 @@ return [
     'project_wiki'  => '專案 Wiki',
     'not_installed' => '尚未安裝',
     'support_email' => '支援信箱',
-    'support_forum' => '支援論壇'
+    'support_forum' => '支援論壇',
 ];

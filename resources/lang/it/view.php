@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'disabled' => 'Disabilitato',
+    'disabled'    => 'Disabilitato',
     'uninstalled' => 'Disinstallato',
-    'admin' => 'Admin',
-    'public' => 'Pubblico',
+    'admin'       => 'Admin',
+    'public'      => 'Pubblico',
 ];

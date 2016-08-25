@@ -9,6 +9,6 @@ return [
         'themes'      => '主題模板',
         'modules'     => '程式模組',
         'extensions'  => '程式擴充',
-        'field_types' => '欄位型別'
-    ]
+        'field_types' => '欄位型別',
+    ],
 ];

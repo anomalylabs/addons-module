@@ -10,5 +10,5 @@ return [
     'enable_extension_success'    => 'Tillägget :extension aktiverades!',
     'disable_extension_success'   => 'Tillägget :extension inaktiverades!',
     'addon_delete_success'        => 'Tillägget :addon har tagits bort från din server!',
-    'addon_delete_error'          => 'Tillägget :addon har INTE tagits bort från din server!'
+    'addon_delete_error'          => 'Tillägget :addon har INTE tagits bort från din server!',
 ];

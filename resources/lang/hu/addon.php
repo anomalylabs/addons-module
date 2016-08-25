@@ -1,14 +1,14 @@
 <?php
 
 return [
-    'title' => 'Kiegészítők',
-    'name' => 'Kiegészítő Modulok',
+    'title'       => 'Kiegészítők',
+    'name'        => 'Kiegészítő Modulok',
     'description' => 'Kiegészítő információk és kezelés.',
-    'section' => [
+    'section'     => [
         'plugins' => 'Beépülők',
-    'themes' => 'Témák',
-    'modules' => 'Modulok',
-    'extensions' => 'Kiterjesztések',
+    'themes'      => 'Témák',
+    'modules'     => 'Modulok',
+    'extensions'  => 'Kiterjesztések',
     'field_types' => 'Mező Típusok',
     ],
 ];

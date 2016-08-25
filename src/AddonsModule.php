@@ -8,7 +8,6 @@ use Anomaly\Streams\Platform\Addon\Module\Module;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\AddonsModule
  */
 class AddonsModule extends Module
 {
@@ -30,7 +29,7 @@ class AddonsModule extends Module
         'themes',
         'plugins',
         'extensions',
-        'field_types'
+        'field_types',
     ];
 
 }

@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'disabled' => 'Letiltva',
+    'disabled'    => 'Letiltva',
     'uninstalled' => 'Eltávolítva',
-    'admin' => 'Admin',
-    'public' => 'Publikus',
+    'admin'       => 'Admin',
+    'public'      => 'Publikus',
 ];

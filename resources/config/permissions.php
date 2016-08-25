@@ -6,25 +6,25 @@ return [
         'install',
         'uninstall',
         'disable',
-        'delete'
+        'delete',
     ],
     'themes'      => [
         'read',
-        'delete'
+        'delete',
     ],
     'plugins'     => [
         'read',
-        'delete'
+        'delete',
     ],
     'extensions'  => [
         'read',
         'install',
         'uninstall',
         'disable',
-        'delete'
+        'delete',
     ],
     'field_types' => [
         'read',
-        'delete'
-    ]
+        'delete',
+    ],
 ];

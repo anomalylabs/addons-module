@@ -2,26 +2,26 @@
 
 return [
     'name'        => [
-        'name' => 'Nom'
+        'name' => 'Nom',
     ],
     'state'       => [
-        'name' => 'Etat'
+        'name' => 'Etat',
     ],
     'type'        => [
-        'name' => 'Type'
+        'name' => 'Type',
     ],
     'status'      => [
-        'name' => 'Status'
+        'name' => 'Status',
     ],
     'location'    => [
-        'name' => 'Localisation'
+        'name' => 'Localisation',
     ],
     'description' => [
-        'name' => 'Description'
+        'name' => 'Description',
     ],
     'seed'        => [
         'label'        => 'Insérer les données par défaut à l\'installation ?',
         'instructions' => 'Les données par défaut permettent d\'aider à configurer l\'addon où à faire démonstration de ses fonctionnalité.',
-        'option'       => 'Oui, inclure les données par défaut à l\'installation.'
-    ]
+        'option'       => 'Oui, inclure les données par défaut à l\'installation.',
+    ],
 ];

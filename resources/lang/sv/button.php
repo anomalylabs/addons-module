@@ -5,5 +5,5 @@ return [
     'disable'   => 'Inaktivera',
     'install'   => 'Installera',
     'uninstall' => 'Avinstallera',
-    'activate'  => 'Aktivera'
+    'activate'  => 'Aktivera',
 ];

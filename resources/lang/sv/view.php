@@ -4,5 +4,5 @@ return [
     'disabled'    => 'Inaktiverad',
     'uninstalled' => 'Avinstallerad',
     'admin'       => 'Admin',
-    'public'      => 'Offentlig'
+    'public'      => 'Offentlig',
 ];

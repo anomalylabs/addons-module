@@ -3,43 +3,43 @@
 return [
     'modules' => [
         'name' => 'Moduli',
-    'option' => [
-        'read' => 'Può vedere i moduli?',
-    'install' => 'Può installare i moduli?',
+    'option'   => [
+        'read'  => 'Può vedere i moduli?',
+    'install'   => 'Può installare i moduli?',
     'uninstall' => 'Può disinstallare i moduli?',
-    'disable' => 'Può disabilitare i moduli?',
-    'delete' => 'Può eliminare i moduli?',
+    'disable'   => 'Può disabilitare i moduli?',
+    'delete'    => 'Può eliminare i moduli?',
     ],
     ],
     'themes' => [
         'name' => 'Temi',
-    'option' => [
+    'option'   => [
         'read' => 'Può vedere i temi?',
-    'delete' => 'Può eliminare i temi',
+    'delete'   => 'Può eliminare i temi',
     ],
     ],
     'plugins' => [
         'name' => 'Plugin',
-    'option' => [
+    'option'   => [
         'read' => 'Può vedere i plugin',
-    'delete' => 'Può cancellare i plugin',
+    'delete'   => 'Può cancellare i plugin',
     ],
     ],
     'extensions' => [
         'name' => 'Estensioni',
-    'option' => [
-        'read' => 'Può vedere le estensioni?',
-    'install' => 'Può installare le estensioni?',
+    'option'   => [
+        'read'  => 'Può vedere le estensioni?',
+    'install'   => 'Può installare le estensioni?',
     'uninstall' => 'Può disinstallare le estensioni?',
-    'disable' => 'Può disabilitare le estensioni?',
-    'delete' => 'Può eliminare le estensioni?',
+    'disable'   => 'Può disabilitare le estensioni?',
+    'delete'    => 'Può eliminare le estensioni?',
     ],
     ],
     'field_types' => [
         'name' => 'Field Types',
-    'option' => [
+    'option'   => [
         'read' => 'Può vedere i filed types?',
-    'delete' => 'Può cancellare i field types?',
+    'delete'   => 'Può cancellare i field types?',
     ],
     ],
 ];

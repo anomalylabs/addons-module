@@ -10,5 +10,5 @@ return [
     'enable_extension_success'    => "L'extension :extension a été activée !",
     'disable_extension_success'   => "L'extension :extension a été désactivée !",
     'addon_delete_success'        => "L'addon :addon a été supprimé de votre serveur !",
-    'addon_delete_error'          => "L'addon :addon n'a pas pu être supprimé de votre serveur !"
+    'addon_delete_error'          => "L'addon :addon n'a pas pu être supprimé de votre serveur !",
 ];

@@ -1,7 +1,7 @@
 <?php namespace Anomaly\AddonsModule\Addon\Table;
 
 use Anomaly\Streams\Platform\Addon\AddonCollection;
-use Illuminate\Contracts\Bus\SelfHandling;
+
 
 /**
  * Class AddonTableEntries
@@ -9,9 +9,8 @@ use Illuminate\Contracts\Bus\SelfHandling;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\AddonsModule\Addon\Table
  */
-class AddonTableEntries implements SelfHandling
+class AddonTableEntries
 {
 
     /**

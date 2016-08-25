@@ -3,7 +3,7 @@
 use Anomaly\Streams\Platform\Addon\Addon;
 use Anomaly\Streams\Platform\Addon\Extension\Extension;
 use Anomaly\Streams\Platform\Addon\Module\Module;
-use Illuminate\Contracts\Bus\SelfHandling;
+
 
 /**
  * Class AddonTableButtons
@@ -11,9 +11,8 @@ use Illuminate\Contracts\Bus\SelfHandling;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\AddonsModule\Addon\Table
  */
-class AddonTableButtons implements SelfHandling
+class AddonTableButtons
 {
 
     /**
@@ -28,7 +27,7 @@ class AddonTableButtons implements SelfHandling
                 'information' => [
                     'data-toggle' => 'modal',
                     'data-target' => '#modal',
-                    'href'        => 'admin/addons/details/{entry.namespace}'
+                    'href'        => 'admin/addons/details/{entry.namespace}',
                 ],
                 'install'     => [
                     'data-toggle' => 'modal',
@@ -41,7 +40,7 @@ class AddonTableButtons implements SelfHandling
                         }
 
                         return !$entry->isInstalled();
-                    }
+                    },
                 ],
                 'uninstall'   => [
                     'href'    => 'admin/addons/uninstall/{entry.namespace}',
@@ -52,8 +51,8 @@ class AddonTableButtons implements SelfHandling
                         }
 
                         return $entry->isInstalled();
-                    }
-                ]
+                    },
+                ],
             ]
         );
     }

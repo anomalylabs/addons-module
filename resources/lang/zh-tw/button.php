@@ -5,5 +5,5 @@ return [
     'disable'   => '禁用',
     'install'   => '安裝',
     'uninstall' => '移除',
-    'activate'  => '啟動'
+    'activate'  => '啟動',
 ];

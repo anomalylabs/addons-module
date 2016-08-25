@@ -5,5 +5,5 @@ return [
     'disable'   => 'Deaktivieren',
     'install'   => 'Installieren',
     'uninstall' => 'Deinstallieren',
-    'activate'  => 'Aktivieren'  // @todo: check this
+    'activate'  => 'Aktivieren',  // @todo: check this
 ];
