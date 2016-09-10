@@ -43,7 +43,9 @@ class AddonTableButtons
                     },
                 ],
                 'uninstall'   => [
+                    'icon'       => null,
                     'button'     => 'prompt',
+                    'text'       => 'anomaly.module.addons::button.uninstall',
                     'href'       => 'admin/addons/uninstall/{entry.namespace}',
                     'data-match' => function (Addon $entry) {
                         return $entry->getTitle();
