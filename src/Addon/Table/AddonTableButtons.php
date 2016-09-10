@@ -43,8 +43,12 @@ class AddonTableButtons
                     },
                 ],
                 'uninstall'   => [
-                    'href'    => 'admin/addons/uninstall/{entry.namespace}',
-                    'enabled' => function (Addon $entry) {
+                    'button'     => 'prompt',
+                    'href'       => 'admin/addons/uninstall/{entry.namespace}',
+                    'data-match' => function (Addon $entry) {
+                        return $entry->getTitle();
+                    },
+                    'enabled'    => function (Addon $entry) {
 
                         if (!$entry instanceof Module && !$entry instanceof Extension) {
                             return false;
