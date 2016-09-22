@@ -8,6 +8,9 @@
         <dd>{{ json.version }}</dd>
     {% endif %}
 
+    <dt>{{ trans('module::label.namespace') }}</dt>
+    <dd><pre>{{ addon.namespace }}</pre></dd>
+
     <dt>{{ trans('module::label.path') }}</dt>
     <dd>{{ addon.appPath }}</dd>
 

@@ -9,6 +9,7 @@ return [
     'support'       => 'Support',
     'version'       => 'Version',
     'standard'      => 'Standard',
+    'namespace'     => 'Namespace',
     'information'   => 'Information',
     'irc_channel'   => 'IRC Channel',
     'known_issues'  => 'Known Issues',
