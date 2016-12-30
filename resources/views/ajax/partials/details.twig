@@ -38,6 +38,8 @@
         <dd>
             {% if addon.active %}
                 <span class="label label-success">{{ trans('streams::addon.active') }}</span>
+            {% else %}
+                <span class="label label-success">{{ trans('streams::addon.inactive') }}</span>
             {% endif %}
         </dd>
     {% endif %}
