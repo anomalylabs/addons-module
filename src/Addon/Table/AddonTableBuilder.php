@@ -13,6 +13,16 @@ class AddonTableBuilder extends TableBuilder
 {
 
     /**
+     * Get views of table
+     *
+     * @var        array
+     */
+    protected $views = [
+        'local',
+        'github',
+    ];
+
+    /**
      * The addon type to list.
      *
      * @var null|string
