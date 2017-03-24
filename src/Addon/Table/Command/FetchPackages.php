@@ -1,30 +1,12 @@
 <?php namespace Anomaly\AddonsModule\Addon\Table\Command;
 
-use Anomaly\Streams\Platform\Addon\Addon;
 use GuzzleHttp\Client;
 
 /**
- * Class FetchAddons
+ * Class FetchPackages
  */
-class FetchAddons
+class FetchPackages
 {
-
-    /**
-     * Already loaded addons
-     *
-     * @var AddonCollection
-     */
-    protected $addons;
-
-    /**
-     * Create the FetchAddons instance
-     *
-     * @param Collection $addons The loaded addons
-     */
-    public function __construct($addons)
-    {
-        $this->addons = $addons;
-    }
 
     /**
      * Handle the command
