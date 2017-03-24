@@ -15,11 +15,13 @@ class AddonTableBuilder extends TableBuilder
     /**
      * Get views of table
      *
-     * @var        array
+     * @var array
      */
     protected $views = [
         'local',
-        'github',
+        'packages' => [
+            'handler' => 'Anomaly\AddonsModule\Addon\Table\View\PackageViewHandler@handle',
+        ],
     ];
 
     /**
