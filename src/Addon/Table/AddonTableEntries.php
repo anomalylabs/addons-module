@@ -1,10 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Addon\Table;
 
-use Anomaly\AddonsModule\Addon\Table\Command\FetchAddons;
-use Anomaly\AddonsModule\Addon\Table\Command\GetAddonData;
-use Anomaly\Streams\Platform\Addon\Addon;
 use Anomaly\Streams\Platform\Addon\AddonCollection;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 
 /**
  * Class AddonTableEntries
@@ -17,8 +13,6 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 class AddonTableEntries
 {
 
-    use DispatchesJobs;
-
     /**
      * Handle the command.
      *
@@ -27,33 +21,11 @@ class AddonTableEntries
      */
     public function handle(AddonTableBuilder $builder, AddonCollection $addons)
     {
-        if (array_get($_GET, 'view') == 'github')
+        if (array_get($_GET, 'view') != 'packages')
         {
-            $items = new AddonCollection([]);
-            $repos = $this->dispatch(new FetchAddons($addons));
+            $addons = $addons->{$builder->getType()}();
 
-            foreach ($repos as $repo)
-            {
-                $data = $this->dispatch(new GetAddonData($repo));
-
-                if (!$addons->get(array_get($data, 'namespace'), false))
-                {
-                    $addon = (new Addon())
-                    ->setVendor(array_get($data, 'vendor'))
-                    ->setType(array_get($data, 'type'))
-                    ->setSlug(array_get($data, 'slug'));
-
-                    $items->put($addon->getNamespace(), $addon);
-                }
-            }
-
-            $builder->setTableEntries($items);
-
-            return;
+            $builder->setTableEntries($addons);
         }
-
-        $addons = $addons->{$builder->getType()}();
-
-        $builder->setTableEntries($addons);
     }
 }
