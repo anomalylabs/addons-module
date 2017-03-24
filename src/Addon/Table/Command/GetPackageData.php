@@ -1,9 +1,9 @@
 <?php namespace Anomaly\AddonsModule\Addon\Table\Command;
 
 /**
- * Class GetAddonData
+ * Class GetPackageData
  */
-class GetAddonData
+class GetPackageData
 {
 
     /**
@@ -14,7 +14,7 @@ class GetAddonData
     protected $repo;
 
     /**
-     * Create the GetAddonData instance
+     * Create the GetPackageData instance
      *
      * @param array $repo The loaded repo
      */
