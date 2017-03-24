@@ -32,10 +32,10 @@ class GetComposerJson
      */
     public function handle()
     {
-        // if (array_get($_GET, 'view') != 'packages')
-        // {
-        //     return $this->addon->getComposerJson();
-        // }
+        if (array_get($_GET, 'view') != 'packages')
+        {
+            return $this->addon->getComposerJson();
+        }
 
         $this->dispatch(new FetchComposerJson($this->addon->package));
 
