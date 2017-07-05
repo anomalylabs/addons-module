@@ -21,6 +21,7 @@ class AddonsModuleServiceProvider extends AddonServiceProvider
         'admin/addons/{type?}'           => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@index',
         'admin/addons/details/{type?}'   => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@details',
         'admin/addons/install/{type?}'   => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@install',
+        'admin/addons/migrate/{type?}'   => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@migrate',
         'admin/addons/options/{type?}'   => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@options',
         'admin/addons/uninstall/{type?}' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@uninstall',
     ];

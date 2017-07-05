@@ -42,6 +42,23 @@ class AddonTableButtons
                         return !$entry->isInstalled();
                     },
                 ],
+                'migrate'   => [
+                    'class'      => 'btn-success',
+                    'icon'       => 'fa fa-level-up',
+                    'text'       => 'anomaly.module.addons::button.migrate',
+                    'href'       => 'admin/addons/migrate/{entry.namespace}',
+                    'data-match' => function (Addon $entry) {
+                        return $entry->getTitle();
+                    },
+                    'enabled'    => function (Addon $entry) {
+
+                        if (!$entry instanceof Module && !$entry instanceof Extension) {
+                            return false;
+                        }
+
+                        return $entry->isInstalled();
+                    },
+                ],
                 'uninstall'   => [
                     'button'     => 'prompt',
                     'icon'       => 'times-circle',
