@@ -1,7 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Addon\Table;
 
 
-
 /**
  * Class AddonTableColumns
  *
@@ -22,12 +21,19 @@ class AddonTableColumns
         $builder->setColumns(
             [
                 [
-                    'heading' => 'module::field.name.name',
-                    'value'   => 'entry.title',
+                    'heading' => 'module::field.addon.name',
+                    'wrapper' => '
+                        <strong>{value.name}</strong>
+                        <br>
+                        <small class="text-muted">{value.description}</small>',
+                    'value'   => [
+                        'name'        => 'entry.title',
+                        'description' => 'entry.description',
+                    ],
                 ],
                 [
-                    'heading' => 'module::field.description.name',
-                    'value'   => 'entry.description',
+                    'heading' => 'module::field.version.name',
+                    'value'   => 'entry.getComposerLock().version',
                 ],
             ]
         );

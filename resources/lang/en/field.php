@@ -10,8 +10,14 @@ return [
     'type'        => [
         'name' => 'Type',
     ],
+    'addon'       => [
+        'name' => 'Addon',
+    ],
     'status'      => [
         'name' => 'Status',
+    ],
+    'version'     => [
+        'name' => 'Version',
     ],
     'location'    => [
         'name' => 'Location',
