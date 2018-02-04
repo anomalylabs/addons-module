@@ -20,6 +20,17 @@ class AddonTableBuilder extends TableBuilder
     protected $type = null;
 
     /**
+     * The table buttons.
+     *
+     * @var array
+     */
+    protected $buttons = [
+        'view' => [
+            'href' => '{request.uri}/view/{entry.name}',
+        ],
+    ];
+
+    /**
      * Get the type.
      *
      * @return null|string

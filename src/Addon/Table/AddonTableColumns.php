@@ -23,17 +23,13 @@ class AddonTableColumns
                 [
                     'heading' => 'module::field.addon.name',
                     'wrapper' => '
-                        <strong>{value.name}</strong>
+                        <strong>{value.title}</strong>
                         <br>
                         <small class="text-muted">{value.description}</small>',
                     'value'   => [
-                        'name'        => 'entry.title',
+                        'title'        => 'entry.title',
                         'description' => 'entry.description',
                     ],
-                ],
-                [
-                    'heading' => 'module::field.version.name',
-                    'value'   => 'entry.getComposerLock().version',
                 ],
             ]
         );
