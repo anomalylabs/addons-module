@@ -25,8 +25,15 @@ class AddonTableBuilder extends TableBuilder
      * @var array
      */
     protected $buttons = [
-        'view' => [
+        'view'     => [
             'href' => '{request.uri}/view/{entry.name}',
+        ],
+        'download' => [
+            'target' => '_blank',
+            'type'   => 'primary',
+            'icon'   => 'download',
+            'text'   => 'Download',
+            'href'   => 'admin/addons/download?package={entry.name}',
         ],
     ];
 

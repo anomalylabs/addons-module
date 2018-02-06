@@ -9,6 +9,7 @@ use Anomaly\Streams\Platform\Addon\Module\Module;
 use Anomaly\Streams\Platform\Addon\Module\ModuleManager;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 use Illuminate\Http\Request;
+use Symfony\Component\Process\Process;
 
 /**
  * Class AddonsController
@@ -153,4 +154,24 @@ class AddonsController extends AdminController
 
         return $this->redirect->back();
     }
+
+//    public function download()
+//    {
+//        $process = new Process(
+//            '/Applications/MAMP/bin/php/php7.0.20/bin/php ./bin/composer require ' . $this->request->get('package'),
+//            base_path(),
+//            $_ENV + ['COMPOSER_HOME' => base_path('bin')]
+//        );
+//
+//        $process->start();
+//
+//        foreach ($process as $type => $data) {
+//            if ($process::OUT === $type) {
+//                echo $data . "<br>";
+//            } else {
+//                echo "[ERR] " . $data . "<br>";
+//            }
+//        }
+//        die;
+//    }
 }
