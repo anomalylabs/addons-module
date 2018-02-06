@@ -20,8 +20,8 @@ class DownloadedEntries
      */
     public function handle(AddonTableBuilder $builder)
     {
-        $builder->setTableOption('title', "anomaly.module.addons::section.{$builder->getType()}.title");
-        $builder->setTableOption('description', "anomaly.module.addons::section.{$builder->getType()}.description");
+        $builder->setTableOption('title', "anomaly.module.addons::addon.{$builder->getType()}.title");
+        $builder->setTableOption('description', "anomaly.module.addons::addon.{$builder->getType()}.description");
 
         $addons = array_filter(
             json_decode(file_get_contents(base_path('composer.lock')), true)['packages'],

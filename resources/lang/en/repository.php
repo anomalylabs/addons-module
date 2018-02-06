@@ -9,6 +9,6 @@ return [
     'community' => [
         'name'        => 'Community',
         'title'       => 'Community Addons',
-        'description' => 'Third-party addons contributed by the community. <a href="https://github.com/pyrocms/community.pyrocms.com" target="_blank">Submit a pull request for yours here.</a>',
+        'description' => 'Third-party addons contributed by the community. <a href="https://github.com/pyrocms/community.pyrocms.com/blob/master/satis.json" target="_blank">Add yours to the list.</a>',
     ],
 ];
