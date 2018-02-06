@@ -27,7 +27,7 @@ class AddonTableColumns
                         <br>
                         <small class="text-muted">{value.description}</small>',
                     'value'   => [
-                        'title'        => 'entry.title',
+                        'title'       => 'entry.title',
                         'description' => 'entry.description',
                     ],
                 ],

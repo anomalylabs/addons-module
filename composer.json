@@ -20,6 +20,9 @@
     "support": {
         "email": "support@anomaly.is"
     },
+    "require": {
+        "composer/composer": "^1.6"
+    },
     "autoload": {
         "psr-4": {
             "Anomaly\\AddonsModule\\": "src/"

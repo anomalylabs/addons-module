@@ -1,11 +1,11 @@
 <?php
 
 return [
-    'main'      => [
+    'featured'  => [
         'url'         => 'https://packages.pyrocms.com',
-        'name'        => 'anomaly.module.addons::repository.main.name',
-        'title'       => 'anomaly.module.addons::repository.main.title',
-        'description' => 'anomaly.module.addons::repository.main.description',
+        'name'        => 'anomaly.module.addons::repository.featured.name',
+        'title'       => 'anomaly.module.addons::repository.featured.title',
+        'description' => 'anomaly.module.addons::repository.featured.description',
     ],
     'community' => [
         'url'         => 'https://community.pyrocms.com',
