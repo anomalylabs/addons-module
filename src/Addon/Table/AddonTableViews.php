@@ -2,6 +2,7 @@
 
 use Anomaly\AddonsModule\Addon\Table\Entries\DownloadedEntries;
 use Anomaly\AddonsModule\Addon\Table\Entries\RepositoryEntries;
+use Illuminate\Contracts\Config\Repository;
 
 /**
  * Class AddonTableViews
@@ -18,7 +19,7 @@ class AddonTableViews
      *
      * @param AddonTableBuilder $builder
      */
-    public function handle(AddonTableBuilder $builder)
+    public function handle(AddonTableBuilder $builder, Repository $config)
     {
         $builder->setViews(
             [
@@ -28,16 +29,9 @@ class AddonTableViews
             ]
         );
 
-        $repositories = array_filter(
-            json_decode(file_get_contents(base_path('composer.json')), true)['repositories'],
-            function ($repository) {
-                return $repository['type'] == 'composer';
-            }
-        );
-
-        foreach ($repositories as $repository) {
+        foreach ($config->get('anomaly.module.addons::repository', []) as $slug => $repository) {
             $builder->addView(
-                md5($repository['url']),
+                $slug,
                 [
                     'text'    => $repository['name'],
                     'entries' => RepositoryEntries::class,

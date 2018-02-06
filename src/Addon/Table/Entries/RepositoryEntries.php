@@ -1,8 +1,8 @@
 <?php namespace Anomaly\AddonsModule\Addon\Table\Entries;
 
 use Anomaly\AddonsModule\Addon\Table\AddonTableBuilder;
-use Anomaly\Streams\Platform\Addon\AddonCollection;
 use Anomaly\Streams\Platform\Support\Collection;
+use Illuminate\Contracts\Config\Repository;
 
 /**
  * Class RepositoryEntries
@@ -18,30 +18,38 @@ class RepositoryEntries
      * Handle the command.
      *
      * @param AddonTableBuilder $builder
-     * @param AddonCollection   $addons
+     * @param Repository        $config
      */
-    public function handle(AddonTableBuilder $builder)
+    public function handle(AddonTableBuilder $builder, Repository $config)
     {
+
         $view = $builder->getActiveTableView();
 
-        $repository = array_filter(
-            json_decode(file_get_contents(base_path('composer.json')), true)['repositories'],
-            function ($repository) use ($view) {
-                return md5($repository['url']) == $view->getSlug();
-            }
+        $builder->setTableOption('title', $config->get("anomaly.module.addons::repository.{$view->getSlug()}.title"));
+        $builder->setTableOption(
+            'description',
+            $config->get("anomaly.module.addons::repository.{$view->getSlug()}.description")
         );
 
-        $repository = array_shift($repository);
-
         $includes    = array_keys(
-            json_decode(file_get_contents($repository['url'] . '/packages.json'), true)['includes']
+            json_decode(
+                file_get_contents(
+                    $config->get("anomaly.module.addons::repository.{$view->getSlug()}.url") . '/packages.json'
+                ),
+                true
+            )['includes']
         );
         $includes[1] = $includes[0];
 
         array_walk(
             $includes,
-            function (&$include) use ($repository) {
-                $include = json_decode(file_get_contents($repository['url'] . '/' . $include), true)['packages'];
+            function (&$include) use ($config, $view) {
+                $include = json_decode(
+                    file_get_contents(
+                        $config->get("anomaly.module.addons::repository.{$view->getSlug()}.url") . '/' . $include
+                    ),
+                    true
+                )['packages'];
             }
         );
 

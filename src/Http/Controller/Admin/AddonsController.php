@@ -8,15 +8,14 @@ use Anomaly\Streams\Platform\Addon\Extension\ExtensionManager;
 use Anomaly\Streams\Platform\Addon\Module\Module;
 use Anomaly\Streams\Platform\Addon\Module\ModuleManager;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 
 /**
  * Class AddonsController
  *
- * @link          http://pyrocms.com/
- * @author        PyroCMS, Inc. <support@pyrocms.com>
- * @author        Ryan Thompson <ryan@pyrocms.com>
+ * @link   http://pyrocms.com/
+ * @author PyroCMS, Inc. <support@pyrocms.com>
+ * @author Ryan Thompson <ryan@pyrocms.com>
  */
 class AddonsController extends AdminController
 {
@@ -24,8 +23,8 @@ class AddonsController extends AdminController
     /**
      * Return an index of existing entries.
      *
-     * @param  AddonTableBuilder                          $builder
-     * @param  string                                     $type
+     * @param  AddonTableBuilder $builder
+     * @param  string            $type
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(AddonTableBuilder $builder, $type = 'modules')
