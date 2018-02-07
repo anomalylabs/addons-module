@@ -39,8 +39,8 @@ class DownloadedEntries
 
         $builder->setTableEntries(new Collection($addons));
 
-        $this->dispatch(new PaginateAddons($builder));
         $this->dispatch(new FilterAddons($builder));
+        $this->dispatch(new PaginateAddons($builder));
     }
 
 }
