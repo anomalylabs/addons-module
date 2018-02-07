@@ -24,7 +24,7 @@ class AddonTableOptions
         // Start with an array
         $builder->setOptions(
             [
-                'limit' => 5,
+                'limit' => 25,
             ]
         );
 

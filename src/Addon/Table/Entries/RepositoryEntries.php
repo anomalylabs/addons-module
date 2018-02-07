@@ -3,10 +3,10 @@
 use Anomaly\AddonsModule\Addon\Table\AddonTableBuilder;
 use Anomaly\AddonsModule\Addon\Table\Command\FilterAddons;
 use Anomaly\AddonsModule\Addon\Table\Command\GetRepositoryAddons;
+use Anomaly\AddonsModule\Addon\Table\Command\PaginateAddons;
 use Anomaly\Streams\Platform\Support\Collection;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
  * Class RepositoryEntries
@@ -38,30 +38,9 @@ class RepositoryEntries
             }
         );
 
-        $addons = new Collection($addons);
+        $builder->setTableEntries(new Collection($addons));
 
-        $perPage   = $builder->getRequestValue(
-            'limit',
-            $builder->getOption('limit') ?: config('streams::system.per_page')
-        );
-        $pageName  = $builder->getTableOption('prefix') . 'page';
-        $page      = app('request')->get($pageName);
-        $path      = '/' . app('request')->path();
-        $paginator = new LengthAwarePaginator(
-            $addons->forPage($page, $perPage),
-            $addons->count(),
-            $perPage,
-            $page,
-            compact('path', 'pageName')
-        );
-
-        $pagination          = $paginator->toArray();
-        $pagination['links'] = $paginator->appends(app('request')->all())->render();
-
-        $builder->addTableData('pagination', $pagination);
-
-        $builder->setTableEntries($addons->forPage($page, $perPage));
-
+        $this->dispatch(new PaginateAddons($builder));
         $this->dispatch(new FilterAddons($builder));
     }
 }

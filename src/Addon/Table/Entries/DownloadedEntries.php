@@ -3,6 +3,7 @@
 use Anomaly\AddonsModule\Addon\Table\AddonTableBuilder;
 use Anomaly\AddonsModule\Addon\Table\Command\FilterAddons;
 use Anomaly\AddonsModule\Addon\Table\Command\GetDownloadedAddons;
+use Anomaly\AddonsModule\Addon\Table\Command\PaginateAddons;
 use Anomaly\Streams\Platform\Support\Collection;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -38,6 +39,7 @@ class DownloadedEntries
 
         $builder->setTableEntries(new Collection($addons));
 
+        $this->dispatch(new PaginateAddons($builder));
         $this->dispatch(new FilterAddons($builder));
     }
 
