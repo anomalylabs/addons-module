@@ -100,37 +100,6 @@ class AddonsController extends AdminController
     }
 
     /**
-     * Migrate an addon.
-     *
-     * @param  Request                           $request
-     * @param  ModuleManager                     $modules
-     * @param  AddonCollection                   $addons
-     * @param  ExtensionManager                  $extensions
-     * @param                                    $addon
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function migrate(
-        Request $request,
-        ModuleManager $modules,
-        AddonCollection $addons,
-        ExtensionManager $extensions,
-        $addon
-    ) {
-        /* @var Addon|Module|Extension $addon */
-        $addon = $addons->get($addon);
-
-        if ($addon instanceof Module) {
-            $modules->migrate($addon, filter_var($request->input('seed'), FILTER_VALIDATE_BOOLEAN));
-        } elseif ($addon instanceof Extension) {
-            $extensions->migrate($addon, filter_var($request->input('seed'), FILTER_VALIDATE_BOOLEAN));
-        }
-
-        $this->messages->success('module::message.migrate_addon_success');
-
-        return $this->redirect->back();
-    }
-
-    /**
      * Uninstall an addon.
      *
      * @param  AddonCollection                   $addons

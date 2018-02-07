@@ -21,14 +21,17 @@ class AddonNormalizer
         foreach ($addons as &$addon) {
 
             list($vendor, $name) = explode('/', $addon['name']);
-            list($title, $type) = explode('-', $name);
+            list($slug, $type) = explode('-', $name);
 
-            $addon['type']   = $type;
             $addon['vendor'] = $vendor;
+            $addon['slug']   = $slug;
+            $addon['type']   = $type;
+
+            $addon['id'] = "{$vendor}.{$type}.{$slug}";
+
+            $addon['title'] = ucwords(str_humanize($slug));
 
             $addon['is_pro'] = in_array('https://pyrocms.com/pro/license', array_get($addon, 'license', []));
-
-            $addon['title'] = ucwords(str_humanize($title));
         }
 
         return $addons;
