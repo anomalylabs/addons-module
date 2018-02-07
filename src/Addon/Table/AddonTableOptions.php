@@ -22,7 +22,11 @@ class AddonTableOptions
     {
 
         // Start with an array
-        $builder->setOptions([]);
+        $builder->setOptions(
+            [
+                'limit' => 5,
+            ]
+        );
 
         $type = $builder->getType();
         $view = $builder->getActiveTableView();

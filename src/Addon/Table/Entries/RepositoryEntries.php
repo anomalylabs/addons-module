@@ -4,8 +4,9 @@ use Anomaly\AddonsModule\Addon\Table\AddonTableBuilder;
 use Anomaly\AddonsModule\Addon\Table\Command\FilterAddons;
 use Anomaly\AddonsModule\Addon\Table\Command\GetRepositoryAddons;
 use Anomaly\Streams\Platform\Support\Collection;
-use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
  * Class RepositoryEntries
@@ -23,25 +24,43 @@ class RepositoryEntries
      * Handle the command.
      *
      * @param AddonTableBuilder $builder
-     * @param Repository        $config
+     * @param Repository        $cache
      */
-    public function handle(AddonTableBuilder $builder, Repository $config)
+    public function handle(AddonTableBuilder $builder, Repository $cache)
     {
+        $view = $builder->getActiveTableView();
 
-        $addons = $this->dispatch(new GetRepositoryAddons($builder));
+        $addons = $cache->remember(
+            'anomaly.module.addons::addons.' . $view->getSlug() . '.' . $builder->getType(),
+            10,
+            function () use ($builder) {
+                return $addons = $this->dispatch(new GetRepositoryAddons($builder));;
+            }
+        );
 
-        foreach ($addons as &$addon) {
+        $addons = new Collection($addons);
 
-            list($vendor, $name) = explode('/', $addon['name']);
-            list($title, $type) = explode('-', $name);
+        $perPage   = $builder->getRequestValue(
+            'limit',
+            $builder->getOption('limit') ?: config('streams::system.per_page')
+        );
+        $pageName  = $builder->getTableOption('prefix') . 'page';
+        $page      = app('request')->get($pageName);
+        $path      = '/' . app('request')->path();
+        $paginator = new LengthAwarePaginator(
+            $addons->forPage($page, $perPage),
+            $addons->count(),
+            $perPage,
+            $page,
+            compact('path', 'pageName')
+        );
 
-            $addon['type']   = $type;
-            $addon['vendor'] = $vendor;
+        $pagination          = $paginator->toArray();
+        $pagination['links'] = $paginator->appends(app('request')->all())->render();
 
-            $addon['title'] = ucwords(str_humanize($title));
-        }
+        $builder->addTableData('pagination', $pagination);
 
-        $builder->setTableEntries(new Collection($addons));
+        $builder->setTableEntries($addons->forPage($page, $perPage));
 
         $this->dispatch(new FilterAddons($builder));
     }

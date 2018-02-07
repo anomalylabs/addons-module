@@ -4,6 +4,7 @@ use Anomaly\AddonsModule\Addon\Table\AddonTableBuilder;
 use Anomaly\AddonsModule\Addon\Table\Command\FilterAddons;
 use Anomaly\AddonsModule\Addon\Table\Command\GetDownloadedAddons;
 use Anomaly\Streams\Platform\Support\Collection;
+use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 /**
@@ -22,11 +23,18 @@ class DownloadedEntries
      * Handle the command.
      *
      * @param AddonTableBuilder $builder
+     * @param Repository        $cache
      */
-    public function handle(AddonTableBuilder $builder)
+    public function handle(AddonTableBuilder $builder, Repository $cache)
     {
 
-        $addons = $this->dispatch(new GetDownloadedAddons($builder));
+        $addons = $cache->remember(
+            'anomaly.module.addons::addons.downloaded.' . $builder->getType(),
+            10,
+            function () use ($builder) {
+                return $this->dispatch(new GetDownloadedAddons($builder));
+            }
+        );
 
         $builder->setTableEntries(new Collection($addons));
 
