@@ -39,14 +39,14 @@ class AddonTableBuilder extends TableBuilder
      */
     protected $buttons = [
         'view'     => [
-            'href' => '{request.uri}/view/{entry.name}',
+            'href' => '/{request.path}/view/{entry.name}?repository={request.input.view}',
         ],
         'download' => [
             'target' => '_blank',
             'type'   => 'primary',
             'icon'   => 'download',
             'text'   => 'Download',
-            'href'   => 'admin/addons/download?package={entry.name}',
+            'href'   => '/admin/addons/download?package={entry.name}',
         ],
     ];
 
