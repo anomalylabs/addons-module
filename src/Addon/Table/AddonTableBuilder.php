@@ -1,5 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Addon\Table;
 
+use Anomaly\AddonsModule\Addon\Table\Filter\SearchQuery;
 use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
 
 /**
@@ -18,6 +19,18 @@ class AddonTableBuilder extends TableBuilder
      * @var null|string
      */
     protected $type = null;
+
+    /**
+     * The table filters.
+     *
+     * @var array
+     */
+    protected $filters = [
+        'search' => [
+            'type'  => 'text',
+            'query' => SearchQuery::class,
+        ],
+    ];
 
     /**
      * The table buttons.

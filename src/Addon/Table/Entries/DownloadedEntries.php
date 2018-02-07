@@ -1,7 +1,10 @@
 <?php namespace Anomaly\AddonsModule\Addon\Table\Entries;
 
 use Anomaly\AddonsModule\Addon\Table\AddonTableBuilder;
+use Anomaly\AddonsModule\Addon\Table\Command\FilterAddons;
+use Anomaly\AddonsModule\Addon\Table\Command\GetDownloadedAddons;
 use Anomaly\Streams\Platform\Support\Collection;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 /**
  * Class DownloadedEntries
@@ -13,6 +16,8 @@ use Anomaly\Streams\Platform\Support\Collection;
 class DownloadedEntries
 {
 
+    use DispatchesJobs;
+
     /**
      * Handle the command.
      *
@@ -20,28 +25,12 @@ class DownloadedEntries
      */
     public function handle(AddonTableBuilder $builder)
     {
-        $builder->setTableOption('title', "anomaly.module.addons::addon.{$builder->getType()}.title");
-        $builder->setTableOption('description', "anomaly.module.addons::addon.{$builder->getType()}.description");
 
-        $addons = array_filter(
-            json_decode(file_get_contents(base_path('composer.lock')), true)['packages'],
-            function ($package) use ($builder) {
-                return $package['type'] == 'streams-addon'
-                    && str_is('*/*-' . str_singular($builder->getType()), $package['name']);
-            }
-        );
-
-        foreach ($addons as &$addon) {
-
-            list($vendor, $name) = explode('/', $addon['name']);
-            list($title, $type) = explode('-', $name);
-
-            $addon['type']   = $type;
-            $addon['vendor'] = $vendor;
-
-            $addon['title'] = ucwords(str_humanize($title));
-        }
+        $addons = $this->dispatch(new GetDownloadedAddons($builder));
 
         $builder->setTableEntries(new Collection($addons));
+
+        $this->dispatch(new FilterAddons($builder));
     }
+
 }
