@@ -4,8 +4,16 @@
 
 {% for author in addon.authors %}
     <dl>
+
         <dt>{{ author.name }} <span class="text-muted">({{ author.role }})</span></dt>
-        <dd><a href="{{ author.homepage }}" target="_blank">{{ author.homepage }}</a></dd>
-        <dd>{{ html_mailto(author.email) }}</dd>
+
+        {% if author.homepage %}
+            <dd><a href="{{ author.homepage }}" target="_blank">{{ author.homepage }}</a></dd>
+        {% endif %}
+
+        {% if author.email %}
+            <dd>{{ html_mailto(author.email) }}</dd>
+        {% endif %}
+
     </dl>
 {% endfor %}

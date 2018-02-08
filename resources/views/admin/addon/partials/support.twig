@@ -41,7 +41,19 @@
     {% endif %}
 
     {% if addon.support.source %}
-        <li><a href="{{ addon.support.source }}" target="_blank">Source Code</a></li>
+        <li>
+            <a href="{{ addon.support.source }}" target="_blank">
+                {{ trans('anomaly.module.addons::label.source_code') }}
+            </a>
+        </li>
+    {% endif %}
+
+    {% if addon.support.slack %}
+        <li>
+            <a href="{{ addon.support.slack }}" target="_blank">
+                {{ trans('anomaly.module.addons::label.slack') }}
+            </a>
+        </li>
     {% endif %}
 
 </ul>

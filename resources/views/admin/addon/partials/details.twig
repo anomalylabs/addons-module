@@ -9,26 +9,30 @@
     {% endif %}
 
     <dt>{{ trans('anomaly.module.addons::label.namespace') }}</dt>
-    <dd><pre>{{ addon.namespace }}</pre></dd>
+    <dd>
+        <pre>{{ addon.id }}</pre>
+    </dd>
 
-    <dt>{{ trans('anomaly.module.addons::label.path') }}</dt>
-    <dd>{{ addon.appPath }}</dd>
+    {% if addon.path %}
+        <dt>{{ trans('anomaly.module.addons::label.path') }}</dt>
+        <dd>{{ addon.path }}</dd>
+    {% endif %}
 
     {% if addon.type in ['module', 'extension'] %}
         <dt>{{ trans('anomaly.module.addons::field.state.name') }}</dt>
         <dd>
             {% if addon.installed %}
-                <span class="label label-success">{{ trans('streams::addon.installed') }}</span>
+                <span class="tag tag-success">{{ trans('streams::addon.installed') }}</span>
             {% else %}
-                <span class="label label-default">{{ trans('streams::addon.uninstalled') }}</span>
+                <span class="tag tag-default">{{ trans('streams::addon.uninstalled') }}</span>
             {% endif %}
         </dd>
         <dt>{{ trans('anomaly.module.addons::field.status.name') }}</dt>
         <dd>
             {% if addon.enabled %}
-                <span class="label label-success">{{ trans('streams::addon.enabled') }}</span>
+                <span class="tag tag-success">{{ trans('streams::addon.enabled') }}</span>
             {% else %}
-                <span class="label label-default">{{ trans('streams::addon.disabled') }}</span>
+                <span class="tag tag-default">{{ trans('streams::addon.disabled') }}</span>
             {% endif %}
         </dd>
     {% endif %}
@@ -37,9 +41,9 @@
         <dt>{{ trans('anomaly.module.addons::field.state.name') }}</dt>
         <dd>
             {% if addon.active %}
-                <span class="label label-success">{{ trans('streams::addon.active') }}</span>
+                <span class="tag tag-success">{{ trans('streams::addon.active') }}</span>
             {% else %}
-                <span class="label label-success">{{ trans('streams::addon.inactive') }}</span>
+                <span class="tag tag-success">{{ trans('streams::addon.inactive') }}</span>
             {% endif %}
         </dd>
     {% endif %}

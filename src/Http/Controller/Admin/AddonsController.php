@@ -56,8 +56,21 @@ class AddonsController extends AdminController
 
         /* @var Addon $instance */
         if ($instance = $downloaded->get($addon['id'])) {
+
             $addon['downloaded'] = true;
             $addon['readme']     = $instance->getReadme();
+            $addon['path']       = $instance->getAppPath();
+
+            if ($instance instanceof Module || $instance instanceof Extension) {
+
+                $addon['enabled']   = $instance->isEnabled();
+                $addon['installed'] = $instance->isInstalled();
+            }
+
+            if ($instance instanceof Extension) {
+
+                $addon['provides'] = $instance->getProvides();
+            }
         }
 
         return $this->view->make(
@@ -85,11 +98,11 @@ class AddonsController extends AdminController
     /**
      * Install an addon.
      *
-     * @param  Request                           $request
-     * @param  ModuleManager                     $modules
-     * @param  AddonCollection                   $addons
-     * @param  ExtensionManager                  $extensions
-     * @param                                    $addon
+     * @param Request          $request
+     * @param ModuleManager    $modules
+     * @param AddonCollection  $addons
+     * @param ExtensionManager $extensions
+     * @param                  $addon
      * @return \Illuminate\Http\RedirectResponse
      */
     public function install(
@@ -99,6 +112,7 @@ class AddonsController extends AdminController
         ExtensionManager $extensions,
         $addon
     ) {
+
         /* @var Addon|Module|Extension $addon */
         $addon = $addons->get($addon);
 
@@ -116,14 +130,19 @@ class AddonsController extends AdminController
     /**
      * Uninstall an addon.
      *
-     * @param  AddonCollection                   $addons
-     * @param  ModuleManager                     $modules
-     * @param  ExtensionManager                  $extensions
-     * @param                                    $addon
+     * @param AddonCollection  $addons
+     * @param ModuleManager    $modules
+     * @param ExtensionManager $extensions
+     * @param                  $addon
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function uninstall(AddonCollection $addons, ModuleManager $modules, ExtensionManager $extensions, $addon)
-    {
+    public function uninstall(
+        AddonCollection $addons,
+        ModuleManager $modules,
+        ExtensionManager $extensions,
+        $addon
+    ) {
+
         /* @var Addon|Module|Extension $addon */
         $addon = $addons->get($addon);
 
@@ -134,6 +153,62 @@ class AddonsController extends AdminController
         }
 
         $this->messages->success('module::message.uninstall_addon_success');
+
+        return $this->redirect->back();
+    }
+
+    /**
+     * Enable an addon.
+     *
+     * @param ModuleManager    $modules
+     * @param AddonCollection  $addons
+     * @param ExtensionManager $extensions
+     * @param                  $addon
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function Enable(
+        ModuleManager $modules,
+        AddonCollection $addons,
+        ExtensionManager $extensions,
+        $addon
+    ) {
+
+        /* @var Addon|Module|Extension $addon */
+        $addon = $addons->get($addon);
+
+        if ($addon instanceof Module) {
+            $modules->enable($addon);
+        } elseif ($addon instanceof Extension) {
+            $extensions->enable($addon);
+        }
+
+        return $this->redirect->back();
+    }
+
+    /**
+     * Disable an addon.
+     *
+     * @param AddonCollection  $addons
+     * @param ModuleManager    $modules
+     * @param ExtensionManager $extensions
+     * @param                  $addon
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function disable(
+        AddonCollection $addons,
+        ModuleManager $modules,
+        ExtensionManager $extensions,
+        $addon
+    ) {
+
+        /* @var Addon|Module|Extension $addon */
+        $addon = $addons->get($addon);
+
+        if ($addon instanceof Module) {
+            $modules->disable($addon);
+        } elseif ($addon instanceof Extension) {
+            $extensions->dispatch($addon);
+        }
 
         return $this->redirect->back();
     }
