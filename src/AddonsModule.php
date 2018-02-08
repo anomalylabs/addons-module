@@ -26,8 +26,8 @@ class AddonsModule extends Module
      */
     protected $sections = [
         'modules'     => [
-            'matcher' => 'admin/addons',
-            'href'    => 'admin/addons?view={request.input.view}',
+            'matcher' => 'admin/addons/modules',
+            'href'    => 'admin/addons/modules?view={request.input.view}',
         ],
         'themes'      => [
             'matcher' => 'admin/addons/themes',

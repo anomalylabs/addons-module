@@ -10,6 +10,7 @@ use Anomaly\Streams\Platform\Addon\Module\Module;
 use Anomaly\Streams\Platform\Addon\Module\ModuleManager;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 use Illuminate\Http\Request;
+use Symfony\Component\Process\Process;
 
 /**
  * Class AddonsController
@@ -24,12 +25,16 @@ class AddonsController extends AdminController
     /**
      * Return an index of existing entries.
      *
-     * @param  AddonTableBuilder $builder
-     * @param  string            $type
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param AddonTableBuilder $builder
+     * @param null              $type
+     * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function index(AddonTableBuilder $builder, $type = 'modules')
+    public function index(AddonTableBuilder $builder, $type = null)
     {
+        if (!$type) {
+            return $this->redirect->to('admin/addons/modules');
+        }
+
         $builder->setType($type);
 
         return $builder->render();
@@ -39,11 +44,12 @@ class AddonsController extends AdminController
      * View an addon.
      *
      * @param AddonCollection $downloaded
+     * @param                 $type
      * @param                 $repository
      * @param                 $addon
      * @return \Illuminate\Contracts\View\View|mixed
      */
-    public function view(AddonCollection $downloaded, $repository, $addon)
+    public function view(AddonCollection $downloaded, $type, $repository, $addon)
     {
         $addons = $this->dispatch(new GetAllAddons($repository));
 
@@ -75,7 +81,7 @@ class AddonsController extends AdminController
 
         return $this->view->make(
             'anomaly.module.addons::admin/addon/view',
-            compact('addon')
+            compact('addon', 'repository')
         );
     }
 
@@ -84,10 +90,11 @@ class AddonsController extends AdminController
      * option when installing modules.
      *
      * @param AddonCollection $addons
+     * @param                 $type
      * @param                 $namespace
-     * @return
+     * @return \Illuminate\Contracts\View\View|mixed
      */
-    public function options(AddonCollection $addons, $namespace)
+    public function options(AddonCollection $addons, $type, $namespace)
     {
         /* @var Addon $addon */
         $addon = $addons->get($namespace);
@@ -105,6 +112,7 @@ class AddonsController extends AdminController
      * @param ModuleManager    $modules
      * @param AddonCollection  $addons
      * @param ExtensionManager $extensions
+     * @param                  $type
      * @param                  $addon
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -113,6 +121,7 @@ class AddonsController extends AdminController
         ModuleManager $modules,
         AddonCollection $addons,
         ExtensionManager $extensions,
+        $type,
         $addon
     ) {
 
@@ -136,6 +145,7 @@ class AddonsController extends AdminController
      * @param AddonCollection  $addons
      * @param ModuleManager    $modules
      * @param ExtensionManager $extensions
+     * @param                  $type
      * @param                  $addon
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -143,6 +153,7 @@ class AddonsController extends AdminController
         AddonCollection $addons,
         ModuleManager $modules,
         ExtensionManager $extensions,
+        $type,
         $addon
     ) {
 
@@ -166,13 +177,15 @@ class AddonsController extends AdminController
      * @param ModuleManager    $modules
      * @param AddonCollection  $addons
      * @param ExtensionManager $extensions
+     * @param                  $type
      * @param                  $addon
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function Enable(
+    public function enable(
         ModuleManager $modules,
         AddonCollection $addons,
         ExtensionManager $extensions,
+        $type,
         $addon
     ) {
 
@@ -194,6 +207,7 @@ class AddonsController extends AdminController
      * @param AddonCollection  $addons
      * @param ModuleManager    $modules
      * @param ExtensionManager $extensions
+     * @param                  $type
      * @param                  $addon
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -201,6 +215,7 @@ class AddonsController extends AdminController
         AddonCollection $addons,
         ModuleManager $modules,
         ExtensionManager $extensions,
+        $type,
         $addon
     ) {
 
@@ -216,23 +231,67 @@ class AddonsController extends AdminController
         return $this->redirect->back();
     }
 
-//    public function download()
-//    {
-//        $process = new Process(
-//            '/Applications/MAMP/bin/php/php7.0.20/bin/php ./bin/composer require ' . $this->request->get('package'),
-//            base_path(),
-//            $_ENV + ['COMPOSER_HOME' => base_path('bin')]
-//        );
-//
-//        $process->start();
-//
-//        foreach ($process as $type => $data) {
-//            if ($process::OUT === $type) {
-//                echo $data . "<br>";
-//            } else {
-//                echo "[ERR] " . $data . "<br>";
-//            }
-//        }
-//        die;
-//    }
+    public function download($type, $repository, $addon)
+    {
+        $addons = $this->dispatch(new GetAllAddons($repository));
+
+        $addon = array_first(
+            $addons,
+            function ($item) use ($addon) {
+                return $item['id'] == $addon;
+            }
+        );
+
+        $process = new Process(
+            '/Applications/MAMP/bin/php/php7.0.20/bin/php ./bin/composer require ' . $addon['name'],
+            base_path(),
+            $_ENV + ['COMPOSER_HOME' => base_path()]
+        );
+
+        $process->setTimeout(60*5);
+
+        $process->start();
+
+        foreach ($process as $type => $data) {
+            if ($process::OUT === $type) {
+                echo $data . "<br>";
+            } else {
+                echo "[ERR] " . $data . "<br>";
+            }
+        }
+        die;
+
+        return $this->redirect->back();
+    }
+
+    public function remove($type, $repository, $addon)
+    {
+        $addons = $this->dispatch(new GetAllAddons($repository));
+
+        $addon = array_first(
+            $addons,
+            function ($item) use ($addon) {
+                return $item['id'] == $addon;
+            }
+        );
+
+        $process = new Process(
+            '/Applications/MAMP/bin/php/php7.0.20/bin/php ./bin/composer remove ' . $addon['name'],
+            base_path(),
+            $_ENV + ['COMPOSER_HOME' => base_path()]
+        );
+
+        $process->setTimeout(60*5);
+
+        $process->start();
+
+        foreach ($process as $type => $data) {
+            if ($process::OUT === $type) {
+                echo $data . "<br>";
+            } else {
+                echo "[ERR] " . $data . "<br>";
+            }
+        }
+        die;
+    }
 }

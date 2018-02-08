@@ -91,6 +91,55 @@ class AddonTableButtons
                             return $addon->isInstalled();
                         },
                     ],
+                    'enable'    => [
+                        'type'    => 'success',
+                        'icon'    => 'fa fa-toggle-on',
+                        'href'    => 'admin/addons/enable/{entry.id}',
+                        'enabled' => function ($entry) use ($addons) {
+
+                            if (!in_array($entry['type'], ['module', 'extension'])) {
+                                return false;
+                            }
+
+                            /* @var Module|Extension $addon */
+                            if (!$addon = $addons->get($entry['id'])) {
+                                return false;
+                            }
+
+                            if (!$addon->isInstalled()) {
+                                return false;
+                            }
+
+                            return !$addon->isEnabled();
+                        },
+                    ],
+                    'disable'   => [
+                        'type'         => 'warning',
+                        'data-icon'    => 'warning',
+                        'data-toggle'  => 'confirm',
+                        'icon'         => 'fa fa-toggle-off',
+                        'href'         => 'admin/addons/disable/{entry.id}',
+                        'text'         => 'anomaly.module.addons::button.disable',
+                        'data-title'   => 'anomaly.module.addons::confirm.disable_title',
+                        'data-message' => 'anomaly.module.addons::confirm.disable_message',
+                        'enabled'      => function ($entry) use ($addons) {
+
+                            if (!in_array($entry['type'], ['module', 'extension'])) {
+                                return false;
+                            }
+
+                            /* @var Module|Extension $addon */
+                            if (!$addon = $addons->get($entry['id'])) {
+                                return false;
+                            }
+
+                            if (!$addon->isInstalled()) {
+                                return false;
+                            }
+
+                            return $addon->isEnabled();
+                        },
+                    ],
                 ]
             );
         }

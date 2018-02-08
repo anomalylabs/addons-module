@@ -58,8 +58,6 @@ class GetRepositoryAddons
             )['includes']
         );
 
-        $includes[1] = $includes[0];
-
         array_walk(
             $includes,
             function (&$include) use ($config) {
@@ -84,7 +82,12 @@ class GetRepositoryAddons
         array_walk(
             $packages,
             function (&$versions) use (&$packages) {
+
+                $references = array_keys($versions);
+
                 $versions = array_pop($versions);
+
+                $versions['references'] = $references;
             }
         );
 
