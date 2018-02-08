@@ -10,7 +10,7 @@
 
             <div class="card-header">
                 <h4 class="card-title">
-                    {{ addon.title }} {{ ucfirst(addon.type) }}
+                    {{ addon.title }} {{ ucwords(str_humanize(addon.type)) }}
                     <small>
                         {{ addon.name }}
                     </small>
