@@ -28,7 +28,7 @@
                     </a>
                 {% else %}
                     <a
-                            href="{{ url_route('anomaly.module.addons::addon.disable', {'id': addon.id}) }}"
+                            href="{{ url_route('anomaly.module.addons::addon.enable', {'id': addon.id}) }}"
                             class="btn btn-success"
                     >
                         {{ icon('fa fa-toggle-on') }} {{ trans('anomaly.module.addons::button.enable') }}

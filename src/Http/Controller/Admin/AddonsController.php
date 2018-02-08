@@ -92,7 +92,10 @@ class AddonsController extends AdminController
         /* @var Addon $addon */
         $addon = $addons->get($namespace);
 
-        return $this->view->make('module::ajax/install', compact('addon', 'namespace'));
+        return $this->view->make(
+            'anomaly.module.addons::ajax/install',
+            compact('addon', 'namespace')
+        );
     }
 
     /**

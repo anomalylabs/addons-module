@@ -22,10 +22,12 @@ class AddonTableButtons
      */
     public function handle(AddonTableBuilder $builder, AddonCollection $addons)
     {
+        $view = $builder->getActiveTableView();
+
         $builder->setButtons(
             [
                 'view' => [
-                    'href' => '/{request.path}/view/{request.input.view}/{entry.id}',
+                    'href' => '/{request.path}/view/' . $view->getSlug() . '/{entry.id}',
                 ],
             ]
         );
