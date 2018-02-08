@@ -34,27 +34,13 @@ class AddonTableButtons
 
         $view = $builder->getActiveTableView();
 
-        if ($view->getSlug() !== 'downloaded') {
-
-            $builder->addButton(
-                'download',
-                [
-                    'target' => '_blank',
-                    'type'   => 'primary',
-                    'icon'   => 'download',
-                    'text'   => 'Download',
-                    'href'   => '/admin/addons/download?package={entry.name}',
-                ]
-            );
-        }
-
         if ($view->getSlug() == 'downloaded') {
             $builder->addbuttons(
                 [
                     'install'   => [
                         'data-toggle' => 'modal',
                         'data-target' => '#modal',
-                        'href'        => 'admin/addons/options/{entry.id}',
+                        'href'        => 'admin/addons/{entry.type}/options/{entry.id}',
                         'enabled'     => function ($entry) use ($addons) {
 
                             if (!in_array($entry['type'], ['module', 'extension'])) {
@@ -73,7 +59,7 @@ class AddonTableButtons
                         'button'       => 'uninstall',
                         'data-match'   => 'entry.name',
                         'icon'         => 'times-circle',
-                        'href'         => 'admin/addons/uninstall/{entry.id}',
+                        'href'         => 'admin/addons/{entry.type}/uninstall/{entry.id}',
                         'text'         => 'anomaly.module.addons::button.uninstall',
                         'data-title'   => 'anomaly.module.addons::confirm.uninstall_title',
                         'data-message' => 'anomaly.module.addons::confirm.uninstall_message',
@@ -94,7 +80,7 @@ class AddonTableButtons
                     'enable'    => [
                         'type'    => 'success',
                         'icon'    => 'fa fa-toggle-on',
-                        'href'    => 'admin/addons/enable/{entry.id}',
+                        'href'    => 'admin/addons/{entry.type}/enable/{entry.id}',
                         'enabled' => function ($entry) use ($addons) {
 
                             if (!in_array($entry['type'], ['module', 'extension'])) {
@@ -118,7 +104,7 @@ class AddonTableButtons
                         'data-icon'    => 'warning',
                         'data-toggle'  => 'confirm',
                         'icon'         => 'fa fa-toggle-off',
-                        'href'         => 'admin/addons/disable/{entry.id}',
+                        'href'         => 'admin/addons/{entry.type}/disable/{entry.id}',
                         'text'         => 'anomaly.module.addons::button.disable',
                         'data-title'   => 'anomaly.module.addons::confirm.disable_title',
                         'data-message' => 'anomaly.module.addons::confirm.disable_message',
