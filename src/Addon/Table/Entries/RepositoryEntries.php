@@ -33,8 +33,13 @@ class RepositoryEntries
         $addons = $cache->remember(
             'anomaly.module.addons::addons.' . $view->getSlug() . '.' . $builder->getType(),
             10,
-            function () use ($builder) {
-                return $addons = $this->dispatch(new GetRepositoryAddons($builder));;
+            function () use ($builder, $view) {
+                return $addons = $this->dispatch(
+                    new GetRepositoryAddons(
+                        $view->getSlug(),
+                        $builder->getType()
+                    )
+                );
             }
         );
 

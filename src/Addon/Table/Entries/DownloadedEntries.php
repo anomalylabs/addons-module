@@ -33,7 +33,7 @@ class DownloadedEntries
             'anomaly.module.addons::addons.downloaded.' . $builder->getType(),
             10,
             function () use ($builder) {
-                return $this->dispatch(new GetDownloadedAddons($builder));
+                return $this->dispatch(new GetDownloadedAddons($builder->getType()));
             }
         );
 

@@ -1,6 +1,7 @@
 <?php namespace Anomaly\AddonsModule\Http\Controller\Admin;
 
 use Anomaly\AddonsModule\Addon\Table\AddonTableBuilder;
+use Anomaly\AddonsModule\Addon\Table\Command\GetAllAddons;
 use Anomaly\Streams\Platform\Addon\Addon;
 use Anomaly\Streams\Platform\Addon\AddonCollection;
 use Anomaly\Streams\Platform\Addon\Extension\Extension;
@@ -9,7 +10,6 @@ use Anomaly\Streams\Platform\Addon\Module\Module;
 use Anomaly\Streams\Platform\Addon\Module\ModuleManager;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 use Illuminate\Http\Request;
-use Symfony\Component\Process\Process;
 
 /**
  * Class AddonsController
@@ -36,20 +36,34 @@ class AddonsController extends AdminController
     }
 
     /**
-     * Return the details for an addon.
+     * View an addon.
      *
-     * @param  AddonCollection   $addons
-     * @param                    $addon
-     * @return mixed|null|string
+     * @param AddonCollection $downloaded
+     * @param                 $repository
+     * @param                 $addon
+     * @return \Illuminate\Contracts\View\View|mixed
      */
-    public function details(AddonCollection $addons, $addon)
+    public function view(AddonCollection $downloaded, $repository, $addon)
     {
-        /* @var Addon $addon */
-        $addon = $addons->get($addon);
+        $addons = $this->dispatch(new GetAllAddons($repository));
 
-        $json = $addon->getComposerJson();
+        $addon = array_first(
+            $addons,
+            function ($item) use ($addon) {
+                return $item['id'] == $addon;
+            }
+        );
 
-        return view('module::ajax/details', compact('json', 'addon'))->render();
+        /* @var Addon $instance */
+        if ($instance = $downloaded->get($addon['id'])) {
+            $addon['downloaded'] = true;
+            $addon['readme']     = $instance->getReadme();
+        }
+
+        return $this->view->make(
+            'anomaly.module.addons::admin/addon/view',
+            compact('addon')
+        );
     }
 
     /**

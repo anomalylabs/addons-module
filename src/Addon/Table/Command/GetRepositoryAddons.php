@@ -1,7 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Addon\Table\Command;
 
 use Anomaly\AddonsModule\Addon\AddonNormalizer;
-use Anomaly\AddonsModule\Addon\Table\AddonTableBuilder;
 use Illuminate\Contracts\Config\Repository;
 
 /**
@@ -15,20 +14,29 @@ class GetRepositoryAddons
 {
 
     /**
-     * The addon table builder.
+     * The repository slug.
      *
-     * @var AddonTableBuilder
+     * @var string
      */
-    protected $builder;
+    protected $repository;
+
+    /**
+     * The type of addons to return.
+     *
+     * @var string
+     */
+    protected $type;
 
     /**
      * Create a new GetRepositoryAddons instance.
      *
-     * @param AddonTableBuilder $builder
+     * @param string $repository
+     * @param null   $type
      */
-    public function __construct(AddonTableBuilder $builder)
+    public function __construct($repository, $type = null)
     {
-        $this->builder = $builder;
+        $this->type       = $type;
+        $this->repository = $repository;
     }
 
     /**
@@ -41,12 +49,10 @@ class GetRepositoryAddons
     public function handle(Repository $config, AddonNormalizer $normalizer)
     {
 
-        $view = $this->builder->getActiveTableView();
-
         $includes = array_keys(
             json_decode(
                 file_get_contents(
-                    $config->get("anomaly.module.addons::repository.{$view->getSlug()}.url") . '/packages.json'
+                    $config->get("anomaly.module.addons::repository.{$this->repository}.url") . '/packages.json'
                 ),
                 true
             )['includes']
@@ -56,10 +62,10 @@ class GetRepositoryAddons
 
         array_walk(
             $includes,
-            function (&$include) use ($config, $view) {
+            function (&$include) use ($config) {
                 $include = json_decode(
                     file_get_contents(
-                        $config->get("anomaly.module.addons::repository.{$view->getSlug()}.url") . '/' . $include
+                        $config->get("anomaly.module.addons::repository.{$this->repository}.url") . '/' . $include
                     ),
                     true
                 )['packages'];
@@ -87,8 +93,15 @@ class GetRepositoryAddons
                 $packages,
                 function ($package) {
 
-                    return array_get($package, 'type') == 'streams-addon'
-                        && str_is('*/*-' . str_singular($this->builder->getType()), $package['name']);
+                    if (array_get($package, 'type') != 'streams-addon') {
+                        return false;
+                    }
+
+                    if (!$this->type) {
+                        return true;
+                    }
+
+                    return str_is('*/*-' . str_singular($this->type), $package['name']);
                 }
             )
         );

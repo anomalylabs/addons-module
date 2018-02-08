@@ -25,7 +25,7 @@ class AddonTableButtons
         $builder->setButtons(
             [
                 'view' => [
-                    'href' => '/{request.path}/view/{entry.name}?repository={request.input.view}',
+                    'href' => '/{request.path}/view/{request.input.view}/{entry.id}',
                 ],
             ]
         );
@@ -52,7 +52,7 @@ class AddonTableButtons
                     'install'   => [
                         'data-toggle' => 'modal',
                         'data-target' => '#modal',
-                        'href'        => 'admin/addons/options/{entry.namespace}',
+                        'href'        => 'admin/addons/options/{entry.id}',
                         'enabled'     => function ($entry) use ($addons) {
 
                             if (!in_array($entry['type'], ['module', 'extension'])) {
@@ -68,11 +68,14 @@ class AddonTableButtons
                         },
                     ],
                     'uninstall' => [
-                        'button'  => 'uninstall',
-                        'icon'    => 'times-circle',
-                        'text'    => 'anomaly.module.addons::button.uninstall',
-                        'href'    => 'admin/addons/uninstall/{entry.namespace}',
-                        'enabled' => function ($entry) use ($addons) {
+                        'button'       => 'uninstall',
+                        'data-match'   => 'entry.name',
+                        'icon'         => 'times-circle',
+                        'href'         => 'admin/addons/uninstall/{entry.id}',
+                        'text'         => 'anomaly.module.addons::button.uninstall',
+                        'data-title'   => 'anomaly.module.addons::confirm.uninstall_title',
+                        'data-message' => 'anomaly.module.addons::confirm.uninstall_message',
+                        'enabled'      => function ($entry) use ($addons) {
 
                             if (!in_array($entry['type'], ['module', 'extension'])) {
                                 return false;

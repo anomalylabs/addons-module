@@ -1,8 +1,8 @@
 <h3 class="lead">
-    {{ trans('module::label.authors') }}
+    {{ trans('anomaly.module.addons::label.authors') }}
 </h3>
 
-{% for author in json.authors %}
+{% for author in addon.authors %}
     <dl>
         <dt>{{ author.name }} <span class="text-muted">({{ author.role }})</span></dt>
         <dd><a href="{{ author.homepage }}" target="_blank">{{ author.homepage }}</a></dd>

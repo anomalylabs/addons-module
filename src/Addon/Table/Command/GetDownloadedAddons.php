@@ -1,7 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Addon\Table\Command;
 
 use Anomaly\AddonsModule\Addon\AddonNormalizer;
-use Anomaly\AddonsModule\Addon\Table\AddonTableBuilder;
 
 /**
  * Class GetDownloadedAddons
@@ -14,21 +13,22 @@ class GetDownloadedAddons
 {
 
     /**
-     * The addon table builder.
+     * The type of addons to return.
      *
-     * @var AddonTableBuilder
+     * @var string
      */
-    protected $builder;
+    protected $type;
 
     /**
      * Create a new GetDownloadedAddons instance.
      *
-     * @param AddonTableBuilder $builder
+     * @param null $type
      */
-    public function __construct(AddonTableBuilder $builder)
+    public function __construct($type = null)
     {
-        $this->builder = $builder;
+        $this->type = $type;
     }
+
 
     /**
      * Handle the command.
@@ -42,8 +42,16 @@ class GetDownloadedAddons
             array_filter(
                 json_decode(file_get_contents(base_path('composer.lock')), true)['packages'],
                 function ($package) {
-                    return $package['type'] == 'streams-addon'
-                        && str_is('*/*-' . str_singular($this->builder->getType()), $package['name']);
+
+                    if (array_get($package, 'type') != 'streams-addon') {
+                        return false;
+                    }
+
+                    if (!$this->type) {
+                        return true;
+                    }
+
+                    return str_is('*/*-' . str_singular($this->type), $package['name']);
                 }
             )
         );
