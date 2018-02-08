@@ -1,0 +1,75 @@
+<div class="card card-container">
+
+    {% if addon.path %}
+        {% if addon.type == 'module' or addon.type == 'extension' %}
+            {% if addon.installed %}
+                <a
+                        href="{{ url_route('anomaly.module.addons::addon.uninstall', {'id': addon.id, 'type': addon.type}) }}"
+                        data-icon="warning"
+                        data-toggle="prompt"
+                        class="btn btn-danger"
+                        data-match="{{ addon.name }}"
+                        data-title="{{ trans('anomaly.module.addons::confirm.uninstall_title') }}"
+                        data-message="{{ trans('anomaly.module.addons::confirm.uninstall_message') }}"
+                >
+                    {{ icon('times-circle') }} {{ trans('anomaly.module.addons::button.uninstall') }}
+                </a>
+
+                {% if addon.enabled %}
+                    <a
+                            href="{{ url_route('anomaly.module.addons::addon.disable', {'id': addon.id, 'type': addon.type}) }}"
+                            data-icon="warning"
+                            data-toggle="confirm"
+                            class="btn btn-warning"
+                            data-title="{{ trans('anomaly.module.addons::confirm.disable_title') }}"
+                            data-message="{{ trans('anomaly.module.addons::confirm.disable_message') }}"
+                    >
+                        {{ icon('fa fa-toggle-off') }} {{ trans('anomaly.module.addons::button.disable') }}
+                    </a>
+                {% else %}
+                    <a
+                            href="{{ url_route('anomaly.module.addons::addon.enable', {'id': addon.id, 'type': addon.type}) }}"
+                            class="btn btn-success"
+                    >
+                        {{ icon('fa fa-toggle-on') }} {{ trans('anomaly.module.addons::button.enable') }}
+                    </a>
+                {% endif %}
+            {% else %}
+                <a
+                        href="{{ url_route('anomaly.module.addons::addon.options', {'id': addon.id, 'type': addon.type}) }}"
+                        class="btn btn-success"
+                        data-toggle="modal"
+                        data-target="#modal"
+                >
+                    {{ icon('fa fa-check-circle') }} {{ trans('anomaly.module.addons::button.install') }}
+                </a>
+            {% endif %}
+        {% endif %}
+
+        {#<a#}
+                {#href="{{ url_route('anomaly.module.addons::addon.remove', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"#}
+                {#data-icon="error"#}
+                {#data-toggle="prompt"#}
+                {#class="btn btn-danger"#}
+                {#data-match="{{ addon.name }}"#}
+                {#data-title="{{ trans('anomaly.module.addons::confirm.remove_title') }}"#}
+                {#data-message="{{ trans('anomaly.module.addons::confirm.remove_message') }}"#}
+        {#>#}
+            {#{{ icon('times-circle') }} {{ trans('anomaly.module.addons::button.remove') }}#}
+        {#</a>#}
+
+    {% else %}
+        {#<a#}
+                {#href="{{ url_route('anomaly.module.addons::addon.download', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"#}
+                {#data-icon="warning"#}
+                {#data-toggle="confirm"#}
+                {#class="btn btn-primary"#}
+                {#data-match="{{ addon.name }}"#}
+                {#data-title="{{ trans('anomaly.module.addons::confirm.download_title') }}"#}
+                {#data-message="{{ trans('anomaly.module.addons::confirm.download_message') }}"#}
+        {#>#}
+            {#{{ icon('download') }} {{ trans('anomaly.module.addons::button.download') }}#}
+        {#</a>#}
+    {% endif %}
+
+</div>

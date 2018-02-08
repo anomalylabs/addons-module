@@ -1,0 +1,57 @@
+{% extends "streams::blank" %}
+
+{% block content %}
+
+    <div class="container">
+
+        {% include "anomaly.module.addons::admin/addon/partials/actions" %}
+
+        <div class="card">
+
+            <div class="card-header">
+                <h4 class="card-title">
+                    {{ addon.title }} {{ ucfirst(addon.type) }}
+                    <small>
+                        {{ addon.name }}
+                    </small>
+                </h4>
+            </div>
+
+            <div class="card-block">
+
+                <p>{{ addon.description }}</p>
+
+                <br>
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        {% include "anomaly.module.addons::admin/addon/partials/details" %}
+                    </div>
+                    <div class="col-lg-8">
+                        {% include "anomaly.module.addons::admin/addon/partials/authors" %}
+                    </div>
+                    <div class="col-lg-8">
+                        {% include "anomaly.module.addons::admin/addon/partials/support" %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        {% if addon.readme %}
+            <div class="card">
+
+                <div class="card-header">
+                    <h4 class="card-title">
+                        README
+                    </h4>
+                </div>
+
+                <div class="card-block">
+                    {{ addon.readme|markdown|raw }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

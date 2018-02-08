@@ -29,6 +29,9 @@
     "require": {
         "anomaly/streams-platform": "^1.2"
     },
+    "require": {
+        "composer/composer": "^1.6"
+    },
     "autoload": {
         "psr-4": {
             "Anomaly\\AddonsModule\\": "src/"

@@ -21,19 +21,21 @@ class AddonTableColumns
         $builder->setColumns(
             [
                 [
+                    'is_safe' => true,
                     'heading' => 'module::field.addon.name',
                     'wrapper' => '
-                        <strong>{value.name}</strong>
+                        <strong>{value.title}</strong>
+                        {value.pro}
+                        <br>
+                        <span class="text-muted">{value.name}</span>
                         <br>
                         <small class="text-muted">{value.description}</small>',
                     'value'   => [
-                        'name'        => 'entry.title',
+                        'name'        => 'entry.name',
+                        'title'       => 'entry.title',
                         'description' => 'entry.description',
+                        'pro'         => '{% if entry.is_pro %}<span class="tag tag-danger">PRO</span>{% endif %}',
                     ],
-                ],
-                [
-                    'heading' => 'module::field.version.name',
-                    'value'   => 'entry.getComposerLock().version',
                 ],
             ]
         );

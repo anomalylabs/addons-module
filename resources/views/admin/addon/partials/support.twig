@@ -1,0 +1,59 @@
+<h3 class="lead">
+    {{ trans('anomaly.module.addons::label.support') }}
+</h3>
+
+<ul class="list-unstyled">
+
+    {% if addon.support.email %}
+        <li>{{ html_mailto(addon.support.email, trans('anomaly.module.addons::label.support_email')) }}</li>
+    {% endif %}
+
+    {% if addon.support.issues %}
+        <li>
+            <a href="{{ addon.support.issues }}" target="_blank">
+                {{ trans('anomaly.module.addons::label.known_issues') }}
+            </a>
+        </li>
+    {% endif %}
+
+    {% if addon.support.forum %}
+        <li>
+            <a href="{{ addon.support.forum }}" target="_blank">
+                {{ trans('anomaly.module.addons::label.support_forum') }}
+            </a>
+        </li>
+    {% endif %}
+
+    {% if addon.support.wiki %}
+        <li>
+            <a href="{{ addon.support.wiki }}" target="_blank">
+                {{ trans('anomaly.module.addons::label.project_wiki') }}
+            </a>
+        </li>
+    {% endif %}
+
+    {% if addon.support.irc %}
+        <li>
+            <a href="{{ addon.support.irc }}" target="_blank">
+                {{ trans('anomaly.module.addons::label.irc_channel') }}
+            </a>
+        </li>
+    {% endif %}
+
+    {% if addon.support.source %}
+        <li>
+            <a href="{{ addon.support.source }}" target="_blank">
+                {{ trans('anomaly.module.addons::label.source_code') }}
+            </a>
+        </li>
+    {% endif %}
+
+    {% if addon.support.slack %}
+        <li>
+            <a href="{{ addon.support.slack }}" target="_blank">
+                {{ trans('anomaly.module.addons::label.slack') }}
+            </a>
+        </li>
+    {% endif %}
+
+</ul>

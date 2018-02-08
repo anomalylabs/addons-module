@@ -1,82 +1,133 @@
 <?php namespace Anomaly\AddonsModule\Addon\Table;
 
-use Anomaly\Streams\Platform\Addon\Addon;
+use Anomaly\Streams\Platform\Addon\AddonCollection;
 use Anomaly\Streams\Platform\Addon\Extension\Extension;
 use Anomaly\Streams\Platform\Addon\Module\Module;
-
 
 /**
  * Class AddonTableButtons
  *
- * @link          http://pyrocms.com/
- * @author        PyroCMS, Inc. <support@pyrocms.com>
- * @author        Ryan Thompson <ryan@pyrocms.com>
+ * @link   http://pyrocms.com/
+ * @author PyroCMS, Inc. <support@pyrocms.com>
+ * @author Ryan Thompson <ryan@pyrocms.com>
  */
 class AddonTableButtons
 {
 
     /**
-     * Handle the command.
+     * Handle the buttons.
      *
      * @param AddonTableBuilder $builder
+     * @param AddonCollection   $addons
      */
-    public function handle(AddonTableBuilder $builder)
+    public function handle(AddonTableBuilder $builder, AddonCollection $addons)
     {
+        $view = $builder->getActiveTableView();
+
         $builder->setButtons(
             [
-                'information' => [
-                    'data-toggle' => 'modal',
-                    'data-target' => '#modal',
-                    'href'        => 'admin/addons/details/{entry.namespace}',
-                ],
-                'install'     => [
-                    'data-toggle' => 'modal',
-                    'data-target' => '#modal',
-                    'href'        => 'admin/addons/options/{entry.namespace}',
-                    'enabled'     => function (Addon $entry) {
-
-                        if (!$entry instanceof Module && !$entry instanceof Extension) {
-                            return false;
-                        }
-
-                        return !$entry->isInstalled();
-                    },
-                ],
-                'migrate'   => [
-                    'class'      => 'btn-success',
-                    'icon'       => 'fa fa-level-up',
-                    'text'       => 'anomaly.module.addons::button.migrate',
-                    'href'       => 'admin/addons/migrate/{entry.namespace}',
-                    'data-match' => function (Addon $entry) {
-                        return $entry->getTitle();
-                    },
-                    'enabled'    => function (Addon $entry) {
-
-                        if (!$entry instanceof Module && !$entry instanceof Extension) {
-                            return false;
-                        }
-
-                        return $entry->isInstalled();
-                    },
-                ],
-                'uninstall'   => [
-                    'button'     => 'prompt',
-                    'icon'       => 'times-circle',
-                    'text'       => 'anomaly.module.addons::button.uninstall',
-                    'href'       => 'admin/addons/uninstall/{entry.namespace}',
-                    'data-match' => function (Addon $entry) {
-                        return $entry->getTitle();
-                    },
-                    'enabled'    => function (Addon $entry) {
-
-                        if (!$entry instanceof Module && !$entry instanceof Extension) {
-                            return false;
-                        }
-
-                        return $entry->isInstalled();
-                    },
+                'view' => [
+                    'href' => '/{request.path}/view/' . $view->getSlug() . '/{entry.id}',
                 ],
             ]
         );
+
+        $view = $builder->getActiveTableView();
+
+        if ($view->getSlug() == 'downloaded') {
+            $builder->addbuttons(
+                [
+                    'install'   => [
+                        'data-toggle' => 'modal',
+                        'data-target' => '#modal',
+                        'href'        => 'admin/addons/{entry.type}/options/{entry.id}',
+                        'enabled'     => function ($entry) use ($addons) {
+
+                            if (!in_array($entry['type'], ['module', 'extension'])) {
+                                return false;
+                            }
+
+                            /* @var Module|Extension $addon */
+                            if (!$addon = $addons->get($entry['id'])) {
+                                return false;
+                            }
+
+                            return !$addon->isInstalled();
+                        },
+                    ],
+                    'uninstall' => [
+                        'button'       => 'uninstall',
+                        'data-match'   => 'entry.name',
+                        'icon'         => 'times-circle',
+                        'href'         => 'admin/addons/{entry.type}/uninstall/{entry.id}',
+                        'text'         => 'anomaly.module.addons::button.uninstall',
+                        'data-title'   => 'anomaly.module.addons::confirm.uninstall_title',
+                        'data-message' => 'anomaly.module.addons::confirm.uninstall_message',
+                        'enabled'      => function ($entry) use ($addons) {
+
+                            if (!in_array($entry['type'], ['module', 'extension'])) {
+                                return false;
+                            }
+
+                            /* @var Module|Extension $addon */
+                            if (!$addon = $addons->get($entry['id'])) {
+                                return false;
+                            }
+
+                            return $addon->isInstalled();
+                        },
+                    ],
+                    'enable'    => [
+                        'type'    => 'success',
+                        'icon'    => 'fa fa-toggle-on',
+                        'href'    => 'admin/addons/{entry.type}/enable/{entry.id}',
+                        'enabled' => function ($entry) use ($addons) {
+
+                            if (!in_array($entry['type'], ['module', 'extension'])) {
+                                return false;
+                            }
+
+                            /* @var Module|Extension $addon */
+                            if (!$addon = $addons->get($entry['id'])) {
+                                return false;
+                            }
+
+                            if (!$addon->isInstalled()) {
+                                return false;
+                            }
+
+                            return !$addon->isEnabled();
+                        },
+                    ],
+                    'disable'   => [
+                        'type'         => 'warning',
+                        'data-icon'    => 'warning',
+                        'data-toggle'  => 'confirm',
+                        'icon'         => 'fa fa-toggle-off',
+                        'href'         => 'admin/addons/{entry.type}/disable/{entry.id}',
+                        'text'         => 'anomaly.module.addons::button.disable',
+                        'data-title'   => 'anomaly.module.addons::confirm.disable_title',
+                        'data-message' => 'anomaly.module.addons::confirm.disable_message',
+                        'enabled'      => function ($entry) use ($addons) {
+
+                            if (!in_array($entry['type'], ['module', 'extension'])) {
+                                return false;
+                            }
+
+                            /* @var Module|Extension $addon */
+                            if (!$addon = $addons->get($entry['id'])) {
+                                return false;
+                            }
+
+                            if (!$addon->isInstalled()) {
+                                return false;
+                            }
+
+                            return $addon->isEnabled();
+                        },
+                    ],
+                ]
+            );
+        }
     }
 }

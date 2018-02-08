@@ -1,0 +1,51 @@
+<h3 class="lead">
+    {{ trans('anomaly.module.addons::label.information') }}
+</h3>
+
+<dl>
+    {% if addon.version %}
+        <dt>{{ trans('anomaly.module.addons::label.version') }}</dt>
+        <dd>{{ addon.version }}</dd>
+    {% endif %}
+
+    <dt>{{ trans('anomaly.module.addons::label.namespace') }}</dt>
+    <dd>
+        <pre>{{ addon.id }}</pre>
+    </dd>
+
+    {% if addon.path %}
+        <dt>{{ trans('anomaly.module.addons::label.path') }}</dt>
+        <dd>{{ addon.path }}</dd>
+    {% endif %}
+
+    {% if addon.type in ['module', 'extension'] %}
+        <dt>{{ trans('anomaly.module.addons::field.state.name') }}</dt>
+        <dd>
+            {% if addon.installed %}
+                <span class="tag tag-success">{{ trans('streams::addon.installed') }}</span>
+            {% else %}
+                <span class="tag tag-default">{{ trans('streams::addon.uninstalled') }}</span>
+            {% endif %}
+        </dd>
+        <dt>{{ trans('anomaly.module.addons::field.status.name') }}</dt>
+        <dd>
+            {% if addon.enabled %}
+                <span class="tag tag-success">{{ trans('streams::addon.enabled') }}</span>
+            {% else %}
+                <span class="tag tag-default">{{ trans('streams::addon.disabled') }}</span>
+            {% endif %}
+        </dd>
+    {% endif %}
+
+    {% if addon.type == 'theme' %}
+        <dt>{{ trans('anomaly.module.addons::field.state.name') }}</dt>
+        <dd>
+            {% if addon.active %}
+                <span class="tag tag-success">{{ trans('streams::addon.active') }}</span>
+            {% else %}
+                <span class="tag tag-success">{{ trans('streams::addon.inactive') }}</span>
+            {% endif %}
+        </dd>
+    {% endif %}
+
+</dl>
