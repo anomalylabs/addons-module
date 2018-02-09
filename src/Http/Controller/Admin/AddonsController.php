@@ -101,7 +101,7 @@ class AddonsController extends AdminController
 
         return $this->view->make(
             'anomaly.module.addons::ajax/install',
-            compact('addon', 'namespace')
+            compact('addon', 'type', 'namespace')
         );
     }
 
