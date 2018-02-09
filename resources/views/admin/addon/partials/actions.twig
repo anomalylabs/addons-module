@@ -33,15 +33,6 @@
                     >
                         {{ icon('fa fa-toggle-on') }} {{ trans('anomaly.module.addons::button.enable') }}
                     </a>
-
-                    <a
-                            href="{{ url_route('anomaly.module.addons::addon.remove', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
-                            data-message="{{ trans('anomaly.module.addons::message.removing', {'addon': addon.name}) }}"
-                            data-toggle="remove"
-                            class="btn btn-danger"
-                    >
-                        {{ icon('times-circle') }} {{ trans('anomaly.module.addons::button.remove') }}
-                    </a>
                 {% endif %}
             {% else %}
                 <a
@@ -51,6 +42,15 @@
                         data-target="#modal"
                 >
                     {{ icon('fa fa-check-circle') }} {{ trans('anomaly.module.addons::button.install') }}
+                </a>
+
+                <a
+                        href="{{ url_route('anomaly.module.addons::addon.remove', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
+                        data-message="{{ trans('anomaly.module.addons::message.removing', {'addon': addon.name}) }}"
+                        data-toggle="remove"
+                        class="btn btn-danger"
+                >
+                    {{ icon('times-circle') }} {{ trans('anomaly.module.addons::button.remove') }}
                 </a>
             {% endif %}
         {% else %}
