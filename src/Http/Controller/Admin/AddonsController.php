@@ -258,7 +258,7 @@ class AddonsController extends AdminController
         $process->run(
             function ($type, $buffer) {
 
-                if (empty($buffer)) {
+                if (empty(trim($buffer))) {
                     return;
                 }
 
@@ -269,7 +269,7 @@ class AddonsController extends AdminController
         $manager->register(true);
 
         if (!$this->dispatch(new GetAddon($addon['id']))) {
-            throw new \Exception("{$addon['id']} could not be found. Download failed.");
+            throw new \Exception("[{$addon['id']}] could not be found. Download failed.");
         }
     }
 
@@ -321,7 +321,7 @@ class AddonsController extends AdminController
         $process->run(
             function ($type, $buffer) use ($application) {
 
-                if (empty($buffer)) {
+                if (empty(trim($buffer))) {
                     return;
                 }
 
