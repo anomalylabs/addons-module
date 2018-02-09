@@ -46,10 +46,6 @@
 
                 request.addEventListener('readystatechange', function (event) {
 
-                    if (request.status != 200) {
-                        clearInterval(interval);
-                    }
-
                     console.log(request.responseText);
 
                     if (request.readyState == 4) {
