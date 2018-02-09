@@ -58,14 +58,19 @@
                                 icon: 'error',
                                 text: request.responseText,
                                 buttons: {
-                                    confirm: true
+                                    confirm: {
+                                        closeModal: false,
+                                    },
                                 },
+                            }).then((value) => {
+                                window.location.reload();
+                                return false;
                             });
 
                             return false;
                         }
 
-                        if (request.responseText.length > 1) {
+                        if (request.responseText.length > 1 && request.status == 200) {
                             swal({
                                 text: request.responseText,
                                 buttons: false,
@@ -76,8 +81,6 @@
             }, 1000);
         });
     });
-
-
 
 
     const removals = Array.from(
@@ -117,10 +120,6 @@
 
                 request.addEventListener('readystatechange', function (event) {
 
-                    if (request.status != 200) {
-                        clearInterval(interval);
-                    }
-
                     console.log(request.responseText);
 
                     if (request.readyState == 4) {
@@ -133,14 +132,19 @@
                                 icon: 'error',
                                 text: request.responseText,
                                 buttons: {
-                                    confirm: true
+                                    confirm: {
+                                        closeModal: false,
+                                    },
                                 },
+                            }).then((value) => {
+                                window.location.reload();
+                                return false;
                             });
 
                             return false;
                         }
 
-                        if (request.responseText.length > 1) {
+                        if (request.responseText.length > 1 && request.status == 200) {
                             swal({
                                 text: request.responseText,
                                 buttons: false,

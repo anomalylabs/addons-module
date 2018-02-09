@@ -8,6 +8,7 @@ use Anomaly\Streams\Platform\Addon\Extension\Extension;
 use Anomaly\Streams\Platform\Addon\Extension\ExtensionManager;
 use Anomaly\Streams\Platform\Addon\Module\Module;
 use Anomaly\Streams\Platform\Addon\Module\ModuleManager;
+use Anomaly\Streams\Platform\Application\Application;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Filesystem\Filesystem;
@@ -233,7 +234,7 @@ class AddonsController extends AdminController
         return $this->redirect->back();
     }
 
-    public function download(Repository $cache, $type, $repository, $addon)
+    public function download(Repository $cache, Application $application, $type, $repository, $addon)
     {
         $addons = $this->dispatch(new GetAllAddons($repository));
 
@@ -253,7 +254,7 @@ class AddonsController extends AdminController
         $process->setTimeout(60 * 5);
 
         $process->run(
-            function ($type, $buffer) use ($cache) {
+            function ($type, $buffer) use ($application) {
 
                 if (empty($buffer)) {
                     return;
@@ -261,16 +262,17 @@ class AddonsController extends AdminController
 
                 \Log::info(trim($buffer));
 
-                $cache->put('buffer.output', trim($buffer), 1);
+                file_put_contents($application->getAssetsPath('composer/buffer.output'), trim($buffer));
             }
         );
 
-        $cache->put('buffer.exit', 'EXIT;', 1);
+        file_put_contents($application->getAssetsPath('composer/buffer.exit'), 'EXIT;');
     }
 
     public function remove(
         Repository $cache,
         Filesystem $files,
+        Application $application,
         AddonCollection $collection,
         $type,
         $repository,
@@ -312,7 +314,7 @@ class AddonsController extends AdminController
         $process->setTimeout(60 * 5);
 
         $process->run(
-            function ($type, $buffer) use ($cache) {
+            function ($type, $buffer) use ($application) {
 
                 if (empty($buffer)) {
                     return;
@@ -320,10 +322,10 @@ class AddonsController extends AdminController
 
                 \Log::info(trim($buffer));
 
-                $cache->put('buffer.output', trim($buffer), 1);
+                file_put_contents($application->getAssetsPath('composer/buffer.output'), trim($buffer));
             }
         );
 
-        $cache->put('buffer.exit', 'EXIT;', 1);
+        file_put_contents($application->getAssetsPath('composer/buffer.exit'), 'EXIT;');
     }
 }

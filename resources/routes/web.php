@@ -1,17 +1,20 @@
 <?php
 
 return [
-    'check' => function (\Illuminate\Contracts\Cache\Repository $cache) {
+    'check' => function (
+        \Illuminate\Contracts\Cache\Repository $cache,
+        \Anomaly\Streams\Platform\Application\Application $application
+    ) {
 
-        $output = $cache->get('buffer.output');
-        $exit   = $cache->get('buffer.exit');
+        $output = @file_get_contents($application->getAssetsPath('composer/buffer.output')) or null;
+        $exit   = @file_get_contents($application->getAssetsPath('composer/buffer.exit')) or false;
 
         if ($exit) {
-            $output = $cache->pull('buffer.output');
+            unlink($application->getAssetsPath('composer/buffer.output'));
         }
 
         if ($exit && !$output) {
-            $output = $cache->pull('buffer.exit');
+            unlink($application->getAssetsPath('composer/buffer.exit'));
         }
 
         echo trim($output);
