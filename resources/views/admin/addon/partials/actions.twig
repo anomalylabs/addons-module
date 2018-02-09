@@ -46,30 +46,24 @@
             {% endif %}
         {% endif %}
 
-        {#<a#}
-                {#href="{{ url_route('anomaly.module.addons::addon.remove', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"#}
-                {#data-icon="error"#}
-                {#data-toggle="prompt"#}
-                {#class="btn btn-danger"#}
-                {#data-match="{{ addon.name }}"#}
-                {#data-title="{{ trans('anomaly.module.addons::confirm.remove_title') }}"#}
-                {#data-message="{{ trans('anomaly.module.addons::confirm.remove_message') }}"#}
-        {#>#}
-            {#{{ icon('times-circle') }} {{ trans('anomaly.module.addons::button.remove') }}#}
-        {#</a>#}
+        <a
+                href="{{ url_route('anomaly.module.addons::addon.remove', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
+                data-title="Removing {{ addon.name }}"
+                data-toggle="remove"
+                class="btn btn-danger"
+        >
+            {{ icon('times-circle') }} {{ trans('anomaly.module.addons::button.remove') }}
+        </a>
 
     {% else %}
-        {#<a#}
-                {#href="{{ url_route('anomaly.module.addons::addon.download', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"#}
-                {#data-icon="warning"#}
-                {#data-toggle="confirm"#}
-                {#class="btn btn-primary"#}
-                {#data-match="{{ addon.name }}"#}
-                {#data-title="{{ trans('anomaly.module.addons::confirm.download_title') }}"#}
-                {#data-message="{{ trans('anomaly.module.addons::confirm.download_message') }}"#}
-        {#>#}
-            {#{{ icon('download') }} {{ trans('anomaly.module.addons::button.download') }}#}
-        {#</a>#}
+        <a
+                href="{{ url_route('anomaly.module.addons::addon.download', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
+                data-title="Downloading {{ addon.name }}"
+                data-toggle="download"
+                class="btn btn-primary"
+        >
+            {{ icon('download') }} {{ trans('anomaly.module.addons::button.download') }}
+        </a>
     {% endif %}
 
 </div>

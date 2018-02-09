@@ -9,6 +9,8 @@ use Anomaly\Streams\Platform\Addon\Extension\ExtensionManager;
 use Anomaly\Streams\Platform\Addon\Module\Module;
 use Anomaly\Streams\Platform\Addon\Module\ModuleManager;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
+use Illuminate\Contracts\Cache\Repository;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Symfony\Component\Process\Process;
 
@@ -231,7 +233,7 @@ class AddonsController extends AdminController
         return $this->redirect->back();
     }
 
-    public function download($type, $repository, $addon)
+    public function download(Repository $cache, $type, $repository, $addon)
     {
         $addons = $this->dispatch(new GetAllAddons($repository));
 
@@ -248,24 +250,32 @@ class AddonsController extends AdminController
             $_ENV + ['COMPOSER_HOME' => base_path()]
         );
 
-        $process->setTimeout(60*5);
+        $process->setTimeout(60 * 5);
 
-        $process->start();
+        $process->run(
+            function ($type, $buffer) use ($cache) {
 
-        foreach ($process as $type => $data) {
-            if ($process::OUT === $type) {
-                echo $data . "<br>";
-            } else {
-                echo "[ERR] " . $data . "<br>";
+                if (empty($buffer)) {
+                    return;
+                }
+
+                \Log::info(trim($buffer));
+
+                $cache->put('buffer.output', trim($buffer), 1);
             }
-        }
-        die;
+        );
 
-        return $this->redirect->back();
+        $cache->put('buffer.exit', 'EXIT;', 1);
     }
 
-    public function remove($type, $repository, $addon)
-    {
+    public function remove(
+        Repository $cache,
+        Filesystem $files,
+        AddonCollection $collection,
+        $type,
+        $repository,
+        $addon
+    ) {
         $addons = $this->dispatch(new GetAllAddons($repository));
 
         $addon = array_first(
@@ -275,23 +285,45 @@ class AddonsController extends AdminController
             }
         );
 
+
+
+        if ($instance = $collection->get($addon['id'])) {
+            $json = json_decode(file_get_contents(base_path('composer.json')), true);
+
+            //if (isset($json['require'][$addon['name']])) {
+            unset($json['require'][$addon['name']]);
+            //}
+
+            file_put_contents(base_path('composer.json'), json_encode($json, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES));
+
+            if (is_dir($instance->getPath())) {
+                $files->deleteDirectory($instance->getPath());
+            }
+        }
+
+
+
         $process = new Process(
             '/Applications/MAMP/bin/php/php7.0.20/bin/php ./bin/composer remove ' . $addon['name'],
             base_path(),
             $_ENV + ['COMPOSER_HOME' => base_path()]
         );
 
-        $process->setTimeout(60*5);
+        $process->setTimeout(60 * 5);
 
-        $process->start();
+        $process->run(
+            function ($type, $buffer) use ($cache) {
 
-        foreach ($process as $type => $data) {
-            if ($process::OUT === $type) {
-                echo $data . "<br>";
-            } else {
-                echo "[ERR] " . $data . "<br>";
+                if (empty($buffer)) {
+                    return;
+                }
+
+                \Log::info(trim($buffer));
+
+                $cache->put('buffer.output', trim($buffer), 1);
             }
-        }
-        die;
+        );
+
+        $cache->put('buffer.exit', 'EXIT;', 1);
     }
 }
