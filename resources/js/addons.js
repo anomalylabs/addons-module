@@ -19,6 +19,8 @@
 
             event.preventDefault();
 
+            NProgress.start();
+
             swal({
                 buttons: false,
                 closeOnEsc: false,
@@ -37,16 +39,19 @@
 
             request.addEventListener('readystatechange', function (event) {
 
-                console.log(request.responseText);
+                NProgress.inc();
 
-                console.log('State ' + request.readyState);
-                console.log(request.responseText);
+                if (request.readyState == 4) {
+                    NProgress.done();
+                }
 
                 if (request.readyState == 4 && request.status == 200) {
 
                     swal({
-                        icon: 'success',
                         text: 'Done!',
+                        icon: 'success',
+                        closeOnEsc: false,
+                        closeOnClickOutside: false,
                         buttons: {
                             confirm: {
                                 text: 'Reload',
@@ -62,6 +67,8 @@
 
                     swal({
                         icon: 'error',
+                        closeOnEsc: false,
+                        closeOnClickOutside: false,
                         text: 'There was an error.\n\nPlease check your error logs!',
                         buttons: {
                             confirm: {
@@ -87,6 +94,8 @@
 
             event.preventDefault();
 
+            NProgress.start();
+
             swal({
                 buttons: false,
                 closeOnEsc: false,
@@ -105,11 +114,19 @@
 
             request.addEventListener('readystatechange', function (event) {
 
+                NProgress.inc();
+
+                if (request.readyState == 4) {
+                    NProgress.done();
+                }
+
                 if (request.readyState == 4 && request.status == 200) {
 
                     swal({
-                        icon: 'success',
                         text: 'Done!',
+                        icon: 'success',
+                        closeOnEsc: false,
+                        closeOnClickOutside: false,
                         buttons: {
                             confirm: {
                                 text: 'Reload',
@@ -125,6 +142,8 @@
 
                     swal({
                         icon: 'error',
+                        closeOnEsc: false,
+                        closeOnClickOutside: false,
                         text: 'There was an error.\n\nPlease check your error logs!',
                         buttons: {
                             confirm: {
