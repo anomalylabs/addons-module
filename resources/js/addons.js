@@ -22,6 +22,8 @@
             swal({
                 text: toggle.dataset.title,
                 buttons: false,
+                closeOnEsc: false,
+                closeOnClickOutside: false,
             });
 
             let request = new XMLHttpRequest();
@@ -33,52 +35,44 @@
                 _token: CSRF_TOKEN,
             }));
 
-            let interval = setInterval(function () {
+            request.addEventListener('readystatechange', function (event) {
 
-                let request = new XMLHttpRequest();
+                console.log(request.responseText);
 
-                request.open('GET', REQUEST_ROOT_PATH + '/check', true);
-                request.setRequestHeader('Content-Type', 'application/json');
+                console.log('State ' + request.readyState);
+                console.log(request.responseText);
 
-                request.send(JSON.stringify({
-                    _token: CSRF_TOKEN,
-                }));
+                if (request.readyState == 4 && request.status == 200) {
 
-                request.addEventListener('readystatechange', function (event) {
+                    swal({
+                        icon: 'success',
+                        text: 'Done!',
+                        buttons: {
+                            confirm: {
+                                text: 'Reload',
+                                closeModal: false,
+                            }
+                        },
+                    }).then((value) => {
+                        window.location.reload();
+                    });
+                }
 
-                    console.log(request.responseText);
+                if (request.readyState == 4 && request.status == 500) {
 
-                    if (request.readyState == 4) {
-
-                        if (request.responseText == 'EXIT;') {
-
-                            clearInterval(interval);
-
-                            swal({
-                                icon: 'error',
-                                text: request.responseText,
-                                buttons: {
-                                    confirm: {
-                                        closeModal: false,
-                                    },
-                                },
-                            }).then((value) => {
-                                window.location.reload();
-                                return false;
-                            });
-
-                            return false;
-                        }
-
-                        if (request.responseText.length > 1 && request.status == 200) {
-                            swal({
-                                text: request.responseText,
-                                buttons: false,
-                            });
-                        }
-                    }
-                }, false);
-            }, 1000);
+                    swal({
+                        icon: 'error',
+                        text: 'There was an error.\n\nPlease check your error logs!',
+                        buttons: {
+                            confirm: {
+                                closeModal: false,
+                            }
+                        },
+                    }).then((value) => {
+                        window.location.reload();
+                    });
+                }
+            }, false);
         });
     });
 
@@ -96,6 +90,8 @@
             swal({
                 text: toggle.dataset.title,
                 buttons: false,
+                closeOnEsc: false,
+                closeOnClickOutside: false,
             });
 
             let request = new XMLHttpRequest();
@@ -107,52 +103,39 @@
                 _token: CSRF_TOKEN,
             }));
 
-            let interval = setInterval(function () {
+            request.addEventListener('readystatechange', function (event) {
 
-                let request = new XMLHttpRequest();
+                if (request.readyState == 4 && request.status == 200) {
 
-                request.open('GET', REQUEST_ROOT_PATH + '/check', true);
-                request.setRequestHeader('Content-Type', 'application/json');
+                    swal({
+                        icon: 'success',
+                        text: 'Done!',
+                        buttons: {
+                            confirm: {
+                                text: 'Reload',
+                                closeModal: false,
+                            }
+                        },
+                    }).then((value) => {
+                        window.location.reload();
+                    });
+                }
 
-                request.send(JSON.stringify({
-                    _token: CSRF_TOKEN,
-                }));
+                if (request.readyState == 4 && request.status == 500) {
 
-                request.addEventListener('readystatechange', function (event) {
-
-                    console.log(request.responseText);
-
-                    if (request.readyState == 4) {
-
-                        if (request.responseText == 'EXIT;') {
-
-                            clearInterval(interval);
-
-                            swal({
-                                icon: 'error',
-                                text: request.responseText,
-                                buttons: {
-                                    confirm: {
-                                        closeModal: false,
-                                    },
-                                },
-                            }).then((value) => {
-                                window.location.reload();
-                                return false;
-                            });
-
-                            return false;
-                        }
-
-                        if (request.responseText.length > 1 && request.status == 200) {
-                            swal({
-                                text: request.responseText,
-                                buttons: false,
-                            });
-                        }
-                    }
-                }, false);
-            }, 1000);
+                    swal({
+                        icon: 'error',
+                        text: 'There was an error.\n\nPlease check your error logs!',
+                        buttons: {
+                            confirm: {
+                                closeModal: false,
+                            }
+                        },
+                    }).then((value) => {
+                        window.location.reload();
+                    });
+                }
+            }, false);
         });
     });
 

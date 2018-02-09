@@ -4,6 +4,8 @@ use Anomaly\AddonsModule\Addon\Table\AddonTableBuilder;
 use Anomaly\AddonsModule\Addon\Table\Command\GetAllAddons;
 use Anomaly\Streams\Platform\Addon\Addon;
 use Anomaly\Streams\Platform\Addon\AddonCollection;
+use Anomaly\Streams\Platform\Addon\AddonManager;
+use Anomaly\Streams\Platform\Addon\Command\GetAddon;
 use Anomaly\Streams\Platform\Addon\Extension\Extension;
 use Anomaly\Streams\Platform\Addon\Extension\ExtensionManager;
 use Anomaly\Streams\Platform\Addon\Module\Module;
@@ -234,7 +236,7 @@ class AddonsController extends AdminController
         return $this->redirect->back();
     }
 
-    public function download(Repository $cache, Application $application, $type, $repository, $addon)
+    public function download(AddonManager $manager, $type, $repository, $addon)
     {
         $addons = $this->dispatch(new GetAllAddons($repository));
 
@@ -254,19 +256,21 @@ class AddonsController extends AdminController
         $process->setTimeout(60 * 5);
 
         $process->run(
-            function ($type, $buffer) use ($application) {
+            function ($type, $buffer) {
 
                 if (empty($buffer)) {
                     return;
                 }
 
                 \Log::info(trim($buffer));
-
-                file_put_contents($application->getAssetsPath('composer/buffer.output'), trim($buffer));
             }
         );
 
-        file_put_contents($application->getAssetsPath('composer/buffer.exit'), 'EXIT;');
+        $manager->register(true);
+
+        if (!$this->dispatch(new GetAddon($addon['id']))) {
+            throw new \Exception("{$addon['id']} could not be found. Download failed.");
+        }
     }
 
     public function remove(
@@ -288,7 +292,6 @@ class AddonsController extends AdminController
         );
 
 
-
         if ($instance = $collection->get($addon['id'])) {
             $json = json_decode(file_get_contents(base_path('composer.json')), true);
 
@@ -296,13 +299,15 @@ class AddonsController extends AdminController
             unset($json['require'][$addon['name']]);
             //}
 
-            file_put_contents(base_path('composer.json'), json_encode($json, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES));
+            file_put_contents(
+                base_path('composer.json'),
+                json_encode($json, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)
+            );
 
             if (is_dir($instance->getPath())) {
                 $files->deleteDirectory($instance->getPath());
             }
         }
-
 
 
         $process = new Process(
@@ -321,11 +326,7 @@ class AddonsController extends AdminController
                 }
 
                 \Log::info(trim($buffer));
-
-                file_put_contents($application->getAssetsPath('composer/buffer.output'), trim($buffer));
             }
         );
-
-        file_put_contents($application->getAssetsPath('composer/buffer.exit'), 'EXIT;');
     }
 }
