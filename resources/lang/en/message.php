@@ -5,4 +5,6 @@ return [
     'uninstall_addon_success' => 'Addon uninstalled successfully!',
     'enable_addon_success'    => 'Addon enabled successfully!',
     'disable_addon_success'   => 'Addon disabled successfully!',
+    'downloading'             => "Downloading :addon and it's dependencies.\n\nThis may take a couple minutes.",
+    'removing'                => "Removing :addon files and it's dependencies.\n\nThis may take a couple minutes.",
 ];

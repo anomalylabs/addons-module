@@ -19,32 +19,4 @@ class AddonsModule extends Module
      */
     protected $navigation = 'streams::navigation.system';
 
-    /**
-     * The module sections.
-     *
-     * @var array
-     */
-    protected $sections = [
-        'modules'     => [
-            'matcher' => 'admin/addons/modules*',
-            'href'    => 'admin/addons/modules?view={request.input.view}',
-        ],
-        'themes'      => [
-            'matcher' => 'admin/addons/themes*',
-            'href'    => 'admin/addons/themes?view={request.input.view}',
-        ],
-        'plugins'     => [
-            'matcher' => 'admin/addons/plugins*',
-            'href'    => 'admin/addons/plugins?view={request.input.view}',
-        ],
-        'extensions'  => [
-            'matcher' => 'admin/addons/extensions*',
-            'href'    => 'admin/addons/extensions?view={request.input.view}',
-        ],
-        'field_types' => [
-            'matcher' => 'admin/addons/field_types*',
-            'href'    => 'admin/addons/field_types?view={request.input.view}',
-        ],
-    ];
-
 }

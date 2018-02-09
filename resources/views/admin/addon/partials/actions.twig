@@ -33,6 +33,15 @@
                     >
                         {{ icon('fa fa-toggle-on') }} {{ trans('anomaly.module.addons::button.enable') }}
                     </a>
+
+                    <a
+                            href="{{ url_route('anomaly.module.addons::addon.remove', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
+                            data-message="{{ trans('anomaly.module.addons::message.removing', {'addon': addon.name}) }}"
+                            data-toggle="remove"
+                            class="btn btn-danger"
+                    >
+                        {{ icon('times-circle') }} {{ trans('anomaly.module.addons::button.remove') }}
+                    </a>
                 {% endif %}
             {% else %}
                 <a
@@ -44,21 +53,21 @@
                     {{ icon('fa fa-check-circle') }} {{ trans('anomaly.module.addons::button.install') }}
                 </a>
             {% endif %}
+        {% else %}
+            <a
+                    href="{{ url_route('anomaly.module.addons::addon.remove', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
+                    data-message="{{ trans('anomaly.module.addons::message.removing', {'addon': addon.name}) }}"
+                    data-toggle="remove"
+                    class="btn btn-danger"
+            >
+                {{ icon('times-circle') }} {{ trans('anomaly.module.addons::button.remove') }}
+            </a>
         {% endif %}
-
-        <a
-                href="{{ url_route('anomaly.module.addons::addon.remove', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
-                data-title="Removing {{ addon.name }}"
-                data-toggle="remove"
-                class="btn btn-danger"
-        >
-            {{ icon('times-circle') }} {{ trans('anomaly.module.addons::button.remove') }}
-        </a>
 
     {% else %}
         <a
                 href="{{ url_route('anomaly.module.addons::addon.download', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
-                data-title="Downloading {{ addon.name }}"
+                data-message="{{ trans('anomaly.module.addons::message.downloading', {'addon': addon.name}) }}"
                 data-toggle="download"
                 class="btn btn-primary"
         >

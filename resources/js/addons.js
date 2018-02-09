@@ -20,10 +20,10 @@
             event.preventDefault();
 
             swal({
-                text: toggle.dataset.title,
                 buttons: false,
                 closeOnEsc: false,
                 closeOnClickOutside: false,
+                text: toggle.dataset.message,
             });
 
             let request = new XMLHttpRequest();
@@ -88,10 +88,10 @@
             event.preventDefault();
 
             swal({
-                text: toggle.dataset.title,
                 buttons: false,
                 closeOnEsc: false,
                 closeOnClickOutside: false,
+                text: toggle.dataset.message,
             });
 
             let request = new XMLHttpRequest();
