@@ -2,13 +2,13 @@
 
 use Anomaly\Streams\Platform\Addon\AddonCollection;
 
-
 /**
  * Class AddonTableEntries
  *
- * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
+ *
+ * @link          http://pyrocms.com/
  */
 class AddonTableEntries
 {
@@ -21,8 +21,11 @@ class AddonTableEntries
      */
     public function handle(AddonTableBuilder $builder, AddonCollection $addons)
     {
-        $addons = $addons->{$builder->getType()}();
+        if (array_get($_GET, 'view') != 'packages')
+        {
+            $addons = $addons->{$builder->getType()}();
 
-        $builder->setTableEntries($addons);
+            $builder->setTableEntries($addons);
+        }
     }
 }

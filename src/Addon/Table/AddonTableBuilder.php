@@ -13,6 +13,18 @@ class AddonTableBuilder extends TableBuilder
 {
 
     /**
+     * Get views of table
+     *
+     * @var array
+     */
+    protected $views = [
+        'local',
+        'packages' => [
+            'handler' => 'Anomaly\AddonsModule\Addon\Table\View\PackageViewHandler@handle',
+        ],
+    ];
+
+    /**
      * The addon type to list.
      *
      * @var null|string
