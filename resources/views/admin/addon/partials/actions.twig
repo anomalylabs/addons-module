@@ -47,7 +47,7 @@
                 <a
                         href="{{ url_route('anomaly.module.addons::addon.remove', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
                         data-message="{{ trans('anomaly.module.addons::message.removing', {'addon': addon.name}) }}"
-                        data-toggle="remove"
+                        data-toggle="composer"
                         class="btn btn-danger"
                 >
                     {{ icon('times-circle') }} {{ trans('anomaly.module.addons::button.remove') }}
@@ -57,7 +57,7 @@
             <a
                     href="{{ url_route('anomaly.module.addons::addon.remove', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
                     data-message="{{ trans('anomaly.module.addons::message.removing', {'addon': addon.name}) }}"
-                    data-toggle="remove"
+                    data-toggle="composer"
                     class="btn btn-danger"
             >
                 {{ icon('times-circle') }} {{ trans('anomaly.module.addons::button.remove') }}
@@ -68,7 +68,7 @@
             <a
                     href="{{ url_route('anomaly.module.addons::addon.update', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
                     data-message="{{ trans('anomaly.module.addons::message.updating', {'addon': addon.name}) }}"
-                    data-toggle="update"
+                    data-toggle="composer"
                     class="btn btn-info"
             >
                 {{ icon('refresh') }} {{ trans('anomaly.module.addons::button.update') }}
@@ -79,7 +79,7 @@
         <a
                 href="{{ url_route('anomaly.module.addons::addon.download', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
                 data-message="{{ trans('anomaly.module.addons::message.downloading', {'addon': addon.name}) }}"
-                data-toggle="download"
+                data-toggle="composer"
                 class="btn btn-primary"
         >
             {{ icon('download') }} {{ trans('anomaly.module.addons::button.download') }}

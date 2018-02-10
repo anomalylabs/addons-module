@@ -252,7 +252,7 @@ class AddonsController extends AdminController
         $manager->register(true);
 
         if (!$this->dispatch(new GetAddon($addon['id']))) {
-            
+
             $json = json_decode(file_get_contents(base_path('composer.json')), true);
 
             if (isset($json['require'][$addon['name']])) {
