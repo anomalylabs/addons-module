@@ -68,7 +68,7 @@
             {% endif %}
         {% endif %}
 
-        {% if addon.outdated %}
+        {% if addon.has_updates %}
             {% if composer_can('update', addon.type) %}
                 <a
                         href="{{ url_route('anomaly.module.addons::composer.update', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
