@@ -24,10 +24,10 @@
         </li>
     {% endif %}
 
-    {% if addon.support.wiki %}
+    {% if addon.support.slack %}
         <li>
-            <a href="{{ addon.support.wiki }}" target="_blank">
-                {{ trans('anomaly.module.addons::label.project_wiki') }}
+            <a href="{{ addon.support.slack }}" target="_blank">
+                {{ trans('anomaly.module.addons::label.slack') }}
             </a>
         </li>
     {% endif %}
@@ -40,6 +40,14 @@
         </li>
     {% endif %}
 
+    {% if addon.support.wiki %}
+        <li>
+            <a href="{{ addon.support.wiki }}" target="_blank">
+                {{ trans('anomaly.module.addons::label.project_wiki') }}
+            </a>
+        </li>
+    {% endif %}
+
     {% if addon.support.source %}
         <li>
             <a href="{{ addon.support.source }}" target="_blank">
@@ -48,10 +56,18 @@
         </li>
     {% endif %}
 
-    {% if addon.support.slack %}
+    {% if addon.support.docs %}
         <li>
-            <a href="{{ addon.support.slack }}" target="_blank">
-                {{ trans('anomaly.module.addons::label.slack') }}
+            <a href="{{ addon.support.docs }}" target="_blank">
+                {{ trans('anomaly.module.addons::label.documentation') }}
+            </a>
+        </li>
+    {% endif %}
+
+    {% if addon.support.rss %}
+        <li>
+            <a href="{{ addon.support.rss }}" target="_blank">
+                {{ trans('anomaly.module.addons::label.rss') }}
             </a>
         </li>
     {% endif %}

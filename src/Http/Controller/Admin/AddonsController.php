@@ -213,7 +213,7 @@ class AddonsController extends AdminController
         if ($addon instanceof Module) {
             $modules->disable($addon);
         } elseif ($addon instanceof Extension) {
-            $extensions->dispatch($addon);
+            $extensions->disable($addon);
         }
 
         return $this->redirect->back();

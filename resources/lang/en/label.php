@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'rss'           => 'RSS',
     'link'          => 'Link',
     'type'          => 'Type',
     'path'          => 'Path',
@@ -9,6 +10,7 @@ return [
     'authors'       => 'Authors',
     'support'       => 'Support',
     'version'       => 'Version',
+    'requires'      => 'Requires',
     'standard'      => 'Standard',
     'namespace'     => 'Namespace',
     'information'   => 'Information',
@@ -16,6 +18,7 @@ return [
     'source_code'   => 'Source Code',
     'known_issues'  => 'Known Issues',
     'project_wiki'  => 'Project Wiki',
+    'documentation' => 'Documentation',
     'not_installed' => 'Not Installed',
     'support_email' => 'Support Email',
     'support_forum' => 'Support Forum',

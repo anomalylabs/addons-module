@@ -1,0 +1,13 @@
+{% if addon.require %}
+<h3 class="lead">
+    {{ trans('anomaly.module.addons::label.requires') }}
+</h3>
+
+<ul class="list-unstyled">
+
+    {% for package, require in addon.require %}
+        <li>{{ package }}: {{ require }}</li>
+    {% endfor %}
+
+</ul>
+{% endif %}
