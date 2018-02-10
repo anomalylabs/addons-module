@@ -221,7 +221,7 @@ class AddonsController extends AdminController
 
     public function download(AddonManager $manager, $type, $repository, $addon)
     {
-        $addons = $this->dispatch(new GetAllAddons($repository));
+        $addons = $this->dispatch(new GetAllAddons($type));
 
         $addon = array_first(
             $addons,
@@ -256,9 +256,9 @@ class AddonsController extends AdminController
         }
     }
 
-    public function update(AddonManager $manager, $type, $repository, $addon)
+    public function update($type, $repository, $addon)
     {
-        $addons = $this->dispatch(new GetAllAddons($repository));
+        $addons = $this->dispatch(new GetAllAddons($type));
 
         $addon = array_first(
             $addons,
@@ -296,7 +296,7 @@ class AddonsController extends AdminController
         $repository,
         $addon
     ) {
-        $addons = $this->dispatch(new GetAllAddons($repository));
+        $addons = $this->dispatch(new GetAllAddons($type));
 
         $addon = array_first(
             $addons,
@@ -304,7 +304,6 @@ class AddonsController extends AdminController
                 return $item['id'] == $addon;
             }
         );
-
 
         if ($instance = $collection->get($addon['id'])) {
             $json = json_decode(file_get_contents(base_path('composer.json')), true);
