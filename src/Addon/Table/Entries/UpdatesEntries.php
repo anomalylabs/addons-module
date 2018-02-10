@@ -1,6 +1,7 @@
 <?php namespace Anomaly\AddonsModule\Addon\Table\Entries;
 
 use Anomaly\AddonsModule\Addon\AddonReader;
+use Anomaly\AddonsModule\Addon\Command\GetAllAddons;
 use Anomaly\AddonsModule\Addon\Command\GetRequiredAddons;
 use Anomaly\AddonsModule\Addon\Table\AddonTableBuilder;
 use Anomaly\AddonsModule\Addon\Table\Command\FilterAddons;
@@ -32,10 +33,10 @@ class UpdatesEntries
     {
 
         $addons = $cache->remember(
-            'anomaly.module.addons::addons.downloaded.' . $builder->getType(),
+            'anomaly.module.addons::addons.all.' . $builder->getType(),
             10,
             function () use ($builder) {
-                return $this->dispatch(new GetRequiredAddons($builder->getType()));
+                return $this->dispatch(new GetAllAddons($builder->getType()));
             }
         );
 

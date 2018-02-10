@@ -1,13 +1,28 @@
 {% if addon.require %}
-<h3 class="lead">
-    {{ trans('anomaly.module.addons::label.requires') }}
-</h3>
+    <h3 class="lead">
+        {{ trans('anomaly.module.addons::label.requires') }}
+    </h3>
 
-<ul class="list-unstyled">
+    <ul class="list-unstyled">
 
-    {% for package, require in addon.require %}
-        <li>{{ package }}: {{ require }}</li>
-    {% endfor %}
+        {% for package, require in addon.require %}
 
-</ul>
+            {% set type = explode('-', package)|last %}
+
+            {% if type in config('streams::addon.types') %}
+                <li>
+                    <a href="/admin/addons/{{ str_plural(type) }}?view=all&filter_search={{ package }}"
+                       target="_blank">
+                        {{ package }}
+                    </a>
+                    : {{ require }}
+                </li>
+            {% else %}
+                <li>
+                    {{ package }}: {{ require }}
+                </li>
+            {% endif %}
+        {% endfor %}
+
+    </ul>
 {% endif %}

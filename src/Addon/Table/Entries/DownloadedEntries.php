@@ -1,6 +1,7 @@
 <?php namespace Anomaly\AddonsModule\Addon\Table\Entries;
 
 use Anomaly\AddonsModule\Addon\AddonReader;
+use Anomaly\AddonsModule\Addon\Command\GetAllAddons;
 use Anomaly\AddonsModule\Addon\Command\GetRequiredAddons;
 use Anomaly\AddonsModule\Addon\Table\AddonTableBuilder;
 use Anomaly\AddonsModule\Addon\Table\Command\FilterAddons;
@@ -32,14 +33,21 @@ class DownloadedEntries
     {
 
         $addons = $cache->remember(
-            'anomaly.module.addons::addons.downloaded.' . $builder->getType(),
+            'anomaly.module.addons::addons.all.' . $builder->getType(),
             10,
             function () use ($builder) {
-                return $this->dispatch(new GetRequiredAddons($builder->getType()));
+                return $this->dispatch(new GetAllAddons($builder->getType()));
             }
         );
 
         $addons = $reader->read($addons);
+
+        $addons = array_filter(
+            $addons,
+            function (array $addon) {
+                return array_get($addon, 'required', false) !== false;
+            }
+        );
 
         $builder->setTableEntries(new Collection($addons));
 

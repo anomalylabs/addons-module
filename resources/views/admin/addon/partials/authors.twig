@@ -1,19 +1,21 @@
-<h3 class="lead">
-    {{ trans('anomaly.module.addons::label.authors') }}
-</h3>
+{% if addon.authors %}
+    <h3 class="lead">
+        {{ trans('anomaly.module.addons::label.authors') }}
+    </h3>
 
-{% for author in addon.authors %}
-    <dl>
+    {% for author in addon.authors %}
+        <dl>
 
-        <dt>{{ author.name }} <span class="text-muted">({{ author.role }})</span></dt>
+            <dt>{{ author.name }} <span class="text-muted">({{ author.role }})</span></dt>
 
-        {% if author.homepage %}
-            <dd><a href="{{ author.homepage }}" target="_blank">{{ author.homepage }}</a></dd>
-        {% endif %}
+            {% if author.homepage %}
+                <dd><a href="{{ author.homepage }}" target="_blank">{{ author.homepage }}</a></dd>
+            {% endif %}
 
-        {% if author.email %}
-            <dd>{{ html_mailto(author.email) }}</dd>
-        {% endif %}
+            {% if author.email %}
+                <dd>{{ html_mailto(author.email) }}</dd>
+            {% endif %}
 
-    </dl>
-{% endfor %}
+        </dl>
+    {% endfor %}
+{% endif %}

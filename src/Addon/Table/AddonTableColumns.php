@@ -37,8 +37,12 @@ class AddonTableColumns
                         'title'       => 'entry.title',
                         'description' => 'entry.description',
                         'pro'         => '{% if entry.is_pro %}<span class="tag tag-danger">PRO</span>{% endif %}',
-                        'downloaded'  => '{% if entry.downloaded %}<span class="tag tag-primary">Downloaded</span>{% endif %}',
-                        'outdated'    => '{% if entry.has_updates %}<span class="tag tag-warning">Outdated</span>{% endif %}',
+                        'downloaded'  => '{% if entry.downloaded %}<span class="tag tag-primary">' . trans(
+                                'anomaly.module.addons::label.downloaded'
+                            ) . '</span>{% endif %}',
+                        'outdated'    => '{% if entry.has_updates %}<span class="tag tag-warning">' . trans(
+                                'anomaly.module.addons::label.outdated'
+                            ) . '</span>{% endif %}',
                     ],
                 ],
             ]

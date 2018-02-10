@@ -5,7 +5,12 @@
 <dl>
     {% if addon.lock.version %}
         <dt>{{ trans('anomaly.module.addons::label.version') }}</dt>
-        <dd>{{ addon.lock.version }} <span class="text-muted">({{ addon.constraint }})</span></dd>
+        <dd>
+            {{ addon.lock.version }}
+            {% if addon.constraint %}
+                <span class="text-muted">({{ addon.constraint }})</span>
+            {% endif %}
+        </dd>
     {% endif %}
 
     <dt>{{ trans('anomaly.module.addons::label.namespace') }}</dt>

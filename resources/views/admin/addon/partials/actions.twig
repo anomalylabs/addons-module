@@ -58,7 +58,7 @@
                     href="{{ url_route('anomaly.module.addons::addon.remove', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
                     data-message="{{ trans('anomaly.module.addons::message.removing', {'addon': addon.name}) }}"
                     data-toggle="composer"
-                    class="btn btn-danger"
+                    class="btn btn-danger {{ not addon.required ? 'disabled' }}"
             >
                 {{ icon('times-circle') }} {{ trans('anomaly.module.addons::button.remove') }}
             </a>
