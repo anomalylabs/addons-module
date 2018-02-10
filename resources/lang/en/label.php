@@ -10,6 +10,7 @@ return [
     'authors'       => 'Authors',
     'support'       => 'Support',
     'version'       => 'Version',
+    'versions'      => 'Versions',
     'requires'      => 'Requires',
     'standard'      => 'Standard',
     'namespace'     => 'Namespace',
@@ -22,4 +23,5 @@ return [
     'not_installed' => 'Not Installed',
     'support_email' => 'Support Email',
     'support_forum' => 'Support Forum',
+    'more'          => ':amount more',
 ];
