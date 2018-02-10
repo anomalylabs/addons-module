@@ -317,8 +317,6 @@ class AddonsController extends AdminController
             }
         );
 
-        $collection->forget($addon['id']);
-
         $json = json_decode(file_get_contents(base_path('composer.json')), true);
 
         if (isset($json['require'][$addon['name']])) {
@@ -331,9 +329,12 @@ class AddonsController extends AdminController
         );
 
         if ($instance = $collection->get($addon['id'])) {
+
             if (is_dir($instance->getPath())) {
                 $files->deleteDirectory($instance->getPath());
             }
+
+            $collection->forget($addon['id']);
         }
 
 
