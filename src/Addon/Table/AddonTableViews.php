@@ -1,5 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Addon\Table;
 
+use Anomaly\AddonsModule\Addon\Table\Entries\AllEntries;
 use Anomaly\AddonsModule\Addon\Table\Entries\DownloadedEntries;
 use Anomaly\AddonsModule\Addon\Table\Entries\RepositoryEntries;
 use Anomaly\AddonsModule\Addon\Table\Entries\UpdatesEntries;
@@ -27,7 +28,7 @@ class AddonTableViews
                 'downloaded' => [
                     'entries' => DownloadedEntries::class,
                 ],
-                'updates' => [
+                'updates'    => [
                     'entries' => UpdatesEntries::class,
                 ],
             ]
@@ -42,5 +43,13 @@ class AddonTableViews
                 ]
             );
         }
+
+        $builder->addView(
+            'all',
+            [
+                'entries' => AllEntries::class,
+                'text'    => 'anomaly.module.addons::repository.all.name',
+            ]
+        );
     }
 }

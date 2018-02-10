@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'all'       => [
+        'name'        => 'All',
+        'title'       => 'All Addons',
+        'description' => 'All available addons from all configured repositories.',
+    ],
     'featured'  => [
         'name'        => 'Featured',
         'title'       => 'Featured Addons',
