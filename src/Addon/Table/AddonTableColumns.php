@@ -26,6 +26,8 @@ class AddonTableColumns
                     'wrapper' => '
                         <strong>{value.title}</strong>
                         {value.pro}
+                        {value.downloaded}
+                        {value.outdated}
                         <br>
                         <span class="text-muted">{value.name}</span>
                         <br>
@@ -35,6 +37,8 @@ class AddonTableColumns
                         'title'       => 'entry.title',
                         'description' => 'entry.description',
                         'pro'         => '{% if entry.is_pro %}<span class="tag tag-danger">PRO</span>{% endif %}',
+                        'downloaded'  => '{% if entry.downloaded %}<span class="tag tag-primary">Downloaded</span>{% endif %}',
+                        'outdated'    => '{% if entry.outdated %}<span class="tag tag-warning">Outdated</span>{% endif %}',
                     ],
                 ],
             ]

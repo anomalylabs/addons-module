@@ -12,7 +12,6 @@ use Anomaly\Streams\Platform\Addon\Module\Module;
 use Anomaly\Streams\Platform\Addon\Module\ModuleManager;
 use Anomaly\Streams\Platform\Application\Application;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
-use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Symfony\Component\Process\Process;
@@ -48,13 +47,12 @@ class AddonsController extends AdminController
     /**
      * View an addon.
      *
-     * @param AddonCollection $downloaded
-     * @param                 $type
-     * @param                 $repository
-     * @param                 $addon
+     * @param $type
+     * @param $repository
+     * @param $addon
      * @return \Illuminate\Contracts\View\View|mixed
      */
-    public function view(AddonCollection $downloaded, $type, $repository, $addon)
+    public function view($type, $repository, $addon)
     {
         $addons = $this->dispatch(new GetAllAddons($repository));
 
@@ -64,25 +62,6 @@ class AddonsController extends AdminController
                 return $item['id'] == $addon;
             }
         );
-
-        /* @var Addon $instance */
-        if ($instance = $downloaded->get($addon['id'])) {
-
-            $addon['downloaded'] = true;
-            $addon['readme']     = $instance->getReadme();
-            $addon['path']       = $instance->getAppPath();
-
-            if ($instance instanceof Module || $instance instanceof Extension) {
-
-                $addon['enabled']   = $instance->isEnabled();
-                $addon['installed'] = $instance->isInstalled();
-            }
-
-            if ($instance instanceof Extension) {
-
-                $addon['provides'] = $instance->getProvides();
-            }
-        }
 
         return $this->view->make(
             'anomaly.module.addons::admin/addon/view',
@@ -273,11 +252,42 @@ class AddonsController extends AdminController
         }
     }
 
+    public function update(AddonManager $manager, $type, $repository, $addon)
+    {
+        $addons = $this->dispatch(new GetAllAddons($repository));
+
+        $addon = array_first(
+            $addons,
+            function ($item) use ($addon) {
+                return $item['id'] == $addon;
+            }
+        );
+
+        $process = new Process(
+            '/Applications/MAMP/bin/php/php7.0.20/bin/php ./bin/composer update ' . $addon['name'],
+            base_path(),
+            $_ENV + ['COMPOSER_HOME' => base_path()]
+        );
+
+        $process->setTimeout(60 * 5);
+
+        $process->run(
+            function ($type, $buffer) {
+
+                if (empty(trim($buffer))) {
+                    return;
+                }
+
+                \Log::info(trim($buffer));
+            }
+        );
+    }
+
     public function remove(
-        Repository $cache,
-        Filesystem $files,
-        Application $application,
         AddonCollection $collection,
+        Application $application,
+        AddonManager $manager,
+        Filesystem $files,
         $type,
         $repository,
         $addon
@@ -328,5 +338,11 @@ class AddonsController extends AdminController
                 \Log::info(trim($buffer));
             }
         );
+
+        $manager->register(true);
+
+        if ($this->dispatch(new GetAddon($addon['id']))) {
+            throw new \Exception("[{$addon['id']}] could not be removed. Removal failed.");
+        }
     }
 }

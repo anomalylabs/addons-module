@@ -46,6 +46,10 @@ class AddonsModuleServiceProvider extends AddonServiceProvider
             'as'   => 'anomaly.module.addons::addon.remove',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@remove',
         ],
+        'admin/addons/{type}/update/{repository}/{addon}'   => [
+            'as'   => 'anomaly.module.addons::addon.update',
+            'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@update',
+        ],
         'admin/addons/{type}/download/{repository}/{addon}' => [
             'as'   => 'anomaly.module.addons::addon.download',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@download',

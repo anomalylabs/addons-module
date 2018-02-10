@@ -87,7 +87,25 @@ class GetRepositoryAddons
 
                 $versions = array_pop($versions);
 
-                $versions['references'] = $references;
+                unset($versions['version']);
+
+                $references = array_filter(
+                    $references,
+                    function ($reference) {
+                        return !str_contains(
+                            $reference,
+                            [
+                                'stable',
+                                'RC',
+                                'beta',
+                                'alpha',
+                                'dev',
+                            ]
+                        );
+                    }
+                );
+
+                $versions['versions'] = $references;
             }
         );
 
