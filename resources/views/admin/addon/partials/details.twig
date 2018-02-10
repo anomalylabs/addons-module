@@ -3,9 +3,9 @@
 </h3>
 
 <dl>
-    {% if addon.version %}
+    {% if addon.lock.version %}
         <dt>{{ trans('anomaly.module.addons::label.version') }}</dt>
-        <dd>{{ addon.version }}</dd>
+        <dd>{{ addon.lock.version }} <span class="text-muted">({{ addon.constraint }})</span></dd>
     {% endif %}
 
     <dt>{{ trans('anomaly.module.addons::label.namespace') }}</dt>

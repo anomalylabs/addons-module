@@ -34,7 +34,9 @@ class AddonNormalizer
 
             $addon['id'] = "{$vendor}.{$type}.{$slug}";
 
-            $addon['required'] = array_get($composer['require'], $addon['name'], false);
+            $addon['required'] = isset($composer['require'][$addon['name']]);
+
+            $addon['constraint'] = array_get($composer['require'], $addon['name'], null);
 
             $addon['is_pro'] = in_array('https://pyrocms.com/pro/license', array_get($addon, 'license', []));
         }
