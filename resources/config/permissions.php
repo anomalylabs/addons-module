@@ -3,38 +3,22 @@
 return [
     'modules'     => [
         'read',
-        'install',
-        'uninstall',
-        'disable',
-        'download',
-        'update',
-        'remove',
+        'manage',
     ],
     'themes'      => [
         'read',
-        'download',
-        'update',
-        'remove',
+        'manage',
     ],
     'plugins'     => [
         'read',
-        'download',
-        'update',
-        'remove',
+        'manage',
     ],
     'extensions'  => [
         'read',
-        'install',
-        'uninstall',
-        'disable',
-        'download',
-        'update',
-        'remove',
+        'manage',
     ],
     'field_types' => [
         'read',
-        'download',
-        'update',
-        'remove',
+        'manage',
     ],
 ];
