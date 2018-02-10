@@ -40,6 +40,7 @@ class AddonTableButtons
                     'install'   => [
                         'data-toggle' => 'modal',
                         'data-target' => '#modal',
+                        'permission'  => 'anomaly.module.addons::{entry.type}.manage',
                         'href'        => 'admin/addons/{entry.type}/options/{entry.id}',
                         'enabled'     => function ($entry) use ($addons) {
 
@@ -59,6 +60,7 @@ class AddonTableButtons
                         'button'       => 'uninstall',
                         'data-match'   => 'entry.name',
                         'icon'         => 'times-circle',
+                        'permission'   => 'anomaly.module.addons::{entry.type}.manage',
                         'href'         => 'admin/addons/{entry.type}/uninstall/{entry.id}',
                         'text'         => 'anomaly.module.addons::button.uninstall',
                         'data-title'   => 'anomaly.module.addons::confirm.uninstall_title',
@@ -78,10 +80,11 @@ class AddonTableButtons
                         },
                     ],
                     'enable'    => [
-                        'type'    => 'success',
-                        'icon'    => 'fa fa-toggle-on',
-                        'href'    => 'admin/addons/{entry.type}/enable/{entry.id}',
-                        'enabled' => function ($entry) use ($addons) {
+                        'type'       => 'success',
+                        'icon'       => 'fa fa-toggle-on',
+                        'permission' => 'anomaly.module.addons::{entry.type}.manage',
+                        'href'       => 'admin/addons/{entry.type}/enable/{entry.id}',
+                        'enabled'    => function ($entry) use ($addons) {
 
                             if (!in_array($entry['type'], ['module', 'extension'])) {
                                 return false;
@@ -104,8 +107,9 @@ class AddonTableButtons
                         'data-icon'    => 'warning',
                         'data-toggle'  => 'confirm',
                         'icon'         => 'fa fa-toggle-off',
-                        'href'         => 'admin/addons/{entry.type}/disable/{entry.id}',
                         'text'         => 'anomaly.module.addons::button.disable',
+                        'permission'   => 'anomaly.module.addons::{entry.type}.manage',
+                        'href'         => 'admin/addons/{entry.type}/disable/{entry.id}',
                         'data-title'   => 'anomaly.module.addons::confirm.disable_title',
                         'data-message' => 'anomaly.module.addons::confirm.disable_message',
                         'enabled'      => function ($entry) use ($addons) {

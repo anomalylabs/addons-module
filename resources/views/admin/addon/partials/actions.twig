@@ -44,9 +44,9 @@
                     {{ icon('fa fa-check-circle') }} {{ trans('anomaly.module.addons::button.install') }}
                 </a>
 
-                {% if env('APP_ENV') != 'production' or config('anomaly.module.addons::composer.allow_removals') %}
+                {% if composer_can('remove', addon.type) %}
                     <a
-                            href="{{ url_route('anomaly.module.addons::addon.remove', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
+                            href="{{ url_route('anomaly.module.addons::composer.remove', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
                             data-message="{{ trans('anomaly.module.addons::message.removing', {'addon': addon.name}) }}"
                             data-toggle="composer"
                             class="btn btn-danger"
@@ -56,9 +56,9 @@
                 {% endif %}
             {% endif %}
         {% else %}
-            {% if env('APP_ENV') != 'production' or config('anomaly.module.addons::composer.allow_removals') %}
+            {% if composer_can('remove', addon.type) %}
                 <a
-                        href="{{ url_route('anomaly.module.addons::addon.remove', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
+                        href="{{ url_route('anomaly.module.addons::composer.remove', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
                         data-message="{{ trans('anomaly.module.addons::message.removing', {'addon': addon.name}) }}"
                         data-toggle="composer"
                         class="btn btn-danger {{ not addon.required ? 'disabled' }}"
@@ -69,9 +69,9 @@
         {% endif %}
 
         {% if addon.outdated %}
-            {% if env('APP_ENV') != 'production' or config('anomaly.module.addons::composer.allow_updates') %}
+            {% if composer_can('update', addon.type) %}
                 <a
-                        href="{{ url_route('anomaly.module.addons::addon.update', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
+                        href="{{ url_route('anomaly.module.addons::composer.update', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
                         data-message="{{ trans('anomaly.module.addons::message.updating', {'addon': addon.name}) }}"
                         data-toggle="composer"
                         class="btn btn-info"
@@ -82,9 +82,9 @@
         {% endif %}
 
     {% else %}
-        {% if env('APP_ENV') != 'production' or config('anomaly.module.addons::composer.allow_downloads') %}
+        {% if composer_can('download', addon.type) %}
             <a
-                    href="{{ url_route('anomaly.module.addons::addon.download', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
+                    href="{{ url_route('anomaly.module.addons::composer.download', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
                     data-message="{{ trans('anomaly.module.addons::message.downloading', {'addon': addon.name}) }}"
                     data-toggle="composer"
                     class="btn btn-primary"
