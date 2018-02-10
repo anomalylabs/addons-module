@@ -49,16 +49,16 @@ class AddonReader
 
             $addon['downloaded'] = false;
 
+            $addon['required'] = isset($composer['require'][$addon['name']]);
+
+            $addon['constraint'] = array_get($composer['require'], $addon['name'], null);
+
             if ($instance = $this->addons->get($addon['id'])) {
 
                 $addon['downloaded'] = true;
                 $addon['readme']     = $instance->getReadme();
                 $addon['path']       = $instance->getAppPath();
                 $addon['lock']       = $instance->getComposerLock();
-
-                if ($constraint = array_get($composer['require'], $addon['name'])) {
-                    $addon['constraint'] = $constraint;
-                }
 
                 $addon['has_updates'] = $this->dispatch(new GetOutdatedStatus($addon, $composer));
 

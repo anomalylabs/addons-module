@@ -252,6 +252,18 @@ class AddonsController extends AdminController
         $manager->register(true);
 
         if (!$this->dispatch(new GetAddon($addon['id']))) {
+            
+            $json = json_decode(file_get_contents(base_path('composer.json')), true);
+
+            if (isset($json['require'][$addon['name']])) {
+                unset($json['require'][$addon['name']]);
+            }
+
+            file_put_contents(
+                base_path('composer.json'),
+                json_encode($json, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)
+            );
+
             throw new \Exception("[{$addon['id']}] could not be found. Download failed.");
         }
     }
@@ -305,21 +317,20 @@ class AddonsController extends AdminController
             }
         );
 
-        if ($instance = $collection->get($addon['id'])) {
+        $collection->forget($addon['id']);
 
-            $collection->forget($addon['id']);
+        $json = json_decode(file_get_contents(base_path('composer.json')), true);
 
-            $json = json_decode(file_get_contents(base_path('composer.json')), true);
-
-            //if (isset($json['require'][$addon['name']])) {
+        if (isset($json['require'][$addon['name']])) {
             unset($json['require'][$addon['name']]);
-            //}
+        }
 
-            file_put_contents(
-                base_path('composer.json'),
-                json_encode($json, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)
-            );
+        file_put_contents(
+            base_path('composer.json'),
+            json_encode($json, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)
+        );
 
+        if ($instance = $collection->get($addon['id'])) {
             if (is_dir($instance->getPath())) {
                 $files->deleteDirectory($instance->getPath());
             }

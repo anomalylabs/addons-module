@@ -19,8 +19,6 @@ class AddonNormalizer
     public function normalize(array $addons)
     {
 
-        $composer = json_decode(file_get_contents(base_path('composer.json')), true);
-
         foreach ($addons as &$addon) {
 
             list($vendor, $name) = explode('/', $addon['name']);
@@ -33,10 +31,6 @@ class AddonNormalizer
             $addon['vendor'] = $vendor;
 
             $addon['id'] = "{$vendor}.{$type}.{$slug}";
-
-            $addon['required'] = isset($composer['require'][$addon['name']]);
-
-            $addon['constraint'] = array_get($composer['require'], $addon['name'], null);
 
             $addon['is_pro'] = in_array('https://pyrocms.com/pro/license', array_get($addon, 'license', []));
         }

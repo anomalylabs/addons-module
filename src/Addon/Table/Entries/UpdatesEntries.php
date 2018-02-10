@@ -42,7 +42,7 @@ class UpdatesEntries
         $addons = $reader->read($addons);
 
         $addons = array_filter($addons, function(array $addon) {
-            return $addon['has_updates'];
+            return array_get($addon, 'has_updates');
         });
 
         $builder->setTableEntries(new Collection($addons));

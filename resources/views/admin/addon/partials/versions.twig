@@ -6,10 +6,12 @@
     <ul class="list-unstyled">
         <li>
             {{ addon.versions|reverse|slice(0, 15)|join(', ') }}
-            ...
-            <strong>
-                {{ trans('anomaly.module.addons::label.more', {'amount': addon.versions|slice(15)|length}) }}
-            </strong>
+            {% if addon.versions|length > 15 %}
+                ...
+                <strong>
+                    {{ trans('anomaly.module.addons::label.more', {'amount': addon.versions|slice(15)|length}) }}
+                </strong>
+            {% endif %}
         </li>
     </ul>
 {% endif %}
