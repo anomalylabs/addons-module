@@ -306,6 +306,9 @@ class AddonsController extends AdminController
         );
 
         if ($instance = $collection->get($addon['id'])) {
+
+            $collection->forget($addon['id']);
+
             $json = json_decode(file_get_contents(base_path('composer.json')), true);
 
             //if (isset($json['require'][$addon['name']])) {
