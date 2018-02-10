@@ -1,7 +1,8 @@
 <?php namespace Anomaly\AddonsModule\Http\Controller\Admin;
 
+use Anomaly\AddonsModule\Addon\AddonReader;
+use Anomaly\AddonsModule\Addon\Command\GetAllAddons;
 use Anomaly\AddonsModule\Addon\Table\AddonTableBuilder;
-use Anomaly\AddonsModule\Addon\Table\Command\GetAllAddons;
 use Anomaly\Streams\Platform\Addon\Addon;
 use Anomaly\Streams\Platform\Addon\AddonCollection;
 use Anomaly\Streams\Platform\Addon\AddonManager;
@@ -35,7 +36,7 @@ class AddonsController extends AdminController
      */
     public function index(AddonTableBuilder $builder, $type = null)
     {
-        
+
         if (!$type) {
             return $this->redirect->to('admin/addons/modules');
         }
@@ -53,9 +54,9 @@ class AddonsController extends AdminController
      * @param $addon
      * @return \Illuminate\Contracts\View\View|mixed
      */
-    public function view($type, $repository, $addon)
+    public function view(AddonReader $reader, $type, $repository, $addon)
     {
-        $addons = $this->dispatch(new GetAllAddons($repository));
+        $addons = $this->dispatch(new GetAllAddons($type));
 
         $addon = array_first(
             $addons,
@@ -63,6 +64,8 @@ class AddonsController extends AdminController
                 return $item['id'] == $addon;
             }
         );
+
+        $addon = $reader->read([$addon])[0];
 
         return $this->view->make(
             'anomaly.module.addons::admin/addon/view',
