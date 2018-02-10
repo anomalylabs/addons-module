@@ -1,8 +1,9 @@
 <?php namespace Anomaly\AddonsModule\Addon\Table\Entries;
 
+use Anomaly\AddonsModule\Addon\AddonReader;
 use Anomaly\AddonsModule\Addon\Table\AddonTableBuilder;
 use Anomaly\AddonsModule\Addon\Table\Command\FilterAddons;
-use Anomaly\AddonsModule\Addon\Table\Command\GetRepositoryAddons;
+use Anomaly\AddonsModule\Addon\Command\GetRepositoryAddons;
 use Anomaly\AddonsModule\Addon\Table\Command\PaginateAddons;
 use Anomaly\Streams\Platform\Support\Collection;
 use Illuminate\Contracts\Cache\Repository;
@@ -24,9 +25,10 @@ class RepositoryEntries
      * Handle the command.
      *
      * @param AddonTableBuilder $builder
+     * @param AddonReader       $reader
      * @param Repository        $cache
      */
-    public function handle(AddonTableBuilder $builder, Repository $cache)
+    public function handle(AddonTableBuilder $builder, AddonReader $reader, Repository $cache)
     {
         $view = $builder->getActiveTableView();
 
@@ -42,6 +44,8 @@ class RepositoryEntries
                 );
             }
         );
+
+        $addons = $reader->read($addons);
 
         $builder->setTableEntries(new Collection($addons));
 

@@ -64,14 +64,16 @@
             </a>
         {% endif %}
 
-        <a
-                href="{{ url_route('anomaly.module.addons::addon.update', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
-                data-message="{{ trans('anomaly.module.addons::message.updating', {'addon': addon.name}) }}"
-                data-toggle="update"
-                class="btn btn-info"
-        >
-            {{ icon('times-circle') }} {{ trans('anomaly.module.addons::button.update') }}
-        </a>
+        {% if addon.outdated %}
+            <a
+                    href="{{ url_route('anomaly.module.addons::addon.update', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
+                    data-message="{{ trans('anomaly.module.addons::message.updating', {'addon': addon.name}) }}"
+                    data-toggle="update"
+                    class="btn btn-info"
+            >
+                {{ icon('refresh') }} {{ trans('anomaly.module.addons::button.update') }}
+            </a>
+        {% endif %}
 
     {% else %}
         <a

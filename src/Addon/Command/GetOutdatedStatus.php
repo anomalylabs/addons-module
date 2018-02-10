@@ -17,45 +17,54 @@ class GetOutdatedStatus
     use DispatchesJobs;
 
     /**
-     * The repository details.
+     * The addon information.
      *
      * @var array
      */
-    protected $details;
+    protected $addon;
 
     /**
      * Create a new GetOutdatedStatus instance.
      *
-     * @param array $details
+     * @param array $addon
      */
-    public function __construct(array $details)
+    public function __construct(array $addon)
     {
-        $this->details = $details;
+        $this->addon = $addon;
     }
 
+    /**
+     * Handle the command.
+     *
+     * @return bool
+     */
     public function handle()
     {
-        $composer = json_decode(file_get_contents(base_path('composer.json')), true);
 
-        if (!$constraint = array_get($composer['require'], $this->details['name'])) {
+        if (!$constraint = array_get($this->addon, 'required')) {
             return false;
         }
 
-        $installed = $this->details['version'];
+        if (!$installed = array_get($this->addon, 'lock.version')) {
+            return false;
+        }
 
         $satisfied = Semver::satisfiedBy(
-            $this->details['versions'],
+            $this->addon['versions'],
             $constraint
         );
 
-        foreach ($satisfied as $available) {
+        foreach ($satisfied as $version) {
 
-            if (Comparator::equalTo($installed, $available)) {
+            if (str_contains($version, ['stable', 'RC', 'beta', 'alpha', 'dev'])) {
                 continue;
             }
 
-            if (Comparator::greaterThan($available, $installed)) {
-                dd($available.', '.$installed);
+            if (Comparator::equalTo($version, $installed)) {
+                continue;
+            }
+
+            if (Comparator::greaterThan($version, $installed)) {
                 return true;
             }
         }

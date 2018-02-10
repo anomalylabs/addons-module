@@ -35,6 +35,7 @@ class AddonsController extends AdminController
      */
     public function index(AddonTableBuilder $builder, $type = null)
     {
+        
         if (!$type) {
             return $this->redirect->to('admin/addons/modules');
         }

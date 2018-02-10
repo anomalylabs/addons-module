@@ -1,4 +1,4 @@
-<?php namespace Anomaly\AddonsModule\Addon\Table\Command;
+<?php namespace Anomaly\AddonsModule\Addon\Command;
 
 use Anomaly\AddonsModule\Addon\AddonNormalizer;
 use Illuminate\Contracts\Config\Repository;
@@ -58,54 +58,36 @@ class GetRepositoryAddons
             )['includes']
         );
 
+        $packages = [];
+
         array_walk(
             $includes,
-            function (&$include) use ($config) {
+            function (&$include) use (&$packages, $config) {
+
                 $include = json_decode(
                     file_get_contents(
                         $config->get("anomaly.module.addons::repository.{$this->repository}.url") . '/' . $include
                     ),
                     true
                 )['packages'];
-            }
-        );
 
-        $packages = [];
-
-        array_map(
-            function ($include) use (&$packages) {
                 $packages = array_merge($packages, $include);
-            },
-            $includes
+            }
         );
 
         array_walk(
             $packages,
-            function (&$versions) use (&$packages) {
+            function (&$availability) {
 
-                $references = array_keys($versions);
+                $versions = $availability;
 
-                $versions = array_pop($versions);
+                $latest = array_pop($availability);
 
-                unset($versions['version']);
+                $availability = $latest;
 
-                $references = array_filter(
-                    $references,
-                    function ($reference) {
-                        return !str_contains(
-                            $reference,
-                            [
-                                'stable',
-                                'RC',
-                                'beta',
-                                'alpha',
-                                'dev',
-                            ]
-                        );
-                    }
-                );
+                unset($availability['version']);
 
-                $versions['versions'] = $references;
+                $availability['versions'] = array_keys($versions);
             }
         );
 
