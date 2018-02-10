@@ -41,7 +41,7 @@ class GetOutdatedStatus
     public function handle()
     {
 
-        if (!$constraint = array_get($this->addon, 'required')) {
+        if (!$constraint = array_get($this->addon, 'constraint')) {
             return false;
         }
 
