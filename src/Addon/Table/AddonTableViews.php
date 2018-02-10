@@ -2,6 +2,7 @@
 
 use Anomaly\AddonsModule\Addon\Table\Entries\DownloadedEntries;
 use Anomaly\AddonsModule\Addon\Table\Entries\RepositoryEntries;
+use Anomaly\AddonsModule\Addon\Table\Entries\UpdatesEntries;
 use Illuminate\Contracts\Config\Repository;
 
 /**
@@ -25,6 +26,9 @@ class AddonTableViews
             [
                 'downloaded' => [
                     'entries' => DownloadedEntries::class,
+                ],
+                'updates' => [
+                    'entries' => UpdatesEntries::class,
                 ],
             ]
         );

@@ -60,7 +60,7 @@ class AddonReader
                     $addon['constraint'] = $constraint;
                 }
 
-                $addon['outdated'] = $this->dispatch(new GetOutdatedStatus($addon, $composer));
+                $addon['has_updates'] = $this->dispatch(new GetOutdatedStatus($addon, $composer));
 
                 if ($instance instanceof Module || $instance instanceof Extension) {
                     $addon['enabled']   = $instance->isEnabled();
