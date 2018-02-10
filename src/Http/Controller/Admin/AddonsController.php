@@ -15,6 +15,7 @@ use Anomaly\Streams\Platform\Application\Application;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
+use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
 
 /**
@@ -221,6 +222,7 @@ class AddonsController extends AdminController
 
     public function download(AddonManager $manager, $type, $repository, $addon)
     {
+
         $addons = $this->dispatch(new GetAllAddons($type));
 
         $addon = array_first(
@@ -231,12 +233,12 @@ class AddonsController extends AdminController
         );
 
         $process = new Process(
-            '/Applications/MAMP/bin/php/php7.0.20/bin/php ./bin/composer require ' . $addon['name'],
+            env('PHP_PATH', (new PhpExecutableFinder())->find()) . ' ./bin/composer require ' . $addon['name'],
             base_path(),
-            $_ENV + ['COMPOSER_HOME' => base_path()]
+            $_ENV + ['COMPOSER_HOME' => base_path('bin')],
+            null,
+            60 * 5
         );
-
-        $process->setTimeout(60 * 5);
 
         $process->run(
             function ($type, $buffer) {
@@ -246,6 +248,8 @@ class AddonsController extends AdminController
                 }
 
                 \Log::info(trim($buffer));
+
+                echo trim($buffer) . '<br>';
             }
         );
 
@@ -280,12 +284,12 @@ class AddonsController extends AdminController
         );
 
         $process = new Process(
-            '/Applications/MAMP/bin/php/php7.0.20/bin/php ./bin/composer update ' . $addon['name'],
+            env('PHP_PATH', (new PhpExecutableFinder())->find()) . ' ./bin/composer update ' . $addon['name'],
             base_path(),
-            $_ENV + ['COMPOSER_HOME' => base_path()]
+            $_ENV + ['COMPOSER_HOME' => base_path('bin')],
+            null,
+            60 * 5
         );
-
-        $process->setTimeout(60 * 5);
 
         $process->run(
             function ($type, $buffer) {
@@ -295,6 +299,8 @@ class AddonsController extends AdminController
                 }
 
                 \Log::info(trim($buffer));
+
+                echo trim($buffer) . '<br>';
             }
         );
     }
@@ -339,12 +345,12 @@ class AddonsController extends AdminController
 
 
         $process = new Process(
-            '/Applications/MAMP/bin/php/php7.0.20/bin/php ./bin/composer remove ' . $addon['name'],
+            env('PHP_PATH', (new PhpExecutableFinder())->find()) . ' ./bin/composer remove ' . $addon['name'],
             base_path(),
-            $_ENV + ['COMPOSER_HOME' => base_path()]
+            $_ENV + ['COMPOSER_HOME' => base_path('bin')],
+            null,
+            60 * 5
         );
-
-        $process->setTimeout(60 * 5);
 
         $process->run(
             function ($type, $buffer) use ($application) {
@@ -354,6 +360,8 @@ class AddonsController extends AdminController
                 }
 
                 \Log::info(trim($buffer));
+
+                echo trim($buffer) . '<br>';
             }
         );
 
