@@ -13,7 +13,7 @@ return [
     ],
     'plugins'     => [
         'title'       => 'Plugins',
-        'description' => 'Plugins add functionality to your views and content.',
+        'description' => 'Plugins are Twig extensions that add functionality to your views.',
     ],
     'themes'      => [
         'title'       => 'Themes',
@@ -21,14 +21,14 @@ return [
     ],
     'modules'     => [
         'title'       => 'Modules',
-        'description' => 'Modules are powerful addons accessible through the control panel.',
+        'description' => 'Modules add features that are controlled from the control panel.',
     ],
     'extensions'  => [
         'title'       => 'Extensions',
-        'description' => 'Extensions are dynamic addons that can do just about anything.',
+        'description' => 'Extensions are wildcard addons that can do just about anything.',
     ],
     'field_types' => [
         'title'       => 'Field Types',
-        'description' => 'Field types provide user inputs and control data input and output.',
+        'description' => 'Field types provide user inputs and control input and output for forms.',
     ],
 ];
