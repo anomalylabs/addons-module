@@ -9,7 +9,7 @@ return [
     'featured'    => [
         'name'        => 'Featured',
         'title'       => 'Featured Addons',
-        'description' => 'First-party addons from the makers of Pyro. Unlimited licensing for <span class="tag tag-danger">PRO</span> addons require a <a href="https://pyrocms.com/pro" target="_blank">PRO subscription</a>.',
+        'description' => 'First-party addons from the makers of Pyro. Unlimited licensing for <span class="tag tag-danger">PRO</span> addons requires a <a href="https://pyrocms.com/pro" target="_blank">PRO subscription</a>.',
     ],
     'community'   => [
         'name'        => 'Community',
