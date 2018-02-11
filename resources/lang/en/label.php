@@ -15,6 +15,7 @@ return [
     'standard'      => 'Standard',
     'outdated'      => 'Outdated',
     'namespace'     => 'Namespace',
+    'dependents'    => 'Dependents',
     'downloaded'    => 'Downloaded',
     'information'   => 'Information',
     'irc_channel'   => 'IRC Channel',

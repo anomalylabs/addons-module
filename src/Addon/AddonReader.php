@@ -1,5 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Addon;
 
+use Anomaly\AddonsModule\Addon\Command\GetAddonDependents;
 use Anomaly\AddonsModule\Addon\Command\GetOutdatedStatus;
 use Anomaly\Streams\Platform\Addon\AddonCollection;
 use Anomaly\Streams\Platform\Addon\Extension\Extension;
@@ -44,6 +45,7 @@ class AddonReader
     {
 
         $composer = json_decode(file_get_contents(base_path('composer.json')), true);
+        $lock     = json_decode(file_get_contents(base_path('composer.lock')), true);
 
         foreach ($addons as &$addon) {
 
@@ -61,6 +63,7 @@ class AddonReader
                 $addon['lock']       = $instance->getComposerLock();
 
                 $addon['has_updates'] = $this->dispatch(new GetOutdatedStatus($addon, $composer));
+                $addon['dependents']  = $this->dispatch(new GetAddonDependents($addon, $lock));
 
                 if ($instance instanceof Module || $instance instanceof Extension) {
                     $addon['enabled']   = $instance->isEnabled();

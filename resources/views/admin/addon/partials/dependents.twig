@@ -1,0 +1,21 @@
+{% if addon.dependents %}
+    <h3 class="lead">
+        {{ trans('anomaly.module.addons::label.dependents') }}
+    </h3>
+
+    <ul class="list-unstyled">
+
+        {% for package in addon.dependents %}
+
+            {% set type = explode('-', package)|last %}
+
+            <li>
+                <a href="/admin/addons/{{ str_plural(type) }}?view=downloaded&filter_search={{ package }}"
+                   target="_blank">
+                    {{ package }}
+                </a>
+            </li>
+        {% endfor %}
+
+    </ul>
+{% endif %}

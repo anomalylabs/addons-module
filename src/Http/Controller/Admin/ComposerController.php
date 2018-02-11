@@ -136,8 +136,6 @@ class ComposerController extends AdminController
                 }
 
                 $log->info("{$type}: {$buffer}");
-
-                echo "{$type}: {$buffer}<br>";
             }
         );
 

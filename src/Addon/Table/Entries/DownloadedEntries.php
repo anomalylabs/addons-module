@@ -2,7 +2,6 @@
 
 use Anomaly\AddonsModule\Addon\AddonReader;
 use Anomaly\AddonsModule\Addon\Command\GetAllAddons;
-use Anomaly\AddonsModule\Addon\Command\GetRequiredAddons;
 use Anomaly\AddonsModule\Addon\Table\AddonTableBuilder;
 use Anomaly\AddonsModule\Addon\Table\Command\FilterAddons;
 use Anomaly\AddonsModule\Addon\Table\Command\PaginateAddons;
