@@ -1,6 +1,8 @@
 <?php namespace Anomaly\AddonsModule;
 
+use Anomaly\AddonsModule\Addon\Command\GetOutdatedAddons;
 use Anomaly\Streams\Platform\Ui\ControlPanel\ControlPanelBuilder;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 
@@ -14,6 +16,8 @@ use Illuminate\Routing\Route;
 class AddonsModuleSections
 {
 
+    use DispatchesJobs;
+
     /**
      * Handle the command.
      *
@@ -25,10 +29,14 @@ class AddonsModuleSections
     {
         $view = $request->input('view', $route->parameter('repository', 'downloaded'));
 
+        $moduleUpdates     = $this->dispatch(new GetOutdatedAddons('modules'));
+        $extensionsUpdates = $this->dispatch(new GetOutdatedAddons('extensions'));
+
         $builder->setSections(
             [
                 'modules'     => [
                     'matcher' => 'admin/addons/modules*',
+                    'label'   => count($moduleUpdates) ?: false,
                     'href'    => 'admin/addons/modules?view=' . $view,
                 ],
                 'themes'      => [
@@ -41,6 +49,7 @@ class AddonsModuleSections
                 ],
                 'extensions'  => [
                     'matcher' => 'admin/addons/extensions*',
+                    'label'   => count($extensionsUpdates) ?: false,
                     'href'    => 'admin/addons/extensions?view=' . $view,
                 ],
                 'field_types' => [
