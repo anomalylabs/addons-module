@@ -54,7 +54,11 @@ class GetOutdatedStatus
             $constraint
         );
 
+        $installed = ltrim($installed, 'v');
+
         foreach ($satisfied as $version) {
+
+            $version = ltrim($version, 'v');
 
             if (str_contains($version, ['stable', 'RC', 'beta', 'alpha', 'dev'])) {
                 continue;
