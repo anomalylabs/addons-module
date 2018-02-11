@@ -5,19 +5,12 @@ use Anomaly\AddonsModule\Addon\Command\GetAllAddons;
 use Anomaly\AddonsModule\Addon\Table\AddonTableBuilder;
 use Anomaly\Streams\Platform\Addon\Addon;
 use Anomaly\Streams\Platform\Addon\AddonCollection;
-use Anomaly\Streams\Platform\Addon\AddonManager;
-use Anomaly\Streams\Platform\Addon\Command\GetAddon;
 use Anomaly\Streams\Platform\Addon\Extension\Extension;
 use Anomaly\Streams\Platform\Addon\Extension\ExtensionManager;
 use Anomaly\Streams\Platform\Addon\Module\Module;
 use Anomaly\Streams\Platform\Addon\Module\ModuleManager;
-use Anomaly\Streams\Platform\Application\Application;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
-use Symfony\Component\Process\PhpExecutableFinder;
-use Symfony\Component\Process\Process;
 
 /**
  * Class AddonsController
@@ -217,6 +210,40 @@ class AddonsController extends AdminController
         } elseif ($addon instanceof Extension) {
             $extensions->disable($addon);
         }
+
+        return $this->redirect->back();
+    }
+
+    /**
+     * Migrate an addon.
+     *
+     * @param Request          $request
+     * @param ModuleManager    $modules
+     * @param AddonCollection  $addons
+     * @param ExtensionManager $extensions
+     * @param                  $type
+     * @param                  $addon
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function migrate(
+        Request $request,
+        ModuleManager $modules,
+        AddonCollection $addons,
+        ExtensionManager $extensions,
+        $type,
+        $addon
+    ) {
+
+        /* @var Addon|Module|Extension $addon */
+        $addon = $addons->get($addon);
+
+        if ($addon instanceof Module) {
+            $modules->migrate($addon, false);
+        } elseif ($addon instanceof Extension) {
+            $extensions->migrate($addon, false);
+        }
+
+        $this->messages->success('module::message.migrate_addon_success');
 
         return $this->redirect->back();
     }

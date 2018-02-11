@@ -6,6 +6,7 @@ return [
     'update'    => 'Update',
     'disable'   => 'Disable',
     'install'   => 'Install',
+    'migrate'   => 'Migrate',
     'download'  => 'Download',
     'uninstall' => 'Uninstall',
 ];

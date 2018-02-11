@@ -59,6 +59,10 @@ class AddonsModuleServiceProvider extends AddonServiceProvider
             'as'   => 'anomaly.module.addons::addon.uninstall',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@uninstall',
         ],
+        'admin/addons/{type}/migrate/{id}'                  => [
+            'as'   => 'anomaly.module.addons::addon.migrate',
+            'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@migrate',
+        ],
         'admin/addons/{type}/view/{repository}/{addon}'     => [
             'as'   => 'anomaly.module.addons::addon.view',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@view',
