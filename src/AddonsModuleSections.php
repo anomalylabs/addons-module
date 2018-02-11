@@ -29,31 +29,39 @@ class AddonsModuleSections
     {
         $view = $request->input('view', $route->parameter('repository', 'downloaded'));
 
-        $moduleUpdates     = $this->dispatch(new GetOutdatedAddons('modules'));
-        $extensionsUpdates = $this->dispatch(new GetOutdatedAddons('extensions'));
+        $updates = [
+            'modules'     => $this->dispatch(new GetOutdatedAddons('modules')),
+            'themes'      => $this->dispatch(new GetOutdatedAddons('themes')),
+            'plugins'     => $this->dispatch(new GetOutdatedAddons('plugins')),
+            'extensions'  => $this->dispatch(new GetOutdatedAddons('extensions')),
+            'field_types' => $this->dispatch(new GetOutdatedAddons('field_types')),
+        ];
 
         $builder->setSections(
             [
                 'modules'     => [
                     'matcher' => 'admin/addons/modules*',
-                    'label'   => count($moduleUpdates) ?: false,
+                    'label'   => count($updates['modules']) ?: false,
                     'href'    => 'admin/addons/modules?view=' . $view,
                 ],
                 'themes'      => [
                     'matcher' => 'admin/addons/themes*',
+                    'label'   => count($updates['themes']) ?: false,
                     'href'    => 'admin/addons/themes?view=' . $view,
                 ],
                 'plugins'     => [
                     'matcher' => 'admin/addons/plugins*',
+                    'label'   => count($updates['plugins']) ?: false,
                     'href'    => 'admin/addons/plugins?view=' . $view,
                 ],
                 'extensions'  => [
                     'matcher' => 'admin/addons/extensions*',
-                    'label'   => count($extensionsUpdates) ?: false,
+                    'label'   => count($updates['extensions']) ?: false,
                     'href'    => 'admin/addons/extensions?view=' . $view,
                 ],
                 'field_types' => [
                     'matcher' => 'admin/addons/field_types*',
+                    'label'   => count($updates['field_types']) ?: false,
                     'href'    => 'admin/addons/field_types?view=' . $view,
                 ],
             ]

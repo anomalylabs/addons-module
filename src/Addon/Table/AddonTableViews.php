@@ -1,10 +1,12 @@
 <?php namespace Anomaly\AddonsModule\Addon\Table;
 
+use Anomaly\AddonsModule\Addon\Command\GetOutdatedAddons;
 use Anomaly\AddonsModule\Addon\Table\Entries\AllEntries;
 use Anomaly\AddonsModule\Addon\Table\Entries\DownloadedEntries;
 use Anomaly\AddonsModule\Addon\Table\Entries\RepositoryEntries;
 use Anomaly\AddonsModule\Addon\Table\Entries\UpdatesEntries;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 /**
  * Class AddonTableViews
@@ -16,6 +18,8 @@ use Illuminate\Contracts\Config\Repository;
 class AddonTableViews
 {
 
+    use DispatchesJobs;
+
     /**
      * Handle the views.
      *
@@ -23,6 +27,8 @@ class AddonTableViews
      */
     public function handle(AddonTableBuilder $builder, Repository $config)
     {
+        $updates = $this->dispatch(new GetOutdatedAddons($builder->getType()));
+
         $builder->setViews(
             [
                 'downloaded' => [
@@ -30,6 +36,7 @@ class AddonTableViews
                 ],
                 'updates'    => [
                     'entries' => UpdatesEntries::class,
+                    'label'   => count($updates) ?: false,
                 ],
             ]
         );

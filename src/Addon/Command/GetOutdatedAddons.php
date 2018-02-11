@@ -33,6 +33,13 @@ class GetOutdatedAddons
         $this->type = $type;
     }
 
+    /**
+     * Handle the command.
+     *
+     * @param AddonReader $reader
+     * @param Repository  $cache
+     * @return array
+     */
     public function handle(AddonReader $reader, Repository $cache)
     {
         $addons = $cache->remember(
