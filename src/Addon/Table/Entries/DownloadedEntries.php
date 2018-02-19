@@ -44,6 +44,11 @@ class DownloadedEntries
         $addons = array_filter(
             $addons,
             function (array $addon) {
+
+                if (isset($addon['is_core']) && $addon['is_core'] == false) {
+                    return true;
+                }
+
                 return array_get($addon, 'required', false) !== false;
             }
         );

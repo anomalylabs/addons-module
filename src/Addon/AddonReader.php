@@ -43,7 +43,6 @@ class AddonReader
      */
     public function read(array $addons)
     {
-
         $composer = json_decode(file_get_contents(base_path('composer.json')), true);
         $lock     = json_decode(file_get_contents(base_path('composer.lock')), true);
 
@@ -58,6 +57,7 @@ class AddonReader
             if ($instance = $this->addons->get($addon['id'])) {
 
                 $addon['downloaded'] = true;
+                $addon['is_core']    = $instance->isCore();
                 $addon['readme']     = $instance->getReadme();
                 $addon['path']       = $instance->getAppPath();
                 $addon['lock']       = $instance->getComposerLock();
