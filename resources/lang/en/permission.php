@@ -18,7 +18,7 @@ return [
     'plugins'     => [
         'name'   => 'Plugins',
         'option' => [
-            'read'   => 'Can read plugins',
+            'read'   => 'Can read plugins?',
             'manage' => 'Can manage manage?',
         ],
     ],
