@@ -30,6 +30,8 @@ class ComposerController extends AdminController
      */
     public function download(ComposerAuthorizer $authorizer, AddonManager $manager, Writer $log)
     {
+        $this->setTimeout();
+
         if (!$authorizer->authorize(__FUNCTION__, $this->route->parameter('type'))) {
             throw new \Exception('[' . __FUNCTION__ . '] command is not permitted.');
         }
@@ -72,6 +74,8 @@ class ComposerController extends AdminController
      */
     public function update(ComposerAuthorizer $authorizer, Writer $log)
     {
+        $this->setTimeout();
+
         if (!$authorizer->authorize(__FUNCTION__, $this->route->parameter('type'))) {
             throw new \Exception('[' . __FUNCTION__ . '] command is not permitted.');
         }
@@ -112,6 +116,8 @@ class ComposerController extends AdminController
      */
     public function remove(ComposerAuthorizer $authorizer, AddonManager $manager, Writer $log)
     {
+        $this->setTimeout();
+        
         if (!$authorizer->authorize(__FUNCTION__, $this->route->parameter('type'))) {
             throw new \Exception('[' . __FUNCTION__ . '] command is not permitted.');
         }
@@ -144,6 +150,20 @@ class ComposerController extends AdminController
         if ($this->dispatch(new GetAddon($addon['id']))) {
             throw new \Exception("[{$addon['id']}] could not be removed. Removal failed.");
         }
+    }
+
+    /**
+     * Set the max execution time - composer takes a while.
+     *
+     * @param null $seconds
+     */
+    protected function setTimeout($seconds = null)
+    {
+        $seconds = $seconds ?: 60 * 5;
+
+        set_time_limit($seconds);
+        ini_set('max_input_time', $seconds);
+        ini_set('max_execution_time', $seconds);
     }
 
 }
