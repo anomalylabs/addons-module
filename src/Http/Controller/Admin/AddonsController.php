@@ -107,7 +107,8 @@ class AddonsController extends AdminController
         $type,
         $addon
     ) {
-
+        $this->setTimeout();
+        
         /* @var Addon|Module|Extension $addon */
         $addon = $addons->get($addon);
 
@@ -139,6 +140,7 @@ class AddonsController extends AdminController
         $type,
         $addon
     ) {
+        $this->setTimeout();
 
         /* @var Addon|Module|Extension $addon */
         $addon = $addons->get($addon);
@@ -233,6 +235,7 @@ class AddonsController extends AdminController
         $type,
         $addon
     ) {
+        $this->setTimeout();
 
         /* @var Addon|Module|Extension $addon */
         $addon = $addons->get($addon);
@@ -246,6 +249,20 @@ class AddonsController extends AdminController
         $this->messages->success('module::message.migrate_addon_success');
 
         return $this->redirect->back();
+    }
+
+    /**
+     * Set the max execution time - composer takes a while.
+     *
+     * @param null $seconds
+     */
+    protected function setTimeout($seconds = null)
+    {
+        $seconds = $seconds ?: 60 * 5;
+
+        set_time_limit($seconds);
+        ini_set('max_input_time', $seconds);
+        ini_set('max_execution_time', $seconds);
     }
 
 }

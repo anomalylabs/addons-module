@@ -117,7 +117,7 @@ class ComposerController extends AdminController
     public function remove(ComposerAuthorizer $authorizer, AddonManager $manager, Writer $log)
     {
         $this->setTimeout();
-        
+
         if (!$authorizer->authorize(__FUNCTION__, $this->route->parameter('type'))) {
             throw new \Exception('[' . __FUNCTION__ . '] command is not permitted.');
         }
