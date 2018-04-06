@@ -1,6 +1,6 @@
 (function (window, document) {
 
-    const toggles = Array.from(
+    const toggles = Array.prototype.slice.call(
         document.querySelectorAll('[data-toggle="composer"]')
     );
 
