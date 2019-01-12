@@ -1,8 +1,14 @@
 <?php
 
 return [
+    'url'         => [
+        'name' => 'URL',
+    ],
     'name'        => [
         'name' => 'Name',
+    ],
+    'title'       => [
+        'name' => 'Title',
     ],
     'state'       => [
         'name' => 'State',

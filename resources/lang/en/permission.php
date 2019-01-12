@@ -36,4 +36,20 @@ return [
             'manage' => 'Can manage field types?',
         ],
     ],
+    'addons' => [
+        'name'   => 'Addons',
+        'option' => [
+            'read'   => 'Can read addons?',
+            'write'  => 'Can create/edit addons?',
+            'delete' => 'Can delete addons?',
+        ],
+    ],
+    'repositories' => [
+        'name'   => 'Repositories',
+        'option' => [
+            'read'   => 'Can read repositories?',
+            'write'  => 'Can create/edit repositories?',
+            'delete' => 'Can delete repositories?',
+        ],
+    ],
 ];

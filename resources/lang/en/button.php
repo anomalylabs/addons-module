@@ -9,4 +9,6 @@ return [
     'migrate'   => 'Migrate',
     'download'  => 'Download',
     'uninstall' => 'Uninstall',
+    'new_addon' => 'New Addon',
+    'new_repository' => 'New Repository',
 ];

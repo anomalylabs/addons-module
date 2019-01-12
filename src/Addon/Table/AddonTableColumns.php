@@ -1,12 +1,14 @@
 <?php namespace Anomaly\AddonsModule\Addon\Table;
 
+use Anomaly\AddonsModule\Addon\Contract\AddonInterface;
+
 
 /**
  * Class AddonTableColumns
  *
- * @link          http://pyrocms.com/
- * @author        PyroCMS, Inc. <support@pyrocms.com>
- * @author        Ryan Thompson <ryan@pyrocms.com>
+ * @link   http://pyrocms.com/
+ * @author PyroCMS, Inc. <support@pyrocms.com>
+ * @author Ryan Thompson <ryan@pyrocms.com>
  */
 class AddonTableColumns
 {
@@ -25,24 +27,33 @@ class AddonTableColumns
                     'heading' => 'module::field.addon.name',
                     'wrapper' => '
                         <strong>{value.title}</strong>
-                        {value.pro}
-                        {value.downloaded}
-                        {value.outdated}
                         <br>
                         <span class="text-muted">{value.name}</span>
                         <br>
-                        <small class="text-muted">{value.description}</small>',
+                        <small class="text-muted">{value.description}</small>
+                        <br>
+                        <small>
+                            {value.pro}
+                            {value.downloaded}
+                            {value.outdated}
+                        </small>',
                     'value'   => [
                         'name'        => 'entry.name',
-                        'title'       => 'entry.title',
+                        'title'       => 'entry.display_name',
                         'description' => 'entry.description',
-                        'pro'         => '{% if entry.is_pro %}<span class="tag tag-danger">PRO</span>{% endif %}',
-                        'downloaded'  => '{% if entry.downloaded %}<span class="tag tag-primary">' . trans(
-                                'anomaly.module.addons::label.downloaded'
-                            ) . '</span>{% endif %}',
-                        'outdated'    => '{% if entry.has_updates %}<span class="tag tag-warning">' . trans(
-                                'anomaly.module.addons::label.outdated'
-                            ) . '</span>{% endif %}',
+                        'pro'         => function (AddonInterface $entry) {
+                            return $entry->isPro() ? '<span class="tag tag-danger">PRO</span>' : '';
+                        },
+                        'downloaded'  => function (AddonInterface $entry) {
+                            return $entry->isDownloaded() ? '<span class="tag tag-primary">' . trans(
+                                    'anomaly.module.addons::label.downloaded'
+                                ) . '</span>' : '';
+                        },
+                        'outdated'    => function (AddonInterface $entry) {
+                            return $entry->hasUpdates() ? '<span class="tag tag-warning">' . trans(
+                                    'anomaly.module.addons::label.outdated'
+                                ) . '</span>' : '';
+                        },
                     ],
                 ],
             ]

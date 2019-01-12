@@ -21,4 +21,14 @@ return [
         'read',
         'manage',
     ],
+    'addons' => [
+        'read',
+        'write',
+        'delete',
+    ],
+    'repositories' => [
+        'read',
+        'write',
+        'delete',
+    ],
 ];

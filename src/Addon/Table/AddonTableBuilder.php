@@ -1,57 +1,41 @@
 <?php namespace Anomaly\AddonsModule\Addon\Table;
 
-use Anomaly\AddonsModule\Addon\Table\Filter\SearchQuery;
 use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
 
 /**
  * Class AddonTableBuilder
  *
- * @link          http://pyrocms.com/
- * @author        PyroCMS, Inc. <support@pyrocms.com>
- * @author        Ryan Thompson <ryan@pyrocms.com>
+ * @link   http://pyrocms.com/
+ * @author PyroCMS, Inc. <support@pyrocms.com>
+ * @author Ryan Thompson <ryan@pyrocms.com>
  */
 class AddonTableBuilder extends TableBuilder
 {
 
     /**
-     * The addon type to list.
+     * The table views.
      *
-     * @var null|string
+     * @var array|string
      */
-    protected $type = null;
+    protected $views = [
+        'all',
+        'downloaded',
+        'updates',
+    ];
 
     /**
      * The table filters.
      *
-     * @var array
+     * @var array|string
      */
     protected $filters = [
         'search' => [
-            'type'  => 'text',
-            'query' => SearchQuery::class,
+            'fields' => [
+                'name',
+                'title',
+                'description',
+            ],
         ],
     ];
-
-    /**
-     * Get the type.
-     *
-     * @return null|string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Set the type.
-     *
-     * @param $type
-     * @return $this
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
+    
 }

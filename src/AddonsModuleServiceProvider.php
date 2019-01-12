@@ -1,6 +1,16 @@
 <?php namespace Anomaly\AddonsModule;
 
 use Anomaly\AddonsModule\Composer\ComposerAuthorizer;
+use Anomaly\AddonsModule\Console\Download;
+use Anomaly\AddonsModule\Repository\Contract\RepositoryRepositoryInterface;
+use Anomaly\AddonsModule\Repository\RepositoryRepository;
+use Anomaly\Streams\Platform\Model\Addons\AddonsRepositoriesEntryModel;
+use Anomaly\AddonsModule\Repository\RepositoryModel;
+use Anomaly\AddonsModule\Addon\Contract\AddonRepositoryInterface;
+use Anomaly\AddonsModule\Addon\AddonRepository;
+use Anomaly\Streams\Platform\Model\Addons\AddonsAddonsEntryModel;
+use Anomaly\AddonsModule\Addon\AddonModel;
+use Anomaly\AddonsModule\Console\Sync;
 use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
 
 /**
@@ -12,6 +22,16 @@ use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
  */
 class AddonsModuleServiceProvider extends AddonServiceProvider
 {
+
+    /**
+     * The addon commands.
+     *
+     * @var array
+     */
+    protected $commands = [
+        Sync::class,
+        Download::class,
+    ];
 
     /**
      * The addon plugins.
@@ -28,7 +48,9 @@ class AddonsModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $singletons = [
-        ComposerAuthorizer::class => ComposerAuthorizer::class,
+        RepositoryRepositoryInterface::class => RepositoryRepository::class,
+        AddonRepositoryInterface::class      => AddonRepository::class,
+        ComposerAuthorizer::class            => ComposerAuthorizer::class,
     ];
 
     /**
@@ -37,45 +59,47 @@ class AddonsModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $routes = [
-        'admin/addons'                                      => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@index',
-        'admin/addons/{type}'                               => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@index',
-        'admin/addons/{type}/enable/{id}'                   => [
+        'admin/addons/repositories'           => 'Anomaly\AddonsModule\Http\Controller\Admin\RepositoriesController@index',
+        'admin/addons/repositories/create'    => 'Anomaly\AddonsModule\Http\Controller\Admin\RepositoriesController@create',
+        'admin/addons/repositories/edit/{id}' => 'Anomaly\AddonsModule\Http\Controller\Admin\RepositoriesController@edit',
+        'admin/addons'                        => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@index',
+        'admin/addons/enable/{addon}'         => [
             'as'   => 'anomaly.module.addons::addon.enable',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@enable',
         ],
-        'admin/addons/{type}/disable/{id}'                  => [
+        'admin/addons/disable/{addon}'        => [
             'as'   => 'anomaly.module.addons::addon.disable',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@disable',
         ],
-        'admin/addons/{type}/install/{id}'                  => [
+        'admin/addons/install/{addon}'        => [
             'as'   => 'anomaly.module.addons::addon.install',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@install',
         ],
-        'admin/addons/{type}/options/{id}'                  => [
+        'admin/addons/options/{addon}'        => [
             'as'   => 'anomaly.module.addons::addon.options',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@options',
         ],
-        'admin/addons/{type}/uninstall/{id}'                => [
+        'admin/addons/uninstall/{addon}'      => [
             'as'   => 'anomaly.module.addons::addon.uninstall',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@uninstall',
         ],
-        'admin/addons/{type}/migrate/{id}'                  => [
+        'admin/addons/migrate/{addon}'        => [
             'as'   => 'anomaly.module.addons::addon.migrate',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@migrate',
         ],
-        'admin/addons/{type}/view/{repository}/{addon}'     => [
+        'admin/addons/view/{addon}'           => [
             'as'   => 'anomaly.module.addons::addon.view',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@view',
         ],
-        'admin/addons/{type}/remove/{repository}/{addon}'   => [
+        'admin/addons/remove/{addon}'         => [
             'as'   => 'anomaly.module.addons::composer.remove',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\ComposerController@remove',
         ],
-        'admin/addons/{type}/update/{repository}/{addon}'   => [
+        'admin/addons/update/{addon}'         => [
             'as'   => 'anomaly.module.addons::composer.update',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\ComposerController@update',
         ],
-        'admin/addons/{type}/download/{repository}/{addon}' => [
+        'admin/addons/download/{addon}'       => [
             'as'   => 'anomaly.module.addons::composer.download',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\ComposerController@download',
         ],

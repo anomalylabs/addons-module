@@ -1,8 +1,8 @@
 <div class="card card-container">
 
-    {% if addon.path or addon.required %}
-        {% if addon.path and (addon.type == 'module' or addon.type == 'extension') %}
-            {% if addon.installed %}
+    {% if addon.downloaded %}
+        {% if addon.type == 'module' or addon.type == 'extension' %}
+            {% if addon.instance.installed %}
                 {% if user().hasPermission('anomaly.module.addons::' ~ addon.type ~ '.manage') %}
                     <a
                             href="{{ url_route('anomaly.module.addons::addon.uninstall', {'id': addon.id, 'type': addon.type}) }}"

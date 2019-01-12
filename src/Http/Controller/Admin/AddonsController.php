@@ -1,16 +1,9 @@
 <?php namespace Anomaly\AddonsModule\Http\Controller\Admin;
 
-use Anomaly\AddonsModule\Addon\AddonReader;
-use Anomaly\AddonsModule\Addon\Command\GetAllAddons;
+use Anomaly\AddonsModule\Addon\Contract\AddonRepositoryInterface;
+use Anomaly\AddonsModule\Addon\Form\AddonFormBuilder;
 use Anomaly\AddonsModule\Addon\Table\AddonTableBuilder;
-use Anomaly\Streams\Platform\Addon\Addon;
-use Anomaly\Streams\Platform\Addon\AddonCollection;
-use Anomaly\Streams\Platform\Addon\Extension\Extension;
-use Anomaly\Streams\Platform\Addon\Extension\ExtensionManager;
-use Anomaly\Streams\Platform\Addon\Module\Module;
-use Anomaly\Streams\Platform\Addon\Module\ModuleManager;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
-use Illuminate\Http\Request;
 
 /**
  * Class AddonsController
@@ -23,44 +16,28 @@ class AddonsController extends AdminController
 {
 
     /**
-     * Return an index of existing entries.
+     * Display an index of existing entries.
      *
-     * @param AddonTableBuilder $builder
-     * @param null              $type
-     * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @param AddonTableBuilder $table
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(AddonTableBuilder $builder, $type = null)
+    public function index(AddonTableBuilder $table)
     {
-
-        if (!$type) {
-            return $this->redirect->to('admin/addons/modules');
-        }
-
-        $builder->setType($type);
-
-        return $builder->render();
+        return $table->render();
     }
 
     /**
      * View an addon.
      *
-     * @param $type
-     * @param $repository
-     * @param $addon
+     * @param AddonRepositoryInterface $addons
+     * @param                          $addon
      * @return \Illuminate\Contracts\View\View|mixed
      */
-    public function view(AddonReader $reader, $type, $repository, $addon)
+    public function view(AddonRepositoryInterface $addons, $addon)
     {
-        $addons = $this->dispatch(new GetAllAddons($type));
+        $addon = $addons->findByNamespace($addon);
 
-        $addon = array_first(
-            $addons,
-            function ($item) use ($addon) {
-                return $item['id'] == $addon;
-            }
-        );
-
-        $addon = $reader->read([$addon])[0];
+        $this->breadcrumbs->add($addon->displayName());
 
         return $this->view->make(
             'anomaly.module.addons::admin/addon/view',
@@ -108,7 +85,7 @@ class AddonsController extends AdminController
         $addon
     ) {
         $this->setTimeout();
-        
+
         /* @var Addon|Module|Extension $addon */
         $addon = $addons->get($addon);
 

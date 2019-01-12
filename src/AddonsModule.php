@@ -19,4 +19,9 @@ class AddonsModule extends Module
      */
     protected $navigation = 'streams::navigation.system';
 
+    protected $sections = [
+        'addons',
+        'repositories',
+    ];
+
 }
