@@ -21,7 +21,7 @@
 
             <div class="card-block">
 
-                <p>{{ addon.description }}</p>
+                <p>{{ addon.description|str_purify|str_linkify|raw }}</p>
 
                 <br>
 
