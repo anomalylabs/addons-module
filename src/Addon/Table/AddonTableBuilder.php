@@ -1,5 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Addon\Table;
 
+use Anomaly\AddonsModule\Addon\Table\View\UpdatesQuery;
 use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
 
 /**
@@ -20,7 +21,9 @@ class AddonTableBuilder extends TableBuilder
     protected $views = [
         'all',
         'downloaded',
-        'updates',
+        'updates' => [
+            'query' => UpdatesQuery::class,
+        ],
     ];
 
     /**
@@ -37,5 +40,5 @@ class AddonTableBuilder extends TableBuilder
             ],
         ],
     ];
-    
+
 }

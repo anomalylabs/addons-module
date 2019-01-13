@@ -5,7 +5,7 @@
             {% if addon.instance.installed %}
                 {% if user().hasPermission('anomaly.module.addons::' ~ addon.type ~ '.manage') %}
                     <a
-                            href="{{ url_route('anomaly.module.addons::addon.uninstall', {'id': addon.id, 'type': addon.type}) }}"
+                            href="{{ url_route('anomaly.module.addons::addon.uninstall', {'id': addon.namespace, 'type': addon.type}) }}"
                             data-icon="warning"
                             data-toggle="prompt"
                             class="btn btn-danger"
@@ -17,7 +17,7 @@
                     </a>
 
                     <a
-                            href="{{ url_route('anomaly.module.addons::addon.migrate', {'id': addon.id, 'type': addon.type}) }}"
+                            href="{{ url_route('anomaly.module.addons::addon.migrate', {'id': addon.namespace, 'type': addon.type}) }}"
                             class="btn btn-success"
                     >
                         {{ icon('fa fa-level-up') }} {{ trans('anomaly.module.addons::button.migrate') }}
@@ -27,7 +27,7 @@
                 {% if addon.enabled %}
                     {% if user().hasPermission('anomaly.module.addons::' ~ addon.type ~ '.manage') %}
                         <a
-                                href="{{ url_route('anomaly.module.addons::addon.disable', {'id': addon.id, 'type': addon.type}) }}"
+                                href="{{ url_route('anomaly.module.addons::addon.disable', {'id': addon.namespace, 'type': addon.type}) }}"
                                 data-icon="warning"
                                 data-toggle="confirm"
                                 class="btn btn-warning"
@@ -40,7 +40,7 @@
                 {% else %}
                     {% if user().hasPermission('anomaly.module.addons::' ~ addon.type ~ '.manage') %}
                         <a
-                                href="{{ url_route('anomaly.module.addons::addon.enable', {'id': addon.id, 'type': addon.type}) }}"
+                                href="{{ url_route('anomaly.module.addons::addon.enable', {'id': addon.namespace, 'type': addon.type}) }}"
                                 class="btn btn-success"
                         >
                             {{ icon('fa fa-toggle-on') }} {{ trans('anomaly.module.addons::button.enable') }}
@@ -50,7 +50,7 @@
             {% else %}
                 {% if user().hasPermission('anomaly.module.addons::' ~ addon.type ~ '.manage') %}
                     <a
-                            href="{{ url_route('anomaly.module.addons::addon.options', {'id': addon.id, 'type': addon.type}) }}"
+                            href="{{ url_route('anomaly.module.addons::addon.options', {'id': addon.namespace, 'type': addon.type}) }}"
                             class="btn btn-success"
                             data-toggle="modal"
                             data-target="#modal"
@@ -61,7 +61,7 @@
 
                 {% if composer_can('remove', addon.type) %}
                     <a
-                            href="{{ url_route('anomaly.module.addons::composer.remove', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
+                            href="{{ url_route('anomaly.module.addons::composer.remove', {'id': addon.namespace}) }}"
                             data-message="{{ trans('anomaly.module.addons::message.removing', {'addon': addon.name}) }}"
                             data-toggle="composer"
                             class="btn btn-danger {{ addon.dependents ? 'disabled' }}"
@@ -73,7 +73,7 @@
         {% else %}
             {% if composer_can('remove', addon.type) %}
                 <a
-                        href="{{ url_route('anomaly.module.addons::composer.remove', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
+                        href="{{ url_route('anomaly.module.addons::composer.remove', {'id': addon.namespace}) }}"
                         data-message="{{ trans('anomaly.module.addons::message.removing', {'addon': addon.name}) }}"
                         data-toggle="composer"
                         class="btn btn-danger {{ addon.dependents ? 'disabled' }}"
@@ -86,7 +86,7 @@
         {% if addon.has_updates %}
             {% if composer_can('update', addon.type) %}
                 <a
-                        href="{{ url_route('anomaly.module.addons::composer.update', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
+                        href="{{ url_route('anomaly.module.addons::composer.update', {'id': addon.namespace}) }}"
                         data-message="{{ trans('anomaly.module.addons::message.updating', {'addon': addon.name}) }}"
                         data-toggle="composer"
                         class="btn btn-info"
@@ -99,7 +99,7 @@
     {% else %}
         {% if composer_can('download', addon.type) %}
             <a
-                    href="{{ url_route('anomaly.module.addons::composer.download', {'id': addon.id, 'type': addon.type, 'repository': repository}) }}"
+                    href="{{ url_route('anomaly.module.addons::composer.download', {'id': addon.namespace}) }}"
                     data-message="{{ trans('anomaly.module.addons::message.downloading', {'addon': addon.name}) }}"
                     data-toggle="composer"
                     class="btn btn-primary"

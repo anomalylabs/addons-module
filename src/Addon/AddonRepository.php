@@ -2,6 +2,7 @@
 
 use Anomaly\AddonsModule\Addon\Contract\AddonInterface;
 use Anomaly\AddonsModule\Addon\Contract\AddonRepositoryInterface;
+use Anomaly\Streams\Platform\Addon\AddonCollection;
 use Anomaly\Streams\Platform\Entry\EntryRepository;
 
 /**
@@ -51,6 +52,16 @@ class AddonRepository extends EntryRepository implements AddonRepositoryInterfac
     public function findByNamespace($namespace)
     {
         return $this->model->where('namespace', $namespace)->first();
+    }
+
+    /**
+     * Return all downloaded addons.
+     *
+     * @return AddonCollection
+     */
+    public function downloaded()
+    {
+        return $this->model->whereIn('namespace', app(AddonCollection::class)->pluck('namespace')->all())->get();
     }
 
 }

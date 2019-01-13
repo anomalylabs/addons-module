@@ -21,6 +21,13 @@ interface AddonInterface extends EntryInterface
     public function isPro();
 
     /**
+     * Get the addon name.
+     *
+     * @return string
+     */
+    public function getName();
+
+    /**
      * Get the addon type.
      *
      * @return string

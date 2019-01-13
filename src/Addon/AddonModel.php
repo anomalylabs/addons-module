@@ -26,6 +26,16 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
     }
 
     /**
+     * Get the addon name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Get the addon type.
      *
      * @return string
@@ -57,7 +67,7 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
             return null;
         }
 
-        return $addon->getComposerLock()['version'] == $this->latestVersion();
+        return $addon->getComposerLock()['version'] != $this->latestVersion();
     }
 
     /**

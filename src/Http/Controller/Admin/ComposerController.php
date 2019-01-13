@@ -1,13 +1,15 @@
 <?php namespace Anomaly\AddonsModule\Http\Controller\Admin;
 
-use Anomaly\AddonsModule\Addon\Command\DeleteAddon;
-use Anomaly\AddonsModule\Addon\Command\GetAddonDetails;
+use Anomaly\AddonsModule\Addon\Contract\AddonInterface;
+use Anomaly\AddonsModule\Addon\Contract\AddonRepositoryInterface;
 use Anomaly\AddonsModule\Composer\ComposerAuthorizer;
 use Anomaly\AddonsModule\Composer\ComposerFile;
 use Anomaly\AddonsModule\Composer\ComposerProcess;
 use Anomaly\Streams\Platform\Addon\AddonManager;
 use Anomaly\Streams\Platform\Addon\Command\GetAddon;
+use Anomaly\Streams\Platform\Application\Application;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Log\Writer;
 
 /**
@@ -23,81 +25,113 @@ class ComposerController extends AdminController
     /**
      * Download an addon.
      *
-     * @param ComposerAuthorizer $authorizer
-     * @param AddonManager       $manager
-     * @param Writer             $log
+     * @param AddonRepositoryInterface $addons
+     * @param ComposerAuthorizer       $authorizer
+     * @param Application              $application
+     * @param AddonManager             $manager
+     * @param Filesystem               $files
+     * @param Writer                   $log
+     * @param                          $addon
      * @throws \Exception
      */
-    public function download(ComposerAuthorizer $authorizer, AddonManager $manager, Writer $log)
-    {
+    public function download(
+        AddonRepositoryInterface $addons,
+        ComposerAuthorizer $authorizer,
+        Application $application,
+        AddonManager $manager,
+        Filesystem $files,
+        Writer $log,
+        $addon
+    ) {
+
         $this->setTimeout();
 
-        if (!$authorizer->authorize(__FUNCTION__, $this->route->parameter('type'))) {
+        /* @var AddonInterface $addon */
+        $addon = $addons->findByNamespace($addon);
+
+        if (!$authorizer->authorize(__FUNCTION__, $addon->getType())) {
             throw new \Exception('[' . __FUNCTION__ . '] command is not permitted.');
         }
 
-        $addon = $this->dispatch(
-            new GetAddonDetails(
-                $this->route->parameter('addon')
-            )
-        );
+        $lock = $application->getStoragePath('addons/composer.lock');
+
+        $files->put($lock, '');
 
         $process = ComposerProcess::make('require', $addon['name']);
 
         $process->run(
-            function ($type, $buffer) use ($log) {
+            function ($type, $buffer) use ($log, $lock, $files) {
 
                 if (empty($buffer = trim($buffer))) {
                     return;
                 }
 
+                $files->append($lock, $buffer . "\n");
                 $log->info("{$type}: {$buffer}");
             }
         );
 
         $manager->register(true);
 
-        if (!$this->dispatch(new GetAddon($addon['id']))) {
+        if (!$addon->instance()) {
 
-            ComposerFile::remove($addon['name']);
+            ComposerFile::remove($addon->getName());
 
-            throw new \Exception("[{$addon['id']}] could not be found. Download failed.");
+            throw new \Exception("[{$addon->getName()}] could not be found. Download failed.");
         }
+
+        $files->append($lock, "[{$addon->getName()}] has been downloaded.\n");
     }
 
     /**
      * Update an addon.
      *
-     * @param ComposerAuthorizer $authorizer
-     * @param Writer             $log
+     * @param AddonRepositoryInterface $addons
+     * @param ComposerAuthorizer       $authorizer
+     * @param Application              $application
+     * @param AddonManager             $manager
+     * @param Filesystem               $files
+     * @param Writer                   $log
+     * @param                          $addon
      * @throws \Exception
      */
-    public function update(ComposerAuthorizer $authorizer, Writer $log)
-    {
+    public function update(
+        AddonRepositoryInterface $addons,
+        ComposerAuthorizer $authorizer,
+        Application $application,
+        AddonManager $manager,
+        Filesystem $files,
+        Writer $log,
+        $addon
+    ) {
         $this->setTimeout();
 
-        if (!$authorizer->authorize(__FUNCTION__, $this->route->parameter('type'))) {
+        /* @var AddonInterface $addon */
+        $addon = $addons->findByNamespace($addon);
+
+        if (!$authorizer->authorize(__FUNCTION__, $addon->getType())) {
             throw new \Exception('[' . __FUNCTION__ . '] command is not permitted.');
         }
 
-        $addon = $this->dispatch(
-            new GetAddonDetails(
-                $this->route->parameter('addon')
-            )
-        );
+        $lock = $application->getStoragePath('addons/composer.lock');
 
-        $process = ComposerProcess::make('update', $addon['name']);
+        $files->put($lock, '');
+
+        $process = ComposerProcess::make('update', $addon->getName());
 
         $process->run(
-            function ($type, $buffer) use ($log) {
+            function ($type, $buffer) use ($log, $files, $lock) {
 
                 if (empty($buffer = trim($buffer))) {
                     return;
                 }
 
+                $files->append($lock, $buffer . "\n");
                 $log->info("{$type}: {$buffer}");
             }
         );
+
+        $files->append($lock, "[{$addon->getName()}] has been updated.\n");
     }
 
     /**
@@ -108,48 +142,58 @@ class ComposerController extends AdminController
      *       remove it so we have to delete. But
      *       first make sure it's safe! Edge case.
      *
-     * @param ComposerAuthorizer $authorizer
-     * @param AddonManager       $manager
-     * @param Writer             $log
+     * @param AddonRepositoryInterface $addons
+     * @param ComposerAuthorizer       $authorizer
+     * @param Application              $application
+     * @param AddonManager             $manager
+     * @param Filesystem               $files
+     * @param Writer                   $log
+     * @param                          $addon
      * @throws \Exception
-     * @internal param $addon
      */
-    public function remove(ComposerAuthorizer $authorizer, AddonManager $manager, Writer $log)
-    {
+    public function remove(
+        AddonRepositoryInterface $addons,
+        ComposerAuthorizer $authorizer,
+        Application $application,
+        AddonManager $manager,
+        Filesystem $files,
+        Writer $log,
+        $addon
+    ) {
         $this->setTimeout();
 
-        if (!$authorizer->authorize(__FUNCTION__, $this->route->parameter('type'))) {
+        /* @var AddonInterface $addon */
+        $addon = $addons->findByNamespace($addon);
+
+        if (!$authorizer->authorize(__FUNCTION__, $addon->getType())) {
             throw new \Exception('[' . __FUNCTION__ . '] command is not permitted.');
         }
 
-        $addon = $this->dispatch(
-            new GetAddonDetails(
-                $this->route->parameter('addon')
-            )
-        );
+        $lock = $application->getStoragePath('addons/composer.lock');
 
-        ComposerFile::remove($addon['name']);
+        $files->put($lock, '');
 
-        $this->dispatch(new DeleteAddon($addon['id']));
-
-        $process = ComposerProcess::make('remove', $addon['name']);
+        $process = ComposerProcess::make('remove', $addon->getName());
 
         $process->run(
-            function ($type, $buffer) use ($log) {
+            function ($type, $buffer) use ($log, $files, $lock) {
 
                 if (empty($buffer = trim($buffer))) {
                     return;
                 }
 
+                $files->append($lock, $buffer . "\n");
                 $log->info("{$type}: {$buffer}");
             }
         );
 
         $manager->register(true);
 
-        if ($this->dispatch(new GetAddon($addon['id']))) {
-            throw new \Exception("[{$addon['id']}] could not be removed. Removal failed.");
+        if ($addon->instance()) {
+            throw new \Exception("[{$addon->getName()}] could not be removed. Removal failed.");
         }
+
+        $files->append($lock, "[{$addon->getName()}] has been removed.\n");
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Addon\Contract;
 
+use Anomaly\AddonsModule\Addon\AddonCollection;
 use Anomaly\Streams\Platform\Entry\Contract\EntryRepositoryInterface;
 
 /**
@@ -27,5 +28,12 @@ interface AddonRepositoryInterface extends EntryRepositoryInterface
      * @return AddonInterface|null
      */
     public function findByNamespace($namespace);
+
+    /**
+     * Return all downloaded addons.
+     *
+     * @return AddonCollection
+     */
+    public function downloaded();
 
 }
