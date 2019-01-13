@@ -3,30 +3,31 @@
 </h3>
 
 <dl>
-    {% if addon.lock.version %}
+    {% if addon.instance.composer_lock.version %}
         <dt>{{ trans('anomaly.module.addons::label.version') }}</dt>
         <dd>
-            {{ addon.lock.version }}
-            {% if addon.constraint %}
-                <span class="text-muted">({{ addon.constraint }})</span>
+            {{ addon.instance.composer_lock.version }}
+
+            {% if constraint %}
+                <span class="text-muted">({{ constraint }})</span>
             {% endif %}
         </dd>
     {% endif %}
 
     <dt>{{ trans('anomaly.module.addons::label.namespace') }}</dt>
     <dd>
-        <pre>{{ addon.id }}</pre>
+        <pre>{{ addon.namespace }}</pre>
     </dd>
 
-    {% if addon.path %}
+    {% if addon.downloaded %}
         <dt>{{ trans('anomaly.module.addons::label.path') }}</dt>
-        <dd>{{ addon.path }}</dd>
+        <dd>{{ addon.instance.path }}</dd>
     {% endif %}
 
-    {% if addon.type in ['module', 'extension'] %}
+    {% if addon.installable in ['module', 'extension'] %}
         <dt>{{ trans('anomaly.module.addons::field.state.name') }}</dt>
         <dd>
-            {% if addon.installed %}
+            {% if addon.instance.installed %}
                 <span class="tag tag-success">{{ trans('streams::addon.installed') }}</span>
             {% else %}
                 <span class="tag tag-default">{{ trans('streams::addon.uninstalled') }}</span>
@@ -34,7 +35,7 @@
         </dd>
         <dt>{{ trans('anomaly.module.addons::field.status.name') }}</dt>
         <dd>
-            {% if addon.enabled %}
+            {% if addon.instance.enabled %}
                 <span class="tag tag-success">{{ trans('streams::addon.enabled') }}</span>
             {% else %}
                 <span class="tag tag-default">{{ trans('streams::addon.disabled') }}</span>
@@ -42,10 +43,10 @@
         </dd>
     {% endif %}
 
-    {% if addon.type == 'theme' %}
+    {% if addon.type.value == 'theme' %}
         <dt>{{ trans('anomaly.module.addons::field.state.name') }}</dt>
         <dd>
-            {% if addon.active %}
+            {% if addon.instance.active %}
                 <span class="tag tag-success">{{ trans('streams::addon.active') }}</span>
             {% else %}
                 <span class="tag tag-success">{{ trans('streams::addon.inactive') }}</span>

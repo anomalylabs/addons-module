@@ -1,7 +1,10 @@
 <?php namespace Anomaly\AddonsModule\Addon\Contract;
 
+use Anomaly\AddonsModule\Addon\AddonCollection;
 use Anomaly\Streams\Platform\Addon\Addon;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 /**
  * Interface AddonInterface
@@ -56,6 +59,20 @@ interface AddonInterface extends EntryInterface
     public function isDownloaded();
 
     /**
+     * Get the authors.
+     *
+     * @return array
+     */
+    public function getAuthors();
+
+    /**
+     * Get the support.
+     *
+     * @return array
+     */
+    public function getSupport();
+
+    /**
      * Get the versions.
      *
      * @return array
@@ -77,6 +94,13 @@ interface AddonInterface extends EntryInterface
     public function getLicenses();
 
     /**
+     * Get the required packages.
+     *
+     * @return array
+     */
+    public function getRequires();
+
+    /**
      * Get the namespace.
      *
      * @return string
@@ -89,5 +113,19 @@ interface AddonInterface extends EntryInterface
      * @return Addon
      */
     public function instance();
+
+    /**
+     * Get the related dependents.
+     *
+     * @return AddonCollection|Collection
+     */
+    public function getDependents();
+
+    /**
+     * Return the dependents relationship.
+     *
+     * @return Builder
+     */
+    public function dependents();
 
 }

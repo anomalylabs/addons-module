@@ -4,6 +4,10 @@ use Anomaly\AddonsModule\Addon\Contract\AddonInterface;
 use Anomaly\Streams\Platform\Addon\Addon;
 use Anomaly\Streams\Platform\Addon\Command\GetAddon;
 use Anomaly\Streams\Platform\Model\Addons\AddonsAddonsEntryModel;
+use Composer\Semver\Comparator;
+use Composer\Semver\Semver;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 /**
  * Class AddonModel
@@ -58,16 +62,43 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
     /**
      * Return the updates flag.
      *
-     * @return bool|null
+     * @return bool
      */
     public function hasUpdates()
     {
         /* @var Addon $addon */
         if (!$addon = dispatch_now(new GetAddon($this->getNamespace()))) {
-            return null;
+            return false;
         }
 
-        return $addon->getComposerLock()['version'] != $this->latestVersion();
+        $composer = app('composer.json');
+
+        if (!$constraint = array_get($composer['require'], $this->getName())) {
+            return false;
+        }
+
+        if (!$installed = array_get($addon->getComposerLock(), 'version')) {
+            return false;
+        }
+
+        $satisfied = Semver::satisfiedBy(
+            $this->getVersions(),
+            $constraint
+        );
+
+        $satisfied = array_filter(
+            $satisfied,
+            function ($version) use ($installed) {
+
+                if (Comparator::equalTo($version, $installed)) {
+                    return null;
+                }
+
+                return Comparator::greaterThan($version, $installed) ? $version : null;
+            }
+        );
+
+        return !empty($satisfied);
     }
 
     /**
@@ -81,6 +112,17 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
     }
 
     /**
+     * Return if the addon
+     * is installable or not.
+     *
+     * @return bool
+     */
+    public function isInstallable()
+    {
+        return in_array($this->getType(), ['module', 'extension']);
+    }
+
+    /**
      * Return the latest version.
      *
      * @return string
@@ -90,6 +132,26 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
         $versions = $this->getVersions();
 
         return array_pop($versions);
+    }
+
+    /**
+     * Get the authors.
+     *
+     * @return array
+     */
+    public function getAuthors()
+    {
+        return $this->authors;
+    }
+
+    /**
+     * Get the support.
+     *
+     * @return array
+     */
+    public function getSupport()
+    {
+        return $this->support;
     }
 
     /**
@@ -110,6 +172,16 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
     public function getLicenses()
     {
         return $this->licenses;
+    }
+
+    /**
+     * Get the required packages.
+     *
+     * @return array
+     */
+    public function getRequires()
+    {
+        return $this->requires;
     }
 
     /**
@@ -153,7 +225,7 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
      */
     public function getRequiresAttribute()
     {
-        return json_decode($this->attributes['requires'], true);
+        return unserialize($this->attributes['requires']);
     }
 
     /**
@@ -250,6 +322,30 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
     public function getSupportAttribute()
     {
         return (array)unserialize($this->attributes['support']);
+    }
+
+    /**
+     * Get the related dependents.
+     *
+     * @return AddonCollection|Collection
+     */
+    public function getDependents()
+    {
+        return $this
+            ->dependents()
+            ->get();
+    }
+
+    /**
+     * Return the dependents relationship.
+     *
+     * @return Builder
+     */
+    public function dependents()
+    {
+        return $this
+            ->newQuery()
+            ->where('requires', 'LIKE', '%"' . $this->getName() . '"%');
     }
 
 }

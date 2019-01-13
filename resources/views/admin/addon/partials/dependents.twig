@@ -1,18 +1,15 @@
-{% if addon.dependents %}
+{% if addon.getDependents().isNotEmpty() %}
     <h3 class="lead">
         {{ trans('anomaly.module.addons::label.dependents') }}
     </h3>
 
     <ul class="list-unstyled">
 
-        {% for package in addon.dependents %}
-
-            {% set type = explode('-', package)|last %}
-
+        {% for addon in addon.getDependents() %}
             <li>
-                <a href="/admin/addons/{{ str_plural(type) }}?view=all&filter_search={{ package }}"
+                <a href="/admin/addons?view=all&filter_search={{ addon.name }}"
                    target="_blank">
-                    {{ package }}
+                    {{ addon.name }}
                 </a>
             </li>
         {% endfor %}

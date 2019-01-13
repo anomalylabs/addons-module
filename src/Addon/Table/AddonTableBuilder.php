@@ -36,7 +36,18 @@ class AddonTableBuilder extends TableBuilder
             'fields' => [
                 'name',
                 'title',
+                'namespace',
                 'description',
+            ],
+        ],
+        'type'   => [
+            'filter'  => 'select',
+            'options' => [
+                'field_type' => 'streams::addon.field_type',
+                'extension'  => 'streams::addon.extension',
+                'module'     => 'streams::addon.module',
+                'plugin'     => 'streams::addon.plugin',
+                'theme'      => 'streams::addon.theme',
             ],
         ],
     ];

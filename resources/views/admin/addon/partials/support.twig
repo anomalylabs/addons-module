@@ -1,73 +1,73 @@
-{% if addon.support %}
+{% if addon.getSupport() %}
     <h3 class="lead">
         {{ trans('anomaly.module.addons::label.support') }}
     </h3>
 
     <ul class="list-unstyled">
 
-        {% if addon.support.email %}
-            <li>{{ html_mailto(addon.support.email, trans('anomaly.module.addons::label.support_email')) }}</li>
+        {% if addon.getSupport().email %}
+            <li>{{ html_mailto(addon.getSupport().email, trans('anomaly.module.addons::label.support_email')) }}</li>
         {% endif %}
 
-        {% if addon.support.issues %}
+        {% if addon.getSupport().issues %}
             <li>
-                <a href="{{ addon.support.issues }}" target="_blank">
+                <a href="{{ addon.getSupport().issues }}" target="_blank">
                     {{ trans('anomaly.module.addons::label.known_issues') }}
                 </a>
             </li>
         {% endif %}
 
-        {% if addon.support.forum %}
+        {% if addon.getSupport().forum %}
             <li>
-                <a href="{{ addon.support.forum }}" target="_blank">
+                <a href="{{ addon.getSupport().forum }}" target="_blank">
                     {{ trans('anomaly.module.addons::label.support_forum') }}
                 </a>
             </li>
         {% endif %}
 
-        {% if addon.support.slack %}
+        {% if addon.getSupport().slack %}
             <li>
-                <a href="{{ addon.support.slack }}" target="_blank">
+                <a href="{{ addon.getSupport().slack }}" target="_blank">
                     {{ trans('anomaly.module.addons::label.slack') }}
                 </a>
             </li>
         {% endif %}
 
-        {% if addon.support.irc %}
+        {% if addon.getSupport().irc %}
             <li>
-                <a href="{{ addon.support.irc }}" target="_blank">
+                <a href="{{ addon.getSupport().irc }}" target="_blank">
                     {{ trans('anomaly.module.addons::label.irc_channel') }}
                 </a>
             </li>
         {% endif %}
 
-        {% if addon.support.wiki %}
+        {% if addon.getSupport().wiki %}
             <li>
-                <a href="{{ addon.support.wiki }}" target="_blank">
+                <a href="{{ addon.getSupport().wiki }}" target="_blank">
                     {{ trans('anomaly.module.addons::label.project_wiki') }}
                 </a>
             </li>
         {% endif %}
 
-        {% if addon.support.source %}
+        {% if addon.getSupport().source %}
             <li>
-                <a href="{{ addon.support.source }}" target="_blank">
+                <a href="{{ addon.getSupport().source }}" target="_blank">
                     {{ trans('anomaly.module.addons::label.source_code') }}
                 </a>
             </li>
         {% endif %}
 
-        {% if addon.support.docs %}
+        {% if addon.getSupport().docs %}
             <li>
-                <a href="{{ addon.support.docs }}" target="_blank">
+                <a href="{{ addon.getSupport().docs }}" target="_blank">
                     {{ trans('anomaly.module.addons::label.documentation') }}
                 </a>
             </li>
         {% endif %}
 
-        {% if addon.support.rss %}
+        {% if addon.getSupport().rss %}
             <li>
-                <a href="{{ addon.support.rss }}" target="_blank">
+                <a href="{{ addon.getSupport().rss }}" target="_blank">
                     {{ trans('anomaly.module.addons::label.rss') }}
                 </a>
             </li>

@@ -32,6 +32,7 @@ class Sync extends Command
      */
     public function handle(RepositoryRepositoryInterface $repositories, AddonRepositoryInterface $addons)
     {
+
         /* @var RepositoryInterface $repository */
         foreach ($repositories->all() as $repository) {
 

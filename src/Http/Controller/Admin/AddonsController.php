@@ -3,7 +3,14 @@
 use Anomaly\AddonsModule\Addon\Contract\AddonRepositoryInterface;
 use Anomaly\AddonsModule\Addon\Form\AddonFormBuilder;
 use Anomaly\AddonsModule\Addon\Table\AddonTableBuilder;
+use Anomaly\Streams\Platform\Addon\Addon;
+use Anomaly\Streams\Platform\Addon\AddonCollection;
+use Anomaly\Streams\Platform\Addon\Extension\Extension;
+use Anomaly\Streams\Platform\Addon\Extension\ExtensionManager;
+use Anomaly\Streams\Platform\Addon\Module\Module;
+use Anomaly\Streams\Platform\Addon\Module\ModuleManager;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
+use Illuminate\Http\Request;
 
 /**
  * Class AddonsController
@@ -37,11 +44,15 @@ class AddonsController extends AdminController
     {
         $addon = $addons->findByNamespace($addon);
 
+        $composer = app('composer.json');
+
+        $constraint = array_get($composer['require'], $addon->getName());
+
         $this->breadcrumbs->add($addon->displayName());
 
         return $this->view->make(
             'anomaly.module.addons::admin/addon/view',
-            compact('addon', 'repository')
+            compact('addon', 'constraint')
         );
     }
 
@@ -50,11 +61,10 @@ class AddonsController extends AdminController
      * option when installing modules.
      *
      * @param AddonCollection $addons
-     * @param                 $type
      * @param                 $namespace
      * @return \Illuminate\Contracts\View\View|mixed
      */
-    public function options(AddonCollection $addons, $type, $namespace)
+    public function options(AddonCollection $addons, $namespace)
     {
         /* @var Addon $addon */
         $addon = $addons->get($namespace);
@@ -68,9 +78,9 @@ class AddonsController extends AdminController
     /**
      * Install an addon.
      *
-     * @param Request          $request
-     * @param ModuleManager    $modules
-     * @param AddonCollection  $addons
+     * @param Request $request
+     * @param ModuleManager $modules
+     * @param AddonCollection $addons
      * @param ExtensionManager $extensions
      * @param                  $type
      * @param                  $addon
@@ -81,7 +91,6 @@ class AddonsController extends AdminController
         ModuleManager $modules,
         AddonCollection $addons,
         ExtensionManager $extensions,
-        $type,
         $addon
     ) {
         $this->setTimeout();
@@ -103,10 +112,9 @@ class AddonsController extends AdminController
     /**
      * Uninstall an addon.
      *
-     * @param AddonCollection  $addons
-     * @param ModuleManager    $modules
+     * @param AddonCollection $addons
+     * @param ModuleManager $modules
      * @param ExtensionManager $extensions
-     * @param                  $type
      * @param                  $addon
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -114,7 +122,6 @@ class AddonsController extends AdminController
         AddonCollection $addons,
         ModuleManager $modules,
         ExtensionManager $extensions,
-        $type,
         $addon
     ) {
         $this->setTimeout();
@@ -136,10 +143,9 @@ class AddonsController extends AdminController
     /**
      * Enable an addon.
      *
-     * @param ModuleManager    $modules
-     * @param AddonCollection  $addons
+     * @param ModuleManager $modules
+     * @param AddonCollection $addons
      * @param ExtensionManager $extensions
-     * @param                  $type
      * @param                  $addon
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -147,7 +153,6 @@ class AddonsController extends AdminController
         ModuleManager $modules,
         AddonCollection $addons,
         ExtensionManager $extensions,
-        $type,
         $addon
     ) {
 
@@ -166,18 +171,16 @@ class AddonsController extends AdminController
     /**
      * Disable an addon.
      *
-     * @param AddonCollection  $addons
-     * @param ModuleManager    $modules
+     * @param AddonCollection $addons
+     * @param ModuleManager $modules
      * @param ExtensionManager $extensions
-     * @param                  $type
-     * @param                  $addon
+     * @param $addon
      * @return \Illuminate\Http\RedirectResponse
      */
     public function disable(
         AddonCollection $addons,
         ModuleManager $modules,
         ExtensionManager $extensions,
-        $type,
         $addon
     ) {
 
@@ -196,20 +199,16 @@ class AddonsController extends AdminController
     /**
      * Migrate an addon.
      *
-     * @param Request          $request
-     * @param ModuleManager    $modules
-     * @param AddonCollection  $addons
+     * @param ModuleManager $modules
+     * @param AddonCollection $addons
      * @param ExtensionManager $extensions
-     * @param                  $type
      * @param                  $addon
      * @return \Illuminate\Http\RedirectResponse
      */
     public function migrate(
-        Request $request,
         ModuleManager $modules,
         AddonCollection $addons,
         ExtensionManager $extensions,
-        $type,
         $addon
     ) {
         $this->setTimeout();

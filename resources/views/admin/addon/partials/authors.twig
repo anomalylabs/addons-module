@@ -1,9 +1,9 @@
-{% if addon.authors %}
+{% if addon.getAuthors() %}
     <h3 class="lead">
         {{ trans('anomaly.module.addons::label.authors') }}
     </h3>
 
-    {% for author in addon.authors %}
+    {% for author in addon.getAuthors() %}
         <dl>
 
             <dt>{{ author.name }} <span class="text-muted">({{ author.role }})</span></dt>
