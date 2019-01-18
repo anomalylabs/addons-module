@@ -49,8 +49,12 @@ class GetOutdatedStatus
             return false;
         }
 
+        if (!$versions = array_get($this->addon, 'versions')) {
+            return false;
+        }
+
         $satisfied = Semver::satisfiedBy(
-            $this->addon['versions'],
+            $versions,
             $constraint
         );
 
