@@ -58,6 +58,7 @@
                             icon: 'success',
                             closeOnEsc: false,
                             closeOnClickOutside: false,
+                            buttons: false,
                         });
 
                         setTimeout(function () {
