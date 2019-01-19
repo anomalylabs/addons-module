@@ -33,8 +33,6 @@
 
                 let log = new XMLHttpRequest();
 
-                console.log('Checking Log');
-
                 log.open('GET', REQUEST_ROOT_PATH + '/app/' + APPLICATION_REFERENCE + '/composer.log', true);
                 log.setRequestHeader('Content-Type', 'application/json');
 
@@ -47,6 +45,7 @@
                      */
                     if (log.readyState == 4 && log.status == 200) {
 
+                        // Stop checking.
                         clearInterval(checkLog);
 
                         /**
@@ -59,8 +58,6 @@
                         let checkStatus = setInterval(function () {
 
                             let status = new XMLHttpRequest();
-
-                            console.log('Checking Status');
 
                             status.open('GET', REQUEST_ROOT_PATH + '/app/' + APPLICATION_REFERENCE + '/composer.log', true);
                             status.setRequestHeader('Content-Type', 'application/json');
@@ -96,10 +93,6 @@
                                     setTimeout(function () {
                                         window.location.reload();
                                     }, 1000);
-                                }
-
-                                if (status.readyState == 4 && status.status == 200) {
-                                    console.log(status.responseText);
                                 }
                             }, false);
 
