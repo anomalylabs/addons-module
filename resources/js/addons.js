@@ -53,26 +53,16 @@
                         // Stop recurring.
                         clearInterval(checkStatus);
 
-                        let cleanup = new XMLHttpRequest();
-
-                        cleanup.open('GET', REQUEST_ROOT_PATH + '/admin/addons/cleanup', true);
-
-                        cleanup.send();
-
                         swal({
                             text: 'Done!',
                             icon: 'success',
                             closeOnEsc: false,
                             closeOnClickOutside: false,
-                            buttons: {
-                                confirm: {
-                                    text: 'Reload',
-                                    closeModal: false,
-                                }
-                            },
-                        }).then((value) => {
-                            window.location.reload();
                         });
+
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
                     }
 
                     if (status.readyState == 4 && status.status == 200) {
