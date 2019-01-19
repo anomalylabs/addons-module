@@ -24,53 +24,63 @@
             request.open('GET', event.target.href, true);
             request.setRequestHeader('Content-Type', 'application/json');
 
-            request.send(JSON.stringify({
-                _token: CSRF_TOKEN,
-            }));
+            request.send();
 
-            request.addEventListener('readystatechange', function (event) {
+            /**
+             * Check the status periodically.
+             * Log to console and when finished
+             * cleanup and show resulting message.
+             *
+             * @type {number}
+             */
+            let checkStatus = setInterval(function () {
 
-                NProgress.inc();
+                let status = new XMLHttpRequest();
 
-                if (request.readyState == 4) {
-                    NProgress.done();
-                }
+                status.open('GET', REQUEST_ROOT_PATH + '/app/' + APPLICATION_REFERENCE + '/addons/composer.lock', true);
+                status.setRequestHeader('Content-Type', 'application/json');
 
-                if (request.readyState == 4 && request.status == 200) {
+                status.send();
 
-                    swal({
-                        text: 'Done!',
-                        icon: 'success',
-                        closeOnEsc: false,
-                        closeOnClickOutside: false,
-                        buttons: {
-                            confirm: {
-                                text: 'Reload',
-                                closeModal: false,
-                            }
-                        },
-                    }).then((value) => {
-                        window.location.reload();
-                    });
-                }
+                status.addEventListener('readystatechange', function (event) {
 
-                if (request.readyState == 4 && request.status == 500) {
+                    /**
+                     * The file has been removed which
+                     * means composer has finished up.
+                     */
+                    if (status.readyState == 4 && status.status == 404) {
 
-                    swal({
-                        icon: 'error',
-                        closeOnEsc: false,
-                        closeOnClickOutside: false,
-                        text: 'There was an error.',
-                        buttons: {
-                            confirm: {
-                                closeModal: false,
-                            }
-                        },
-                    }).then((value) => {
-                        window.location.reload();
-                    });
-                }
-            }, false);
+                        // Stop recurring.
+                        clearInterval(checkStatus);
+
+                        let cleanup = new XMLHttpRequest();
+
+                        cleanup.open('GET', REQUEST_ROOT_PATH + '/admin/addons/cleanup', true);
+
+                        cleanup.send();
+
+                        swal({
+                            text: 'Done!',
+                            icon: 'success',
+                            closeOnEsc: false,
+                            closeOnClickOutside: false,
+                            buttons: {
+                                confirm: {
+                                    text: 'Reload',
+                                    closeModal: false,
+                                }
+                            },
+                        }).then((value) => {
+                            window.location.reload();
+                        });
+                    }
+
+                    if (status.readyState == 4 && status.status == 200) {
+                        console.log(status.responseText);
+                    }
+                }, false);
+
+            }, 5000);
         });
     });
 

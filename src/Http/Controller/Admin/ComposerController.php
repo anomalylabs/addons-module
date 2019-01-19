@@ -23,14 +23,27 @@ class ComposerController extends AdminController
 {
 
     /**
+     * Clean up after composer.
+     *
+     * @param Filesystem $files
+     * @param Application $application
+     * @param Writer $log
+     */
+    public function cleanup(Filesystem $files, Application $application, Writer $log)
+    {
+        $log->info($files->get($application->getAssetsPath('addons/composer.lock')));
+        $files->delete($application->getAssetsPath('addons/composer.lock'));
+    }
+
+    /**
      * Download an addon.
      *
      * @param AddonRepositoryInterface $addons
-     * @param ComposerAuthorizer       $authorizer
-     * @param Application              $application
-     * @param AddonManager             $manager
-     * @param Filesystem               $files
-     * @param Writer                   $log
+     * @param ComposerAuthorizer $authorizer
+     * @param Application $application
+     * @param AddonManager $manager
+     * @param Filesystem $files
+     * @param Writer $log
      * @param                          $addon
      * @throws \Exception
      */
@@ -53,7 +66,7 @@ class ComposerController extends AdminController
             throw new \Exception('[' . __FUNCTION__ . '] command is not permitted.');
         }
 
-        $lock = $application->getStoragePath('addons/composer.lock');
+        $lock = $application->getAssetsPath('addons/composer.lock');
 
         $files->put($lock, '');
 
@@ -77,21 +90,26 @@ class ComposerController extends AdminController
 
             ComposerFile::remove($addon->getName());
 
-            throw new \Exception("[{$addon->getName()}] could not be found. Download failed.");
+            $files->append($lock, "[{$addon->getName()}] could not be found. Download failed.");
+
+            $this->cleanup($files, $application, $log);
+
+            return;
         }
 
         $files->append($lock, "[{$addon->getName()}] has been downloaded.\n");
+
+        $this->cleanup($files, $application, $log);
     }
 
     /**
      * Update an addon.
      *
      * @param AddonRepositoryInterface $addons
-     * @param ComposerAuthorizer       $authorizer
-     * @param Application              $application
-     * @param AddonManager             $manager
-     * @param Filesystem               $files
-     * @param Writer                   $log
+     * @param ComposerAuthorizer $authorizer
+     * @param Application $application
+     * @param Filesystem $files
+     * @param Writer $log
      * @param                          $addon
      * @throws \Exception
      */
@@ -99,7 +117,6 @@ class ComposerController extends AdminController
         AddonRepositoryInterface $addons,
         ComposerAuthorizer $authorizer,
         Application $application,
-        AddonManager $manager,
         Filesystem $files,
         Writer $log,
         $addon
@@ -113,7 +130,7 @@ class ComposerController extends AdminController
             throw new \Exception('[' . __FUNCTION__ . '] command is not permitted.');
         }
 
-        $lock = $application->getStoragePath('addons/composer.lock');
+        $lock = $application->getAssetsPath('addons/composer.lock');
 
         $files->put($lock, '');
 
@@ -132,6 +149,8 @@ class ComposerController extends AdminController
         );
 
         $files->append($lock, "[{$addon->getName()}] has been updated.\n");
+
+        $this->cleanup($files, $application, $log);
     }
 
     /**
@@ -143,11 +162,11 @@ class ComposerController extends AdminController
      *       first make sure it's safe! Edge case.
      *
      * @param AddonRepositoryInterface $addons
-     * @param ComposerAuthorizer       $authorizer
-     * @param Application              $application
-     * @param AddonManager             $manager
-     * @param Filesystem               $files
-     * @param Writer                   $log
+     * @param ComposerAuthorizer $authorizer
+     * @param Application $application
+     * @param AddonManager $manager
+     * @param Filesystem $files
+     * @param Writer $log
      * @param                          $addon
      * @throws \Exception
      */
@@ -169,7 +188,7 @@ class ComposerController extends AdminController
             throw new \Exception('[' . __FUNCTION__ . '] command is not permitted.');
         }
 
-        $lock = $application->getStoragePath('addons/composer.lock');
+        $lock = $application->getAssetsPath('addons/composer.lock');
 
         $files->put($lock, '');
 
@@ -190,10 +209,17 @@ class ComposerController extends AdminController
         $manager->register(true);
 
         if ($addon->instance()) {
-            throw new \Exception("[{$addon->getName()}] could not be removed. Removal failed.");
+
+            $files->append($lock, "[{$addon->getName()}] could not be removed. Removal failed.");
+
+            $this->cleanup($files, $application, $log);
+
+            return;
         }
 
         $files->append($lock, "[{$addon->getName()}] has been removed.\n");
+
+        $this->cleanup($files, $application, $log);
     }
 
     /**
