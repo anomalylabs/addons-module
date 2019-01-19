@@ -29,6 +29,10 @@
 
             request.send();
 
+            setTimeout(function () {
+                request.abort();
+            }, 2000);
+
             let checkLog = setInterval(function () {
 
                 let log = new XMLHttpRequest();
@@ -55,7 +59,7 @@
                          *
                          * @type {number}
                          */
-                        let checkStatus = setInterval(function () {
+                        let checkStatus = function () {
 
                             let status = new XMLHttpRequest();
 
@@ -71,6 +75,10 @@
                                  */
                                 if (status.readyState == 4 && status.status == 200) {
                                     messages.innerText = status.responseText;
+
+                                    setTimeout(function () {
+                                        checkStatus();
+                                    }, 500);
                                 }
 
                                 /**
@@ -78,9 +86,6 @@
                                  * means composer has finished up.
                                  */
                                 if (status.readyState == 4 && status.status == 404) {
-
-                                    // Stop recurring.
-                                    clearInterval(checkStatus);
 
                                     swal({
                                         text: 'Done!',
@@ -91,12 +96,13 @@
                                     });
 
                                     setTimeout(function () {
-                                        window.location.reload();
+                                        //window.location.reload();
                                     }, 1000);
                                 }
                             }, false);
+                        };
 
-                        }, 500);
+                        checkStatus();
                     }
                 });
             }, 500);
