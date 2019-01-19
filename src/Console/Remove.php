@@ -1,7 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Console;
 
 use Anomaly\AddonsModule\Addon\Contract\AddonRepositoryInterface;
-use Anomaly\AddonsModule\Composer\ComposerFile;
 use Anomaly\AddonsModule\Composer\ComposerProcess;
 use Anomaly\Streams\Platform\Addon\Addon;
 use Anomaly\Streams\Platform\Addon\AddonManager;
@@ -62,7 +61,8 @@ class Remove extends Command
                     return;
                 }
 
-                $files->append($lock, $buffer . "\n");
+                $files->put($lock, $buffer);
+
                 $this->info("{$buffer}");
             }
         );

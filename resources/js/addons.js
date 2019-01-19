@@ -13,11 +13,14 @@
             NProgress.start();
 
             swal({
+                icon: 'info',
                 buttons: false,
                 closeOnEsc: false,
                 closeOnClickOutside: false,
                 text: toggle.dataset.message,
             });
+
+            let messages = document.querySelector('.swal-text');
 
             let request = new XMLHttpRequest();
 
@@ -26,52 +29,84 @@
 
             request.send();
 
-            /**
-             * Check the status periodically.
-             * Log to console and when finished
-             * cleanup and show resulting message.
-             *
-             * @type {number}
-             */
-            let checkStatus = setInterval(function () {
+            let checkLog = setInterval(function () {
 
-                let status = new XMLHttpRequest();
+                let log = new XMLHttpRequest();
 
-                status.open('GET', REQUEST_ROOT_PATH + '/app/' + APPLICATION_REFERENCE + '/addons/composer.lock', true);
-                status.setRequestHeader('Content-Type', 'application/json');
+                console.log('Checking Log');
 
-                status.send();
+                log.open('GET', REQUEST_ROOT_PATH + '/app/' + APPLICATION_REFERENCE + '/composer.log', true);
+                log.setRequestHeader('Content-Type', 'application/json');
 
-                status.addEventListener('readystatechange', function (event) {
+                log.send();
+
+                log.addEventListener('readystatechange', function (event) {
 
                     /**
-                     * The file has been removed which
-                     * means composer has finished up.
+                     * Start checking the status.
                      */
-                    if (status.readyState == 4 && status.status == 404) {
+                    if (log.readyState == 4 && log.status == 200) {
 
-                        // Stop recurring.
-                        clearInterval(checkStatus);
+                        clearInterval(checkLog);
 
-                        swal({
-                            text: 'Done!',
-                            icon: 'success',
-                            closeOnEsc: false,
-                            closeOnClickOutside: false,
-                            buttons: false,
-                        });
+                        /**
+                         * Check the status periodically.
+                         * Log to console and when finished
+                         * cleanup and show resulting message.
+                         *
+                         * @type {number}
+                         */
+                        let checkStatus = setInterval(function () {
 
-                        setTimeout(function () {
-                            window.location.reload();
-                        }, 1000);
+                            let status = new XMLHttpRequest();
+
+                            console.log('Checking Status');
+
+                            status.open('GET', REQUEST_ROOT_PATH + '/app/' + APPLICATION_REFERENCE + '/composer.log', true);
+                            status.setRequestHeader('Content-Type', 'application/json');
+
+                            status.send();
+
+                            status.addEventListener('readystatechange', function (event) {
+
+                                /**
+                                 * Check the status and update messages.
+                                 */
+                                if (status.readyState == 4 && status.status == 200) {
+                                    messages.innerText = status.responseText;
+                                }
+
+                                /**
+                                 * The file has been removed which
+                                 * means composer has finished up.
+                                 */
+                                if (status.readyState == 4 && status.status == 404) {
+
+                                    // Stop recurring.
+                                    clearInterval(checkStatus);
+
+                                    swal({
+                                        text: 'Done!',
+                                        icon: 'success',
+                                        closeOnEsc: false,
+                                        closeOnClickOutside: false,
+                                        buttons: false,
+                                    });
+
+                                    setTimeout(function () {
+                                        window.location.reload();
+                                    }, 1000);
+                                }
+
+                                if (status.readyState == 4 && status.status == 200) {
+                                    console.log(status.responseText);
+                                }
+                            }, false);
+
+                        }, 500);
                     }
-
-                    if (status.readyState == 4 && status.status == 200) {
-                        console.log(status.responseText);
-                    }
-                }, false);
-
-            }, 5000);
+                });
+            }, 500);
         });
     });
 

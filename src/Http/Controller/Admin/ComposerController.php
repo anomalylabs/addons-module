@@ -42,7 +42,7 @@ class ComposerController extends AdminController
             throw new \Exception('[' . __FUNCTION__ . '] command is not permitted.');
         }
 
-        $console->call('addon:download', [$addon->getName()]);
+        $console->call('addon:download', ['addon' => $addon->getName()]);
     }
 
     /**
@@ -67,7 +67,7 @@ class ComposerController extends AdminController
             throw new \Exception('[' . __FUNCTION__ . '] command is not permitted.');
         }
 
-        $console->call('addon:update', [$addon->getName()]);
+        $console->call('addon:update', ['addon' => $addon->getName()]);
     }
 
     /**
@@ -92,7 +92,7 @@ class ComposerController extends AdminController
             throw new \Exception('[' . __FUNCTION__ . '] command is not permitted.');
         }
 
-        $console->call('addon:remove', [$addon->getName()]);
+        $console->call('addon:remove', ['addon' => $addon->getName()]);
     }
 
 }
