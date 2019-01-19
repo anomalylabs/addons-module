@@ -12,13 +12,13 @@ use Illuminate\Log\Writer;
 use Symfony\Component\Console\Input\InputArgument;
 
 /**
- * Class Download
+ * Class Remove
  *
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class Download extends Command
+class Remove extends Command
 {
 
     /**
@@ -26,7 +26,7 @@ class Download extends Command
      *
      * @var string
      */
-    protected $name = 'addon:download';
+    protected $name = 'addon:remove';
 
     /**
      * Handle the command.
@@ -42,9 +42,9 @@ class Download extends Command
             throw new \Exception("Addon [{$this->argument('addon')}] not found.");
         }
 
-        if ($addon->instance()) {
+        if (!$addon->instance()) {
 
-            $this->info("[{$addon->getName()}] is already downloaded.");
+            $this->info("[{$addon->getName()}] is already removed.");
 
             return;
         }
@@ -53,19 +53,7 @@ class Download extends Command
 
         $files->put($lock, '');
 
-        $process = ComposerProcess::make(
-            'require',
-            join(
-                ' ',
-                [
-                    $addon->getName(),
-                    '--update-with-dependencies',
-                    '--optimize-autoloader',
-                    //'--update-no-dev',
-                    //'--no-update',
-                ]
-            )
-        );
+        $process = ComposerProcess::make('remove', $addon->getName());
 
         $process->run(
             function ($type, $buffer) use ($log, $lock, $files) {
@@ -81,22 +69,21 @@ class Download extends Command
 
         $manager->register(true);
 
-        if (!$addon->instance()) {
+        /* @var Addon $instance */
+        if (($instance = $addon->instance()) && is_dir($instance->getPath())) {
 
-            ComposerFile::remove($addon->getName());
+            $files->append($lock, "[{$addon->getName()}] could not be removed. Removal failed.");
 
-            $files->append($lock, "[{$addon->getName()}] could not be found. Download failed.");
-
-            $this->error("[{$addon->getName()}] could not be found. Download failed.");
+            $this->error("[{$addon->getName()}] could not be removed. Removal failed.");
 
             $this->cleanup($files, $application, $log);
 
             return;
         }
 
-        $files->append($lock, "[{$addon->getName()}] has been downloaded.");
+        $files->append($lock, "[{$addon->getName()}] has been removed.");
 
-        $this->info("[{$addon->getName()}] has been downloaded.");
+        $this->info("[{$addon->getName()}] has been removed.");
 
         $this->cleanup($files, $application, $log);
     }
@@ -109,7 +96,7 @@ class Download extends Command
     protected function getArguments()
     {
         return [
-            ['addon', InputArgument::REQUIRED, 'The addon in which to download.'],
+            ['addon', InputArgument::REQUIRED, 'The addon in which to Remove.'],
         ];
     }
 

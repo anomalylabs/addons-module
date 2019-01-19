@@ -31,6 +31,9 @@ return [
     'description' => [
         'name' => 'Description',
     ],
+    'slug'        => [
+        'name' => 'Slug',
+    ],
     'seed'        => [
         'label'        => 'Seed addon when installing?',
         'instructions' => 'Seed data helps setup / demonstrate the addon.',

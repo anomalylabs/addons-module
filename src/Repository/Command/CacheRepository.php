@@ -5,13 +5,13 @@ use Anomaly\AddonsModule\Repository\RepositoryInput;
 use Anomaly\Streams\Platform\Application\Application;
 
 /**
- * Class DownloadRepository
+ * Class CacheRepository
  *
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class DownloadRepository
+class CacheRepository
 {
 
     /**
@@ -22,7 +22,7 @@ class DownloadRepository
     protected $repository;
 
     /**
-     * Create a new DownloadRepository instance.
+     * Create a new CacheRepository instance.
      *
      * @param RepositoryInterface $repository
      */
@@ -34,7 +34,7 @@ class DownloadRepository
     /**
      * Handle the command.
      *
-     * @param Application     $application
+     * @param Application $application
      * @param RepositoryInput $input
      */
     public function handle(Application $application, RepositoryInput $input)

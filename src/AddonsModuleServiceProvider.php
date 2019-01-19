@@ -1,7 +1,10 @@
 <?php namespace Anomaly\AddonsModule;
 
 use Anomaly\AddonsModule\Composer\ComposerAuthorizer;
+use Anomaly\AddonsModule\Console\Cache;
 use Anomaly\AddonsModule\Console\Download;
+use Anomaly\AddonsModule\Console\Remove;
+use Anomaly\AddonsModule\Console\Update;
 use Anomaly\AddonsModule\Repository\Contract\RepositoryRepositoryInterface;
 use Anomaly\AddonsModule\Repository\RepositoryRepository;
 use Anomaly\Streams\Platform\Model\Addons\AddonsRepositoriesEntryModel;
@@ -30,6 +33,9 @@ class AddonsModuleServiceProvider extends AddonServiceProvider
      */
     protected $commands = [
         Sync::class,
+        Cache::class,
+        Remove::class,
+        Update::class,
         Download::class,
     ];
 
