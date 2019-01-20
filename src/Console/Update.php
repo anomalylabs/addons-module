@@ -49,7 +49,8 @@ class Update extends Command
                 ' ',
                 [
                     $addon->getName(),
-                    '--verbose',
+                    '--optimize-autoloader',
+                    //'--update-no-dev',
                 ]
             )
         );

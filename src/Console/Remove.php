@@ -50,7 +50,7 @@ class Remove extends Command
                 [
                     $addon->getName(),
                     '--optimize-autoloader',
-                    '--verbose',
+                    //'--update-no-dev',
                 ]
             )
         );
