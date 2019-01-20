@@ -4,22 +4,27 @@
 
     {{ asset_add('scripts.js', 'anomaly.module.addons::js/addons.js') }}
 
+    <style type="text/css">
+        {{ asset_inline('anomaly.module.addons::scss/addon.scss')|raw }}
+    </style>
+
     <div class="container-fluid">
 
         {% include "anomaly.module.addons::admin/addon/partials/actions" %}
 
-        <div class="card" style="overflow: hidden;">
+        <div class="card addon-card">
 
-            {#<div class="card-header">#}
-                {#<h4 class="card-title">#}
-                    {#{{ addon.display_name }}#}
-                    {#<small>#}
-                        {#{{ addon.name }}#}
-                    {#</small>#}
-                {#</h4>#}
-            {#</div>#}
+            <div class="banner-header">
 
-            {{ img('anomaly.module.addons::img/banner.jpg').width('100%')|raw }}
+                <h4 class="card-title">
+                    {{ addon.display_name }}
+                    <small>
+                        {{ addon.name }}
+                    </small>
+                </h4>
+
+                {{ img('anomaly.module.addons::img/banner.jpg').width('100%')|raw }}
+            </div>
 
             <div class="card-block">
 

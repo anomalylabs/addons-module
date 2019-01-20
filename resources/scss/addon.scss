@@ -1,0 +1,27 @@
+.card.addon-card {
+    overflow: hidden;
+
+    .banner-header {
+        position: relative;
+
+        .card-title {
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+            padding: 1rem;
+            color: #ffffff;
+            position: absolute;
+            background: rgba(0, 0, 0, 0.5);
+
+            small {
+                color: rgba(255, 255, 255, 0.7);
+            }
+        }
+
+        img {
+            width: 100%;
+            min-width: 100%;
+        }
+    }
+}
