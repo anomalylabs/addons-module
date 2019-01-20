@@ -74,7 +74,10 @@
                                  * Check the status and update messages.
                                  */
                                 if (status.readyState == 4 && status.status == 200) {
-                                    messages.innerText = status.responseText;
+                                    
+                                    if (status.responseText.length != 0) {
+                                        messages.innerText = status.responseText;
+                                    }
 
                                     setTimeout(function () {
                                         checkStatus();
