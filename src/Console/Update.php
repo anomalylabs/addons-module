@@ -2,6 +2,8 @@
 
 use Anomaly\AddonsModule\Addon\Contract\AddonRepositoryInterface;
 use Anomaly\AddonsModule\Composer\ComposerProcess;
+use Anomaly\AddonsModule\Console\Command\FinishUpdate;
+use Anomaly\AddonsModule\Console\Command\RunProcess;
 use Anomaly\Streams\Platform\Application\Application;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
@@ -45,10 +47,6 @@ class Update extends Command
             return;
         }
 
-        $lock = $application->getAssetsPath('composer.log');
-
-        $files->put($lock, '');
-
         $process = ComposerProcess::make(
             'update',
             join(
@@ -60,24 +58,8 @@ class Update extends Command
             )
         );
 
-        $process->run(
-            function ($type, $buffer) use ($log, $lock, $files) {
-
-                if (empty($buffer = trim($buffer))) {
-                    return;
-                }
-
-                $files->put($lock, $buffer);
-
-                $this->info("{$buffer}");
-            }
-        );
-
-        $files->append($lock, "[{$addon->getName()}] has been updated.");
-
-        $this->info("[{$addon->getName()}] has been updated.");
-
-        $this->cleanup($files, $application, $log);
+        dispatch_now(new RunProcess($this, $process));
+        dispatch_now(new FinishUpdate($this, $addon));
     }
 
     /**
