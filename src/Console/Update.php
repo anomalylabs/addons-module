@@ -49,7 +49,16 @@ class Update extends Command
 
         $files->put($lock, '');
 
-        $process = ComposerProcess::make('update', $addon->getName());
+        $process = ComposerProcess::make(
+            'update',
+            join(
+                ' ',
+                [
+                    $addon->getName(),
+                    '--verbose',
+                ]
+            )
+        );
 
         $process->run(
             function ($type, $buffer) use ($log, $lock, $files) {

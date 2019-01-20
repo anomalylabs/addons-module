@@ -52,7 +52,16 @@ class Remove extends Command
 
         $files->put($lock, '');
 
-        $process = ComposerProcess::make('remove', $addon->getName());
+        $process = ComposerProcess::make(
+            'remove',
+            join(
+                ' ',
+                [
+                    $addon->getName(),
+                    '--verbose',
+                ]
+            )
+        );
 
         $process->run(
             function ($type, $buffer) use ($log, $lock, $files) {

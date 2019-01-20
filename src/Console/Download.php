@@ -60,6 +60,7 @@ class Download extends Command
                     $addon->getName(),
                     '--update-with-dependencies',
                     '--optimize-autoloader',
+                    '--verbose',
                     //'--update-no-dev',
                     //'--no-update',
                 ]
