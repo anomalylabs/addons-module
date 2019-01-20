@@ -5,6 +5,7 @@ use Anomaly\AddonsModule\Addon\Contract\AddonRepositoryInterface;
 use Anomaly\AddonsModule\Repository\Command\GetRepositoryAddons;
 use Anomaly\AddonsModule\Repository\Contract\RepositoryInterface;
 use Anomaly\AddonsModule\Repository\Contract\RepositoryRepositoryInterface;
+use Anomaly\Streams\Platform\Model\EloquentModel;
 use Illuminate\Console\Command;
 
 /**
@@ -28,7 +29,7 @@ class Sync extends Command
      * Handle the command.
      *
      * @param RepositoryRepositoryInterface $repositories
-     * @param AddonRepositoryInterface      $addons
+     * @param AddonRepositoryInterface $addons
      */
     public function handle(RepositoryRepositoryInterface $repositories, AddonRepositoryInterface $addons)
     {
@@ -59,7 +60,7 @@ class Sync extends Command
                     'support'     => array_get($package, 'support', []),
                 ];
 
-                /* @var AddonInterface $addon */
+                /* @var AddonInterface|EloquentModel $addon */
                 if (!$addon = $addons->findByName($package['name'])) {
 
                     $addons->create($entry);
@@ -72,6 +73,8 @@ class Sync extends Command
                 if ($entry['versions'] !== $addon->getVersions()) {
 
                     $addon->fill($entry);
+
+                    $addons->save($addon);
 
                     $this->info('Synced: ' . $package['name']);
 
