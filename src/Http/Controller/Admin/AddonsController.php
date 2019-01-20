@@ -1,7 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Http\Controller\Admin;
 
 use Anomaly\AddonsModule\Addon\Contract\AddonRepositoryInterface;
-use Anomaly\AddonsModule\Addon\Form\AddonFormBuilder;
 use Anomaly\AddonsModule\Addon\Table\AddonTableBuilder;
 use Anomaly\Streams\Platform\Addon\Addon;
 use Anomaly\Streams\Platform\Addon\AddonCollection;

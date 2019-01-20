@@ -1,6 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Repository;
 
-use Anomaly\AddonsModule\Repository\Command\DownloadRepository;
+use Anomaly\AddonsModule\Repository\Command\CacheRepository;
 use Anomaly\AddonsModule\Repository\Contract\RepositoryInterface;
 
 /**
@@ -13,8 +13,14 @@ use Anomaly\AddonsModule\Repository\Contract\RepositoryInterface;
 class RepositoryManager
 {
 
-    public function download(RepositoryInterface $repository)
+    /**
+     * Cache a repository's packages.
+     *
+     * @param RepositoryInterface $repository
+     */
+    public function cache(RepositoryInterface $repository)
     {
-        dispatch_now(new DownloadRepository($repository));
+        dispatch_now(new CacheRepository($repository));
     }
+
 }
