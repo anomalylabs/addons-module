@@ -36,7 +36,7 @@ class AddonTableButtons
                     'data-toggle' => 'modal',
                     'data-target' => '#modal',
                     'permission'  => 'anomaly.module.addons::{entry.type}.manage',
-                    'href'        => 'admin/addons/{entry.type}/options/{entry.namespace}',
+                    'href'        => 'admin/addons/options/{entry.namespace}',
                     'enabled'     => function (AddonInterface $entry) {
 
                         if (!in_array($entry->getType(), ['module', 'extension'])) {
@@ -56,7 +56,7 @@ class AddonTableButtons
                     'data-match'   => 'entry.name',
                     'icon'         => 'times-circle',
                     'permission'   => 'anomaly.module.addons::{entry.type}.manage',
-                    'href'         => 'admin/addons/{entry.type}/uninstall/{entry.namespace}',
+                    'href'         => 'admin/addons/uninstall/{entry.namespace}',
                     'text'         => 'anomaly.module.addons::button.uninstall',
                     'data-title'   => 'anomaly.module.addons::confirm.uninstall_title',
                     'data-message' => 'anomaly.module.addons::confirm.uninstall_message',
@@ -78,7 +78,7 @@ class AddonTableButtons
                     'type'       => 'success',
                     'icon'       => 'fa fa-toggle-on',
                     'permission' => 'anomaly.module.addons::{entry.type}.manage',
-                    'href'       => 'admin/addons/{entry.type}/enable/{entry.namespace}',
+                    'href'       => 'admin/addons/enable/{entry.namespace}',
                     'enabled'    => function (AddonInterface $entry) {
 
                         if (!in_array($entry->getType(), ['module', 'extension'])) {
@@ -104,7 +104,7 @@ class AddonTableButtons
                     'icon'         => 'fa fa-toggle-off',
                     'text'         => 'anomaly.module.addons::button.disable',
                     'permission'   => 'anomaly.module.addons::{entry.type}.manage',
-                    'href'         => 'admin/addons/{entry.type}/disable/{entry.namespace}',
+                    'href'         => 'admin/addons/disable/{entry.namespace}',
                     'data-title'   => 'anomaly.module.addons::confirm.disable_title',
                     'data-message' => 'anomaly.module.addons::confirm.disable_message',
                     'enabled'      => function (AddonInterface $entry) {

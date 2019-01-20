@@ -10,8 +10,15 @@
             {% set type = explode('-', package)|last %}
 
             {% if type in config('streams::addons.types') %}
+
+                {% set vendor = package|split('/')|first %}
+                {% set addon = package|split('/')|last %}
+                {% set slug = addon|split('-')|first %}
+                {% set type = addon|split('-')|last %}
+                {% set namespace = vendor ~ '.' ~ type ~ '.' ~ slug %}
+
                 <li>
-                    <a href="/admin/addons?view=all&filter_search={{ package }}"
+                    <a href="/admin/addons/view/{{ namespace }}"
                        target="_blank">
                         {{ package }}
                     </a>
