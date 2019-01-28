@@ -1,7 +1,7 @@
 (function (window, document) {
 
     const toggles = Array.prototype.slice.call(
-        document.querySelectorAll('[data-toggle="composer"]')
+        document.querySelectorAll('[data-toggle="process"]')
     );
 
     toggles.forEach(function (toggle) {
@@ -37,7 +37,7 @@
 
                 let log = new XMLHttpRequest();
 
-                log.open('GET', REQUEST_ROOT_PATH + '/app/' + APPLICATION_REFERENCE + '/composer.log', true);
+                log.open('GET', REQUEST_ROOT_PATH + '/app/' + APPLICATION_REFERENCE + '/process.log', true);
                 log.setRequestHeader('Content-Type', 'application/json');
 
                 log.send();
@@ -63,7 +63,7 @@
 
                             let status = new XMLHttpRequest();
 
-                            status.open('GET', REQUEST_ROOT_PATH + '/app/' + APPLICATION_REFERENCE + '/composer.log', true);
+                            status.open('GET', REQUEST_ROOT_PATH + '/app/' + APPLICATION_REFERENCE + '/process.log', true);
                             status.setRequestHeader('Content-Type', 'application/json');
 
                             status.send();

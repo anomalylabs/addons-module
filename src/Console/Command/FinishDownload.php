@@ -52,7 +52,7 @@ class FinishDownload
      */
     public function handle(Application $application, AddonManager $manager, Filesystem $files)
     {
-        $log = $application->getAssetsPath('composer.log');
+        $log = $application->getAssetsPath('process.log');
 
         $manager->register(true);
 

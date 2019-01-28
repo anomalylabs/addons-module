@@ -1,13 +1,17 @@
 <?php namespace Anomaly\AddonsModule\Http\Controller\Admin;
 
+use Anomaly\AddonsModule\Addon\Contract\AddonInterface;
 use Anomaly\AddonsModule\Addon\Contract\AddonRepositoryInterface;
 use Anomaly\AddonsModule\Addon\Table\AddonTableBuilder;
+use Anomaly\AddonsModule\Composer\ComposerAuthorizer;
 use Anomaly\Streams\Platform\Addon\Addon;
 use Anomaly\Streams\Platform\Addon\AddonCollection;
 use Anomaly\Streams\Platform\Addon\Extension\Extension;
 use Anomaly\Streams\Platform\Addon\Extension\ExtensionManager;
 use Anomaly\Streams\Platform\Addon\Module\Module;
 use Anomaly\Streams\Platform\Addon\Module\ModuleManager;
+use Anomaly\Streams\Platform\Asset\Asset;
+use Anomaly\Streams\Platform\Console\Kernel;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 use Illuminate\Http\Request;
 
@@ -20,6 +24,18 @@ use Illuminate\Http\Request;
  */
 class AddonsController extends AdminController
 {
+
+    /**
+     * Create a new AddonsController instance.
+     *
+     * @param Asset $asset
+     */
+    public function __construct(Asset $asset)
+    {
+        parent::__construct();
+
+        $asset->add('scripts.js', 'anomaly.module.addons::js/addons.js');
+    }
 
     /**
      * Display an index of existing entries.
@@ -77,19 +93,16 @@ class AddonsController extends AdminController
     /**
      * Install an addon.
      *
+     * @param Kernel $console
      * @param Request $request
-     * @param ModuleManager $modules
      * @param AddonCollection $addons
-     * @param ExtensionManager $extensions
-     * @param                  $type
-     * @param                  $addon
+     * @param $addon
      * @return \Illuminate\Http\RedirectResponse
      */
     public function install(
+        Kernel $console,
         Request $request,
-        ModuleManager $modules,
         AddonCollection $addons,
-        ExtensionManager $extensions,
         $addon
     ) {
         $this->setTimeout();
@@ -97,12 +110,16 @@ class AddonsController extends AdminController
         /* @var Addon|Module|Extension $addon */
         $addon = $addons->get($addon);
 
-        if ($addon instanceof Module) {
-            $modules->install($addon, filter_var($request->input('seed'), FILTER_VALIDATE_BOOLEAN));
-        } elseif ($addon instanceof Extension) {
-            $extensions->install($addon, filter_var($request->input('seed'), FILTER_VALIDATE_BOOLEAN));
+        $parameters = [
+            'addon' => $addon->getNamespace(),
+        ];
+
+        if (filter_var($request->input('seed'), FILTER_VALIDATE_BOOLEAN)) {
+            $parameters['--seed'] = true;
         }
 
+        $console->call('addon:install', $parameters);
+        dd('Test');
         $this->messages->success('module::message.install_addon_success');
 
         return $this->redirect->back();
@@ -224,6 +241,81 @@ class AddonsController extends AdminController
         $this->messages->success('module::message.migrate_addon_success');
 
         return $this->redirect->back();
+    }
+
+    /**
+     * Download an addon.
+     *
+     * @param AddonRepositoryInterface $addons
+     * @param ComposerAuthorizer $authorizer
+     * @param Kernel $console
+     * @param $addon
+     * @throws \Exception
+     */
+    public function download(
+        AddonRepositoryInterface $addons,
+        ComposerAuthorizer $authorizer,
+        Kernel $console,
+        $addon
+    ) {
+        /* @var AddonInterface $addon */
+        $addon = $addons->findByNamespace($addon);
+
+        if (!$authorizer->authorize(__FUNCTION__, $addon->getType())) {
+            throw new \Exception('[' . __FUNCTION__ . '] command is not permitted.');
+        }
+
+        $console->call('addon:download', ['addon' => $addon->getName()]);
+    }
+
+    /**
+     * Update an addon.
+     *
+     * @param AddonRepositoryInterface $addons
+     * @param ComposerAuthorizer $authorizer
+     * @param Kernel $console
+     * @param $addon
+     * @throws \Exception
+     */
+    public function update(
+        AddonRepositoryInterface $addons,
+        ComposerAuthorizer $authorizer,
+        Kernel $console,
+        $addon
+    ) {
+        /* @var AddonInterface $addon */
+        $addon = $addons->findByNamespace($addon);
+
+        if (!$authorizer->authorize(__FUNCTION__, $addon->getType())) {
+            throw new \Exception('[' . __FUNCTION__ . '] command is not permitted.');
+        }
+
+        $console->call('addon:update', ['addon' => $addon->getName()]);
+    }
+
+    /**
+     * Remove an addon.
+     *
+     * @param AddonRepositoryInterface $addons
+     * @param ComposerAuthorizer $authorizer
+     * @param Kernel $console
+     * @param $addon
+     * @throws \Exception
+     */
+    public function remove(
+        AddonRepositoryInterface $addons,
+        ComposerAuthorizer $authorizer,
+        Kernel $console,
+        $addon
+    ) {
+        /* @var AddonInterface $addon */
+        $addon = $addons->findByNamespace($addon);
+
+        if (!$authorizer->authorize(__FUNCTION__, $addon->getType())) {
+            throw new \Exception('[' . __FUNCTION__ . '] command is not permitted.');
+        }
+
+        $console->call('addon:remove', ['addon' => $addon->getName()]);
     }
 
     /**

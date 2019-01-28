@@ -1,9 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Console\Command;
 
 use Anomaly\AddonsModule\Addon\Contract\AddonInterface;
-use Anomaly\AddonsModule\Composer\ComposerFile;
-use Anomaly\Streams\Platform\Addon\Addon;
-use Anomaly\Streams\Platform\Addon\AddonManager;
 use Anomaly\Streams\Platform\Application\Application;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
@@ -52,7 +49,7 @@ class FinishUpdate
      */
     public function handle(Application $application, Filesystem $files)
     {
-        $log = $application->getAssetsPath('composer.log');
+        $log = $application->getAssetsPath('process.log');
 
         $files->append($log, "[{$this->addon->getName()}] has been updated.");
 

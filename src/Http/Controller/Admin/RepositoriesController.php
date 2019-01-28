@@ -2,8 +2,16 @@
 
 use Anomaly\AddonsModule\Repository\Form\RepositoryFormBuilder;
 use Anomaly\AddonsModule\Repository\Table\RepositoryTableBuilder;
+use Anomaly\Streams\Platform\Console\Kernel;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
+/**
+ * Class RepositoriesController
+ *
+ * @link   http://pyrocms.com/
+ * @author PyroCMS, Inc. <support@pyrocms.com>
+ * @author Ryan Thompson <ryan@pyrocms.com>
+ */
 class RepositoriesController extends AdminController
 {
 
@@ -39,5 +47,15 @@ class RepositoriesController extends AdminController
     public function edit(RepositoryFormBuilder $form, $id)
     {
         return $form->render($id);
+    }
+
+    /**
+     * Update all repositories.
+     *
+     * @param Kernel $console
+     */
+    public function update(Kernel $console)
+    {
+        $console->call('addons:sync');
     }
 }

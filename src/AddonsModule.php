@@ -19,8 +19,23 @@ class AddonsModule extends Module
      */
     protected $navigation = 'streams::navigation.system';
 
+    /**
+     * The addon sections.
+     *
+     * @var array
+     */
     protected $sections = [
-        'addons',
+        'addons' => [
+            'buttons' => [
+                'update' => [
+                    'data-icon'    => 'info',
+                    'data-toggle'  => 'process',
+                    'class'        => 'btn btn-danger',
+                    'href'         => 'admin/addons/repositories/update',
+                    'data-message' => 'Updating Repositories',
+                ],
+            ],
+        ],
         'repositories',
     ];
 

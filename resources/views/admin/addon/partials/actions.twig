@@ -63,7 +63,7 @@
                     <a
                             href="{{ url_route('anomaly.module.addons::composer.remove', {'id': addon.namespace}) }}"
                             data-message="{{ trans('anomaly.module.addons::message.removing', {'addon': addon.name}) }}"
-                            data-toggle="composer"
+                            data-toggle="process"
                             class="btn btn-danger {{ addon.getDependents().isNotEmpty() ? 'disabled' }}"
                     >
                         {{ icon('times-circle') }} {{ trans('anomaly.module.addons::button.remove') }}
@@ -75,7 +75,7 @@
                 <a
                         href="{{ url_route('anomaly.module.addons::composer.remove', {'id': addon.namespace}) }}"
                         data-message="{{ trans('anomaly.module.addons::message.removing', {'addon': addon.name}) }}"
-                        data-toggle="composer"
+                        data-toggle="process"
                         class="btn btn-danger {{ addon.getDependents().isNotEmpty() ? 'disabled' }}"
                 >
                     {{ icon('times-circle') }} {{ trans('anomaly.module.addons::button.remove') }}
@@ -88,7 +88,7 @@
                 <a
                         href="{{ url_route('anomaly.module.addons::composer.update', {'id': addon.namespace}) }}"
                         data-message="{{ trans('anomaly.module.addons::message.updating', {'addon': addon.name}) }}"
-                        data-toggle="composer"
+                        data-toggle="process"
                         class="btn btn-info"
                 >
                     {{ icon('refresh') }} {{ trans('anomaly.module.addons::button.update') }}
@@ -101,7 +101,7 @@
             <a
                     href="{{ url_route('anomaly.module.addons::composer.download', {'id': addon.namespace}) }}"
                     data-message="{{ trans('anomaly.module.addons::message.downloading', {'addon': addon.name}) }}"
-                    data-toggle="composer"
+                    data-toggle="process"
                     class="btn btn-primary"
             >
                 {{ icon('download') }} {{ trans('anomaly.module.addons::button.download') }}

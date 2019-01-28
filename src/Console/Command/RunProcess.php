@@ -49,7 +49,7 @@ class RunProcess
      */
     public function handle(Application $application, Filesystem $files)
     {
-        $log = $application->getAssetsPath('composer.log');
+        $log = $application->getAssetsPath('process.log');
 
         $files->put($log, '');
 

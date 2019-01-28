@@ -1,7 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Console\Command;
 
 use Anomaly\AddonsModule\Addon\Contract\AddonInterface;
-use Anomaly\AddonsModule\Composer\ComposerFile;
 use Anomaly\Streams\Platform\Addon\Addon;
 use Anomaly\Streams\Platform\Addon\AddonManager;
 use Anomaly\Streams\Platform\Application\Application;
@@ -53,7 +52,7 @@ class FinishRemove
      */
     public function handle(Application $application, AddonManager $manager, Filesystem $files)
     {
-        $log = $application->getAssetsPath('composer.log');
+        $log = $application->getAssetsPath('process.log');
 
         $manager->register(true);
 

@@ -2,9 +2,11 @@
 
 use Anomaly\AddonsModule\Addon\Contract\AddonInterface;
 use Anomaly\AddonsModule\Addon\Contract\AddonRepositoryInterface;
+use Anomaly\AddonsModule\Repository\Command\CacheRepository;
 use Anomaly\AddonsModule\Repository\Command\GetRepositoryAddons;
 use Anomaly\AddonsModule\Repository\Contract\RepositoryInterface;
 use Anomaly\AddonsModule\Repository\Contract\RepositoryRepositoryInterface;
+use Anomaly\Streams\Platform\Application\Application;
 use Anomaly\Streams\Platform\Model\EloquentModel;
 use Illuminate\Console\Command;
 
@@ -28,11 +30,33 @@ class Sync extends Command
     /**
      * Handle the command.
      *
+     * @param Application $application
      * @param RepositoryRepositoryInterface $repositories
      * @param AddonRepositoryInterface $addons
      */
-    public function handle(RepositoryRepositoryInterface $repositories, AddonRepositoryInterface $addons)
-    {
+    public function handle(
+        Application $application,
+        RepositoryRepositoryInterface $repositories,
+        AddonRepositoryInterface $addons
+    ) {
+
+        $log = $application->getAssetsPath('process.log');
+
+        file_put_contents($log, '');
+
+        sleep(1);
+
+        /* @var RepositoryInterface $repository */
+        foreach ($repositories->all() as $repository) {
+
+            $this->info('Caching: ' . $repository->getUrl());
+
+            file_put_contents($log, 'Downloading ' . $repository->getUrl());
+
+            dispatch_now(new CacheRepository($repository));
+        }
+
+        file_put_contents($log, 'Updating Addons');
 
         /* @var RepositoryInterface $repository */
         foreach ($repositories->all() as $repository) {
@@ -84,6 +108,8 @@ class Sync extends Command
                 $this->info('Unchanged: ' . $package['name']);
             }
         }
+
+        unlink($log);
     }
 
 }

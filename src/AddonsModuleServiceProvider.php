@@ -1,27 +1,22 @@
 <?php namespace Anomaly\AddonsModule;
 
 use Anomaly\AddonsModule\Composer\ComposerAuthorizer;
-use Anomaly\AddonsModule\Console\Cache;
 use Anomaly\AddonsModule\Console\Download;
 use Anomaly\AddonsModule\Console\Remove;
 use Anomaly\AddonsModule\Console\Update;
 use Anomaly\AddonsModule\Repository\Contract\RepositoryRepositoryInterface;
 use Anomaly\AddonsModule\Repository\RepositoryRepository;
-use Anomaly\Streams\Platform\Model\Addons\AddonsRepositoriesEntryModel;
-use Anomaly\AddonsModule\Repository\RepositoryModel;
 use Anomaly\AddonsModule\Addon\Contract\AddonRepositoryInterface;
 use Anomaly\AddonsModule\Addon\AddonRepository;
-use Anomaly\Streams\Platform\Model\Addons\AddonsAddonsEntryModel;
-use Anomaly\AddonsModule\Addon\AddonModel;
 use Anomaly\AddonsModule\Console\Sync;
 use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
 
 /**
  * Class AddonsModuleServiceProvider
  *
- * @link          http://pyrocms.com/
- * @author        PyroCMS, Inc. <support@pyrocms.com>
- * @author        Ryan Thompson <ryan@pyrocms.com>
+ * @link   http://pyrocms.com/
+ * @author PyroCMS, Inc. <support@pyrocms.com>
+ * @author Ryan Thompson <ryan@pyrocms.com>
  */
 class AddonsModuleServiceProvider extends AddonServiceProvider
 {
@@ -33,7 +28,6 @@ class AddonsModuleServiceProvider extends AddonServiceProvider
      */
     protected $commands = [
         Sync::class,
-        Cache::class,
         Remove::class,
         Update::class,
         Download::class,
@@ -54,9 +48,9 @@ class AddonsModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $singletons = [
-        RepositoryRepositoryInterface::class => RepositoryRepository::class,
         AddonRepositoryInterface::class      => AddonRepository::class,
         ComposerAuthorizer::class            => ComposerAuthorizer::class,
+        RepositoryRepositoryInterface::class => RepositoryRepository::class,
     ];
 
     /**
@@ -68,6 +62,7 @@ class AddonsModuleServiceProvider extends AddonServiceProvider
         'admin/addons/repositories'           => 'Anomaly\AddonsModule\Http\Controller\Admin\RepositoriesController@index',
         'admin/addons/repositories/create'    => 'Anomaly\AddonsModule\Http\Controller\Admin\RepositoriesController@create',
         'admin/addons/repositories/edit/{id}' => 'Anomaly\AddonsModule\Http\Controller\Admin\RepositoriesController@edit',
+        'admin/addons/repositories/update'    => 'Anomaly\AddonsModule\Http\Controller\Admin\RepositoriesController@update',
         'admin/addons'                        => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@index',
         'admin/addons/enable/{addon}'         => [
             'as'   => 'anomaly.module.addons::addon.enable',
@@ -99,15 +94,15 @@ class AddonsModuleServiceProvider extends AddonServiceProvider
         ],
         'admin/addons/remove/{addon}'         => [
             'as'   => 'anomaly.module.addons::composer.remove',
-            'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\ComposerController@remove',
+            'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@remove',
         ],
         'admin/addons/update/{addon}'         => [
             'as'   => 'anomaly.module.addons::composer.update',
-            'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\ComposerController@update',
+            'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@update',
         ],
         'admin/addons/download/{addon}'       => [
             'as'   => 'anomaly.module.addons::composer.download',
-            'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\ComposerController@download',
+            'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@download',
         ],
     ];
 
