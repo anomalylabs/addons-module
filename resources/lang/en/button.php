@@ -11,5 +11,5 @@ return [
     'uninstall'      => 'Uninstall',
     'new_addon'      => 'New Addon',
     'marketplace'    => 'Marketplace',
-    'new_repository' => 'New Repository',
+    'add_repository' => 'Add Repository',
 ];

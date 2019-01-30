@@ -25,7 +25,7 @@ class AddonsModule extends Module
      * @var array
      */
     protected $sections = [
-        'addons' => [
+        'addons'       => [
             'buttons' => [
                 'update' => [
                     'data-icon'    => 'info',
@@ -36,7 +36,11 @@ class AddonsModule extends Module
                 ],
             ],
         ],
-        'repositories',
+        'repositories' => [
+            'buttons' => [
+                'add_repository',
+            ],
+        ],
     ];
 
 }

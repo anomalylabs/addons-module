@@ -40,6 +40,8 @@ class Sync extends Command
         AddonRepositoryInterface $addons
     ) {
 
+        $manifest = [];
+
         $log = $application->getAssetsPath('process.log');
 
         file_put_contents($log, '');
@@ -64,6 +66,8 @@ class Sync extends Command
             $packages = dispatch_now(new GetRepositoryAddons($repository));
 
             foreach ($packages as $package) {
+
+                $manifest[] = array_get($package, 'name');
 
                 $entry = [
                     'namespace'   => array_get($package, 'id'),
@@ -107,6 +111,13 @@ class Sync extends Command
 
                 $this->info('Unchanged: ' . $package['name']);
             }
+        }
+
+        foreach ($addons->except($manifest) as $addon) {
+
+            $this->info('Removing: ' . $addon->getName());
+
+            $addons->delete($addon);
         }
 
         unlink($log);

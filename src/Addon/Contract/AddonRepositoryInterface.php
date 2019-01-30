@@ -36,4 +36,13 @@ interface AddonRepositoryInterface extends EntryRepositoryInterface
      */
     public function downloaded();
 
+    /**
+     * Return all addons except
+     * with the provided names.
+     *
+     * @param array $names
+     * @return AddonCollection
+     */
+    public function except(array $names);
+
 }
