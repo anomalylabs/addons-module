@@ -4,24 +4,59 @@
     .banner-header {
         position: relative;
 
+        &.default-banner {
+            overflow: hidden;
+            max-height: 200px;
+        }
+
         .card-title {
             left: 0;
             right: 0;
             bottom: 0;
             z-index: 2;
             padding: 1rem;
-            color: #ffffff;
+            color: #333333;
             position: absolute;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 1);
+
+            > img {
+                float: left;
+                width: 128px;
+                margin-top: -4rem;
+                margin-right: 1rem;
+            }
 
             small {
-                color: rgba(255, 255, 255, 0.7);
+                color: rgba(0, 0, 0, 0.7);
             }
         }
 
-        img {
+        > img {
             width: 100%;
             min-width: 100%;
+        }
+    }
+
+    .screenshots {
+        padding: 0;
+        list-style: none;
+        padding-top: 1rem;
+        margin-bottom: 2rem;
+
+        a {
+            overflow: hidden;
+            display: inline-block;
+            outline: 3px solid #333;
+
+            &:hover,
+            &:focus,
+            &:active {
+                outline-color: #007bff;
+            }
+
+            img {
+                width: 80px;
+            }
         }
     }
 

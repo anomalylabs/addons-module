@@ -22,22 +22,25 @@ class AddonTableColumns
     {
         $builder->setColumns(
             [
-                [
+                'name' => [
                     'is_safe' => true,
                     'heading' => 'module::field.addon.name',
                     'wrapper' => '
+                        <img src="{value.icon}" width="96" align="left" style="margin-right: 1rem;">
                         <strong>{value.title}</strong>
                         <br>
                         <span class="text-muted">{value.name}</span>
                         <br>
                         <small class="text-muted">{value.description}</small>
-                        <br>
-                        <small>
-                            {value.pro}
-                            {value.downloaded}
-                            {value.outdated}
-                        </small>',
+                        <div>
+                            <small>
+                                {value.pro}
+                                {value.downloaded}
+                                {value.outdated}
+                            </small>
+                        </div>',
                     'value'   => [
+                        'icon'        => 'entry.icon',
                         'name'        => 'entry.name',
                         'title'       => 'entry.display_name',
                         'description' => 'entry.description',

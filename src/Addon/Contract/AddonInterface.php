@@ -3,6 +3,7 @@
 use Anomaly\AddonsModule\Addon\AddonCollection;
 use Anomaly\Streams\Platform\Addon\Addon;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
+use Anomaly\Streams\Platform\Image\Image;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
@@ -29,6 +30,13 @@ interface AddonInterface extends EntryInterface
      * @return string
      */
     public function getName();
+
+    /**
+     * Get the addon title.
+     *
+     * @return string
+     */
+    public function getTitle();
 
     /**
      * Get the addon type.
@@ -106,6 +114,51 @@ interface AddonInterface extends EntryInterface
      * @return string
      */
     public function getNamespace();
+
+    /**
+     * Get the assets.
+     *
+     * @return array
+     */
+    public function getAssets();
+
+    /**
+     * Get an asset.
+     *
+     * @param null $key
+     * @param null $default
+     * @return mixed
+     */
+    public function asset($key = null, $default = null);
+
+    /**
+     * Check if an asset exists.
+     *
+     * @param $key
+     * @return mixed
+     */
+    public function hasAsset($key);
+
+    /**
+     * Return the icon image.
+     *
+     * @return null|Image
+     */
+    public function icon();
+
+    /**
+     * Return the banner image.
+     *
+     * @return null|Image
+     */
+    public function banner();
+
+    /**
+     * Return the screenshot images.
+     *
+     * @return array
+     */
+    public function screenshots();
 
     /**
      * Return the addon instance.

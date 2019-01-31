@@ -58,8 +58,6 @@ class Sync extends Command
             dispatch_now(new CacheRepository($repository));
         }
 
-        file_put_contents($log, 'Updating Addons');
-
         /* @var RepositoryInterface $repository */
         foreach ($repositories->all() as $repository) {
 
@@ -91,14 +89,44 @@ class Sync extends Command
                 /* @var AddonInterface|EloquentModel $addon */
                 if (!$addon = $addons->findByName($package['name'])) {
 
+                    try {
+
+                        $composer = file_get_contents(
+                            'https://s3.us-east-2.amazonaws.com/pyrocms-public/marketplace/'
+                            . str_replace(['/', '_'], '-', array_get($package, 'name'))
+                            . '-composer.json'
+                        );
+
+                        $entry['assets'] = array_get((array)json_decode($composer, true), 'assets', []);
+
+                    } catch (\Exception $exception) {
+                        $entry['assets'] = [];
+                    }
+
                     $addons->create($entry);
 
                     $this->info('Added: ' . $package['name']);
 
+                    file_put_contents($log, 'Added: ' . $package['name']);
+
                     continue;
                 }
 
-                if ($entry['versions'] !== $addon->getVersions()) {
+                if ($entry['versions'] !== $addon->getVersions() || $addon->lastModified()->diffInHours() > 1) {
+
+                    try {
+
+                        $composer = file_get_contents(
+                            'https://s3.us-east-2.amazonaws.com/pyrocms-public/marketplace/'
+                            . str_replace(['/', '_'], '-', array_get($package, 'name'))
+                            . '-composer.json'
+                        );
+
+                        $entry['assets'] = array_get((array)json_decode($composer, true), 'assets', []);
+
+                    } catch (\Exception $exception) {
+                        $entry['assets'] = [];
+                    }
 
                     $addon->fill($entry);
 
@@ -106,16 +134,22 @@ class Sync extends Command
 
                     $this->info('Synced: ' . $package['name']);
 
+                    file_put_contents($log, 'Synced: ' . $package['name']);
+
                     continue;
                 }
 
                 $this->info('Unchanged: ' . $package['name']);
+
+                file_put_contents($log, 'Unchanged: ' . $package['name']);
             }
         }
 
         foreach ($addons->except($manifest) as $addon) {
 
             $this->info('Removing: ' . $addon->getName());
+
+            file_put_contents($log, 'Removing: ' . $addon->getName());
 
             $addons->delete($addon);
         }

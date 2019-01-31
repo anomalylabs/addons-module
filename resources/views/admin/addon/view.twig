@@ -12,23 +12,32 @@
 
         <div class="card addon-card">
 
-            <div class="banner-header">
+            <div class="banner-header {{ addon.hasAsset('banner') ?: 'default-banner' }}">
+
+                {{ addon.banner.width('100%')|raw }}
 
                 <h4 class="card-title">
-                    {{ addon.display_name }}
+                    {{ addon.icon|raw }}
+                    {{ addon.displayName() }}
                     <small>
                         {{ addon.name }}
                     </small>
                 </h4>
-
-                {{ img('anomaly.module.addons::img/banner.jpg').width('100%')|raw }}
             </div>
 
             <div class="card-block">
 
                 <p>{{ addon.description|str_purify|str_linkify|raw }}</p>
 
-                <br>
+                <ul class="screenshots">
+                    {% for screenshot in addon.screenshots() %}
+                        <li>
+                            <a href="{{ screenshot.url }}" target="_blank">
+                                {{ screenshot|raw }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
 
                 <div class="row">
                     <div class="col-lg-8">
