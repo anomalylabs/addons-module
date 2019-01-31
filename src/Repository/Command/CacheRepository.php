@@ -14,6 +14,8 @@ use Anomaly\Streams\Platform\Application\Application;
 class CacheRepository
 {
 
+    protected $force;
+
     /**
      * The repository instance.
      *
@@ -25,9 +27,11 @@ class CacheRepository
      * Create a new CacheRepository instance.
      *
      * @param RepositoryInterface $repository
+     * @param bool $force
      */
-    public function __construct(RepositoryInterface $repository)
+    public function __construct(RepositoryInterface $repository, $force = false)
     {
+        $this->force      = $force;
         $this->repository = $repository;
     }
 
@@ -45,7 +49,7 @@ class CacheRepository
          * Don't update the cache
          * files but every 1 hr.
          */
-        if (file_exists($filename) && time() - filemtime($filename) < 3600) {
+        if ($this->force == false && file_exists($filename) && time() - filemtime($filename) < 3600) {
             return;
         }
 

@@ -11,6 +11,7 @@ use Anomaly\Streams\Platform\Addon\Command\GetAddon;
 use Anomaly\Streams\Platform\Application\Application;
 use Anomaly\Streams\Platform\Model\EloquentModel;
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Input\InputOption;
 
 /**
  * Class Sync
@@ -57,7 +58,7 @@ class Sync extends Command
 
             file_put_contents($log, 'Downloading ' . $repository->getUrl());
 
-            dispatch_now(new CacheRepository($repository));
+            dispatch_now(new CacheRepository($repository, (bool)$this->option('force')));
         }
 
         /* @var RepositoryInterface $repository */
@@ -207,6 +208,18 @@ class Sync extends Command
         } catch (\Exception $exception) {
             return [];
         }
+    }
+
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return [
+            ['force', null, InputOption::VALUE_NONE, 'Override dry run and delete.'],
+        ];
     }
 
 }

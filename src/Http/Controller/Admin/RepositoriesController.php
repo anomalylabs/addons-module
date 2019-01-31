@@ -1,6 +1,5 @@
 <?php namespace Anomaly\AddonsModule\Http\Controller\Admin;
 
-use Anomaly\AddonsModule\Http\Middleware\CheckRepositoryAge;
 use Anomaly\AddonsModule\Repository\Form\RepositoryFormBuilder;
 use Anomaly\AddonsModule\Repository\RepositoryManager;
 use Anomaly\AddonsModule\Repository\Table\RepositoryTableBuilder;
@@ -72,6 +71,12 @@ class RepositoriesController extends AdminController
      */
     public function sync(Kernel $console)
     {
-        $console->call('addons:sync');
+        $parameters = [];
+
+        if ($this->request->get('force')) {
+            $parameters[] = '--force';
+        }
+
+        $console->call('addons:sync', $parameters);
     }
 }

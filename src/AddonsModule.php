@@ -34,7 +34,7 @@ class AddonsModule extends Module
                     'button'       => 'export',
                     'data-toggle'  => 'process',
                     'data-message' => 'Updating Repositories',
-                    'href'         => 'admin/addons/repositories/sync',
+                    'href'         => 'admin/addons/repositories/sync?force=true',
                     'text'         => 'anomaly.module.addons::button.sync_repositories',
                 ],
             ],
