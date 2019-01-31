@@ -27,13 +27,13 @@ class AddonsModule extends Module
     protected $sections = [
         'addons'       => [
             'buttons' => [
-                'sync' => [
+                'sync_repositories' => [
                     'data-icon'    => 'info',
                     'button'       => 'export',
                     'data-toggle'  => 'process',
                     'data-message' => 'Updating Repositories',
                     'href'         => 'admin/addons/repositories/sync',
-                    'text'         => 'anomaly.module.addons::button.sync',
+                    'text'         => 'anomaly.module.addons::button.sync_repositories',
                 ],
             ],
         ],

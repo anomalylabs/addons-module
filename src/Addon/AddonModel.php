@@ -61,6 +61,16 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
     }
 
     /**
+     * Get the addon readme.
+     *
+     * @return string
+     */
+    public function getReadme()
+    {
+        return $this->readme;
+    }
+
+    /**
      * Return the display name.
      *
      * @return string
@@ -335,28 +345,6 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
         }
 
         return $screenshots;
-    }
-
-    /**
-     * Return the readme.
-     *
-     * @return string|null
-     */
-    public function readme()
-    {
-        if ($instance = $this->instance()) {
-            return $instance->getReadme();
-        }
-
-        try {
-            return file_get_contents(
-                'https://assets.pyrocms.com/'
-                . str_replace(['/', '_'], '-', $this->getName())
-                . '-readme.md'
-            );
-        } catch (\Exception $exception) {
-            return null;
-        }
     }
 
     /**

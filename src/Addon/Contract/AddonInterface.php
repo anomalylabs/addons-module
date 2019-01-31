@@ -46,6 +46,13 @@ interface AddonInterface extends EntryInterface
     public function getType();
 
     /**
+     * Get the readme.
+     *
+     * @return string|null
+     */
+    public function getReadme();
+
+    /**
      * Return the display name.
      *
      * @return string
@@ -139,15 +146,6 @@ interface AddonInterface extends EntryInterface
     public function asset($key = null, $default = null);
 
     /**
-     * Get a marketplace value.
-     *
-     * @param null $key
-     * @param null $default
-     * @return mixed
-     */
-    public function marketplace($key = null, $default = null);
-
-    /**
      * Check if an asset exists.
      *
      * @param $key
@@ -175,13 +173,6 @@ interface AddonInterface extends EntryInterface
      * @return array
      */
     public function screenshots();
-
-    /**
-     * Return the readme.
-     *
-     * @return string|null
-     */
-    public function readme();
 
     /**
      * Return the addon instance.

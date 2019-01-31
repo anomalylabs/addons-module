@@ -43,6 +43,7 @@ class AnomalyModuleAddonsCreateAddonsFields extends Migration
         'authors'     => 'anomaly.field_type.textarea',
         'support'     => 'anomaly.field_type.textarea',
         'assets'      => 'anomaly.field_type.textarea',
+        'readme'      => 'anomaly.field_type.textarea',
         'url'         => 'anomaly.field_type.url',
     ];
 

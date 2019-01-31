@@ -29,15 +29,7 @@
 
                 <p>{{ addon.description|str_purify|str_linkify|raw }}</p>
 
-                <ul class="screenshots">
-                    {% for screenshot in addon.screenshots() %}
-                        <li>
-                            <a href="{{ screenshot.url }}" target="_blank">
-                                {{ screenshot|raw }}
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
+                {% include "anomaly.module.addons::admin/addon/partials/screenshots" %}
 
                 <div class="row">
                     <div class="col-lg-8">
@@ -58,11 +50,13 @@
 
         </div>
 
-        <div class="card">
-            <div class="card-block">
-                {{ addon.readme()|markdown|raw }}
+        {% if addon.readme.value %}
+            <div class="card">
+                <div class="card-block">
+                    {{ addon.readme.value|markdown|raw }}
+                </div>
             </div>
-        </div>
+        {% endif %}
 
     </div>
 

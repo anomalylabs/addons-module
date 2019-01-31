@@ -45,6 +45,7 @@ class AnomalyModuleAddonsCreateAddonsStream extends Migration
         'versions'  => [
             'required' => true,
         ],
+        'marketplace',
         'description',
         'homepage',
         'requires',
@@ -52,7 +53,7 @@ class AnomalyModuleAddonsCreateAddonsStream extends Migration
         'authors',
         'support',
         'assets',
-        'marketplace',
+        'readme',
     ];
 
 }

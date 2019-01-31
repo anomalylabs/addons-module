@@ -6,6 +6,8 @@ use Anomaly\AddonsModule\Repository\Command\CacheRepository;
 use Anomaly\AddonsModule\Repository\Command\GetRepositoryAddons;
 use Anomaly\AddonsModule\Repository\Contract\RepositoryInterface;
 use Anomaly\AddonsModule\Repository\Contract\RepositoryRepositoryInterface;
+use Anomaly\Streams\Platform\Addon\Addon;
+use Anomaly\Streams\Platform\Addon\Command\GetAddon;
 use Anomaly\Streams\Platform\Application\Application;
 use Anomaly\Streams\Platform\Model\EloquentModel;
 use Illuminate\Console\Command;
@@ -90,6 +92,7 @@ class Sync extends Command
                 if (!$addon = $addons->findByName($package['name'])) {
 
                     $entry['assets']      = $this->assets($package);
+                    $entry['readme']      = $this->readme($package);
                     $entry['marketplace'] = $this->marketplace($package);
 
                     $addons->create($entry);
@@ -155,6 +158,31 @@ class Sync extends Command
 
         } catch (\Exception $exception) {
             return [];
+        }
+    }
+
+    /**
+     * Return addon readme.
+     *
+     * @param array $package
+     * @return string
+     */
+    protected function readme(array $package)
+    {
+        try {
+
+            /* @var Addon $addon */
+            if ($addon = dispatch_now(new GetAddon(array_get($package, 'id')))) {
+                return $addon->getReadme();
+            }
+
+            return file_get_contents(
+                'https://assets.pyrocms.com/'
+                . str_replace(['/', '_'], '-', array_get($package, 'name'))
+                . '-readme.md'
+            );
+        } catch (\Exception $exception) {
+            return null;
         }
     }
 
