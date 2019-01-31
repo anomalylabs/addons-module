@@ -1,5 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Http\Controller\Admin;
 
+use Anomaly\AddonsModule\Addon\Contract\AddonRepositoryInterface;
 use Anomaly\AddonsModule\Http\Middleware\MonitorComposerLog;
 use Anomaly\AddonsModule\Repository\Form\RepositoryFormBuilder;
 use Anomaly\AddonsModule\Repository\RepositoryManager;
@@ -70,9 +71,12 @@ class RepositoriesController extends AdminController
      * Sync all repositories.
      *
      * @param Kernel $console
+     * @param AddonRepositoryInterface $addons
      */
-    public function sync(Kernel $console)
+    public function sync(Kernel $console, AddonRepositoryInterface $addons)
     {
+        $addons->flushCache();
+        
         $console->call('addons:sync');
     }
 }
