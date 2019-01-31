@@ -27,7 +27,7 @@
 
             <div class="card-block">
 
-                <p>{{ addon.description|str_purify|str_linkify|raw }}</p>
+                <p class="lead">{{ addon.description|str_purify|str_linkify|raw }}</p>
 
                 {% include "anomaly.module.addons::admin/addon/partials/screenshots" %}
 
