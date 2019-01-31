@@ -37,10 +37,7 @@ class Download extends Command
         }
 
         if ($addon->instance()) {
-
-            $this->info("[{$addon->getName()}] is already downloaded.");
-
-            return;
+            throw new \Exception("Addon [{$addon->getName()}] is already downloaded.");
         }
 
         $parameters = [

@@ -76,7 +76,7 @@ class RepositoriesController extends AdminController
     public function sync(Kernel $console, AddonRepositoryInterface $addons)
     {
         $addons->flushCache();
-        
+
         $console->call('addons:sync');
     }
 }
