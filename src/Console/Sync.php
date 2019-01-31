@@ -89,19 +89,8 @@ class Sync extends Command
                 /* @var AddonInterface|EloquentModel $addon */
                 if (!$addon = $addons->findByName($package['name'])) {
 
-                    try {
-
-                        $composer = file_get_contents(
-                            'https://assets.pyrocms.com/'
-                            . str_replace(['/', '_'], '-', array_get($package, 'name'))
-                            . '-composer.json'
-                        );
-
-                        $entry['assets'] = array_get((array)json_decode($composer, true), 'assets', []);
-
-                    } catch (\Exception $exception) {
-                        $entry['assets'] = [];
-                    }
+                    $entry['assets'] = $this->assets($package);
+                    $entry['marketplace'] = $this->marketplace($package);
 
                     $addons->create($entry);
 
@@ -114,19 +103,8 @@ class Sync extends Command
 
                 if ($entry['versions'] !== $addon->getVersions() || $addon->lastModified()->diffInHours() > 1) {
 
-                    try {
-
-                        $composer = file_get_contents(
-                            'https://assets.pyrocms.com/'
-                            . str_replace(['/', '_'], '-', array_get($package, 'name'))
-                            . '-composer.json'
-                        );
-
-                        $entry['assets'] = array_get((array)json_decode($composer, true), 'assets', []);
-
-                    } catch (\Exception $exception) {
-                        $entry['assets'] = [];
-                    }
+                    $entry['assets'] = $this->assets($package);
+                    $entry['marketplace'] = $this->marketplace($package);
 
                     $addon->fill($entry);
 
@@ -155,6 +133,52 @@ class Sync extends Command
         }
 
         unlink($log);
+    }
+
+    /**
+     * Return addon assets.
+     *
+     * @param array $package
+     * @return array
+     */
+    protected function assets(array $package)
+    {
+        try {
+
+            $composer = file_get_contents(
+                'https://assets.pyrocms.com/'
+                . str_replace(['/', '_'], '-', array_get($package, 'name'))
+                . '-composer.json'
+            );
+
+            return array_get((array)json_decode($composer, true), 'assets', []);
+
+        } catch (\Exception $exception) {
+            return [];
+        }
+    }
+
+    /**
+     * Return marketplace information.
+     *
+     * @param array $package
+     * @return array
+     */
+    protected function marketplace(array $package)
+    {
+        try {
+
+            $composer = file_get_contents(
+                'https://assets.pyrocms.com/'
+                . str_replace(['/', '_'], '-', array_get($package, 'name'))
+                . '-marketplace.json'
+            );
+
+            return array_get((array)json_decode($composer, true), 'assets', []);
+
+        } catch (\Exception $exception) {
+            return [];
+        }
     }
 
 }

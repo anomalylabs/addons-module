@@ -123,6 +123,13 @@ interface AddonInterface extends EntryInterface
     public function getAssets();
 
     /**
+     * Get the marketplace information.
+     *
+     * @return array
+     */
+    public function getMarketplace();
+
+    /**
      * Get an asset.
      *
      * @param null $key
@@ -130,6 +137,15 @@ interface AddonInterface extends EntryInterface
      * @return mixed
      */
     public function asset($key = null, $default = null);
+
+    /**
+     * Get a marketplace value.
+     *
+     * @param null $key
+     * @param null $default
+     * @return mixed
+     */
+    public function marketplace($key = null, $default = null);
 
     /**
      * Check if an asset exists.

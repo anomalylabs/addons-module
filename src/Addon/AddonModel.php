@@ -216,6 +216,16 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
     }
 
     /**
+     * Get the marketplace information.
+     *
+     * @return array
+     */
+    public function getMarketplace()
+    {
+        return $this->assets;
+    }
+
+    /**
      * Get an asset.
      *
      * @param null $key
@@ -231,6 +241,24 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
         }
 
         return $assets;
+    }
+
+    /**
+     * Get a marketplace value.
+     *
+     * @param null $key
+     * @param null $default
+     * @return mixed
+     */
+    public function marketplace($key = null, $default = null)
+    {
+        $marketplace = $this->getMarketplace();
+
+        if ($key) {
+            return array_get($marketplace, $key, $default);
+        }
+
+        return $marketplace;
     }
 
     /**
@@ -483,6 +511,30 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
     public function getAssetsAttribute()
     {
         return (array)unserialize($this->attributes['assets']);
+    }
+
+    /**
+     * Set the marketplace attribute.
+     *
+     * @param $value
+     * @return $this
+     */
+    public function setMarketplaceAttribute($value)
+    {
+        $this->attributes['marketplace'] = serialize($value);
+
+        return $this;
+    }
+
+    /**
+     * Get the marketplace attribute.
+     *
+     * @param $value
+     * @return array
+     */
+    public function getMarketplaceAttribute()
+    {
+        return (array)unserialize($this->attributes['marketplace']);
     }
 
     /**

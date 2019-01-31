@@ -52,6 +52,7 @@ class AnomalyModuleAddonsCreateAddonsStream extends Migration
         'authors',
         'support',
         'assets',
+        'marketplace',
     ];
 
 }
