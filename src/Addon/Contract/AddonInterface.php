@@ -161,6 +161,13 @@ interface AddonInterface extends EntryInterface
     public function screenshots();
 
     /**
+     * Return the readme.
+     *
+     * @return string|null
+     */
+    public function readme();
+
+    /**
      * Return the addon instance.
      *
      * @return Addon

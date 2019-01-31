@@ -58,20 +58,12 @@
 
         </div>
 
-        {% if addon.instance.getReadme() %}
-            <div class="card">
-
-                <div class="card-header">
-                    <h4 class="card-title">
-                        README
-                    </h4>
-                </div>
-
-                <div class="card-block">
-                    {{ addon.instance.getReadme()|markdown|raw }}
-                </div>
+        <div class="card">
+            <div class="card-block">
+                {{ addon.readme()|markdown|raw }}
             </div>
-        {% endif %}
+        </div>
+
     </div>
 
 {% endblock %}

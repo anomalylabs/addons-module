@@ -310,6 +310,29 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
     }
 
     /**
+     * Return the readme.
+     *
+     * @return string|null
+     */
+    public function readme()
+    {
+        if ($instance = $this->instance()) {
+            return $instance->getReadme();
+        }
+
+        try {
+            return file_get_contents(
+                'https://s3.us-east-2.amazonaws.com/pyrocms-public/marketplace/'
+                . str_replace(['/', '_'], '-', $this->getName())
+                . '-readme.md'
+            );
+        } catch (\Exception $exception) {
+            dd($exception->getMessage());
+            return null;
+        }
+    }
+
+    /**
      * Return the addon instance.
      *
      * @return Addon
