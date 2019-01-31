@@ -1,14 +1,14 @@
 <?php namespace Anomaly\AddonsModule;
 
+use Anomaly\AddonsModule\Addon\AddonRepository;
+use Anomaly\AddonsModule\Addon\Contract\AddonRepositoryInterface;
 use Anomaly\AddonsModule\Composer\ComposerAuthorizer;
 use Anomaly\AddonsModule\Console\Download;
 use Anomaly\AddonsModule\Console\Remove;
+use Anomaly\AddonsModule\Console\Sync;
 use Anomaly\AddonsModule\Console\Update;
 use Anomaly\AddonsModule\Repository\Contract\RepositoryRepositoryInterface;
 use Anomaly\AddonsModule\Repository\RepositoryRepository;
-use Anomaly\AddonsModule\Addon\Contract\AddonRepositoryInterface;
-use Anomaly\AddonsModule\Addon\AddonRepository;
-use Anomaly\AddonsModule\Console\Sync;
 use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
 
 /**
@@ -62,7 +62,7 @@ class AddonsModuleServiceProvider extends AddonServiceProvider
         'admin/addons/repositories'           => 'Anomaly\AddonsModule\Http\Controller\Admin\RepositoriesController@index',
         'admin/addons/repositories/create'    => 'Anomaly\AddonsModule\Http\Controller\Admin\RepositoriesController@create',
         'admin/addons/repositories/edit/{id}' => 'Anomaly\AddonsModule\Http\Controller\Admin\RepositoriesController@edit',
-        'admin/addons/repositories/update'    => 'Anomaly\AddonsModule\Http\Controller\Admin\RepositoriesController@update',
+        'admin/addons/repositories/sync'      => 'Anomaly\AddonsModule\Http\Controller\Admin\RepositoriesController@sync',
         'admin/addons'                        => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@index',
         'admin/addons/enable/{addon}'         => [
             'as'   => 'anomaly.module.addons::addon.enable',

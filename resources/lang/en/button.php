@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'sync'           => 'Sync',
     'enable'         => 'Enable',
     'remove'         => 'Remove',
     'update'         => 'Update',

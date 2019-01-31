@@ -46,7 +46,7 @@ class Sync extends Command
 
         file_put_contents($log, '');
 
-        sleep(1);
+        sleep(2);
 
         /* @var RepositoryInterface $repository */
         foreach ($repositories->all() as $repository) {
@@ -101,7 +101,7 @@ class Sync extends Command
                     continue;
                 }
 
-                if ($entry['versions'] !== $addon->getVersions() || $addon->lastModified()->diffInHours() > 1) {
+                if ($entry['versions'] !== $addon->getVersions()) {
 
                     $entry['assets']      = $this->assets($package);
                     $entry['marketplace'] = $this->marketplace($package);

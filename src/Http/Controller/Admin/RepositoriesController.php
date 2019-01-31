@@ -50,11 +50,11 @@ class RepositoriesController extends AdminController
     }
 
     /**
-     * Update all repositories.
+     * Sync all repositories.
      *
      * @param Kernel $console
      */
-    public function update(Kernel $console)
+    public function sync(Kernel $console)
     {
         $console->call('addons:sync');
     }
