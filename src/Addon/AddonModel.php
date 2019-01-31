@@ -260,7 +260,7 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
         $extension = pathinfo($asset, PATHINFO_EXTENSION);
 
         return app(Image::class)->make(
-            'https://s3.us-east-2.amazonaws.com/pyrocms-public/marketplace/'
+            'https://assets.pyrocms.com/'
             . str_replace(['/', '_'], '-', $this->getName())
             . '-icon.' . $extension
         );
@@ -280,7 +280,7 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
         $extension = pathinfo($asset, PATHINFO_EXTENSION);
 
         return app(Image::class)->make(
-            'https://s3.us-east-2.amazonaws.com/pyrocms-public/marketplace/'
+            'https://assets.pyrocms.com/'
             . str_replace(['/', '_'], '-', $this->getName())
             . '-banner.' . $extension
         );
@@ -300,7 +300,7 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
             $extension = pathinfo($screenshot, PATHINFO_EXTENSION);
 
             $screenshot = app(Image::class)->make(
-                'https://s3.us-east-2.amazonaws.com/pyrocms-public/marketplace/'
+                'https://assets.pyrocms.com/'
                 . str_replace(['/', '_'], '-', $this->getName())
                 . '-screenshot-' . ($index + 1) . '.' . $extension
             );
@@ -322,7 +322,7 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
 
         try {
             return file_get_contents(
-                'https://s3.us-east-2.amazonaws.com/pyrocms-public/marketplace/'
+                'https://assets.pyrocms.com/'
                 . str_replace(['/', '_'], '-', $this->getName())
                 . '-readme.md'
             );

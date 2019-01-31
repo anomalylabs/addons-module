@@ -92,7 +92,7 @@ class Sync extends Command
                     try {
 
                         $composer = file_get_contents(
-                            'https://s3.us-east-2.amazonaws.com/pyrocms-public/marketplace/'
+                            'https://assets.pyrocms.com/'
                             . str_replace(['/', '_'], '-', array_get($package, 'name'))
                             . '-composer.json'
                         );
@@ -117,7 +117,7 @@ class Sync extends Command
                     try {
 
                         $composer = file_get_contents(
-                            'https://s3.us-east-2.amazonaws.com/pyrocms-public/marketplace/'
+                            'https://assets.pyrocms.com/'
                             . str_replace(['/', '_'], '-', array_get($package, 'name'))
                             . '-composer.json'
                         );
