@@ -43,17 +43,16 @@ class Download extends Command
             return;
         }
 
-        $process = ComposerProcess::make(
-            'require',
-            join(
-                ' ',
-                [
-                    $addon->getName(),
-                    '--optimize-autoloader',
-                    //'--update-no-dev',
-                ]
-            )
-        );
+        $parameters = [
+            $addon->getName(),
+            '--optimize-autoloader',
+        ];
+
+        if (env('APP_ENV') == 'production') {
+            $parameters[] = '--update-no-dev';
+        }
+
+        $process = ComposerProcess::make('require', join(' ', $parameters));
 
         dispatch_now(new RunProcess($this, $process));
         dispatch_now(new FinishDownload($this, $addon));

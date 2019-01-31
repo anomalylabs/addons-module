@@ -43,17 +43,16 @@ class Remove extends Command
             return;
         }
 
-        $process = ComposerProcess::make(
-            'remove',
-            join(
-                ' ',
-                [
-                    $addon->getName(),
-                    '--optimize-autoloader',
-                    //'--update-no-dev',
-                ]
-            )
-        );
+        $parameters = [
+            $addon->getName(),
+            '--optimize-autoloader',
+        ];
+
+        if (env('APP_ENV') == 'production') {
+            $parameters[] = '--update-no-dev';
+        }
+
+        $process = ComposerProcess::make('remove', join(' ', $parameters));
 
         dispatch_now(new RunProcess($this, $process));
         dispatch_now(new FinishRemove($this, $addon));

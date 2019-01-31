@@ -89,7 +89,7 @@ class Sync extends Command
                 /* @var AddonInterface|EloquentModel $addon */
                 if (!$addon = $addons->findByName($package['name'])) {
 
-                    $entry['assets'] = $this->assets($package);
+                    $entry['assets']      = $this->assets($package);
                     $entry['marketplace'] = $this->marketplace($package);
 
                     $addons->create($entry);
@@ -103,7 +103,7 @@ class Sync extends Command
 
                 if ($entry['versions'] !== $addon->getVersions() || $addon->lastModified()->diffInHours() > 1) {
 
-                    $entry['assets'] = $this->assets($package);
+                    $entry['assets']      = $this->assets($package);
                     $entry['marketplace'] = $this->marketplace($package);
 
                     $addon->fill($entry);
