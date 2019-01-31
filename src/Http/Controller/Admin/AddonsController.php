@@ -119,7 +119,7 @@ class AddonsController extends AdminController
         }
 
         $console->call('addon:install', $parameters);
-        dd('Test');
+        
         $this->messages->success('module::message.install_addon_success');
 
         return $this->redirect->back();
