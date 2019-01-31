@@ -137,6 +137,8 @@ class Sync extends Command
             $addons->delete($addon);
         }
 
+        $addons->flushCache();
+
         unlink($log);
     }
 

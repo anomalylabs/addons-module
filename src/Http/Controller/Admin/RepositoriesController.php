@@ -71,12 +71,9 @@ class RepositoriesController extends AdminController
      * Sync all repositories.
      *
      * @param Kernel $console
-     * @param AddonRepositoryInterface $addons
      */
-    public function sync(Kernel $console, AddonRepositoryInterface $addons)
+    public function sync(Kernel $console)
     {
-        $addons->flushCache();
-
         $console->call('addons:sync');
     }
 }
