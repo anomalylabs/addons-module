@@ -112,6 +112,7 @@ class Sync extends Command
                     file_put_contents($log, 'Syncing: ' . $package['name']);
 
                     $entry['assets']      = $this->assets($package);
+                    $entry['readme']      = $this->readme($package);
                     $entry['marketplace'] = $this->marketplace($package);
 
                     $addon->fill($entry);
