@@ -5,7 +5,6 @@ use Anomaly\AddonsModule\Repository\Contract\RepositoryRepositoryInterface;
 use Anomaly\AddonsModule\Repository\RepositoryManager;
 use Anomaly\Streams\Platform\Application\Application;
 use Anomaly\Streams\Platform\Asset\Asset;
-use Anomaly\Streams\Platform\Message\MessageBag;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -25,13 +24,6 @@ class CheckRepositoryAge
      * @var Asset
      */
     protected $asset;
-
-    /**
-     * The message bag.
-     *
-     * @var MessageBag
-     */
-    protected $messages;
 
     /**
      * The repository manager.
@@ -58,21 +50,18 @@ class CheckRepositoryAge
      * Create a new CheckRepositoryAge instance.
      *
      * @param Asset $asset
-     * @param MessageBag $messages
      * @param Application $application
      * @param RepositoryManager $manager
      * @param RepositoryRepositoryInterface $repositories
      */
     public function __construct(
         Asset $asset,
-        MessageBag $messages,
         Application $application,
         RepositoryManager $manager,
         RepositoryRepositoryInterface $repositories
     ) {
         $this->asset        = $asset;
         $this->manager      = $manager;
-        $this->messages     = $messages;
         $this->application  = $application;
         $this->repositories = $repositories;
     }
@@ -92,8 +81,6 @@ class CheckRepositoryAge
             if ($this->manager->outdated($repository)) {
 
                 $this->asset->add('scripts.js', 'anomaly.module.addons::js/update.js');
-
-                $this->messages->info('Repositories are updating in the background.');
 
                 return $next($request);
             }
