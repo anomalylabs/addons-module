@@ -293,6 +293,8 @@ class AddonsController extends AdminController
             throw new \Exception('[' . __FUNCTION__ . '] command is not permitted.');
         }
 
+        $addons->flushCache();
+
         $console->call('addon:update', ['addon' => $addon->getName()]);
     }
 
