@@ -20,6 +20,7 @@ class AddonTableBuilder extends TableBuilder
      */
     protected $views = [
         'all',
+        'available',
         'downloaded',
         'updates' => [
             'query' => UpdatesQuery::class,
