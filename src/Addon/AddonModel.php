@@ -327,7 +327,6 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
                 . '-readme.md'
             );
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
             return null;
         }
     }
