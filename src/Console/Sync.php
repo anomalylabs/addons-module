@@ -58,7 +58,7 @@ class Sync extends Command
 
             file_put_contents($log, 'Downloading ' . $repository->getUrl());
 
-            dispatch_now(new CacheRepository($repository, (bool)$this->option('force')));
+            dispatch_now(new CacheRepository($repository));
         }
 
         /* @var RepositoryInterface $repository */
@@ -208,18 +208,6 @@ class Sync extends Command
         } catch (\Exception $exception) {
             return [];
         }
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [
-            ['force', null, InputOption::VALUE_NONE, 'Override dry run and delete.'],
-        ];
     }
 
 }

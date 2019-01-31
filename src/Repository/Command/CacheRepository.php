@@ -14,8 +14,6 @@ use Anomaly\Streams\Platform\Application\Application;
 class CacheRepository
 {
 
-    protected $force;
-
     /**
      * The repository instance.
      *
@@ -27,11 +25,9 @@ class CacheRepository
      * Create a new CacheRepository instance.
      *
      * @param RepositoryInterface $repository
-     * @param bool $force
      */
-    public function __construct(RepositoryInterface $repository, $force = false)
+    public function __construct(RepositoryInterface $repository)
     {
-        $this->force      = $force;
         $this->repository = $repository;
     }
 
@@ -44,14 +40,6 @@ class CacheRepository
     public function handle(Application $application, RepositoryInput $input)
     {
         $filename = $application->getStoragePath('addons/' . md5($this->repository->getUrl()) . '.json');
-
-        /**
-         * Don't update the cache
-         * files but every 1 hr.
-         */
-        if ($this->force == false && file_exists($filename) && time() - filemtime($filename) < 3600) {
-            return;
-        }
 
         /**
          * Download and compile the include files

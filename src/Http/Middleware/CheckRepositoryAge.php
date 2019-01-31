@@ -33,13 +33,6 @@ class CheckRepositoryAge
     protected $manager;
 
     /**
-     * The application instance.
-     *
-     * @var Application
-     */
-    protected $application;
-
-    /**
      * The repositories repository.
      *
      * @var RepositoryRepositoryInterface
@@ -56,13 +49,11 @@ class CheckRepositoryAge
      */
     public function __construct(
         Asset $asset,
-        Application $application,
         RepositoryManager $manager,
         RepositoryRepositoryInterface $repositories
     ) {
         $this->asset        = $asset;
         $this->manager      = $manager;
-        $this->application  = $application;
         $this->repositories = $repositories;
     }
 
@@ -84,10 +75,6 @@ class CheckRepositoryAge
 
                 return $next($request);
             }
-        }
-
-        if (file_exists($log = $this->application->getAssetsPath('process.log'))) {
-            $this->asset->add('scripts.js', 'anomaly.module.addons::js/monitor.js');
         }
 
         return $next($request);

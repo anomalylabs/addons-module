@@ -1,5 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Http\Controller\Admin;
 
+use Anomaly\AddonsModule\Http\Middleware\MonitorComposerLog;
 use Anomaly\AddonsModule\Repository\Form\RepositoryFormBuilder;
 use Anomaly\AddonsModule\Repository\RepositoryManager;
 use Anomaly\AddonsModule\Repository\Table\RepositoryTableBuilder;
@@ -26,8 +27,9 @@ class RepositoriesController extends AdminController
     {
         parent::__construct();
 
+        $this->middleware(MonitorComposerLog::class);
+
         $asset->add('scripts.js', 'anomaly.module.addons::js/addons.js');
-        $asset->add('scripts.js', 'anomaly.module.addons::js/monitor.js');
     }
 
     /**
@@ -71,12 +73,6 @@ class RepositoriesController extends AdminController
      */
     public function sync(Kernel $console)
     {
-        $parameters = [];
-
-        if ($this->request->get('force')) {
-            $parameters[] = '--force';
-        }
-
-        $console->call('addons:sync', $parameters);
+        $console->call('addons:sync');
     }
 }
