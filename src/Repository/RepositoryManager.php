@@ -1,6 +1,7 @@
 <?php namespace Anomaly\AddonsModule\Repository;
 
 use Anomaly\AddonsModule\Repository\Command\CacheRepository;
+use Anomaly\AddonsModule\Repository\Command\CheckRepository;
 use Anomaly\AddonsModule\Repository\Contract\RepositoryInterface;
 
 /**
@@ -21,6 +22,17 @@ class RepositoryManager
     public function cache(RepositoryInterface $repository)
     {
         dispatch_now(new CacheRepository($repository));
+    }
+
+    /**
+     * Check if the repository is outdated.
+     *
+     * @param RepositoryInterface $repository
+     * @return bool
+     */
+    public function outdated(RepositoryInterface $repository)
+    {
+        return dispatch_now(new CheckRepository($repository));
     }
 
 }

@@ -91,20 +91,24 @@ class Sync extends Command
                 /* @var AddonInterface|EloquentModel $addon */
                 if (!$addon = $addons->findByName($package['name'])) {
 
+                    $this->info('Adding: ' . $package['name']);
+
+                    file_put_contents($log, 'Adding: ' . $package['name']);
+
                     $entry['assets']      = $this->assets($package);
                     $entry['readme']      = $this->readme($package);
                     $entry['marketplace'] = $this->marketplace($package);
 
                     $addons->create($entry);
 
-                    $this->info('Added: ' . $package['name']);
-
-                    file_put_contents($log, 'Added: ' . $package['name']);
-
                     continue;
                 }
 
                 if ($entry['versions'] !== $addon->getVersions()) {
+
+                    $this->info('Syncing: ' . $package['name']);
+
+                    file_put_contents($log, 'Syncing: ' . $package['name']);
 
                     $entry['assets']      = $this->assets($package);
                     $entry['marketplace'] = $this->marketplace($package);
@@ -112,10 +116,6 @@ class Sync extends Command
                     $addon->fill($entry);
 
                     $addons->save($addon);
-
-                    $this->info('Synced: ' . $package['name']);
-
-                    file_put_contents($log, 'Synced: ' . $package['name']);
 
                     continue;
                 }

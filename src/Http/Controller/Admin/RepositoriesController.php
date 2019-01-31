@@ -1,7 +1,10 @@
 <?php namespace Anomaly\AddonsModule\Http\Controller\Admin;
 
+use Anomaly\AddonsModule\Http\Middleware\CheckRepositoryAge;
 use Anomaly\AddonsModule\Repository\Form\RepositoryFormBuilder;
+use Anomaly\AddonsModule\Repository\RepositoryManager;
 use Anomaly\AddonsModule\Repository\Table\RepositoryTableBuilder;
+use Anomaly\Streams\Platform\Asset\Asset;
 use Anomaly\Streams\Platform\Console\Kernel;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
@@ -14,6 +17,19 @@ use Anomaly\Streams\Platform\Http\Controller\AdminController;
  */
 class RepositoriesController extends AdminController
 {
+
+    /**
+     * Create a new RepositoriesController instance.
+     *
+     * @param Asset $asset
+     */
+    public function __construct(Asset $asset, RepositoryManager $manager)
+    {
+        parent::__construct();
+
+        $asset->add('scripts.js', 'anomaly.module.addons::js/addons.js');
+        $asset->add('scripts.js', 'anomaly.module.addons::js/monitor.js');
+    }
 
     /**
      * Display an index of existing entries.

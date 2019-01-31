@@ -9,4 +9,5 @@ return [
     'downloading'             => 'Downloading :addon',
     'removing'                => 'Removing :addon',
     'updating'                => 'Updating :addon',
+    'syncing'                 => 'Repositories are updating in the background.',
 ];

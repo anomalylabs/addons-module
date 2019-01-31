@@ -4,6 +4,7 @@ use Anomaly\AddonsModule\Addon\Contract\AddonInterface;
 use Anomaly\AddonsModule\Addon\Contract\AddonRepositoryInterface;
 use Anomaly\AddonsModule\Addon\Table\AddonTableBuilder;
 use Anomaly\AddonsModule\Composer\ComposerAuthorizer;
+use Anomaly\AddonsModule\Http\Middleware\CheckRepositoryAge;
 use Anomaly\Streams\Platform\Addon\Addon;
 use Anomaly\Streams\Platform\Addon\AddonCollection;
 use Anomaly\Streams\Platform\Addon\Extension\Extension;
@@ -33,6 +34,8 @@ class AddonsController extends AdminController
     public function __construct(Asset $asset)
     {
         parent::__construct();
+
+        $this->middleware(CheckRepositoryAge::class);
 
         $asset->add('scripts.js', 'anomaly.module.addons::js/addons.js');
     }
