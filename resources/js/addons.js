@@ -68,7 +68,7 @@
 
                             status.send();
 
-                            status.addEventListener('readystatechange', function (event) {
+                            status.addEventListener('readystatechange', function () {
 
                                 /**
                                  * Check the status and update messages.
@@ -76,7 +76,10 @@
                                 if (status.readyState == 4 && status.status == 200) {
 
                                     if (status.responseText.length != 0) {
+
                                         messages.innerText = status.responseText;
+
+                                        document.title = status.responseText;
                                     }
 
                                     setTimeout(function () {
@@ -89,6 +92,8 @@
                                  * means composer has finished up.
                                  */
                                 if (status.readyState == 4 && status.status == 404) {
+
+                                    document.title = 'Done!';
 
                                     swal({
                                         text: 'Done!',
