@@ -105,7 +105,7 @@ class Sync extends Command
                     continue;
                 }
 
-                if ($entry['versions'] !== $addon->getVersions()) {
+                if ($entry['versions'] !== $addon->getVersions() || $this->option('force')) {
 
                     $this->info('Syncing: ' . $package['name']);
 
@@ -208,6 +208,18 @@ class Sync extends Command
         } catch (\Exception $exception) {
             return [];
         }
+    }
+
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return [
+            ['force', null, InputOption::VALUE_NONE, 'Force updates for addons.'],
+        ];
     }
 
 }
