@@ -44,7 +44,7 @@ class CheckRepository
          * or it's older than 1 day then
          * we should prompt for updating.
          */
-        if (!file_exists($filename) || time() - filemtime($filename) > (60 * 60 * 24)) {
+        if (!file_exists($filename) || time() - filemtime($filename) > (60 * 60)) {
             return true;
         }
 
