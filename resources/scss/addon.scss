@@ -43,19 +43,27 @@
         padding-top: 1rem;
         margin-bottom: 2rem;
 
-        a {
-            overflow: hidden;
+        li {
             display: inline-block;
-            outline: 3px solid #333;
 
-            &:hover,
-            &:focus,
-            &:active {
-                outline-color: #007bff;
+            &:not(:last-of-type) {
+                margin-right: 1rem;
             }
 
-            img {
-                width: 80px;
+            a {
+                overflow: hidden;
+                display: inline-block;
+                outline: 3px solid #333;
+
+                &:hover,
+                &:focus,
+                &:active {
+                    outline-color: #007bff;
+                }
+
+                img {
+                    width: 80px;
+                }
             }
         }
     }

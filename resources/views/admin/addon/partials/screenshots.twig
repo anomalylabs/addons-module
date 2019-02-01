@@ -1,7 +1,7 @@
 <ul class="screenshots">
     {% for screenshot in addon.screenshots() %}
         <li>
-            <a href="{{ screenshot.url }}" data-toggle="modal" data-target="#modal-large">
+            <a href="{{ screenshot.url }}" class="screenshot">
                 {{ screenshot|raw }}
             </a>
         </li>
