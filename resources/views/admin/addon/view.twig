@@ -2,8 +2,13 @@
 
 {% block content %}
 
+    {{ asset_add('scripts.js', 'anomaly.module.addons::js/glightbox.min.js', ['as:mcstudios/glightbox.js']) }}
+    {{ asset_add('styles.css', 'anomaly.module.addons::css/glightbox.min.css', ['as:mcstudios/glightbox.css']) }}
+
+    {{ asset_add('scripts.js', 'anomaly.module.addons::js/addon.js', ['min']) }}
+
     <style type="text/css">
-        {{ asset_inline('anomaly.module.addons::scss/addon.scss')|raw }}
+        {{ asset_inline('anomaly.module.addons::css/addon.css', ['min'])|raw }}
     </style>
 
     <div class="container-fluid">

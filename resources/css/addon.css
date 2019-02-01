@@ -1,0 +1,75 @@
+.card.addon-card {
+  overflow: hidden;
+}
+
+.card.addon-card .banner-header {
+  position: relative;
+}
+
+.card.addon-card .banner-header.default-banner {
+  overflow: hidden;
+  max-height: 200px;
+}
+
+.card.addon-card .banner-header .card-title {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 1rem;
+  color: #333333;
+  position: absolute;
+  background: white;
+}
+
+.card.addon-card .banner-header .card-title > img {
+  float: left;
+  width: 128px;
+  margin-top: -4rem;
+  margin-right: 1rem;
+}
+
+.card.addon-card .banner-header .card-title small {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.card.addon-card .banner-header > img {
+  width: 100%;
+  min-width: 100%;
+}
+
+.card.addon-card .screenshots {
+  padding: 0;
+  list-style: none;
+  padding-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.card.addon-card .screenshots li {
+  display: inline-block;
+}
+
+.card.addon-card .screenshots li:not(:last-of-type) {
+  margin-right: 1rem;
+}
+
+.card.addon-card .screenshots li a {
+  overflow: hidden;
+  display: inline-block;
+  outline: 3px solid #333;
+}
+
+.card.addon-card .screenshots li a:hover,
+.card.addon-card .screenshots li a:focus,
+.card.addon-card .screenshots li a:active {
+  outline-color: #007bff;
+}
+
+.card.addon-card .screenshots li a img {
+  width: 80px;
+}
+
+.card.addon-card dd {
+  word-break: break-all;
+}
+
