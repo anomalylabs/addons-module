@@ -3,6 +3,7 @@
 use Anomaly\AddonsModule\Addon\Contract\AddonInterface;
 use Anomaly\Streams\Platform\Addon\Addon;
 use Anomaly\Streams\Platform\Addon\Command\GetAddon;
+use Anomaly\Streams\Platform\Image\Image;
 use Anomaly\Streams\Platform\Model\Addons\AddonsAddonsEntryModel;
 use Composer\Semver\Comparator;
 use Composer\Semver\Semver;
@@ -40,6 +41,16 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
     }
 
     /**
+     * Get the addon title.
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
      * Get the addon type.
      *
      * @return string
@@ -47,6 +58,16 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Get the addon readme.
+     *
+     * @return string
+     */
+    public function getReadme()
+    {
+        return $this->readme;
     }
 
     /**
@@ -195,6 +216,138 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
     }
 
     /**
+     * Get the assets.
+     *
+     * @return array
+     */
+    public function getAssets()
+    {
+        return $this->assets;
+    }
+
+    /**
+     * Get the marketplace information.
+     *
+     * @return array
+     */
+    public function getMarketplace()
+    {
+        return $this->assets;
+    }
+
+    /**
+     * Get an asset.
+     *
+     * @param null $key
+     * @param null $default
+     * @return mixed
+     */
+    public function asset($key = null, $default = null)
+    {
+        $assets = $this->getAssets();
+
+        if ($key) {
+            return array_get($assets, $key, $default);
+        }
+
+        return $assets;
+    }
+
+    /**
+     * Get a marketplace value.
+     *
+     * @param null $key
+     * @param null $default
+     * @return mixed
+     */
+    public function marketplace($key = null, $default = null)
+    {
+        $marketplace = $this->getMarketplace();
+
+        if ($key) {
+            return array_get($marketplace, $key, $default);
+        }
+
+        return $marketplace;
+    }
+
+    /**
+     * Check if an asset exists.
+     *
+     * @param $key
+     * @return mixed
+     */
+    public function hasAsset($key)
+    {
+        $assets = $this->getAssets();
+
+        return (array_get($assets, $key));
+    }
+
+    /**
+     * Return the icon image.
+     *
+     * @return null|Image
+     */
+    public function icon()
+    {
+        if (!$asset = $this->asset('icon')) {
+            return app(Image::class)->make('anomaly.module.addons::img/icon.jpg');
+        }
+
+        $extension = pathinfo($asset, PATHINFO_EXTENSION);
+
+        return app(Image::class)->make(
+            'https://assets.pyrocms.com/'
+            . str_replace(['/', '_'], '-', $this->getName())
+            . '-icon.' . $extension
+        );
+    }
+
+    /**
+     * Return the banner image.
+     *
+     * @return null|Image
+     */
+    public function banner()
+    {
+        if (!$asset = $this->asset('banner')) {
+            return app(Image::class)->make('anomaly.module.addons::img/banner.jpg');
+        }
+
+        $extension = pathinfo($asset, PATHINFO_EXTENSION);
+
+        return app(Image::class)->make(
+            'https://assets.pyrocms.com/'
+            . str_replace(['/', '_'], '-', $this->getName())
+            . '-banner.' . $extension
+        );
+    }
+
+    /**
+     * Return the screenshot images.
+     *
+     * @return array
+     */
+    public function screenshots()
+    {
+        $screenshots = $this->asset('screenshots', []);
+
+        foreach ($screenshots as $index => &$screenshot) {
+
+            $extension = pathinfo($screenshot, PATHINFO_EXTENSION);
+
+            $screenshot = app(Image::class)->make(
+                'https://assets.pyrocms.com/'
+                . str_replace(['/', '_'], '-', $this->getName())
+                . '-screenshot-' . ($index + 1) . '.' . $extension
+            );
+        }
+
+        return $screenshots;
+    }
+
+    /**
      * Return the addon instance.
      *
      * @return Addon
@@ -322,6 +475,54 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
     public function getSupportAttribute()
     {
         return (array)unserialize($this->attributes['support']);
+    }
+
+    /**
+     * Set the assets attribute.
+     *
+     * @param $value
+     * @return $this
+     */
+    public function setAssetsAttribute($value)
+    {
+        $this->attributes['assets'] = serialize($value);
+
+        return $this;
+    }
+
+    /**
+     * Get the assets attribute.
+     *
+     * @param $value
+     * @return array
+     */
+    public function getAssetsAttribute()
+    {
+        return (array)unserialize($this->attributes['assets']);
+    }
+
+    /**
+     * Set the marketplace attribute.
+     *
+     * @param $value
+     * @return $this
+     */
+    public function setMarketplaceAttribute($value)
+    {
+        $this->attributes['marketplace'] = serialize($value);
+
+        return $this;
+    }
+
+    /**
+     * Get the marketplace attribute.
+     *
+     * @param $value
+     * @return array
+     */
+    public function getMarketplaceAttribute()
+    {
+        return (array)unserialize($this->attributes['marketplace']);
     }
 
     /**

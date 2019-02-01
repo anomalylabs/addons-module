@@ -35,12 +35,15 @@ class AnomalyModuleAddonsCreateAddonsFields extends Migration
         'namespace'   => 'anomaly.field_type.text',
         'title'       => 'anomaly.field_type.text',
         'description' => 'anomaly.field_type.textarea',
+        'marketplace' => 'anomaly.field_type.textarea',
         'homepage'    => 'anomaly.field_type.url',
         'requires'    => 'anomaly.field_type.textarea',
         'versions'    => 'anomaly.field_type.textarea',
         'licenses'    => 'anomaly.field_type.textarea',
         'authors'     => 'anomaly.field_type.textarea',
         'support'     => 'anomaly.field_type.textarea',
+        'assets'      => 'anomaly.field_type.textarea',
+        'readme'      => 'anomaly.field_type.textarea',
         'url'         => 'anomaly.field_type.url',
     ];
 

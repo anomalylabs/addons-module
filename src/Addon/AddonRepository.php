@@ -64,4 +64,16 @@ class AddonRepository extends EntryRepository implements AddonRepositoryInterfac
         return $this->model->whereIn('namespace', app(AddonCollection::class)->pluck('namespace')->all())->get();
     }
 
+    /**
+     * Return all addons except
+     * with the provided names.
+     *
+     * @param array $names
+     * @return AddonCollection
+     */
+    public function except(array $names)
+    {
+        return $this->model->whereNotIn('name', $names)->get();
+    }
+
 }

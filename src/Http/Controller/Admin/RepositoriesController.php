@@ -1,7 +1,11 @@
 <?php namespace Anomaly\AddonsModule\Http\Controller\Admin;
 
+use Anomaly\AddonsModule\Addon\Contract\AddonRepositoryInterface;
+use Anomaly\AddonsModule\Http\Middleware\MonitorComposerLog;
 use Anomaly\AddonsModule\Repository\Form\RepositoryFormBuilder;
+use Anomaly\AddonsModule\Repository\RepositoryManager;
 use Anomaly\AddonsModule\Repository\Table\RepositoryTableBuilder;
+use Anomaly\Streams\Platform\Asset\Asset;
 use Anomaly\Streams\Platform\Console\Kernel;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
@@ -14,6 +18,20 @@ use Anomaly\Streams\Platform\Http\Controller\AdminController;
  */
 class RepositoriesController extends AdminController
 {
+
+    /**
+     * Create a new RepositoriesController instance.
+     *
+     * @param Asset $asset
+     */
+    public function __construct(Asset $asset, RepositoryManager $manager)
+    {
+        parent::__construct();
+
+        $this->middleware(MonitorComposerLog::class);
+
+        $asset->add('scripts.js', 'anomaly.module.addons::js/addons.js');
+    }
 
     /**
      * Display an index of existing entries.
@@ -50,11 +68,11 @@ class RepositoriesController extends AdminController
     }
 
     /**
-     * Update all repositories.
+     * Sync all repositories.
      *
      * @param Kernel $console
      */
-    public function update(Kernel $console)
+    public function sync(Kernel $console)
     {
         $console->call('addons:sync');
     }

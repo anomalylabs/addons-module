@@ -19,7 +19,7 @@ class AnomalyModuleAddonsCreateAddonsStream extends Migration
      */
     protected $stream = [
         'slug'         => 'addons',
-        'title_column' => 'title',
+        'title_column' => 'name',
     ];
 
     /**
@@ -45,12 +45,15 @@ class AnomalyModuleAddonsCreateAddonsStream extends Migration
         'versions'  => [
             'required' => true,
         ],
+        'marketplace',
         'description',
         'homepage',
         'requires',
         'licenses',
         'authors',
         'support',
+        'assets',
+        'readme',
     ];
 
 }

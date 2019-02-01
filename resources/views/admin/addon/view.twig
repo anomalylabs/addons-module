@@ -12,23 +12,24 @@
 
         <div class="card addon-card">
 
-            <div class="banner-header">
+            <div class="banner-header {{ addon.hasAsset('banner') ?: 'default-banner' }}">
+
+                {{ addon.banner.width('100%')|raw }}
 
                 <h4 class="card-title">
-                    {{ addon.display_name }}
+                    {{ addon.icon|raw }}
+                    {{ addon.displayName() }}
                     <small>
                         {{ addon.name }}
                     </small>
                 </h4>
-
-                {{ img('anomaly.module.addons::img/banner.jpg').width('100%')|raw }}
             </div>
 
             <div class="card-block">
 
-                <p>{{ addon.description|str_purify|str_linkify|raw }}</p>
+                <p class="lead">{{ addon.description|str_purify|str_linkify|raw }}</p>
 
-                <br>
+                {% include "anomaly.module.addons::admin/addon/partials/screenshots" %}
 
                 <div class="row">
                     <div class="col-lg-8">
@@ -49,20 +50,14 @@
 
         </div>
 
-        {% if addon.instance.getReadme() %}
+        {% if addon.readme.value %}
             <div class="card">
-
-                <div class="card-header">
-                    <h4 class="card-title">
-                        README
-                    </h4>
-                </div>
-
                 <div class="card-block">
-                    {{ addon.instance.getReadme()|markdown|raw }}
+                    {{ addon.readme.value|markdown|raw }}
                 </div>
             </div>
         {% endif %}
+
     </div>
 
 {% endblock %}

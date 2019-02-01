@@ -2,7 +2,8 @@
 
 return [
     'url'         => [
-        'name' => 'URL',
+        'name'        => 'URL',
+        'placeholder' => 'https://satis.example.com',
     ],
     'name'        => [
         'name' => 'Name',

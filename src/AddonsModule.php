@@ -25,18 +25,20 @@ class AddonsModule extends Module
      * @var array
      */
     protected $sections = [
-        'addons' => [
+        'addons',
+        'repositories' => [
             'buttons' => [
-                'update' => [
+                'add_repository',
+                'sync_repositories' => [
                     'data-icon'    => 'info',
+                    'button'       => 'export',
                     'data-toggle'  => 'process',
-                    'class'        => 'btn btn-danger',
-                    'href'         => 'admin/addons/repositories/update',
                     'data-message' => 'Updating Repositories',
+                    'href'         => 'admin/addons/repositories/sync',
+                    'text'         => 'anomaly.module.addons::button.sync_repositories',
                 ],
             ],
         ],
-        'repositories',
     ];
 
 }

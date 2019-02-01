@@ -42,14 +42,6 @@ class CacheRepository
         $filename = $application->getStoragePath('addons/' . md5($this->repository->getUrl()) . '.json');
 
         /**
-         * Don't update the cache
-         * files but every 1 hr.
-         */
-        if (file_exists($filename) && time() - filemtime($filename) < 3600) {
-            return;
-        }
-
-        /**
          * Download and compile the include files
          * and prepare an array of addon information.
          */

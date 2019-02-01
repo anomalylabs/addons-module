@@ -30,85 +30,91 @@
             request.send();
 
             setTimeout(function () {
+
                 request.abort();
-            }, 2000);
 
-            let checkLog = setInterval(function () {
+                let checkLog = setInterval(function () {
 
-                let log = new XMLHttpRequest();
+                    let log = new XMLHttpRequest();
 
-                log.open('GET', REQUEST_ROOT_PATH + '/app/' + APPLICATION_REFERENCE + '/process.log', true);
-                log.setRequestHeader('Content-Type', 'application/json');
+                    log.open('GET', REQUEST_ROOT_PATH + '/app/' + APPLICATION_REFERENCE + '/process.log', true);
+                    log.setRequestHeader('Content-Type', 'application/json');
 
-                log.send();
+                    log.send();
 
-                log.addEventListener('readystatechange', function (event) {
-
-                    /**
-                     * Start checking the status.
-                     */
-                    if (log.readyState == 4 && log.status == 200) {
-
-                        // Stop checking.
-                        clearInterval(checkLog);
+                    log.addEventListener('readystatechange', function (event) {
 
                         /**
-                         * Check the status periodically.
-                         * Log to console and when finished
-                         * cleanup and show resulting message.
-                         *
-                         * @type {number}
+                         * Start checking the status.
                          */
-                        let checkStatus = function () {
+                        if (log.readyState == 4 && log.status == 200) {
 
-                            let status = new XMLHttpRequest();
+                            // Stop checking.
+                            clearInterval(checkLog);
 
-                            status.open('GET', REQUEST_ROOT_PATH + '/app/' + APPLICATION_REFERENCE + '/process.log', true);
-                            status.setRequestHeader('Content-Type', 'application/json');
+                            /**
+                             * Check the status periodically.
+                             * Log to console and when finished
+                             * cleanup and show resulting message.
+                             *
+                             * @type {number}
+                             */
+                            let checkStatus = function () {
 
-                            status.send();
+                                let status = new XMLHttpRequest();
 
-                            status.addEventListener('readystatechange', function (event) {
+                                status.open('GET', REQUEST_ROOT_PATH + '/app/' + APPLICATION_REFERENCE + '/process.log', true);
+                                status.setRequestHeader('Content-Type', 'application/json');
 
-                                /**
-                                 * Check the status and update messages.
-                                 */
-                                if (status.readyState == 4 && status.status == 200) {
+                                status.send();
 
-                                    if (status.responseText.length != 0) {
-                                        messages.innerText = status.responseText;
+                                status.addEventListener('readystatechange', function () {
+
+                                    /**
+                                     * Check the status and update messages.
+                                     */
+                                    if (status.readyState == 4 && status.status == 200) {
+
+                                        if (status.responseText.length != 0) {
+
+                                            messages.innerText = status.responseText;
+
+                                            document.title = status.responseText;
+                                        }
+
+                                        setTimeout(function () {
+                                            checkStatus();
+                                        }, 500);
                                     }
 
-                                    setTimeout(function () {
-                                        checkStatus();
-                                    }, 500);
-                                }
+                                    /**
+                                     * The file has been removed which
+                                     * means composer has finished up.
+                                     */
+                                    if (status.readyState == 4 && status.status == 404) {
 
-                                /**
-                                 * The file has been removed which
-                                 * means composer has finished up.
-                                 */
-                                if (status.readyState == 4 && status.status == 404) {
+                                        document.title = 'Done!';
 
-                                    swal({
-                                        text: 'Done!',
-                                        icon: 'success',
-                                        closeOnEsc: false,
-                                        closeOnClickOutside: false,
-                                        buttons: false,
-                                    });
+                                        swal({
+                                            text: 'Done!',
+                                            icon: 'success',
+                                            closeOnEsc: false,
+                                            closeOnClickOutside: false,
+                                            buttons: false,
+                                        });
 
-                                    setTimeout(function () {
-                                        window.location.reload();
-                                    }, 1000);
-                                }
-                            }, false);
-                        };
+                                        setTimeout(function () {
+                                            window.location.reload();
+                                        }, 1000);
+                                    }
+                                }, false);
+                            };
 
-                        checkStatus();
-                    }
-                });
-            }, 500);
+                            checkStatus();
+                        }
+                    });
+                }, 500);
+            }, 2000);
         });
     });
 

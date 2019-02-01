@@ -6,9 +6,12 @@ use Anomaly\AddonsModule\Repository\Command\CacheRepository;
 use Anomaly\AddonsModule\Repository\Command\GetRepositoryAddons;
 use Anomaly\AddonsModule\Repository\Contract\RepositoryInterface;
 use Anomaly\AddonsModule\Repository\Contract\RepositoryRepositoryInterface;
+use Anomaly\Streams\Platform\Addon\Addon;
+use Anomaly\Streams\Platform\Addon\Command\GetAddon;
 use Anomaly\Streams\Platform\Application\Application;
 use Anomaly\Streams\Platform\Model\EloquentModel;
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Input\InputOption;
 
 /**
  * Class Sync
@@ -40,11 +43,13 @@ class Sync extends Command
         AddonRepositoryInterface $addons
     ) {
 
+        $manifest = [];
+
         $log = $application->getAssetsPath('process.log');
 
         file_put_contents($log, '');
 
-        sleep(1);
+        sleep(2);
 
         /* @var RepositoryInterface $repository */
         foreach ($repositories->all() as $repository) {
@@ -56,14 +61,14 @@ class Sync extends Command
             dispatch_now(new CacheRepository($repository));
         }
 
-        file_put_contents($log, 'Updating Addons');
-
         /* @var RepositoryInterface $repository */
         foreach ($repositories->all() as $repository) {
 
             $packages = dispatch_now(new GetRepositoryAddons($repository));
 
             foreach ($packages as $package) {
+
+                $manifest[] = array_get($package, 'name');
 
                 $entry = [
                     'namespace'   => array_get($package, 'id'),
@@ -87,29 +92,137 @@ class Sync extends Command
                 /* @var AddonInterface|EloquentModel $addon */
                 if (!$addon = $addons->findByName($package['name'])) {
 
-                    $addons->create($entry);
+                    $this->info('Adding: ' . $package['name']);
 
-                    $this->info('Added: ' . $package['name']);
+                    file_put_contents($log, 'Adding: ' . $package['name']);
+
+                    $entry['assets']      = $this->assets($package);
+                    $entry['readme']      = $this->readme($package);
+                    $entry['marketplace'] = $this->marketplace($package);
+
+                    $addons->create($entry);
 
                     continue;
                 }
 
-                if ($entry['versions'] !== $addon->getVersions()) {
+                if ($entry['versions'] !== $addon->getVersions() || $this->option('force')) {
+
+                    $this->info('Syncing: ' . $package['name']);
+
+                    file_put_contents($log, 'Syncing: ' . $package['name']);
+
+                    $entry['assets']      = $this->assets($package);
+                    $entry['readme']      = $this->readme($package);
+                    $entry['marketplace'] = $this->marketplace($package);
 
                     $addon->fill($entry);
 
                     $addons->save($addon);
 
-                    $this->info('Synced: ' . $package['name']);
-
                     continue;
                 }
 
                 $this->info('Unchanged: ' . $package['name']);
+
+                file_put_contents($log, 'Unchanged: ' . $package['name']);
             }
         }
 
+        foreach ($addons->except($manifest) as $addon) {
+
+            $this->info('Removing: ' . $addon->getName());
+
+            file_put_contents($log, 'Removing: ' . $addon->getName());
+
+            $addons->delete($addon);
+        }
+
+        $addons->flushCache();
+
         unlink($log);
+    }
+
+    /**
+     * Return addon assets.
+     *
+     * @param array $package
+     * @return array
+     */
+    protected function assets(array $package)
+    {
+        try {
+
+            $composer = file_get_contents(
+                'https://assets.pyrocms.com/'
+                . str_replace(['/', '_'], '-', array_get($package, 'name'))
+                . '-composer.json'
+            );
+
+            return array_get((array)json_decode($composer, true), 'assets', []);
+
+        } catch (\Exception $exception) {
+            return [];
+        }
+    }
+
+    /**
+     * Return addon readme.
+     *
+     * @param array $package
+     * @return string
+     */
+    protected function readme(array $package)
+    {
+        try {
+
+            /* @var Addon $addon */
+            if ($addon = dispatch_now(new GetAddon(array_get($package, 'id')))) {
+                return $addon->getReadme();
+            }
+
+            return file_get_contents(
+                'https://assets.pyrocms.com/'
+                . str_replace(['/', '_'], '-', array_get($package, 'name'))
+                . '-readme.md'
+            );
+        } catch (\Exception $exception) {
+            return null;
+        }
+    }
+
+    /**
+     * Return marketplace information.
+     *
+     * @param array $package
+     * @return array
+     */
+    protected function marketplace(array $package)
+    {
+        try {
+
+            $composer = file_get_contents(
+                'https://assets.pyrocms.com/'
+                . str_replace(['/', '_'], '-', array_get($package, 'name'))
+                . '-marketplace.json'
+            );
+
+            return array_get((array)json_decode($composer, true), 'assets', []);
+
+        } catch (\Exception $exception) {
+            return [];
+        }
+    }
+
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return [
+            ['force', null, InputOption::VALUE_NONE, 'Force updates for addons.'],
+        ];
     }
 
 }

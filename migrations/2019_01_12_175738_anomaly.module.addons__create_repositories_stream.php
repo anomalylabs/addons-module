@@ -40,7 +40,6 @@ class AnomalyModuleAddonsCreateRepositoriesStream extends Migration
         ],
         'description' => [
             'translatable' => true,
-            'required'     => true,
         ],
         'url'         => [
             'required' => true,

@@ -37,23 +37,19 @@ class Update extends Command
         }
 
         if (!$addon->instance()) {
-
-            $this->info("[{$addon->getName()}] is already updated.");
-
-            return;
+            throw new \Exception("Addon [{$this->argument('addon')}] is not downloaded.");
         }
 
-        $process = ComposerProcess::make(
-            'update',
-            join(
-                ' ',
-                [
-                    $addon->getName(),
-                    '--optimize-autoloader',
-                    //'--update-no-dev',
-                ]
-            )
-        );
+        $parameters = [
+            $addon->getName(),
+            '--optimize-autoloader',
+        ];
+
+        if (env('APP_ENV') == 'production') {
+            $parameters[] = '--no-dev';
+        }
+
+        $process = ComposerProcess::make('update', join(' ', $parameters));
 
         dispatch_now(new RunProcess($this, $process));
         dispatch_now(new FinishUpdate($this, $addon));
