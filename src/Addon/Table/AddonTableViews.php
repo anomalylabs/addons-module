@@ -1,6 +1,7 @@
 <?php namespace Anomaly\AddonsModule\Addon\Table;
 
 use Anomaly\AddonsModule\Addon\Contract\AddonRepositoryInterface;
+use Anomaly\AddonsModule\Addon\Table\View\ProQuery;
 use Anomaly\AddonsModule\Addon\Table\View\UpdatesQuery;
 
 /**
@@ -26,6 +27,9 @@ class AddonTableViews
         $builder->setViews(
             [
                 'all',
+//                'pro' => [
+//                    'query' => ProQuery::class,
+//                ],
                 'available',
                 'downloaded',
                 'updates' => [

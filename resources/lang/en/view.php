@@ -1,9 +1,10 @@
 <?php
 
 return [
-    'downloaded' => 'Downloaded',
+    'all'        => 'All',
+    'pro'        => 'PRO',
+    'updates'    => 'Updates',
     'available'  => 'Available',
     'community'  => 'Community',
-    'updates'    => 'Updates',
-    'all'        => 'All',
+    'downloaded' => 'Downloaded',
 ];
