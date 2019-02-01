@@ -46,7 +46,7 @@ class Update extends Command
         ];
 
         if (env('APP_ENV') == 'production') {
-            $parameters[] = '--update-no-dev';
+            $parameters[] = '--no-dev';
         }
 
         $process = ComposerProcess::make('update', join(' ', $parameters));

@@ -46,7 +46,7 @@ class Remove extends Command
         ];
 
         if (env('APP_ENV') == 'production') {
-            $parameters[] = '--update-no-dev';
+            $parameters[] = '--no-dev';
         }
 
         $process = ComposerProcess::make('remove', join(' ', $parameters));
