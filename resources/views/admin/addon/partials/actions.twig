@@ -54,10 +54,10 @@
             {% else %}
                 {% if user().hasPermission('anomaly.module.addons::' ~ addon.type ~ '.manage') %}
                     <a
-                            href="{{ url_route('anomaly.module.addons::addon.options', {'id': addon.namespace}) }}"
+                            href="{{ url_route('anomaly.module.addons::addon.install', {'id': addon.namespace}) }}"
+                            data-message="{{ trans('anomaly.module.addons::message.installing', {'addon': addon.name}) }}"
                             class="btn btn-success"
-                            data-toggle="modal"
-                            data-target="#modal"
+                            data-toggle="process"
                     >
                         {{ icon('fa fa-check-circle') }} {{ trans('anomaly.module.addons::button.install') }}
                     </a>

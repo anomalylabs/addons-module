@@ -4,6 +4,7 @@ use Anomaly\AddonsModule\Addon\AddonRepository;
 use Anomaly\AddonsModule\Addon\Contract\AddonRepositoryInterface;
 use Anomaly\AddonsModule\Composer\ComposerAuthorizer;
 use Anomaly\AddonsModule\Console\Download;
+use Anomaly\AddonsModule\Console\Install;
 use Anomaly\AddonsModule\Console\Remove;
 use Anomaly\AddonsModule\Console\Sync;
 use Anomaly\AddonsModule\Console\Update;
@@ -30,6 +31,7 @@ class AddonsModuleServiceProvider extends AddonServiceProvider
         Sync::class,
         Remove::class,
         Update::class,
+        Install::class,
         Download::class,
     ];
 
