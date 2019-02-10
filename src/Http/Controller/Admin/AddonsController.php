@@ -100,32 +100,10 @@ class AddonsController extends AdminController
      * @param Request $request
      * @param AddonCollection $addons
      * @param $addon
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function install(
-        Kernel $console,
-        Request $request,
-        AddonCollection $addons,
-        $addon
-    ) {
-        $this->setTimeout();
-
-        /* @var Addon|Module|Extension $addon */
-        $addon = $addons->get($addon);
-
-        $parameters = [
-            'addon' => $addon->getNamespace(),
-        ];
-
-        if (filter_var($request->input('seed'), FILTER_VALIDATE_BOOLEAN)) {
-            $parameters['--seed'] = true;
-        }
-
-        $console->call('addon:install', $parameters);
-
-        $this->messages->success('module::message.install_addon_success');
-
-        return $this->redirect->back();
+    public function install(Kernel $console, $addon)
+    {
+        $console->call('addons:install', compact('addon'));
     }
 
     /**
