@@ -12,6 +12,7 @@ return [
     'version'       => 'Version',
     'versions'      => 'Versions',
     'requires'      => 'Requires',
+    'suggests'      => 'Suggests',
     'standard'      => 'Standard',
     'outdated'      => 'Outdated',
     'namespace'     => 'Namespace',

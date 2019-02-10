@@ -1,11 +1,11 @@
 {% if addon.getSuggests() %}
     <h3 class="lead">
-        {{ trans('anomaly.module.addons::label.requires') }}
+        {{ trans('anomaly.module.addons::label.suggests') }}
     </h3>
 
     <ul class="list-unstyled">
 
-        {% for package, suggest in addon.getSuggests() %}
+        {% for package, description in addon.getSuggests() %}
 
             {% set type = explode('-', package)|last %}
 
@@ -22,7 +22,7 @@
                        target="_blank">
                         {{ package }}
                     </a>
-                    : {{ suggest }}
+                    <small class="text-muted">{{ description }}</small>
                 </li>
             {% else %}
                 <li>
