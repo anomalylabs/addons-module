@@ -78,6 +78,7 @@ class Sync extends Command
                     'homepage'    => array_get($package, 'homepage'),
                     'description' => array_get($package, 'description'),
                     'requires'    => array_get($package, 'require', []),
+                    'suggests'    => array_get($package, 'suggest', []),
                     'versions'    => array_filter(
                         array_get($package, 'versions', []),
                         function ($version) {
@@ -159,7 +160,6 @@ class Sync extends Command
             );
 
             return array_get((array)json_decode($composer, true), 'assets', []);
-
         } catch (\Exception $exception) {
             return [];
         }
@@ -207,7 +207,6 @@ class Sync extends Command
             );
 
             return array_get((array)json_decode($composer, true), 'assets', []);
-
         } catch (\Exception $exception) {
             return [];
         }

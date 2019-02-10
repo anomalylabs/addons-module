@@ -206,6 +206,16 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
     }
 
     /**
+     * Get the suggested packages.
+     *
+     * @return array
+     */
+    public function getSuggests()
+    {
+        return $this->suggests;
+    }
+
+    /**
      * Get the namespace.
      *
      * @return string
@@ -379,6 +389,30 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
     public function getRequiresAttribute()
     {
         return unserialize($this->attributes['requires']);
+    }
+
+    /**
+     * Set the suggests attribute.
+     *
+     * @param $value
+     * @return $this
+     */
+    public function setSuggestsAttribute($value)
+    {
+        $this->attributes['suggests'] = serialize($value);
+
+        return $this;
+    }
+
+    /**
+     * Get the suggests attribute.
+     *
+     * @param $value
+     * @return $this
+     */
+    public function getSuggestsAttribute()
+    {
+        return unserialize($this->attributes['suggests']);
     }
 
     /**

@@ -49,6 +49,7 @@ class AnomalyModuleAddonsCreateAddonsStream extends Migration
         'description',
         'homepage',
         'requires',
+        'suggests',
         'licenses',
         'authors',
         'support',

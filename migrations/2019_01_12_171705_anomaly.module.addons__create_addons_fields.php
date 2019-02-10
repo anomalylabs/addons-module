@@ -38,6 +38,7 @@ class AnomalyModuleAddonsCreateAddonsFields extends Migration
         'marketplace' => 'anomaly.field_type.textarea',
         'homepage'    => 'anomaly.field_type.url',
         'requires'    => 'anomaly.field_type.textarea',
+        'suggests'    => 'anomaly.field_type.textarea',
         'versions'    => 'anomaly.field_type.textarea',
         'licenses'    => 'anomaly.field_type.textarea',
         'authors'     => 'anomaly.field_type.textarea',
