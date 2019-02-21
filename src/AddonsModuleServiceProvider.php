@@ -61,11 +61,6 @@ class AddonsModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $routes = [
-        'admin/addons/repositories'           => 'Anomaly\AddonsModule\Http\Controller\Admin\RepositoriesController@index',
-        'admin/addons/repositories/create'    => 'Anomaly\AddonsModule\Http\Controller\Admin\RepositoriesController@create',
-        'admin/addons/repositories/edit/{id}' => 'Anomaly\AddonsModule\Http\Controller\Admin\RepositoriesController@edit',
-        'admin/addons/repositories/sync'      => 'Anomaly\AddonsModule\Http\Controller\Admin\RepositoriesController@sync',
-        'admin/addons'                        => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@index',
         'admin/addons/enable/{addon}'         => [
             'as'   => 'anomaly.module.addons::addon.enable',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@enable',
