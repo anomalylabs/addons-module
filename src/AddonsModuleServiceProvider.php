@@ -62,31 +62,31 @@ class AddonsModuleServiceProvider extends AddonServiceProvider
      */
     protected $routes = [
         'admin/addons/enable/{addon}'         => [
-            'as'   => 'anomaly.module.addons::addon.enable',
+            'as'   => 'anomaly.module.addons::addons.enable',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@enable',
         ],
         'admin/addons/disable/{addon}'        => [
-            'as'   => 'anomaly.module.addons::addon.disable',
+            'as'   => 'anomaly.module.addons::addons.disable',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@disable',
         ],
         'admin/addons/install/{addon}'        => [
-            'as'   => 'anomaly.module.addons::addon.install',
+            'as'   => 'anomaly.module.addons::addons.install',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@install',
         ],
         'admin/addons/options/{addon}'        => [
-            'as'   => 'anomaly.module.addons::addon.options',
+            'as'   => 'anomaly.module.addons::addons.options',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@options',
         ],
         'admin/addons/uninstall/{addon}'      => [
-            'as'   => 'anomaly.module.addons::addon.uninstall',
+            'as'   => 'anomaly.module.addons::addons.uninstall',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@uninstall',
         ],
         'admin/addons/migrate/{addon}'        => [
-            'as'   => 'anomaly.module.addons::addon.migrate',
+            'as'   => 'anomaly.module.addons::addons.migrate',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@migrate',
         ],
         'admin/addons/view/{addon}'           => [
-            'as'   => 'anomaly.module.addons::addon.view',
+            'as'   => 'anomaly.module.addons::addons.view',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@view',
         ],
         'admin/addons/remove/{addon}'         => [
