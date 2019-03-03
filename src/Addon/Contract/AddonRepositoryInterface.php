@@ -30,6 +30,14 @@ interface AddonRepositoryInterface extends EntryRepositoryInterface
     public function findByNamespace($namespace);
 
     /**
+     * Find an addon by it's name or namespace.
+     *
+     * @param $identifier
+     * @return AddonInterface|null
+     */
+    public function findByNameOrNamespace($identifier);
+
+    /**
      * Return all downloaded addons.
      *
      * @return AddonCollection

@@ -55,6 +55,20 @@ class AddonRepository extends EntryRepository implements AddonRepositoryInterfac
     }
 
     /**
+     * Find an addon by it's name or namespace.
+     *
+     * @param $identifier
+     * @return AddonInterface|null
+     */
+    public function findByNameOrNamespace($identifier)
+    {
+        return $this->model
+            ->where('name', $identifier)
+            ->orWhere('namespace', $identifier)
+            ->first();
+    }
+
+    /**
      * Return all downloaded addons.
      *
      * @return AddonCollection

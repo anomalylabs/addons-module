@@ -6,6 +6,7 @@ use Anomaly\AddonsModule\Composer\ComposerAuthorizer;
 use Anomaly\AddonsModule\Console\Download;
 use Anomaly\AddonsModule\Console\Install;
 use Anomaly\AddonsModule\Console\Remove;
+use Anomaly\AddonsModule\Console\Show;
 use Anomaly\AddonsModule\Console\Sync;
 use Anomaly\AddonsModule\Console\Update;
 use Anomaly\AddonsModule\Repository\Contract\RepositoryRepositoryInterface;
@@ -28,6 +29,7 @@ class AddonsModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $commands = [
+        Show::class,
         Sync::class,
         Remove::class,
         Update::class,
