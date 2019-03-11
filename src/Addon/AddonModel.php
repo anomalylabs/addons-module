@@ -308,7 +308,7 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
         $extension = pathinfo($asset, PATHINFO_EXTENSION);
 
         return app(Image::class)->make(
-            'https://assets.pyrocms.com/'
+            'https://assets.pyrocms.com/marketplace/'
             . str_replace(['/', '_'], '-', $this->getName())
             . '-icon.' . $extension
         );
@@ -328,7 +328,7 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
         $extension = pathinfo($asset, PATHINFO_EXTENSION);
 
         return app(Image::class)->make(
-            'https://assets.pyrocms.com/'
+            'https://assets.pyrocms.com/marketplace/'
             . str_replace(['/', '_'], '-', $this->getName())
             . '-banner.' . $extension
         );
@@ -348,7 +348,7 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
             $extension = pathinfo($screenshot, PATHINFO_EXTENSION);
 
             $screenshot = app(Image::class)->make(
-                'https://assets.pyrocms.com/'
+                'https://assets.pyrocms.com/marketplace/'
                 . str_replace(['/', '_'], '-', $this->getName())
                 . '-screenshot-' . ($index + 1) . '.' . $extension
             );

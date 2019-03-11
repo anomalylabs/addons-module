@@ -154,7 +154,7 @@ class Sync extends Command
         try {
 
             $composer = file_get_contents(
-                'https://assets.pyrocms.com/'
+                'https://assets.pyrocms.com/marketplace/'
                 . str_replace(['/', '_'], '-', array_get($package, 'name'))
                 . '-composer.json'
             );
@@ -181,7 +181,7 @@ class Sync extends Command
             }
 
             return file_get_contents(
-                'https://assets.pyrocms.com/'
+                'https://assets.pyrocms.com/marketplace/'
                 . str_replace(['/', '_'], '-', array_get($package, 'name'))
                 . '-readme.md'
             );
@@ -201,7 +201,7 @@ class Sync extends Command
         try {
 
             $composer = file_get_contents(
-                'https://assets.pyrocms.com/'
+                'https://assets.pyrocms.com/marketplace/'
                 . str_replace(['/', '_'], '-', array_get($package, 'name'))
                 . '-marketplace.json'
             );
