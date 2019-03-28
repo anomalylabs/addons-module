@@ -14,8 +14,7 @@ class AddonCollection extends EntryCollection
 {
 
     /**
-     * Return only addons
-     * that have updates.
+     * Return only addons with updates.
      *
      * @return $this
      */
@@ -26,6 +25,22 @@ class AddonCollection extends EntryCollection
 
                 /* @var AddonInterface $addon */
                 return $addon->hasUpdates() ? $addon : null;
+            }
+        );
+    }
+
+    /**
+     * Return only downloaded addons.
+     *
+     * @return static
+     */
+    public function downloaded()
+    {
+        return $this->filter(
+            function ($addon) {
+
+                /* @var AddonInterface $addon */
+                return $addon->isDownloaded() ? $addon : null;
             }
         );
     }
