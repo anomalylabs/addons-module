@@ -65,5 +65,9 @@ class RunProcess
                 $this->command->info("{$buffer}");
             }
         );
+
+        if (!$this->process->isSuccessful()) {
+            $files->put($log, $this->process->getErrorOutput());
+        }
     }
 }

@@ -58,8 +58,9 @@ class Install extends Command
         ];
 
         $process = Process::fromShellCommandline(
-            ((new PhpExecutableFinder)->find() ?: 'php')
-            . ' artisan addon:install '
+            ((new PhpExecutableFinder)->find() ?: '/usr/bin/php')
+            . ' ' .base_path('artisan')
+            . ' addon:install '
             . join(' ', $parameters)
         );
 

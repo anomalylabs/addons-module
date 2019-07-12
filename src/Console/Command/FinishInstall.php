@@ -54,6 +54,8 @@ class FinishInstall
      */
     public function handle(Application $application, AddonManager $manager, Filesystem $files)
     {
+        sleep(2);
+
         /* @var Module|Extension $addon */
         $addon = $this->addon->instance();
 
