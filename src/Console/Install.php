@@ -7,6 +7,7 @@ use Anomaly\Streams\Platform\Addon\Extension\Extension;
 use Anomaly\Streams\Platform\Addon\Module\Module;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
 
 /**
@@ -56,7 +57,11 @@ class Install extends Command
             '--seed',
         ];
 
-        $process = new Process(PHP_BINARY . ' artisan addon:install', join(' ', $parameters));
+        $process = Process::fromShellCommandline(
+            ((new PhpExecutableFinder)->find() ?: 'php')
+            . ' artisan addon:install '
+            . join(' ', $parameters)
+        );
 
         dispatch_now(new RunProcess($this, $process));
         dispatch_now(new FinishInstall($this, $addon));
