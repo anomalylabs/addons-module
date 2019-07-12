@@ -1,6 +1,7 @@
 <?php namespace Anomaly\AddonsModule\Console\Command;
 
 use Anomaly\Streams\Platform\Application\Application;
+use Anomaly\Streams\Platform\Application\Command\ReadEnvironmentFile;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
@@ -63,7 +64,8 @@ class RunProcess
                 $files->put($log, $buffer);
 
                 $this->command->info("{$buffer}");
-            }
+            },
+            dispatch_now(new ReadEnvironmentFile())
         );
 
         if (!$this->process->isSuccessful()) {

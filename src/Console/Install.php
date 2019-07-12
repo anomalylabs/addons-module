@@ -5,6 +5,7 @@ use Anomaly\AddonsModule\Console\Command\FinishInstall;
 use Anomaly\AddonsModule\Console\Command\RunProcess;
 use Anomaly\Streams\Platform\Addon\Extension\Extension;
 use Anomaly\Streams\Platform\Addon\Module\Module;
+use Anomaly\Streams\Platform\Application\Command\ReadEnvironmentFile;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Process\PhpExecutableFinder;
@@ -59,9 +60,11 @@ class Install extends Command
 
         $process = Process::fromShellCommandline(
             ((new PhpExecutableFinder)->find() ?: '/usr/bin/php')
-            . ' ' .base_path('artisan')
+            . ' ' . base_path('artisan')
             . ' addon:install '
-            . join(' ', $parameters)
+            . join(' ', $parameters),
+            null,
+            dispatch_now(new ReadEnvironmentFile())
         );
 
         dispatch_now(new RunProcess($this, $process));

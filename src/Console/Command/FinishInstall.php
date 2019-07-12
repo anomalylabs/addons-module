@@ -1,7 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Console\Command;
 
 use Anomaly\AddonsModule\Addon\Contract\AddonInterface;
-use Anomaly\AddonsModule\Composer\ComposerFile;
 use Anomaly\Streams\Platform\Addon\AddonManager;
 use Anomaly\Streams\Platform\Addon\Extension\Extension;
 use Anomaly\Streams\Platform\Addon\Module\Module;
