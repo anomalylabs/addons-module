@@ -58,11 +58,12 @@ class Install extends Command
             '--seed',
         ];
 
-        $process = Process::fromShellCommandline(
-            ((new PhpExecutableFinder)->find() ?: '/usr/bin/php')
-            . ' ' . base_path('artisan')
-            . ' addon:install '
-            . join(' ', $parameters),
+        $process = new Process(
+            [
+                ((new PhpExecutableFinder)->find() ?: '/usr/bin/php'),
+                base_path('artisan'),
+                'addon:install',
+            ] + $parameters,
             null,
             dispatch_now(new ReadEnvironmentFile())
         );
