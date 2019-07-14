@@ -63,43 +63,39 @@ class AddonsModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $routes = [
-        'admin/addons/enable/{addon}'         => [
+        'admin/addons/enable/{addon}'    => [
             'as'   => 'anomaly.module.addons::addons.enable',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@enable',
         ],
-        'admin/addons/disable/{addon}'        => [
+        'admin/addons/disable/{addon}'   => [
             'as'   => 'anomaly.module.addons::addons.disable',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@disable',
         ],
-        'admin/addons/install/{addon}'        => [
+        'admin/addons/install/{addon}'   => [
             'as'   => 'anomaly.module.addons::addons.install',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@install',
         ],
-        'admin/addons/options/{addon}'        => [
-            'as'   => 'anomaly.module.addons::addons.options',
-            'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@options',
-        ],
-        'admin/addons/uninstall/{addon}'      => [
+        'admin/addons/uninstall/{addon}' => [
             'as'   => 'anomaly.module.addons::addons.uninstall',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@uninstall',
         ],
-        'admin/addons/migrate/{addon}'        => [
+        'admin/addons/migrate/{addon}'   => [
             'as'   => 'anomaly.module.addons::addons.migrate',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@migrate',
         ],
-        'admin/addons/view/{addon}'           => [
+        'admin/addons/view/{addon}'      => [
             'as'   => 'anomaly.module.addons::addons.view',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@view',
         ],
-        'admin/addons/remove/{addon}'         => [
+        'admin/addons/remove/{addon}'    => [
             'as'   => 'anomaly.module.addons::composer.remove',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@remove',
         ],
-        'admin/addons/update/{addon}'         => [
+        'admin/addons/update/{addon}'    => [
             'as'   => 'anomaly.module.addons::composer.update',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@update',
         ],
-        'admin/addons/download/{addon}'       => [
+        'admin/addons/download/{addon}'  => [
             'as'   => 'anomaly.module.addons::composer.download',
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@download',
         ],

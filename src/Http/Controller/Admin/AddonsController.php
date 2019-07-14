@@ -74,25 +74,6 @@ class AddonsController extends AdminController
     }
 
     /**
-     * Return the modal form for the seed
-     * option when installing modules.
-     *
-     * @param AddonCollection $addons
-     * @param                 $namespace
-     * @return \Illuminate\Contracts\View\View|mixed
-     */
-    public function options(AddonCollection $addons, $namespace)
-    {
-        /* @var Addon $addon */
-        $addon = $addons->get($namespace);
-
-        return $this->view->make(
-            'anomaly.module.addons::ajax/install',
-            compact('addon', 'type', 'namespace')
-        );
-    }
-
-    /**
      * Install an addon.
      *
      * @param ModuleManager $modules
