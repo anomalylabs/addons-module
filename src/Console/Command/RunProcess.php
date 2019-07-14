@@ -64,8 +64,7 @@ class RunProcess
                 $files->put($log, $buffer);
 
                 $this->command->info("{$buffer}");
-            },
-            dispatch_now(new ReadEnvironmentFile())
+            }
         );
 
         if (!$this->process->isSuccessful()) {
