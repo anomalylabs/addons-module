@@ -45,29 +45,6 @@
                     log.addEventListener('readystatechange', function (event) {
 
                         /**
-                         * The attempt failed.
-                         */
-                        if (log.readyState == 4 && log.status == 404) {
-
-                            // Stop checking.
-                            clearInterval(checkLog);
-
-                            document.title = 'Done!';
-
-                            swal({
-                                text: 'Done!',
-                                icon: 'success',
-                                closeOnEsc: false,
-                                closeOnClickOutside: false,
-                                buttons: false,
-                            });
-
-                            window.location.reload();
-
-                            return false;
-                        }
-
-                        /**
                          * Start checking the status.
                          */
                         if (log.readyState == 4 && log.status == 200) {
