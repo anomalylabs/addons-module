@@ -1,7 +1,5 @@
 <?php namespace Anomaly\AddonsModule\Http\Controller\Admin;
 
-use Anomaly\AddonsModule\Addon\Contract\AddonRepositoryInterface;
-use Anomaly\AddonsModule\Http\Middleware\MonitorComposerLog;
 use Anomaly\AddonsModule\Repository\Form\RepositoryFormBuilder;
 use Anomaly\AddonsModule\Repository\RepositoryManager;
 use Anomaly\AddonsModule\Repository\Table\RepositoryTableBuilder;
@@ -27,8 +25,6 @@ class RepositoriesController extends AdminController
     public function __construct(Asset $asset, RepositoryManager $manager)
     {
         parent::__construct();
-
-        $this->middleware(MonitorComposerLog::class);
 
         $asset->add('scripts.js', 'anomaly.module.addons::js/addons.js');
     }

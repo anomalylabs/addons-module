@@ -7,6 +7,7 @@ use Anomaly\AddonsModule\Repository\Command\GetRepositoryAddons;
 use Anomaly\AddonsModule\Repository\Contract\RepositoryInterface;
 use Anomaly\AddonsModule\Repository\Contract\RepositoryRepositoryInterface;
 use Anomaly\Streams\Platform\Addon\Addon;
+use Anomaly\Streams\Platform\Addon\AddonCollection;
 use Anomaly\Streams\Platform\Addon\Command\GetAddon;
 use Anomaly\Streams\Platform\Application\Application;
 use Anomaly\Streams\Platform\Model\EloquentModel;
@@ -36,11 +37,13 @@ class Sync extends Command
      * @param Application $application
      * @param RepositoryRepositoryInterface $repositories
      * @param AddonRepositoryInterface $addons
+     * @param AddonCollection $collection
      */
     public function handle(
         Application $application,
         RepositoryRepositoryInterface $repositories,
-        AddonRepositoryInterface $addons
+        AddonRepositoryInterface $addons,
+        AddonCollection $collection
     ) {
 
         $manifest = [];
@@ -126,6 +129,85 @@ class Sync extends Command
                 $this->info('Unchanged: ' . $package['name']);
 
                 file_put_contents($log, 'Unchanged: ' . $package['name']);
+            }
+
+            /* @var Addon $instance */
+            foreach ($collection->nonCore() as $instance) {
+
+                $manifest[] = $instance->getPackageName();
+
+                $entry = [
+                    'namespace'   => $instance->getNamespace(),
+                    'type'        => $instance->getType(),
+                    'name'        => $instance->getPackageName(),
+                    'title'       => $instance->getTitle(),
+                    'homepage'    => array_get($instance->getComposerJson(), 'homepage'),
+                    'description' => array_get($instance->getComposerJson(), 'description'),
+                    'requires'    => array_get($instance->getComposerJson(), 'require', []),
+                    'suggests'    => array_get($instance->getComposerJson(), 'suggest', []),
+                    'versions'    => array_filter(
+                        array_get($instance->getComposerJson(), 'versions', []),
+                        function ($version) {
+                            return !str_contains($version, ['stable', 'RC', 'beta', 'alpha', 'dev']);
+                        }
+                    ),
+                    'licenses'    => (array)array_get($instance->getComposerJson(), 'license', []),
+                    'authors'     => array_get($instance->getComposerJson(), 'authors', []),
+                    'support'     => array_get($instance->getComposerJson(), 'support', []),
+                ];
+
+                /* @var AddonInterface|EloquentModel $addon */
+                if (!$addon = $addons->findByName($instance->getPackageName())) {
+
+                    $this->info('Adding: ' . $instance->getPackageName());
+
+                    file_put_contents($log, 'Adding: ' . $addon['name']);
+
+                    $entry['assets'] = $this->assets(
+                        ['name' => $instance->getPackageName()]
+                    );
+
+                    $entry['readme']      = $this->readme(
+                        ['name' => $instance->getPackageName(), 'id' => $instance->getNamespace()]
+                    );
+
+                    $entry['marketplace'] = $this->marketplace(
+                        ['name' => $instance->getPackageName()]
+                    );
+
+                    $addons->create($entry);
+
+                    continue;
+                }
+
+                if ($entry['versions'] !== $addon->getVersions() || $this->option('force')) {
+
+                    $this->info('Syncing: ' . $addon['name']);
+
+                    file_put_contents($log, 'Syncing: ' . $addon['name']);
+
+                    $entry['assets'] = $this->assets(
+                        ['name' => $instance->getPackageName()]
+                    );
+
+                    $entry['readme'] = $this->readme(
+                        ['name' => $instance->getPackageName(), 'id' => $instance->getNamespace()]
+                    );
+
+                    $entry['marketplace'] = $this->marketplace(
+                        ['name' => $instance->getPackageName()]
+                    );
+
+                    $addon->fill($entry);
+
+                    $addons->save($addon);
+
+                    continue;
+                }
+
+                $this->info('Unchanged: ' . $addon['name']);
+
+                file_put_contents($log, 'Unchanged: ' . $addon['name']);
             }
         }
 
