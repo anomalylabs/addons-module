@@ -14,7 +14,6 @@ use Anomaly\Streams\Platform\Addon\Module\ModuleManager;
 use Anomaly\Streams\Platform\Asset\Asset;
 use Anomaly\Streams\Platform\Console\Kernel;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
-use Illuminate\Http\Request;
 
 /**
  * Class AddonsController
@@ -96,14 +95,32 @@ class AddonsController extends AdminController
     /**
      * Install an addon.
      *
-     * @param Kernel $console
-     * @param Request $request
+     * @param ModuleManager $modules
      * @param AddonCollection $addons
+     * @param ExtensionManager $extensions
      * @param $addon
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function install(Kernel $console, $addon)
-    {
-        $console->call('addons:install', compact('addon'));
+    public function install(
+        ModuleManager $modules,
+        AddonCollection $addons,
+        ExtensionManager $extensions,
+        $addon
+    ) {
+        $this->setTimeout();
+
+        /* @var Addon|Module|Extension $addon */
+        $addon = $addons->get($addon);
+
+        if ($addon instanceof Module) {
+            $modules->install($addon, true);
+        } elseif ($addon instanceof Extension) {
+            $extensions->install($addon, true);
+        }
+
+        $this->messages->success('anomaly.module.addons::message.install_addon_success');
+
+        return $this->redirect->back();
     }
 
     /**
@@ -132,7 +149,7 @@ class AddonsController extends AdminController
             $extensions->uninstall($addon);
         }
 
-        $this->messages->success('module::message.uninstall_addon_success');
+        $this->messages->success('anomaly.module.addons::message.uninstall_addon_success');
 
         return $this->redirect->back();
     }
@@ -219,7 +236,7 @@ class AddonsController extends AdminController
             $extensions->migrate($addon, false);
         }
 
-        $this->messages->success('module::message.migrate_addon_success');
+        $this->messages->success('anomaly.module.addons::message.migrate_addon_success');
 
         return $this->redirect->back();
     }

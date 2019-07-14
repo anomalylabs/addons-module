@@ -1,7 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Addon\Table;
 
 use Anomaly\AddonsModule\Addon\Contract\AddonInterface;
-use Anomaly\Streams\Platform\Addon\AddonCollection;
 use Anomaly\Streams\Platform\Addon\Extension\Extension;
 use Anomaly\Streams\Platform\Addon\Module\Module;
 
@@ -33,11 +32,13 @@ class AddonTableButtons
         $builder->addbuttons(
             [
                 'install'   => [
-                    'data-toggle' => 'modal',
-                    'data-target' => '#modal',
-                    'permission'  => 'anomaly.module.addons::{entry.type}.manage',
-                    'href'        => 'admin/addons/options/{entry.namespace}',
-                    'enabled'     => function (AddonInterface $entry) {
+                    'href'         => 'admin/addons/install/{entry.namespace}',
+                    'data-message' => function (AddonInterface $entry) {
+                        return trans('anomaly.module.addons::message.installing', ['addon' => $entry->getName()]);
+                    },
+                    'class'        => 'btn btn-success',
+                    'data-toggle'  => 'process',
+                    'enabled'      => function (AddonInterface $entry) {
 
                         if (!in_array($entry->getType(), ['module', 'extension'])) {
                             return false;
