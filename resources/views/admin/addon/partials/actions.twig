@@ -57,7 +57,7 @@
                             href="{{ url_route('anomaly.module.addons::addons.install', {'id': addon.namespace}) }}"
                             data-message="{{ trans('anomaly.module.addons::message.installing', {'addon': addon.name}) }}"
                             class="btn btn-success"
-                            data-toggle="process"
+                            data-toggle="prompts"
                     >
                         {{ icon('fa fa-check-circle') }} {{ trans('anomaly.module.addons::button.install') }}
                     </a>

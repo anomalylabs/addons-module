@@ -37,7 +37,7 @@ class AddonTableButtons
                         return trans('anomaly.module.addons::message.installing', ['addon' => $entry->getName()]);
                     },
                     'class'        => 'btn btn-success',
-                    'data-toggle'  => 'process',
+                    'data-toggle'  => 'prompts',
                     'enabled'      => function (AddonInterface $entry) {
 
                         if (!in_array($entry->getType(), ['module', 'extension'])) {
