@@ -24,8 +24,6 @@ class ComposerProcess
     {
         $command = env('PHP_PATH', (new PhpExecutableFinder())->find()) . " ./bin/composer {$command} {$addon}";
 
-        \Log::info('[composer]: ');
-
         return new Process(
             $command,
             base_path(),
