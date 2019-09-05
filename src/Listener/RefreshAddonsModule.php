@@ -24,6 +24,6 @@ class RefreshAddonsModule
 
         app(Kernel::class)->call('addons:sync');
 
-        $command->info('Updating addon information.');
+        $command->info('Addon information updated.');
     }
 }
