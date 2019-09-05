@@ -22,7 +22,7 @@ class Update extends Command
      *
      * @var string
      */
-    protected $name = 'addon:update';
+    protected $name = 'addons:update';
 
     /**
      * Handle the command.
@@ -32,7 +32,7 @@ class Update extends Command
      */
     public function handle(AddonRepositoryInterface $addons)
     {
-        if (!$addon = $addons->findByName($this->argument('addon'))) {
+        if (!$addon = $addons->findByNameOrNamespace($this->argument('addon'))) {
             throw new \Exception("Addon [{$this->argument('addon')}] not found.");
         }
 

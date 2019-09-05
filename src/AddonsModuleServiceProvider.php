@@ -8,9 +8,11 @@ use Anomaly\AddonsModule\Console\Remove;
 use Anomaly\AddonsModule\Console\Show;
 use Anomaly\AddonsModule\Console\Sync;
 use Anomaly\AddonsModule\Console\Update;
+use Anomaly\AddonsModule\Listener\RefreshAddonsModule;
 use Anomaly\AddonsModule\Repository\Contract\RepositoryRepositoryInterface;
 use Anomaly\AddonsModule\Repository\RepositoryRepository;
 use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
+use Anomaly\Streams\Platform\Application\Event\SystemIsRefreshing;
 
 /**
  * Class AddonsModuleServiceProvider
@@ -42,6 +44,17 @@ class AddonsModuleServiceProvider extends AddonServiceProvider
      */
     protected $plugins = [
         AddonsModulePlugin::class,
+    ];
+
+    /**
+     * The addon listeners.
+     *
+     * @var array
+     */
+    protected $listeners = [
+        SystemIsRefreshing::class => [
+            RefreshAddonsModule::class,
+        ],
     ];
 
     /**

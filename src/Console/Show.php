@@ -22,7 +22,7 @@ class Show extends Command
      *
      * @var string
      */
-    protected $name = 'addon:show';
+    protected $name = 'addons:show';
 
     /**
      * Handle the command.

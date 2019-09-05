@@ -22,7 +22,7 @@ class Remove extends Command
      *
      * @var string
      */
-    protected $name = 'addon:remove';
+    protected $name = 'addons:remove';
 
     /**
      * Handle the command.
