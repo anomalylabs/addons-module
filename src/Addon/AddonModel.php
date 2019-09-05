@@ -77,7 +77,7 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
      */
     public function displayName()
     {
-        return $this->getTitle() . ' ' . ucwords(str_replace('_', ' ', $this->getType()));
+        return preg_replace("/.title$/", '.name', $this->getTitle());
     }
 
     /**
