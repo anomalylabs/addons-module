@@ -1,6 +1,6 @@
 <?php namespace Anomaly\AddonsModule\Repository;
 
-use Anomaly\AddonsModule\Repository\Contract\RepositoryRepositoryInterface;
+use Anomaly\AddonsModule\Repository\RepositoryRepository;
 use Anomaly\Streams\Platform\Database\Seeder\Seeder;
 
 /**
@@ -18,8 +18,8 @@ class RepositorySeeder extends Seeder
      */
     public function run()
     {
-        /* @var RepositoryRepositoryInterface $repositories */
-        $repositories = app(RepositoryRepositoryInterface::class);
+        /* @var RepositoryRepository $repositories */
+        $repositories = app(RepositoryRepository::class);
 
         $repositories->create(
             [
