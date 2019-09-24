@@ -1,6 +1,5 @@
 <?php namespace Anomaly\AddonsModule\Repository;
 
-use Anomaly\AddonsModule\Repository\RepositoryRepository;
 use Anomaly\Streams\Platform\Database\Seeder\Seeder;
 
 /**

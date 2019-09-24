@@ -57,7 +57,6 @@ class FinishDownload
         $manager->register(true);
 
         if (!$this->addon->instance()) {
-
             ComposerFile::remove($this->addon->getName());
 
             $files->append($log, "[{$this->addon->getName()}] could not be found. Download failed.");
@@ -75,5 +74,4 @@ class FinishDownload
 
         $files->delete($log);
     }
-
 }

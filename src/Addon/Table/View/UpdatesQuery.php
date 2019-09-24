@@ -26,5 +26,4 @@ class UpdatesQuery
 
         $query->whereIn('namespace', $downloaded->updates()->pluck('namespace')->all());
     }
-
 }

@@ -22,5 +22,4 @@ class RepositoryModel extends AddonsRepositoriesEntryModel implements Repository
     {
         return $this->url;
     }
-
 }

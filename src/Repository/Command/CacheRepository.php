@@ -59,7 +59,6 @@ class CacheRepository
         array_walk(
             $includes,
             function (&$include) use (&$packages) {
-
                 $include = json_decode(
                     file_get_contents(
                         $this->repository->getUrl() . '/' . $include
@@ -74,7 +73,6 @@ class CacheRepository
         array_walk(
             $packages,
             function (&$availability) {
-
                 $versions = $availability;
 
                 $latest = array_pop($availability);
@@ -91,7 +89,6 @@ class CacheRepository
             array_filter(
                 $packages,
                 function ($package) {
-
                     if (array_get($package, 'type') != 'streams-addon') {
                         return false;
                     }
@@ -118,5 +115,4 @@ class CacheRepository
 
         file_put_contents($filename, json_encode($addons));
     }
-
 }

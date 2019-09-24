@@ -18,5 +18,4 @@ interface RepositoryInterface extends EntryInterface
      * @return string
      */
     public function getUrl();
-
 }

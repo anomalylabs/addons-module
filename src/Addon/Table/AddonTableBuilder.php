@@ -37,5 +37,4 @@ class AddonTableBuilder extends TableBuilder
             ],
         ],
     ];
-
 }

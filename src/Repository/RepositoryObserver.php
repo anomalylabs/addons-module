@@ -46,5 +46,4 @@ class RepositoryObserver extends EntryObserver
 
         parent::deleted($entry);
     }
-
 }

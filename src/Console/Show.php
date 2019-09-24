@@ -53,7 +53,6 @@ class Show extends Command
 
         $process->run(
             function ($type, $buffer) {
-
                 if (empty($buffer = trim($buffer))) {
                     return;
                 }
@@ -74,5 +73,4 @@ class Show extends Command
             ['addon', InputArgument::REQUIRED, 'The addon package/namespace in which to show details for.'],
         ];
     }
-
 }

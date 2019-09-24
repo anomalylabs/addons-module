@@ -31,33 +31,13 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
     }
 
     /**
-     * Get the addon name.
+     * Get the licenses.
      *
-     * @return string
+     * @return array
      */
-    public function getName()
+    public function getLicenses()
     {
-        return $this->name;
-    }
-
-    /**
-     * Get the addon title.
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * Get the addon type.
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
+        return $this->licenses;
     }
 
     /**
@@ -78,6 +58,16 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
     public function displayName()
     {
         return preg_replace("/.title$/", '.name', $this->getTitle());
+    }
+
+    /**
+     * Get the addon title.
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     /**
@@ -110,7 +100,6 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
         $satisfied = array_filter(
             $satisfied,
             function ($version) use ($installed) {
-
                 if (Comparator::equalTo($version, $installed)) {
                     return null;
                 }
@@ -120,6 +109,36 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
         );
 
         return !empty($satisfied);
+    }
+
+    /**
+     * Get the namespace.
+     *
+     * @return string
+     */
+    public function getNamespace()
+    {
+        return $this->namespace;
+    }
+
+    /**
+     * Get the addon name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Get the versions.
+     *
+     * @return array
+     */
+    public function getVersions()
+    {
+        return $this->versions;
     }
 
     /**
@@ -141,6 +160,16 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
     public function isInstallable()
     {
         return in_array($this->getType(), ['module', 'extension']);
+    }
+
+    /**
+     * Get the addon type.
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**
@@ -176,26 +205,6 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
     }
 
     /**
-     * Get the versions.
-     *
-     * @return array
-     */
-    public function getVersions()
-    {
-        return $this->versions;
-    }
-
-    /**
-     * Get the licenses.
-     *
-     * @return array
-     */
-    public function getLicenses()
-    {
-        return $this->licenses;
-    }
-
-    /**
      * Get the required packages.
      *
      * @return array
@@ -213,54 +222,6 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
     public function getSuggests()
     {
         return $this->suggests;
-    }
-
-    /**
-     * Get the namespace.
-     *
-     * @return string
-     */
-    public function getNamespace()
-    {
-        return $this->namespace;
-    }
-
-    /**
-     * Get the assets.
-     *
-     * @return array
-     */
-    public function getAssets()
-    {
-        return $this->assets;
-    }
-
-    /**
-     * Get the marketplace information.
-     *
-     * @return array
-     */
-    public function getMarketplace()
-    {
-        return $this->assets;
-    }
-
-    /**
-     * Get an asset.
-     *
-     * @param null $key
-     * @param null $default
-     * @return mixed
-     */
-    public function asset($key = null, $default = null)
-    {
-        $assets = $this->getAssets();
-
-        if ($key) {
-            return array_get($assets, $key, $default);
-        }
-
-        return $assets;
     }
 
     /**
@@ -282,6 +243,16 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
     }
 
     /**
+     * Get the marketplace information.
+     *
+     * @return array
+     */
+    public function getMarketplace()
+    {
+        return $this->assets;
+    }
+
+    /**
      * Check if an asset exists.
      *
      * @param $key
@@ -292,6 +263,16 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
         $assets = $this->getAssets();
 
         return (array_get($assets, $key));
+    }
+
+    /**
+     * Get the assets.
+     *
+     * @return array
+     */
+    public function getAssets()
+    {
+        return $this->assets;
     }
 
     /**
@@ -312,6 +293,24 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
             . str_replace(['/', '_'], '-', $this->getName())
             . '-icon.' . $extension
         );
+    }
+
+    /**
+     * Get an asset.
+     *
+     * @param null $key
+     * @param null $default
+     * @return mixed
+     */
+    public function asset($key = null, $default = null)
+    {
+        $assets = $this->getAssets();
+
+        if ($key) {
+            return array_get($assets, $key, $default);
+        }
+
+        return $assets;
     }
 
     /**
@@ -344,7 +343,6 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
         $screenshots = $this->asset('screenshots', []);
 
         foreach ($screenshots as $index => &$screenshot) {
-
             $extension = pathinfo($screenshot, PATHINFO_EXTENSION);
 
             $screenshot = app(Image::class)->make(
@@ -582,5 +580,4 @@ class AddonModel extends AddonsAddonsEntryModel implements AddonInterface
             ->newQuery()
             ->where('requires', 'LIKE', '%"' . $this->getName() . '"%');
     }
-
 }

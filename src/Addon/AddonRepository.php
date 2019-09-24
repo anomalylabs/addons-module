@@ -89,5 +89,4 @@ class AddonRepository extends EntryRepository implements AddonRepositoryInterfac
     {
         return $this->model->whereNotIn('name', $names)->get();
     }
-
 }

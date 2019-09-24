@@ -57,5 +57,4 @@ class RepositoryTableBuilder extends TableBuilder
      * @var array
      */
     protected $assets = [];
-
 }

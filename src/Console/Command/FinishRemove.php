@@ -58,7 +58,6 @@ class FinishRemove
 
         /* @var Addon $instance */
         if (($instance = $this->addon->instance()) && is_dir($instance->getPath())) {
-
             $files->append($log, "[{$this->addon->getName()}] could not be removed. Removal failed.");
 
             $this->command->error("[{$this->addon->getName()}] could not be removed. Removal failed.");
@@ -74,5 +73,4 @@ class FinishRemove
 
         $files->delete($log);
     }
-
 }

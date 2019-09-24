@@ -39,7 +39,6 @@ class AddonTableButtons
                     'class'        => 'btn btn-success',
                     'data-toggle'  => 'prompts',
                     'enabled'      => function (AddonInterface $entry) {
-
                         if (!in_array($entry->getType(), ['module', 'extension'])) {
                             return false;
                         }
@@ -62,7 +61,6 @@ class AddonTableButtons
                     'data-title'   => 'anomaly.module.addons::confirm.uninstall_title',
                     'data-message' => 'anomaly.module.addons::confirm.uninstall_message',
                     'enabled'      => function (AddonInterface $entry) {
-
                         if (!in_array($entry->getType(), ['module', 'extension'])) {
                             return false;
                         }
@@ -81,7 +79,6 @@ class AddonTableButtons
                     'permission' => 'anomaly.module.addons::{entry.type}.manage',
                     'href'       => 'admin/addons/enable/{entry.namespace}',
                     'enabled'    => function (AddonInterface $entry) {
-
                         if (!in_array($entry->getType(), ['module', 'extension'])) {
                             return false;
                         }
@@ -109,7 +106,6 @@ class AddonTableButtons
                     'data-title'   => 'anomaly.module.addons::confirm.disable_title',
                     'data-message' => 'anomaly.module.addons::confirm.disable_message',
                     'enabled'      => function (AddonInterface $entry) {
-
                         if (!in_array($entry->getType(), ['module', 'extension'])) {
                             return false;
                         }

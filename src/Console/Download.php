@@ -66,5 +66,4 @@ class Download extends Command
             ['addon', InputArgument::REQUIRED, 'The addon in which to download.'],
         ];
     }
-
 }

@@ -26,5 +26,4 @@ class AvailableQuery
 
         $query->whereNotIn('namespace', $downloaded->pluck('namespace')->all());
     }
-
 }

@@ -18,9 +18,7 @@ class RepositoryInput
      */
     public function read(array $addons)
     {
-
         foreach ($addons as &$addon) {
-
             list($vendor, $name) = explode('/', $addon['name']);
             list($slug, $type) = explode('-', $name);
 
@@ -35,5 +33,4 @@ class RepositoryInput
 
         return $addons;
     }
-
 }

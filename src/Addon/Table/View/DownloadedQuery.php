@@ -26,5 +26,4 @@ class DownloadedQuery
 
         $query->whereIn('namespace', $downloaded->pluck('namespace')->all());
     }
-
 }

@@ -119,7 +119,6 @@
     });
 
 
-
     const prompts = Array.prototype.slice.call(
         document.querySelectorAll('[data-toggle="prompts"]')
     );

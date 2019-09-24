@@ -111,5 +111,4 @@ class AddonsModuleServiceProvider extends AddonServiceProvider
             'uses' => 'Anomaly\AddonsModule\Http\Controller\Admin\AddonsController@download',
         ],
     ];
-
 }

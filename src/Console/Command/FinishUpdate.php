@@ -57,5 +57,4 @@ class FinishUpdate
 
         $files->delete($log);
     }
-
 }

@@ -40,5 +40,4 @@ class AddonsModule extends Module
             ],
         ],
     ];
-
 }

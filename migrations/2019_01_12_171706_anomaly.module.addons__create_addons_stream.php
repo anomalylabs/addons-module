@@ -56,5 +56,4 @@ class AnomalyModuleAddonsCreateAddonsStream extends Migration
         'assets',
         'readme',
     ];
-
 }

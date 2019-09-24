@@ -2,7 +2,6 @@
 
 use Anomaly\AddonsModule\Addon\Contract\AddonInterface;
 
-
 /**
  * Class AddonTableColumns
  *
@@ -49,13 +48,13 @@ class AddonTableColumns
                         },
                         'downloaded'  => function (AddonInterface $entry) {
                             return $entry->isDownloaded() ? '<span class="tag tag-primary">' . trans(
-                                    'anomaly.module.addons::label.downloaded'
-                                ) . '</span>' : '';
+                                'anomaly.module.addons::label.downloaded'
+                            ) . '</span>' : '';
                         },
                         'outdated'    => function (AddonInterface $entry) {
                             return $entry->hasUpdates() ? '<span class="tag tag-warning">' . trans(
-                                    'anomaly.module.addons::label.outdated'
-                                ) . '</span>' : '';
+                                'anomaly.module.addons::label.outdated'
+                            ) . '</span>' : '';
                         },
                     ],
                 ],

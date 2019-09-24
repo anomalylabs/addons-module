@@ -45,7 +45,6 @@ class Sync extends Command
         AddonRepositoryInterface $addons,
         AddonCollection $collection
     ) {
-
         $manifest = [];
 
         $log = $application->getAssetsPath('process.log');
@@ -56,7 +55,6 @@ class Sync extends Command
 
         /* @var RepositoryInterface $repository */
         foreach ($repositories->all() as $repository) {
-
             $this->info('Caching: ' . $repository->getUrl());
 
             file_put_contents($log, 'Downloading ' . $repository->getUrl());
@@ -66,11 +64,9 @@ class Sync extends Command
 
         /* @var RepositoryInterface $repository */
         foreach ($repositories->all() as $repository) {
-
             $packages = dispatch_now(new GetRepositoryAddons($repository));
 
             foreach ($packages as $package) {
-
                 $manifest[] = array_get($package, 'name');
 
                 $entry = [
@@ -95,7 +91,6 @@ class Sync extends Command
 
                 /* @var AddonInterface|EloquentModel $addon */
                 if (!$addon = $addons->findByName($package['name'])) {
-
                     $this->info('Adding: ' . $package['name']);
 
                     file_put_contents($log, 'Adding: ' . $package['name']);
@@ -110,7 +105,6 @@ class Sync extends Command
                 }
 
                 if ($entry['versions'] !== $addon->getVersions() || $this->option('force')) {
-
                     $this->info('Syncing: ' . $package['name']);
 
                     file_put_contents($log, 'Syncing: ' . $package['name']);
@@ -133,7 +127,6 @@ class Sync extends Command
 
             /* @var Addon $instance */
             foreach ($collection->nonCore() as $instance) {
-
                 $manifest[] = $instance->getPackageName();
 
                 $entry = [
@@ -158,7 +151,6 @@ class Sync extends Command
 
                 /* @var AddonInterface|EloquentModel $addon */
                 if (!$addon = $addons->findByName($instance->getPackageName())) {
-
                     $this->info('Adding: ' . $instance->getPackageName());
 
                     file_put_contents($log, 'Adding: ' . $addon['name']);
@@ -167,7 +159,7 @@ class Sync extends Command
                         ['name' => $instance->getPackageName()]
                     );
 
-                    $entry['readme']      = $this->readme(
+                    $entry['readme'] = $this->readme(
                         ['name' => $instance->getPackageName(), 'id' => $instance->getNamespace()]
                     );
 
@@ -181,7 +173,6 @@ class Sync extends Command
                 }
 
                 if ($entry['versions'] !== $addon->getVersions() || $this->option('force')) {
-
                     $this->info('Syncing: ' . $addon['name']);
 
                     file_put_contents($log, 'Syncing: ' . $addon['name']);
@@ -212,7 +203,6 @@ class Sync extends Command
         }
 
         foreach ($addons->except($manifest) as $addon) {
-
             $this->info('Removing: ' . $addon->getName());
 
             file_put_contents($log, 'Removing: ' . $addon->getName());
@@ -234,7 +224,6 @@ class Sync extends Command
     protected function assets(array $package)
     {
         try {
-
             $composer = file_get_contents(
                 'https://assets.pyrocms.com/marketplace/'
                 . str_replace(['/', '_'], '-', array_get($package, 'name'))
@@ -281,7 +270,6 @@ class Sync extends Command
     protected function marketplace(array $package)
     {
         try {
-
             $composer = file_get_contents(
                 'https://assets.pyrocms.com/marketplace/'
                 . str_replace(['/', '_'], '-', array_get($package, 'name'))
@@ -305,5 +293,4 @@ class Sync extends Command
             ['force', null, InputOption::VALUE_NONE, 'Force updates for addons.'],
         ];
     }
-
 }

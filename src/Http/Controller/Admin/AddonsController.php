@@ -67,7 +67,7 @@ class AddonsController extends AdminController
 
         $this->breadcrumbs->add($addon->displayName());
 
-        return $this->view->make(
+        return view(
             'anomaly.module.addons::admin/addon/view',
             compact('addon', 'constraint')
         );
@@ -101,7 +101,7 @@ class AddonsController extends AdminController
 
         $this->messages->success('anomaly.module.addons::message.install_addon_success');
 
-        return $this->redirect->back();
+        return back();
     }
 
     /**
@@ -132,7 +132,7 @@ class AddonsController extends AdminController
 
         $this->messages->success('anomaly.module.addons::message.uninstall_addon_success');
 
-        return $this->redirect->back();
+        return back();
     }
 
     /**
@@ -160,7 +160,7 @@ class AddonsController extends AdminController
             $extensions->enable($addon);
         }
 
-        return $this->redirect->back();
+        return back();
     }
 
     /**
@@ -188,7 +188,7 @@ class AddonsController extends AdminController
             $extensions->disable($addon);
         }
 
-        return $this->redirect->back();
+        return back();
     }
 
     /**
@@ -219,7 +219,7 @@ class AddonsController extends AdminController
 
         $this->messages->success('anomaly.module.addons::message.migrate_addon_success');
 
-        return $this->redirect->back();
+        return back();
     }
 
     /**
@@ -312,5 +312,4 @@ class AddonsController extends AdminController
         ini_set('max_input_time', $seconds);
         ini_set('max_execution_time', $seconds);
     }
-
 }

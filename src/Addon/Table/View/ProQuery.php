@@ -23,5 +23,4 @@ class ProQuery
     {
         $query->where('licenses', 'LIKE', '%pyrocms.com/pro/license%');
     }
-
 }

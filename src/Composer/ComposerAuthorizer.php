@@ -1,7 +1,7 @@
 <?php namespace Anomaly\AddonsModule\Composer;
 
 use Anomaly\Streams\Platform\Support\Authorizer;
-use Illuminate\Contracts\Config\Repository;
+
 
 /**
  * Class ComposerAuthorizer
@@ -52,7 +52,7 @@ class ComposerAuthorizer
             return false;
         }
 
-        if (env('APP_ENV') !== 'production' || $this->config->get("anomaly.module.addons::composer.allow_{$command}")) {
+        if (env('APP_ENV') !== 'production' || config("anomaly.module.addons::composer.allow_{$command}")) {
             return true;
         }
 

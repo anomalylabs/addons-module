@@ -56,7 +56,6 @@ class RunProcess
 
         $this->process->run(
             function ($type, $buffer) use ($log, $files) {
-
                 if (empty($buffer = trim($buffer))) {
                     return;
                 }

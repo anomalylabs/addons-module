@@ -62,5 +62,4 @@ class RepositoryFormBuilder extends FormBuilder
      * @var array
      */
     protected $assets = [];
-
 }

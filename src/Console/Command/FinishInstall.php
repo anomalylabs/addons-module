@@ -63,7 +63,6 @@ class FinishInstall
         $manager->register(true);
 
         if (!$addon->isInstalled()) {
-
             $files->append($log, "[{$this->addon->getName()}] install failed.");
 
             $this->command->error("[{$this->addon->getName()}] install failed.");
@@ -79,5 +78,4 @@ class FinishInstall
 
         $files->delete($log);
     }
-
 }

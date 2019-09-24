@@ -47,5 +47,4 @@ class AnomalyModuleAddonsCreateAddonsFields extends Migration
         'readme'      => 'anomaly.field_type.textarea',
         'url'         => 'anomaly.field_type.url',
     ];
-
 }

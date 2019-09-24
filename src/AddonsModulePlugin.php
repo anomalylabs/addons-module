@@ -24,7 +24,7 @@ class AddonsModulePlugin extends Plugin
             new \Twig_SimpleFunction(
                 'composer_can',
                 function ($command, $type) {
-                    return $this->dispatch(new GetComposerAuthorization($command, $type));
+                    return dispatch_now(new GetComposerAuthorization($command, $type));
                 }
             ),
         ];

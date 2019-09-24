@@ -52,5 +52,4 @@ interface AddonRepositoryInterface extends EntryRepositoryInterface
      * @return AddonCollection
      */
     public function except(array $names);
-
 }

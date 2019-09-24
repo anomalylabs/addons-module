@@ -34,5 +34,4 @@ class RepositoryManager
     {
         return dispatch_now(new CheckRepository($repository));
     }
-
 }

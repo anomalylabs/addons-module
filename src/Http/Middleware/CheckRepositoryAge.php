@@ -68,9 +68,7 @@ class CheckRepositoryAge
     {
         /* @var RepositoryInterface $repository */
         foreach ($this->repositories->all() as $repository) {
-
             if ($this->manager->outdated($repository)) {
-
                 $this->asset->add('scripts.js', 'anomaly.module.addons::js/update.js');
 
                 return $next($request);

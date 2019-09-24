@@ -194,5 +194,4 @@ interface AddonInterface extends EntryInterface
      * @return Builder
      */
     public function dependents();
-
 }

@@ -43,5 +43,4 @@ class GetRepositoryAddons
             true
         );
     }
-
 }

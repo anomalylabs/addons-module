@@ -1,27 +1,27 @@
 <?php
 
 return [
-    'modules'     => [
+    'modules'      => [
         'read',
         'manage',
     ],
-    'themes'      => [
+    'themes'       => [
         'read',
         'manage',
     ],
-    'plugins'     => [
+    'plugins'      => [
         'read',
         'manage',
     ],
-    'extensions'  => [
+    'extensions'   => [
         'read',
         'manage',
     ],
-    'field_types' => [
+    'field_types'  => [
         'read',
         'manage',
     ],
-    'addons' => [
+    'addons'       => [
         'read',
         'write',
         'delete',
