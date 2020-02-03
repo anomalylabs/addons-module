@@ -48,6 +48,10 @@ class Sync extends Command
 
         $manifest = [];
 
+        if (! is_dir($application->getAssetsPath())) {
+            mkdir($application->getAssetsPath());
+        }
+
         $log = $application->getAssetsPath('process.log');
 
         file_put_contents($log, '');
