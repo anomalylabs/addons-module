@@ -1,12 +1,12 @@
 <?php
 
 return [
-    "enable" => "etkinleştirme",
-    "remove" => "Kaldır",
-    "update" => "Güncelleştirme",
-    "disable" => "Devre dışı",
-    "install" => "kurmak",
-    "migrate" => "Göç",
-    "download" => "İndir",
-    "uninstall" => "Kaldırma"
+    'enable'    => 'Etkinleştirme',
+    'remove'    => 'Silme',
+    'update'    => 'Güncelle',
+    'disable'   => 'Devre dışı',
+    'install'   => 'Yüklemek',
+    'migrate'   => 'Migrate',
+    'download'  => 'İndir',
+    'uninstall' => 'Kaldırma',
 ];

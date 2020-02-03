@@ -1,5 +1,5 @@
 <?php
 
 return [
-    "documentation" => "belgeleme"
+    'documentation' => 'Dökümanlar',
 ];
