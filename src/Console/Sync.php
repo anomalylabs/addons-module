@@ -165,7 +165,7 @@ class Sync extends Command
 
                     $this->info('Adding: ' . $instance->getPackageName());
 
-                    file_put_contents($log, 'Adding: ' . $addon['name']);
+                    file_put_contents($log, 'Adding: ' . $entry['name']);
 
                     $entry['assets'] = $this->assets(
                         ['name' => $instance->getPackageName()]
