@@ -244,7 +244,7 @@ class AddonsController extends AdminController
             throw new \Exception('[' . __FUNCTION__ . '] command is not permitted.');
         }
 
-        $console->call('addon:download', ['addon' => $addon->getName()]);
+        $console->call('addons:download', ['addon' => $addon->getName()]);
     }
 
     /**
@@ -271,7 +271,7 @@ class AddonsController extends AdminController
 
         $addons->flushCache();
 
-        $console->call('addon:update', ['addon' => $addon->getName()]);
+        $console->call('addons:update', ['addon' => $addon->getName()]);
     }
 
     /**
@@ -296,7 +296,7 @@ class AddonsController extends AdminController
             throw new \Exception('[' . __FUNCTION__ . '] command is not permitted.');
         }
 
-        $console->call('addon:remove', ['addon' => $addon->getName()]);
+        $console->call('addons:remove', ['addon' => $addon->getName()]);
     }
 
     /**
