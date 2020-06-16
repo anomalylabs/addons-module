@@ -149,7 +149,7 @@ class Sync extends Command
                     'versions'    => array_filter(
                         array_get($instance->getComposerJson(), 'versions', []),
                         function ($version) {
-                            return !str_contains($version, ['stable', 'RC', 'beta', 'alpha', 'dev']);
+                            return !Str::contains($version, ['stable', 'RC', 'beta', 'alpha', 'dev']);
                         }
                     ),
                     'licenses'    => (array)array_get($instance->getComposerJson(), 'license', []),
