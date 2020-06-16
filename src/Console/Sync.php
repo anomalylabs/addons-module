@@ -1,18 +1,15 @@
 <?php namespace Anomaly\AddonsModule\Console;
 
-use Anomaly\AddonsModule\Addon\Contract\AddonInterface;
-use Anomaly\AddonsModule\Addon\Contract\AddonRepositoryInterface;
-use Anomaly\AddonsModule\Repository\Command\CacheRepository;
-use Anomaly\AddonsModule\Repository\Command\GetRepositoryAddons;
-use Anomaly\AddonsModule\Repository\Contract\RepositoryInterface;
-use Anomaly\AddonsModule\Repository\Contract\RepositoryRepositoryInterface;
-use Anomaly\Streams\Platform\Addon\Addon;
+use Illuminate\Support\Str;
+use Illuminate\Console\Command;
+use Symfony\Component\Console\Input\InputOption;
 use Anomaly\Streams\Platform\Addon\AddonCollection;
 use Anomaly\Streams\Platform\Addon\Command\GetAddon;
 use Anomaly\Streams\Platform\Application\Application;
-use Anomaly\Streams\Platform\Model\EloquentModel;
-use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
+use Anomaly\AddonsModule\Repository\Command\CacheRepository;
+use Anomaly\AddonsModule\Repository\Command\GetRepositoryAddons;
+use Anomaly\AddonsModule\Addon\Contract\AddonRepositoryInterface;
+use Anomaly\AddonsModule\Repository\Contract\RepositoryRepositoryInterface;
 
 /**
  * Class Sync
@@ -89,7 +86,7 @@ class Sync extends Command
                     'versions'    => array_filter(
                         array_get($package, 'versions', []),
                         function ($version) {
-                            return !str_contains($version, ['stable', 'RC', 'beta', 'alpha', 'dev']);
+                            return !Str::contains($version, ['stable', 'RC', 'beta', 'alpha', 'dev']);
                         }
                     ),
                     'licenses'    => array_get($package, 'license', []),
