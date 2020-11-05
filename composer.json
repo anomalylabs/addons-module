@@ -34,11 +34,17 @@
     },
     "require": {
         "composer/composer": "^1.6",
-        "anomaly/streams-platform": "^1.6"
+        "anomaly/streams-platform": "^1.8"
     },
     "autoload": {
         "psr-4": {
             "Anomaly\\AddonsModule\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Anomaly\\AddonsModuleTest\\": "tests/",
+            "Database\\Factories\\Anomaly\\AddonsModule\\": "factories/"
         }
     }
 }
