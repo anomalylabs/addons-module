@@ -7,7 +7,7 @@
     {% if addon.downloaded %}
         {% if addon.type == 'module' or addon.type == 'extension' %}
             {% if addon.instance.installed %}
-                {% if user().hasPermission('anomaly.module.addons::' ~ addon.type ~ '.manage') %}
+                {% if auth_user().hasPermission('anomaly.module.addons::' ~ addon.type ~ '.manage') %}
                     <a
                             href="{{ url_route('anomaly.module.addons::addons.uninstall', {'addon': addon.namespace.value}) }}"
                             data-icon="warning"
@@ -29,7 +29,7 @@
                 {% endif %}
 
                 {% if addon.instance.enabled %}
-                    {% if user().hasPermission('anomaly.module.addons::' ~ addon.type ~ '.manage') %}
+                    {% if auth_user().hasPermission('anomaly.module.addons::' ~ addon.type ~ '.manage') %}
                         <a
                                 href="{{ url_route('anomaly.module.addons::addons.disable', {'addon': addon.namespace.value}) }}"
                                 data-icon="warning"
@@ -42,7 +42,7 @@
                         </a>
                     {% endif %}
                 {% else %}
-                    {% if user().hasPermission('anomaly.module.addons::' ~ addon.type ~ '.manage') %}
+                    {% if auth_user().hasPermission('anomaly.module.addons::' ~ addon.type ~ '.manage') %}
                         <a
                                 href="{{ url_route('anomaly.module.addons::addons.enable', {'addon': addon.namespace.value}) }}"
                                 class="btn btn-success"
@@ -52,7 +52,7 @@
                     {% endif %}
                 {% endif %}
             {% else %}
-                {% if user().hasPermission('anomaly.module.addons::' ~ addon.type ~ '.manage') %}
+                {% if auth_user().hasPermission('anomaly.module.addons::' ~ addon.type ~ '.manage') %}
                     <a
                             href="{{ url_route('anomaly.module.addons::addons.install', {'addon': addon.namespace.value}) }}"
                             data-message="{{ trans('anomaly.module.addons::message.installing', {'addon': addon.name}) }}"
